@@ -1,7 +1,7 @@
 # SCAR - Sacrificial Contract & Risk
 
 <p align="center">
-  <img src="site/imagens/logo.png" alt="SCAR Logo" width="200">
+  <img src="logo2.png" alt="SCAR Logo" width="200">
 </p>
 
 <p align="center">
