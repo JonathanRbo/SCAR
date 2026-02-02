@@ -1,7 +1,6 @@
 <h1 align="center">
   <img src="assets/images/logo 2.png" alt="SCAR" width="450">
 </h1>
-<img src="pochita.gif" width="400">
 <p align="center">
   <strong>Sistema de RPG de mesa ambientado no universo brutal de Chainsaw Man</strong>
 </p>
