@@ -562,6 +562,63 @@
             z-index: 1;
         }
 
+        /* Imagens dos tipos de seres */
+        .tipo-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top center;
+            border: 3px solid var(--tipo-border, var(--cor-borda));
+            margin-bottom: 15px;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tipo-card:hover .tipo-img {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--tipo-glow, rgba(255,255,255,0.2));
+        }
+
+        .tipo-img-modal {
+            width: 100%;
+            max-width: 280px;
+            aspect-ratio: 3/4;
+            border-radius: 16px;
+            object-fit: cover;
+            object-position: top center;
+            border: 3px solid var(--modal-accent, var(--cor-borda));
+            margin: 20px auto;
+            display: block;
+            box-shadow:
+                0 0 30px rgba(0,0,0,0.5),
+                0 0 60px var(--modal-glow, rgba(139,0,0,0.3)),
+                inset 0 0 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        /* Cores específicas para cada modal */
+        [data-modal="modal-humano"] .tipo-img-modal {
+            --modal-accent: #4A90D9;
+            --modal-glow: rgba(74,144,217,0.5);
+        }
+
+        [data-modal="modal-infernal"] .tipo-img-modal {
+            --modal-accent: #E74C3C;
+            --modal-glow: rgba(231,76,60,0.5);
+        }
+
+        [data-modal="modal-hibrido"] .tipo-img-modal {
+            --modal-accent: #9B59B6;
+            --modal-glow: rgba(155,89,182,0.5);
+        }
+
+        [data-modal="modal-demonio"] .tipo-img-modal {
+            --modal-accent: #333;
+            --modal-glow: rgba(139,0,0,0.4);
+        }
+
         /* Tabelas */
         .table-scar {
             width: 100%;
@@ -1039,7 +1096,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.9) 100%);
+            background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.6) 100%);
             pointer-events: none;
         }
 
@@ -1404,7 +1461,7 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #4A90D9; max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 4rem;">👤</span>
+                        <img src="assets/images/seres/humano.jpeg" alt="Humano" class="tipo-img-modal">
                         <h3 class="fs-13 m-10-t" style="color: #5DADE2;">Humano</h3>
                         <p style="color: var(--cor-texto-secundario); font-style: italic;">"O mundo não te protege — mas também não te cobra além do que pode pagar."</p>
                     </div>
@@ -1521,7 +1578,7 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #E74C3C; max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 4rem;">👁️</span>
+                        <img src="assets/images/seres/infernal.jpeg" alt="Infernal" class="tipo-img-modal">
                         <h3 class="fs-13 m-10-t" style="color: #E74C3C;">Infernal (Fiend)</h3>
                         <p style="color: var(--cor-texto-secundario); font-style: italic;">"Você já foi um demônio. Agora está preso em carne. Faça o que quiser com isso."</p>
                     </div>
@@ -1655,7 +1712,7 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #9B59B6; max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 4rem;">⚡</span>
+                        <img src="assets/images/seres/hibrido.png" alt="Híbrido" class="tipo-img-modal">
                         <h3 class="fs-13 m-10-t" style="color: #9B59B6;">Híbrido</h3>
                         <p style="color: var(--cor-texto-secundario); font-style: italic;">"Você não é humano. Não é demônio. É uma arma viva. Nada além disso."</p>
                     </div>
@@ -1813,7 +1870,7 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #2a2a2a; max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 4rem;">👹</span>
+                        <img src="assets/images/seres/demonio.jpeg" alt="Demônio" class="tipo-img-modal">
                         <h3 class="fs-13 m-10-t" style="color: #666;">Demônio Puro</h3>
                         <p style="color: var(--cor-texto-secundario); font-style: italic;">"Um Demônio não nasce — ele CONDENSA."</p>
                     </div>
@@ -1994,7 +2051,7 @@
                         <!-- Humano -->
                         <div class="c-xs-12 c-sm-6 ">
                             <div class="tipo-card humano cursor-pointer h-100" data-modal-show="modal-humano" data-modal-hide>
-                                <span class="tipo-icon">👤</span>
+                                <img src="assets/images/seres/humano.jpeg" alt="Humano" class="tipo-img">
                                 <h3 class="fs-11">Humano</h3>
                                 <p class="m-10-t" style="color: var(--cor-texto-secundario); font-size: 0.85rem;">
                                     Pessoas comuns arrastadas para o mundo dos demônios.
@@ -2011,7 +2068,7 @@
                         <!-- Infernal -->
                         <div class="c-xs-12 c-sm-6">
                             <div class="tipo-card infernal cursor-pointer h-100" data-modal-show="modal-infernal" data-modal-hide>
-                                <span class="tipo-icon">👁️</span>
+                                <img src="assets/images/seres/infernal.jpeg" alt="Infernal" class="tipo-img">
                                 <h3 class="fs-11">Infernal</h3>
                                 <p class="m-10-t" style="color: var(--cor-texto-secundario); font-size: 0.85rem;">
                                     Demônio em corpo humano morto. Traços visíveis.
@@ -2028,7 +2085,7 @@
                         <!-- Híbrido -->
                         <div class="c-xs-12 c-sm-6">
                             <div class="tipo-card hibrido cursor-pointer h-100" data-modal-show="modal-hibrido" data-modal-hide>
-                                <span class="tipo-icon">⚡</span>
+                                <img src="assets/images/seres/hibrido.png" alt="Híbrido" class="tipo-img">
                                 <h3 class="fs-11">Híbrido</h3>
                                 <p class="m-10-t" style="color: var(--cor-texto-secundario); font-size: 0.85rem;">
                                     Humano fundido com demônio. Pode transformar.
@@ -2045,7 +2102,7 @@
                         <!-- Demônio -->
                         <div class="c-xs-12 c-sm-6 h-100">
                             <div class="tipo-card demonio cursor-pointer h-100" data-modal-show="modal-demonio" data-modal-hide>
-                                <span class="tipo-icon">👹</span>
+                                <img src="assets/images/seres/demonio.jpeg" alt="Demônio" class="tipo-img">
                                 <h3 class="fs-11">Demônio</h3>
                                 <p class="m-10-t" style="color: var(--cor-texto-secundario); font-size: 0.85rem;">
                                     Manifestação pura do medo coletivo.
@@ -3415,7 +3472,7 @@
                 <div class="row gap-20">
                     <div class="c-xs-12 c-sm-6 c-lg-3">
                         <div class="tipo-card humano wow fadeInUp cursor-pointer h-100" data-wow-delay="0.1s" data-modal-show="modal-humano">
-                            <span class="tipo-icon">👤</span>
+                            <img src="assets/images/seres/humano.jpeg" alt="Humano" class="tipo-img">
                             <h3 class="fs-11">Humano</h3>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario); font-size: 0.9rem;">
                                 Pessoas comuns arrastadas para o mundo dos demônios. Podem fazer contratos.
@@ -3430,7 +3487,7 @@
 
                     <div class="c-xs-12 c-sm-6 c-lg-3">
                         <div class="tipo-card infernal wow fadeInUp cursor-pointer h-100" data-wow-delay="0.2s" data-modal-show="modal-infernal">
-                            <span class="tipo-icon">👁️</span>
+                            <img src="assets/images/seres/infernal.jpeg" alt="Infernal" class="tipo-img">
                             <h3 class="fs-11">Infernal</h3>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario); font-size: 0.9rem;">
                                 Demônio em corpo humano morto. Traços demoníacos visíveis.
@@ -3445,7 +3502,7 @@
 
                     <div class="c-xs-12 c-sm-6 c-lg-3">
                         <div class="tipo-card hibrido wow fadeInUp cursor-pointer h-100" data-wow-delay="0.3s" data-modal-show="modal-hibrido">
-                            <span class="tipo-icon">⚡</span>
+                            <img src="assets/images/seres/hibrido.png" alt="Híbrido" class="tipo-img">
                             <h3 class="fs-11">Híbrido</h3>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario); font-size: 0.9rem;">
                                 Humano fundido com demônio. Pode transformar. Quase imortal.
@@ -3460,7 +3517,7 @@
 
                     <div class="c-xs-12 c-sm-6 c-lg-3">
                         <div class="tipo-card demonio wow fadeInUp cursor-pointer h-100" data-wow-delay="0.4s" data-modal-show="modal-demonio">
-                            <span class="tipo-icon">👹</span>
+                            <img src="assets/images/seres/demonio.jpeg" alt="Demônio" class="tipo-img">
                             <h3 class="fs-11">Demônio</h3>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario); font-size: 0.9rem;">
                                 Manifestação pura do medo coletivo. Os mais poderosos.
