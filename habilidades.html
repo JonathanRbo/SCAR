@@ -35,12 +35,29 @@
             scrollbar-color: var(--cor-principal) var(--cor-fundo);
         }
 
+        /* Animação suave de entrada */
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+                filter: brightness(0.8);
+            }
+            to {
+                opacity: 1;
+                filter: brightness(1);
+            }
+        }
+
         body {
             background: var(--cor-fundo);
             color: var(--cor-texto);
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             min-height: 100vh;
+            animation: pageLoad 0.5s ease-out forwards;
+        }
+
+        body.page-exit {
+            animation: pageLoad 0.3s ease-in reverse forwards;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -50,46 +67,68 @@
 
         /* Header */
         .site-header {
-            background: rgba(10,10,10,0.95);
-            padding: 20px 0;
-            border-bottom: 1px solid var(--cor-borda);
-            position: sticky;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
+            transition: background 0.3s ease;
+        }
+
+        .site-header.scrolled {
+            background: rgba(10,10,10,0.95);
             backdrop-filter: blur(10px);
         }
 
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo {
+        .logo-text {
             font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
             color: var(--cor-secundaria);
             text-decoration: none;
-            font-size: 1.6rem;
             letter-spacing: 4px;
         }
 
-        .nav a {
-            color: var(--cor-texto-soft);
+        .nav-link {
+            color: var(--cor-texto);
             text-decoration: none;
-            margin-left: 25px;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: color 0.3s;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+            position: relative;
         }
-        .nav a:hover, .nav a.active { color: var(--cor-accent); }
+
+        .nav-link:hover {
+            color: var(--cor-accent);
+        }
+
+        .nav-link.active {
+            color: var(--cor-accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--cor-accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
 
         /* Hero */
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 120px 20px 60px;
             background:
                 radial-gradient(ellipse at center top, rgba(139,0,0,0.15) 0%, transparent 60%),
                 radial-gradient(ellipse at 30% 50%, rgba(220,20,60,0.08) 0%, transparent 50%);
@@ -467,19 +506,235 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Sistema de Abas */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto-soft);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--cor-secundaria);
+            color: var(--cor-texto);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-blood);
+            border-color: var(--cor-secundaria);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(220,20,60,0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Cores específicas para cada origem */
+        .tab-btn[data-tab="humano"]:hover,
+        .tab-btn[data-tab="humano"].active { border-color: #3498DB; }
+        .tab-btn[data-tab="humano"].active { background: linear-gradient(135deg, #2980B9 0%, #3498DB 50%, #1A5276 100%); }
+
+        .tab-btn[data-tab="infernal"]:hover,
+        .tab-btn[data-tab="infernal"].active { border-color: #E74C3C; }
+        .tab-btn[data-tab="infernal"].active { background: linear-gradient(135deg, #C0392B 0%, #E74C3C 50%, #922B21 100%); }
+
+        .tab-btn[data-tab="hibrido"]:hover,
+        .tab-btn[data-tab="hibrido"].active { border-color: #9B59B6; }
+        .tab-btn[data-tab="hibrido"].active { background: linear-gradient(135deg, #8E44AD 0%, #9B59B6 50%, #6C3483 100%); }
+
+        /* Estilo para habilidades de origem */
+        .origin-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 15px;
+        }
+
+        .origin-skill-card {
+            background: var(--cor-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            padding: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .origin-skill-card:hover {
+            border-color: var(--cor-principal);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .origin-skill-card .skill-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .origin-skill-card.humano .skill-name { color: #3498DB; }
+        .origin-skill-card.infernal .skill-name { color: #E74C3C; }
+        .origin-skill-card.hibrido .skill-name { color: #9B59B6; }
+
+        .origin-skill-card .skill-tags {
+            margin-bottom: 10px;
+        }
+
+        .origin-skill-card .skill-effect {
+            color: var(--cor-texto-soft);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .origin-skill-card .skill-warning {
+            background: rgba(241, 196, 15, 0.12);
+            border: 1px solid rgba(241, 196, 15, 0.25);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 0.75rem;
+            color: #F1C40F;
+            margin-top: 10px;
+        }
+
+        /* Intro melhorada */
+        .origin-intro {
+            background: var(--cor-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .origin-intro-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--cor-borda);
+        }
+
+        .origin-intro h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+
+        .origin-intro.humano h2 { color: #3498DB; }
+        .origin-intro.infernal h2 { color: #E74C3C; }
+        .origin-intro.hibrido h2 { color: #9B59B6; }
+
+        .origin-intro .origin-subtitle {
+            color: var(--cor-texto-soft);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .origin-count {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        .origin-count.humano { background: rgba(52, 152, 219, 0.2); color: #3498DB; }
+        .origin-count.infernal { background: rgba(231, 76, 60, 0.2); color: #E74C3C; }
+        .origin-count.hibrido { background: rgba(155, 89, 182, 0.2); color: #9B59B6; }
+
+        /* Legenda de tags */
+        .origin-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .origin-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: var(--cor-texto-soft);
+        }
+
+        .origin-legend-item .skill-tag,
+        .origin-legend-item .skill-pm {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+        }
+
+        /* Subcategorias */
+        .origin-category {
+            margin-bottom: 30px;
+        }
+
+        .origin-category-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: var(--cor-texto);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--cor-borda);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .origin-category-title span {
+            font-size: 1.2rem;
+        }
+
+        .origin-category-title.humano { border-color: rgba(52, 152, 219, 0.3); }
+        .origin-category-title.infernal { border-color: rgba(231, 76, 60, 0.3); }
+        .origin-category-title.hibrido { border-color: rgba(155, 89, 182, 0.3); }
+
+        @media (max-width: 768px) {
+            .tabs-container { gap: 8px; }
+            .tab-btn { padding: 10px 16px; font-size: 0.9rem; }
+            .origin-skills-grid { grid-template-columns: 1fr; }
+            .origin-intro { padding: 20px; }
+            .origin-intro h2 { font-size: 1.4rem; letter-spacing: 2px; }
+            .origin-intro .origin-subtitle { font-size: 0.85rem; }
+            .origin-legend { gap: 8px; }
+            .origin-legend-item { font-size: 0.7rem; }
+            .origin-category-title { font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
 
-    <header class="site-header">
+    <header class="site-header p-15-tb">
         <div class="container">
-            <div class="header-inner">
-                <a href="index.html" class="logo">SCAR</a>
-                <nav class="nav">
-                    <a href="index.html">Inicio</a>
-                    <a href="index.html#criacao">Criacao</a>
-                    <a href="habilidades.html" class="active">Habilidades</a>
-                    <a href="aflicoes.html">Aflicoes</a>
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+                <nav class="d-flex f-items-center f-gap-10">
+                    <a href="index.html" class="nav-link">Início</a>
+                    <a href="habilidades.html" class="nav-link active">Habilidades</a>
+                    <a href="aflicoes.html" class="nav-link">Aflições</a>
                 </nav>
             </div>
         </div>
@@ -487,11 +742,22 @@
 
     <main>
         <section class="hero">
-            <h1>HABILIDADES GERAIS</h1>
-            <p>Tecnicas extremas, sobrevivencia, trauma e adaptacao. Compre com Pontos de Marca (PM) para evoluir seu personagem.</p>
+            <h1>HABILIDADES</h1>
+            <p>Poderes, tecnicas e capacidades especiais. Evolua seu personagem com Pontos de Marca (PM).</p>
         </section>
 
         <div class="container">
+
+            <!-- Tabs de navegação -->
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="gerais" onclick="switchTab('gerais')">Gerais</button>
+                <button class="tab-btn" data-tab="humano" onclick="switchTab('humano')">Humano</button>
+                <button class="tab-btn" data-tab="infernal" onclick="switchTab('infernal')">Infernal</button>
+                <button class="tab-btn" data-tab="hibrido" onclick="switchTab('hibrido')">Híbrido</button>
+            </div>
+
+            <!-- TAB: GERAIS -->
+            <div class="tab-content active" id="tab-gerais">
 
             <!-- Info -->
             <div class="info-box">
@@ -2105,6 +2371,881 @@
                 </div>
             </div>
 
+            </div><!-- Fim TAB: GERAIS -->
+
+            <!-- TAB: HUMANO -->
+            <div class="tab-content" id="tab-humano">
+                <!-- Intro -->
+                <div class="origin-intro humano">
+                    <div class="origin-intro-header">
+                        <h2>PODERES DE ORIGEM — HUMANO</h2>
+                        <p class="origin-subtitle">"Sem garras, sem presas, sem poderes sobrenaturais. Apenas vontade de sobreviver."</p>
+                        <span class="origin-count humano">22 habilidades em 4 categorias</span>
+                    </div>
+                </div>
+
+                <!-- COMBATE & DEFESA -->
+                <div class="category humano-cat" id="cat-humano-combate">
+                    <div class="category-header" onclick="toggleCategory('cat-humano-combate')">
+                        <div class="left">
+                            <span class="icon">⚔️</span>
+                            <span class="title">Combate & Defesa</span>
+                            <span class="count">7 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Treinamento Tático</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Coordenação 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">+1d10 em ações defensivas quando você se prepara no turno anterior</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Mira Calculada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Percepção 2, Coordenação 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Se observar alvo por 1 turno, próximo ataque à distância ganha +1d10 e ignora cobertura parcial</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Combate Sujo</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Malandragem 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode usar Malandragem no lugar de Força em ataques corpo a corpo improvisados</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Execução Precisa</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 4 ou Coordenação 4</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Se vencer confronto por 15+, causa +2 Stress no alvo adicional</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Reflexos de Combate</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Coordenação 5</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">+2d10 em testes de defesa quando você não atacou no turno anterior</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Guerreiro Implacável</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 5, Vigor 4</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Suas Injúrias Leves não geram penalidades até fim da missão</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Treinamento Anti-Demônio</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Investigação 3, Percepção 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">+1d10 em testes contra Demônios que você já enfrentou antes (mesmo tipo)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOBREVIVÊNCIA -->
+                <div class="category humano-cat" id="cat-humano-sobrevivencia">
+                    <div class="category-header" onclick="toggleCategory('cat-humano-sobrevivencia')">
+                        <div class="left">
+                            <span class="icon">🩸</span>
+                            <span class="title">Sobrevivência</span>
+                            <span class="count">7 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Sangue Frio</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">A primeira falha da cena não gera Stress adicional</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Última Bala</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 4</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Uma vez por missão, age normalmente mesmo incapacitado (1 cena completa)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Instinto de Sobrevivência</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 3</span>
+                                    <span class="skill-tag custo">2 Stress</span>
+                                    <span class="skill-tag limite">1x por combate</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Quando sofreria Injúria Grave, pode convertê-la em 2 Injúrias Leves</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Fôlego de Guerra</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Uma vez por cena, ao chegar a 0 Stress, recupera 1d10 Stress imediatamente</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Veterano de Guerra</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Ignore a primeira penalidade de Injúria da cena (não o dano, apenas a penalidade)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Corpo Treinado</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 4</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Escolha 1 atributo físico (Força/Vigor/Coordenação): Reduz -1 Stress de ações relacionadas (mín 1)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false" data-pm="3">
+                            <div class="skill-header">
+                                <span class="skill-name">Não Vou Cair Aqui</span>
+                                <div class="skill-tags">
+                                    <span class="skill-pm">3 PM</span>
+                                    <span class="skill-tag requisito">Vigor 5</span>
+                                    <span class="skill-tag limite">1x por arco</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Quando sofreria morte certa, permanece vivo por 1 cena inteira. ⚠️ Ganha 1 Aflição permanente obrigatória após o evento.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TÁTICA & LIDERANÇA -->
+                <div class="category humano-cat" id="cat-humano-tatica">
+                    <div class="category-header" onclick="toggleCategory('cat-humano-tatica')">
+                        <div class="left">
+                            <span class="icon">🎖️</span>
+                            <span class="title">Tática & Liderança</span>
+                            <span class="count">5 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Postura de Comando</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Autoridade 3</span>
+                                    <span class="skill-tag custo">2 Stress</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Concede +1d10 a até dois aliados na mesma rodada</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Preparo Tático</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Autoridade 3, Percepção 2</span>
+                                    <span class="skill-tag custo">2 Stress</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">No início do combate, pode distribuir +2d10 entre aliados (máx +1d10 por pessoa)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Sobrevivente Nato</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vínculo 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Quando recebe ajuda de aliado, recupera +1 Stress adicional</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Mentalidade Inabalável</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Autoridade 3</span>
+                                    <span class="skill-tag custo">2 Stress</span>
+                                    <span class="skill-tag limite">1x por cena</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Ao sofrer efeito de Medo, pode rolar novamente e escolher o melhor resultado</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Mestre Tático</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Investigação 4, Autoridade 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Aliados sob seu comando recuperam +1d5 Stress quando seguem sua estratégia</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EQUIPAMENTO & TÉCNICA -->
+                <div class="category humano-cat" id="cat-humano-tecnica">
+                    <div class="category-header" onclick="toggleCategory('cat-humano-tecnica')">
+                        <div class="left">
+                            <span class="icon">🔧</span>
+                            <span class="title">Equipamento & Técnica</span>
+                            <span class="count">3 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Uso Criativo de Armas</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Tecnologia 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode usar armas de forma não convencional (alavanca, escudo, distração) sem penalidade</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Munição Especial</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Tecnologia 3, Coordenação 2</span>
+                                    <span class="skill-tag custo">2 Stress</span>
+                                    <span class="skill-tag limite">1x por cena</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Um ataque à distância causa +1 estágio de Injúria se acertar</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Arsenal Adaptado</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Coordenação 3, Tecnologia 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode trocar de arma sem penalidade de tempo</div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Fim TAB: HUMANO -->
+
+            <!-- TAB: INFERNAL -->
+            <div class="tab-content" id="tab-infernal">
+                <!-- Intro -->
+                <div class="origin-intro infernal">
+                    <div class="origin-intro-header">
+                        <h2>PODERES DE ORIGEM — INFERNAL</h2>
+                        <p class="origin-subtitle">"Você carrega um demônio dentro de si. A cada transformação, perde um pouco mais de quem era."</p>
+                        <span class="origin-count infernal">22 habilidades em 4 categorias</span>
+                    </div>
+                </div>
+
+                <!-- CORPO & RESISTÊNCIA -->
+                <div class="category infernal-cat" id="cat-infernal-corpo">
+                    <div class="category-header" onclick="toggleCategory('cat-infernal-corpo')">
+                        <div class="left">
+                            <span class="icon">💪</span>
+                            <span class="title">Corpo & Resistência</span>
+                            <span class="count">7 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Corpo Anômalo</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">A 1ª Injúria Leve da cena é cancelada automaticamente</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Corpo Adaptável</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Após sofrer um tipo de ataque, ganha +1d10 para resistir ao mesmo tipo até fim da cena</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Sangue Demoníaco</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Quando usa Sangue para curar, também recupera 1d5 Stress</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Casca Rígida</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 4</span>
+                                    <span class="skill-tag custo">3 Stress</span>
+                                    <span class="skill-tag limite">1x por cena</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Primeira Injúria Grave da cena se torna Injúria Leve</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Essência Contaminada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Quem te causar Injúria Grave sofre +2 Stress imediatamente</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Membros Regenerativos</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 4</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Membros perdidos regeneram ao fim do combate automaticamente. ⚠️ Aparência fica mais monstruosa a cada regeneração.</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Regeneração Profana</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 4</span>
+                                    <span class="skill-tag custo">+4/+6 Stress</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">No início do turno, pode curar 1 Injúria completamente (+4 Stress Leve, +6 Stress Grave)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRANSFORMAÇÃO -->
+                <div class="category infernal-cat" id="cat-infernal-transformacao">
+                    <div class="category-header" onclick="toggleCategory('cat-infernal-transformacao')">
+                        <div class="left">
+                            <span class="icon">👹</span>
+                            <span class="title">Transformação</span>
+                            <span class="count">5 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Transformação Parcial Gratuita</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode manifestar 1 aspecto demoníaco (garras, olhos, etc) sem custo de Stress</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Carne Mutável</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 2</span>
+                                    <span class="skill-tag custo">1 Stress/mudança</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode alterar aparência corporal para justificar novos usos de ataque ou defesa</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Manifestação Maior</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 3</span>
+                                    <span class="skill-tag custo">+1 Stress/rodada</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Sua transformação fica mais poderosa: +1d10 em testes físicos enquanto transformado</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Forma Bestial</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 4, Vigor 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Enquanto transformado, +1d10 em Força e Vigor, mas -1d10 em testes mentais</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false" data-pm="3">
+                            <div class="skill-header">
+                                <span class="skill-name">Forma Irreversível</span>
+                                <div class="skill-tags">
+                                    <span class="skill-pm">3 PM</span>
+                                    <span class="skill-tag requisito">Vigor 5</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Um poder menor fica sempre ativo como passiva, sem custo de Stress. ⚠️ Gera Marca do Demônio permanente e visível.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TERROR & PRESENÇA -->
+                <div class="category infernal-cat" id="cat-infernal-terror">
+                    <div class="category-header" onclick="toggleCategory('cat-infernal-terror')">
+                        <div class="left">
+                            <span class="icon">😱</span>
+                            <span class="title">Terror & Presença</span>
+                            <span class="count">4 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Presença Antinatural</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Autoridade 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Inimigos humanos sofrem -1d10 em testes de resistência a medo contra você</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Aura de Terror</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Autoridade 4</span>
+                                    <span class="skill-tag custo">2 Stress/rodada</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Inimigos a curta distância sofrem +1 Stress ao início do turno deles</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Grito Demoníaco</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Autoridade 3, Força 3</span>
+                                    <span class="skill-tag custo">4 Stress</span>
+                                    <span class="skill-tag limite">1x por combate</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Todos inimigos próximos fazem teste de Medo (DT 20 + seu Vigor)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Marca Rastejante</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Percepção 3</span>
+                                    <span class="skill-tag custo">2 Stress</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode deixar "marca" em lugar/pessoa tocada. Sempre sabe onde está (até fim da missão)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PODERES AVANÇADOS -->
+                <div class="category infernal-cat" id="cat-infernal-avancado">
+                    <div class="category-header" onclick="toggleCategory('cat-infernal-avancado')">
+                        <div class="left">
+                            <span class="icon">⚡</span>
+                            <span class="title">Poderes Avançados</span>
+                            <span class="count">6 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Instinto Demoníaco</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Percepção 2</span>
+                                    <span class="skill-tag custo">+2 Stress</span>
+                                    <span class="skill-tag limite">1x por cena</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode refazer um teste falho</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Dor como Combustível</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Sempre que sofre Injúria, ganha +1d10 no próximo ataque</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Evolução Forçada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 6</span>
+                                    <span class="skill-tag limite">1x por combate</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">+2d10 em todos testes físicos por 3 rodadas. ⚠️ Sofre 1 Injúria Grave ao fim do efeito.</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Essência Primordial</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 5, Vigor 5</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Seus ataques físicos sempre causam no mínimo Injúria Leve, mesmo se perder confronto</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Imortalidade Menor</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 6</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Não morre de Injúrias Críticas por 1 hora; apenas fica incapacitado. ⚠️ Após 1 hora sem cura, morre automaticamente.</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false" data-pm="3">
+                            <div class="skill-header">
+                                <span class="skill-name">Existência Errada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-pm">3 PM</span>
+                                    <span class="skill-tag requisito">Vigor 5</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Ignora efeitos que impedem ação (medo, pânico, atordoamento). ⚠️ Não pode receber bônus de aliados enquanto ativo.</div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Fim TAB: INFERNAL -->
+
+            <!-- TAB: HÍBRIDO -->
+            <div class="tab-content" id="tab-hibrido">
+                <!-- Intro -->
+                <div class="origin-intro hibrido">
+                    <div class="origin-intro-header">
+                        <h2>PODERES DE ORIGEM — HÍBRIDO</h2>
+                        <p class="origin-subtitle">"Nem humano, nem demônio. Você é algo novo — e o mundo ainda não decidiu se é uma benção ou maldição."</p>
+                        <span class="origin-count hibrido">22 habilidades em 4 categorias</span>
+                    </div>
+                </div>
+
+                <!-- EQUILÍBRIO & ADAPTAÇÃO -->
+                <div class="category hibrido-cat" id="cat-hibrido-equilibrio">
+                    <div class="category-header" onclick="toggleCategory('cat-hibrido-equilibrio')">
+                        <div class="left">
+                            <span class="icon">⚖️</span>
+                            <span class="title">Equilíbrio & Adaptação</span>
+                            <span class="count">6 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Equilíbrio Instável</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vínculo 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Recupera +1 Stress quando ajuda aliado significativamente</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Corpo Entre Mundos</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 3, Vínculo 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode usar Vigor no lugar de Vínculo para resistir a efeitos mentais/medo</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Adaptação Rápida</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Percepção 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Após falhar em teste, +1d10 no próximo teste do mesmo tipo</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Natureza Dual Reativa</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Percepção 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Se sofrer dano demoníaco: +1d10 contra demônios. Se sofrer dano humano: +1d10 contra humanos (até fim da cena)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Ressonância Demoníaca</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Percepção 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Sente presença de Demônios/Híbridos/Infernais a média distância (100-200m)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Dupla Natureza</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Percepção 3</span>
+                                    <span class="skill-tag custo">3 Stress</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Copia 1 efeito menor de um poder que testemunhou nesta cena (dura até fim da cena)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COOPERAÇÃO -->
+                <div class="category hibrido-cat" id="cat-hibrido-cooperacao">
+                    <div class="category-header" onclick="toggleCategory('cat-hibrido-cooperacao')">
+                        <div class="left">
+                            <span class="icon">🤝</span>
+                            <span class="title">Cooperação</span>
+                            <span class="count">4 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Instinto Compartilhado</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vínculo 3, Percepção 2</span>
+                                    <span class="skill-tag custo">1 Stress</span>
+                                    <span class="skill-tag limite">1x por cena</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Você e um aliado usam o melhor atributo entre vocês para 1 teste conjunto</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Sincronização Perfeita</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vínculo 4</span>
+                                    <span class="skill-tag custo">2 Stress</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Escolha 1 aliado: ambos ganham +1d10 enquanto lutarem juntos na mesma área (dura a cena)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Simbiose Forçada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vínculo 4</span>
+                                    <span class="skill-tag limite">1x por cena</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Toque em aliado: ambos ganham +2d10 em 1 teste cada, mas compartilham Stress gerado</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Essência Mista</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vínculo 3</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode usar 1 poder humano (contrato/equipamento) mesmo transformado sem penalidade</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRANSFORMAÇÃO -->
+                <div class="category hibrido-cat" id="cat-hibrido-transformacao">
+                    <div class="category-header" onclick="toggleCategory('cat-hibrido-transformacao')">
+                        <div class="left">
+                            <span class="icon">🔄</span>
+                            <span class="title">Transformação</span>
+                            <span class="count">5 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Arma Viva</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Seu corpo pode substituir uma arma comum (espada, machado, lança) sem penalidades</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Transição Suave</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Coordenação 2</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Transformar ou destransformar não causa penalidade de tempo</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Forma Intermediária</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 3</span>
+                                    <span class="skill-tag custo">1 Stress/rodada</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode entrar em forma "meio transformada": +1d10 físico, sem penalidade mental</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Fome Controlada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 2</span>
+                                    <span class="skill-tag limite">1x por combate</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Se beber sangue (humano ou demônio), recupera 1 Injúria Leve imediatamente</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Metamorfose Controlada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 5, Coordenação 4</span>
+                                    <span class="skill-tag custo">3 Stress/mudança</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode alterar forma corporal drasticamente (tamanho, membros, estrutura)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PODERES AVANÇADOS -->
+                <div class="category hibrido-cat" id="cat-hibrido-avancado">
+                    <div class="category-header" onclick="toggleCategory('cat-hibrido-avancado')">
+                        <div class="left">
+                            <span class="icon">⚡</span>
+                            <span class="title">Poderes Avançados</span>
+                            <span class="count">7 habilidades</span>
+                        </div>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="skills-table">
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Explosão Controlada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Força 3, Vigor 3</span>
+                                    <span class="skill-tag custo">3 Stress</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Adiciona +2d10 a uma ação física, mas sofre -1d10 na próxima</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Limite Forçado</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 4</span>
+                                    <span class="skill-tag custo">2 Stress/atributo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode agir normalmente mesmo com atributo reduzido a 0 por 1 cena</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false">
+                            <div class="skill-header">
+                                <span class="skill-name">Cura Forçada</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 4</span>
+                                    <span class="skill-tag limite">1x por missão</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Quando sofreria Injúria, pode cancelar completamente o dano. ⚠️ Sofre 1 Aflição automática + não pode regenerar até fim do combate.</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Harmonia Instável</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 5, Vínculo 4</span>
+                                    <span class="skill-tag custo">+2 Stress adicional</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Pode usar simultaneamente 1 poder demoníaco + 1 contrato sem penalidade</div>
+                        </div>
+                        <div class="skill-row" data-passivo="true">
+                            <div class="skill-header">
+                                <span class="skill-name">Equilíbrio Perfeito</span>
+                                <div class="skill-tags">
+                                    <span class="skill-tag requisito">Vigor 5, Vínculo 5</span>
+                                    <span class="skill-tag passivo">Passivo</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Nunca sofre penalidade por usar poderes conflitantes (humano/demônio)</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false" data-pm="3">
+                            <div class="skill-header">
+                                <span class="skill-name">Limite do Ser</span>
+                                <div class="skill-tags">
+                                    <span class="skill-pm">3 PM</span>
+                                    <span class="skill-tag requisito">Força 4, Vigor 4</span>
+                                    <span class="skill-tag limite">1x por dia</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Por 1 cena: +1d10 em todos testes físicos. ⚠️ Ao final: Injúria Grave automática + Aflição temática.</div>
+                        </div>
+                        <div class="skill-row" data-passivo="false" data-pm="3">
+                            <div class="skill-header">
+                                <span class="skill-name">Síntese Imperfeita</span>
+                                <div class="skill-tags">
+                                    <span class="skill-pm">3 PM</span>
+                                    <span class="skill-tag requisito">Vigor 4, Vínculo 3</span>
+                                </div>
+                            </div>
+                            <div class="skill-effect">Crie 1 poder único que mistura aspectos humanos e demoníacos. ⚠️ Deve ser aprovado pelo mestre.</div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Fim TAB: HÍBRIDO -->
+
         </div>
     </main>
 
@@ -2238,6 +3379,34 @@
                 });
             }
         }
+
+        // Sistema de abas
+        function switchTab(tabName) {
+            // Remove active de todas as tabs e conteúdos
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Ativa a tab clicada
+            document.querySelector(`.tab-btn[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+
+            // Scroll suave para o topo do conteúdo
+            document.querySelector('.tabs-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Transição suave entre páginas
+        document.querySelectorAll('a[href$=".html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#')) {
+                    e.preventDefault();
+                    document.body.classList.add('page-exit');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 250);
+                }
+            });
+        });
     </script>
 
 </body>

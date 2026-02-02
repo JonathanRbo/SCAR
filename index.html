@@ -29,8 +29,8 @@
             --cor-borda: #333;
             --cor-gold: #D4AF37;
             --gradient-blood: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #5a0000 100%);
-            --gradient-dark: linear-gradient(180deg, #0a0a0a 0%, #1a0a0a 100%);
-            --shadow-glow: 0 0 30px rgba(220,20,60,0.3);
+            --gradient-dark: linear-gradient(180deg, #0a0a0a 0%, #0f0808 100%);
+            --shadow-glow: 0 0 20px rgba(139,0,0,0.2);
             --shadow-card: 0 10px 40px rgba(0,0,0,0.5);
         }
 
@@ -144,23 +144,84 @@
             z-index: 2;
         }
 
+        .hero-title-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
         .hero-title {
             font-size: clamp(5rem, 18vw, 12rem);
             color: var(--cor-secundaria);
             text-shadow:
-                0 0 60px rgba(220,20,60,0.6),
-                0 0 120px rgba(220,20,60,0.4),
+                0 0 40px rgba(220,20,60,0.3),
                 0 4px 0 #5a0000,
                 0 8px 20px rgba(0,0,0,0.8);
             line-height: 0.85;
             letter-spacing: -2px;
             animation: title-glow 3s ease-in-out infinite alternate;
+            position: relative;
         }
 
         @keyframes title-glow {
-            from { text-shadow: 0 0 60px rgba(220,20,60,0.4), 0 0 120px rgba(220,20,60,0.2), 0 4px 0 #5a0000; }
-            to { text-shadow: 0 0 80px rgba(220,20,60,0.7), 0 0 160px rgba(220,20,60,0.4), 0 4px 0 #5a0000; }
+            from { text-shadow: 0 0 30px rgba(220,20,60,0.2), 0 4px 0 #5a0000; }
+            to { text-shadow: 0 0 50px rgba(220,20,60,0.4), 0 4px 0 #5a0000; }
         }
+
+        /* Efeito de sangue pingando */
+        .blood-drips {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .blood-drop {
+            position: absolute;
+            width: 8px;
+            background: linear-gradient(180deg, var(--cor-secundaria) 0%, #8B0000 100%);
+            border-radius: 0 0 50% 50%;
+            animation: drip 3s ease-in infinite;
+            transform-origin: top center;
+        }
+
+        .blood-drop::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--cor-secundaria);
+            border-radius: 50%;
+            opacity: 0;
+            animation: droplet 3s ease-in infinite;
+        }
+
+        @keyframes drip {
+            0% { height: 0; opacity: 0; }
+            10% { height: 0; opacity: 1; }
+            50% { height: 60px; opacity: 1; }
+            80% { height: 60px; opacity: 1; }
+            100% { height: 60px; opacity: 0; }
+        }
+
+        @keyframes droplet {
+            0%, 70% { opacity: 0; transform: translateX(-50%) scale(0); }
+            75% { opacity: 1; transform: translateX(-50%) scale(1); }
+            100% { opacity: 0; transform: translateX(-50%) scale(0) translateY(20px); }
+        }
+
+        .blood-drop:nth-child(1) { left: 8%; animation-delay: 0s; width: 6px; }
+        .blood-drop:nth-child(2) { left: 22%; animation-delay: 1.5s; width: 8px; }
+        .blood-drop:nth-child(3) { left: 35%; animation-delay: 0.8s; width: 5px; }
+        .blood-drop:nth-child(4) { left: 52%; animation-delay: 2.2s; width: 7px; }
+        .blood-drop:nth-child(5) { left: 68%; animation-delay: 0.4s; width: 6px; }
+        .blood-drop:nth-child(6) { left: 78%; animation-delay: 1.8s; width: 8px; }
+        .blood-drop:nth-child(7) { left: 92%; animation-delay: 1s; width: 5px; }
 
         .hero-subtitle {
             font-family: 'Roboto', sans-serif;
@@ -267,7 +328,7 @@
         .btn-primary:hover {
             background: var(--cor-secundaria);
             border-color: var(--cor-secundaria);
-            box-shadow: 0 0 30px rgba(220,20,60,0.5);
+            box-shadow: 0 0 20px rgba(220,20,60,0.4);
         }
 
         .btn-outline {
@@ -370,7 +431,7 @@
             justify-content: center;
             font-size: 1.8rem;
             margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(139,0,0,0.4);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
         }
 
@@ -421,7 +482,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center top, var(--tipo-glow, rgba(139,0,0,0.1)) 0%, transparent 70%);
+            background: radial-gradient(circle at center top, var(--tipo-glow, rgba(255,255,255,0.05)) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s ease;
         }
@@ -436,7 +497,7 @@
 
         .tipo-card:hover {
             transform: translateY(-12px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4), var(--tipo-shadow, 0 0 30px rgba(139,0,0,0.2));
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4), var(--tipo-shadow, 0 0 30px rgba(255,255,255,0.1));
             border-color: var(--tipo-border, var(--cor-principal));
         }
 
@@ -446,7 +507,7 @@
             display: block;
             position: relative;
             z-index: 1;
-            filter: drop-shadow(0 5px 15px var(--tipo-glow, rgba(139,0,0,0.3)));
+            filter: drop-shadow(0 5px 15px var(--tipo-glow, rgba(255,255,255,0.15)));
             transition: transform 0.3s ease;
         }
 
@@ -463,28 +524,28 @@
         .tipo-card.humano .tipo-icon { color: #5DADE2; }
 
         .tipo-card.infernal {
+            --tipo-color: linear-gradient(90deg, #C0392B, #E74C3C);
+            --tipo-glow: rgba(231,76,60,0.15);
+            --tipo-shadow: 0 0 30px rgba(231,76,60,0.2);
+            --tipo-border: #E74C3C;
+        }
+        .tipo-card.infernal .tipo-icon { color: #E74C3C; }
+
+        .tipo-card.hibrido {
             --tipo-color: linear-gradient(90deg, #8E44AD, #9B59B6);
             --tipo-glow: rgba(155,89,182,0.15);
             --tipo-shadow: 0 0 30px rgba(155,89,182,0.2);
             --tipo-border: #9B59B6;
         }
-        .tipo-card.infernal .tipo-icon { color: #9B59B6; }
-
-        .tipo-card.hibrido {
-            --tipo-color: linear-gradient(90deg, #E67E22, #F39C12);
-            --tipo-glow: rgba(243,156,18,0.15);
-            --tipo-shadow: 0 0 30px rgba(243,156,18,0.2);
-            --tipo-border: #F39C12;
-        }
-        .tipo-card.hibrido .tipo-icon { color: #F39C12; }
+        .tipo-card.hibrido .tipo-icon { color: #9B59B6; }
 
         .tipo-card.demonio {
-            --tipo-color: var(--gradient-blood);
-            --tipo-glow: rgba(220,20,60,0.2);
-            --tipo-shadow: 0 0 40px rgba(220,20,60,0.3);
-            --tipo-border: var(--cor-secundaria);
+            --tipo-color: linear-gradient(90deg, #0a0a0a, #1a1a1a);
+            --tipo-glow: rgba(10,10,10,0.3);
+            --tipo-shadow: 0 0 40px rgba(0,0,0,0.5);
+            --tipo-border: #2a2a2a;
         }
-        .tipo-card.demonio .tipo-icon { color: var(--cor-secundaria); }
+        .tipo-card.demonio .tipo-icon { color: #444; }
 
         .tipo-card h3 {
             position: relative;
@@ -544,7 +605,7 @@
         }
 
         .table-scar tbody tr:hover td {
-            background: rgba(139,0,0,0.1);
+            background: rgba(255,255,255,0.05);
         }
 
         .table-scar tbody tr:last-child td {
@@ -553,7 +614,7 @@
 
         .table-scar td:first-child {
             font-weight: 600;
-            color: var(--cor-accent);
+            color: var(--cor-secundaria);
         }
 
         /* Atributos Grid */
@@ -647,7 +708,7 @@
         }
 
         .code-block .highlight {
-            color: var(--cor-accent);
+            color: var(--cor-secundaria);
         }
 
         .code-block .comment {
@@ -691,13 +752,13 @@
         .stress-bar.filled {
             background: linear-gradient(180deg, var(--cor-accent), var(--cor-secundaria), var(--cor-principal));
             border-color: var(--cor-secundaria);
-            box-shadow: 0 0 15px rgba(220,20,60,0.5), inset 0 2px 4px rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(255,255,255,0.2), inset 0 2px 4px rgba(255,255,255,0.2);
             animation: stress-pulse 2s ease-in-out infinite;
         }
 
         @keyframes stress-pulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(220,20,60,0.4); }
-            50% { box-shadow: 0 0 25px rgba(220,20,60,0.7); }
+            0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.15); }
+            50% { box-shadow: 0 0 25px rgba(255,255,255,0.3); }
         }
 
         .stress-bar:hover {
@@ -819,7 +880,7 @@
         .arma-card:hover {
             border-color: var(--cor-principal);
             transform: translateX(5px);
-            box-shadow: -5px 0 20px rgba(139,0,0,0.2);
+            box-shadow: -5px 0 20px rgba(255,255,255,0.1);
         }
 
         .arma-card:hover::before {
@@ -848,8 +909,8 @@
         }
 
         .arma-stat {
-            background: rgba(139,0,0,0.15);
-            border: 1px solid rgba(139,0,0,0.3);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 6px 14px;
             border-radius: 6px;
             font-size: 0.8rem;
@@ -857,7 +918,7 @@
         }
 
         .arma-stat:hover {
-            background: rgba(139,0,0,0.3);
+            background: rgba(255,255,255,0.1);
         }
 
         .arma-stat span {
@@ -884,7 +945,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at top right, rgba(139,0,0,0.1) 0%, transparent 60%);
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.05) 0%, transparent 60%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -917,7 +978,7 @@
         }
 
         .estilo-beneficio {
-            background: linear-gradient(135deg, rgba(139,0,0,0.1) 0%, rgba(139,0,0,0.05) 100%);
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
             border-left: 3px solid var(--cor-principal);
             border-radius: 0 8px 8px 0;
             padding: 14px 18px;
@@ -929,12 +990,12 @@
         }
 
         .estilo-beneficio:hover {
-            background: linear-gradient(135deg, rgba(139,0,0,0.2) 0%, rgba(139,0,0,0.1) 100%);
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
             padding-left: 22px;
         }
 
         .estilo-beneficio strong {
-            color: var(--cor-accent);
+            color: var(--cor-secundaria);
         }
 
         /* Navegação por seções */
@@ -962,7 +1023,7 @@
         .nav-dot:hover,
         .nav-dot.active {
             background: var(--cor-secundaria);
-            box-shadow: 0 0 10px rgba(220,20,60,0.5);
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
         /* Footer */
@@ -1001,7 +1062,7 @@
         .footer-tab {
             padding: 12px 20px;
             background: rgba(10,10,10,0.5);
-            border: 1px solid rgba(220,20,60,0.15);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 8px 0 0 8px;
             color: var(--cor-texto-secundario);
             font-family: 'Bebas Neue', sans-serif;
@@ -1024,8 +1085,8 @@
 
         .footer-tab:hover {
             color: var(--cor-texto);
-            background: rgba(139,0,0,0.3);
-            border-color: rgba(220,20,60,0.3);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
         }
 
         .footer-tab:hover::before {
@@ -1034,8 +1095,8 @@
 
         .footer-tab.active {
             color: var(--cor-secundaria);
-            background: linear-gradient(90deg, rgba(139,0,0,0.5) 0%, rgba(10,10,10,0.8) 100%);
-            border-color: rgba(220,20,60,0.4);
+            background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, rgba(10,10,10,0.8) 100%);
+            border-color: rgba(255,255,255,0.25);
             border-right-color: transparent;
         }
 
@@ -1056,11 +1117,11 @@
         .footer-panel {
             display: none;
             animation: fadeIn 0.4s ease;
-            background: linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(20,10,10,0.7) 100%);
+            background: linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(20,20,20,0.7) 100%);
             backdrop-filter: blur(15px);
             padding: 25px 30px;
             border-radius: 0 12px 12px 0;
-            border: 1px solid rgba(220,20,60,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
             border-left: 3px solid var(--cor-secundaria);
             position: relative;
         }
@@ -1096,7 +1157,7 @@
             letter-spacing: 3px;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(220,20,60,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .footer-panel > p:first-of-type {
@@ -1122,7 +1183,7 @@
             gap: 10px;
             padding: 10px 16px;
             background: rgba(10,10,10,0.5);
-            border: 1px solid rgba(220,20,60,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 6px;
             color: var(--cor-texto);
             font-size: 0.85rem;
@@ -1131,7 +1192,7 @@
         }
 
         .footer-social a:hover {
-            background: rgba(139,0,0,0.4);
+            background: rgba(255,255,255,0.1);
             border-color: var(--cor-secundaria);
             color: var(--cor-secundaria);
             transform: translateX(5px);
@@ -1151,7 +1212,7 @@
             margin: 0;
             padding: 0 0 0 20px;
             border: none;
-            border-left: 2px solid rgba(220,20,60,0.4);
+            border-left: 2px solid rgba(255,255,255,0.2);
             position: relative;
         }
 
@@ -1191,7 +1252,7 @@
             gap: 10px;
             padding: 15px;
             background: rgba(10,10,10,0.5);
-            border: 1px solid rgba(220,20,60,0.15);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 6px;
             color: var(--cor-texto);
             text-decoration: none;
@@ -1199,7 +1260,7 @@
         }
 
         .footer-download-item:hover {
-            background: rgba(139,0,0,0.3);
+            background: rgba(255,255,255,0.1);
             border-color: var(--cor-secundaria);
             transform: translateY(-3px);
         }
@@ -1238,7 +1299,7 @@
             left: 0;
             right: 0;
             text-align: center;
-            color: rgba(220,20,60,0.5);
+            color: rgba(255,255,255,0.4);
             font-size: 0.75rem;
             letter-spacing: 1px;
         }
@@ -1271,7 +1332,7 @@
             }
 
             .footer-tab.active {
-                background: rgba(139,0,0,0.5);
+                background: rgba(255,255,255,0.15);
                 border-color: var(--cor-secundaria);
             }
 
@@ -1378,7 +1439,7 @@
         /* FAQ Cards hover */
         .card:hover .card-title,
         .card:hover h4 {
-            color: var(--cor-accent) !important;
+            color: var(--cor-secundaria);
         }
 
         /* Smooth scroll */
@@ -1475,15 +1536,15 @@
                     <div class="m-30-t">
                         <h4 class="fs-10 m-15-b" style="color: #5DADE2;">📊 Atributos Base</h4>
                         <div class="row gap-10">
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Pontos:</span> 16-22</div></div>
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Stress:</span> 6 + Vigor + Vínculo</div></div>
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Armamento:</span> 2 itens iniciais</div></div>
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Contrato:</span> 1 opcional</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Pontos:</span> 16-22</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Stress:</span> 6 + Vigor + Vínculo</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Armamento:</span> 2 itens iniciais</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Contrato:</span> 1 opcional</div></div>
                         </div>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #27AE60;">✅ Benefícios</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-gold);">✅ Benefícios</h4>
                         <ul style="color: var(--cor-texto-secundario); padding-left: 20px; line-height: 1.8;">
                             <li><strong style="color: var(--cor-texto);">+2 Stress Máximo</strong> adicional</li>
                             <li><strong style="color: var(--cor-texto);">+1 Vínculo</strong> inicial</li>
@@ -1494,9 +1555,9 @@
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">❌ Malefícios</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">❌ Malefícios</h4>
                         <ul style="color: var(--cor-texto-secundario); padding-left: 20px; line-height: 1.8;">
-                            <li><strong style="color: var(--cor-accent);">MORTE É DEFINITIVA</strong> — sem segunda chance</li>
+                            <li><strong style="color: var(--cor-secundaria);">MORTE É DEFINITIVA</strong> — sem segunda chance</li>
                             <li>Demônios cobram <strong style="color: var(--cor-texto);">caro</strong> em contratos</li>
                             <li>Sofrem Aflições físicas com mais <strong style="color: var(--cor-texto);">facilidade</strong></li>
                         </ul>
@@ -1582,23 +1643,23 @@
             <div class="dialog-backdrop" data-modal-hide></div>
             <div class="dialog-inline w-700px xs-w-95">
                 <button class="dialog-close" data-modal-hide></button>
-                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #9B59B6; max-height: 85vh; overflow-y: auto;">
+                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #E74C3C; max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
                         <span style="font-size: 4rem;">👁️</span>
-                        <h3 class="fs-13 m-10-t" style="color: #9B59B6;">Infernal (Fiend)</h3>
+                        <h3 class="fs-13 m-10-t" style="color: #E74C3C;">Infernal (Fiend)</h3>
                         <p style="color: var(--cor-texto-secundario); font-style: italic;">"Você já foi um demônio. Agora está preso em carne. Faça o que quiser com isso."</p>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #9B59B6;">📊 Atributos Base</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #E74C3C;">📊 Atributos Base</h4>
                         <div class="row gap-10">
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Pontos:</span> 16-22</div></div>
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Stress:</span> 6 + Vigor + Vínculo</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Pontos:</span> 16-22</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Stress:</span> 6 + Vigor + Vínculo</div></div>
                         </div>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #27AE60;">✅ Benefícios</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-gold);">✅ Benefícios</h4>
                         <ul style="color: var(--cor-texto-secundario); padding-left: 20px; line-height: 1.8;">
                             <li><strong style="color: var(--cor-texto);">+1 Poder Demoníaco</strong> (geral)</li>
                             <li><strong style="color: var(--cor-texto);">+1 Poder Sobrenatural</strong> Direto</li>
@@ -1607,17 +1668,17 @@
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">❌ Malefícios</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">❌ Malefícios</h4>
                         <ul style="color: var(--cor-texto-secundario); padding-left: 20px; line-height: 1.8;">
-                            <li><strong style="color: var(--cor-accent);">NÃO pode fazer contratos</strong></li>
+                            <li><strong style="color: var(--cor-secundaria);">NÃO pode fazer contratos</strong></li>
                             <li>Poderes demoníacos geram Stress <strong style="color: var(--cor-texto);">ADICIONAL</strong></li>
-                            <li>Aflições são <strong style="color: var(--cor-accent);">PERMANENTES</strong> ou progressivas</li>
+                            <li>Aflições são <strong style="color: var(--cor-secundaria);">PERMANENTES</strong> ou progressivas</li>
                             <li>Romper contrato exige <strong style="color: var(--cor-texto);">sacrifício extremo</strong></li>
                         </ul>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #9B59B6;">👁️ Traços Visíveis (Obrigatórios)</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #E74C3C;">👁️ Traços Visíveis (Obrigatórios)</h4>
                         <div class="d-flex f-wrap f-gap-10">
                             <span class="arma-stat">Chifres</span>
                             <span class="arma-stat">Presas</span>
@@ -1630,7 +1691,7 @@
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #9B59B6;">❓ Perguntas de Criação</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #E74C3C;">❓ Perguntas de Criação</h4>
                         <div class="code-block" style="font-size: 0.85rem;">
                             1. Você foi capturado ou se entregou?<br>
                             2. O que você perdeu ao ganhar um corpo?<br>
@@ -1640,68 +1701,68 @@
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #9B59B6;">💎 Custos de Pontos de Marca</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #E74C3C;">💎 Custos de Pontos de Marca</h4>
                         <div class="row gap-10">
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">3 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">3 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Poder Demoníaco</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">2 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">2 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Habilidade Geral</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">2 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">2 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Hab. Origem Infernal</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">3 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">3 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Evolução Poder</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">4 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">4 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Transf. Parcial</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">6 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">6 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Transf. Completa</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">4 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">4 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">+1 Atributo</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">3 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">3 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">+1 Injúria Leve</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">4 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #E74C3C;">4 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">+1 Injúria Grave</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(155,89,182,0.1); border: 1px solid rgba(155,89,182,0.3);">
+                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.3);">
                         <p class="text-center" style="color: var(--cor-texto-secundario);">
-                            <strong style="color: #9B59B6;">Ideal para:</strong> Perspectiva alienígena, não pertencer, aprender humanidade<br>
+                            <strong style="color: #E74C3C;">Ideal para:</strong> Perspectiva alienígena, não pertencer, aprender humanidade<br>
                             <em>"Como um monstro tenta existir entre humanos?"</em>
                         </p>
                     </div>
@@ -1716,43 +1777,43 @@
             <div class="dialog-backdrop" data-modal-hide></div>
             <div class="dialog-inline w-700px xs-w-95">
                 <button class="dialog-close" data-modal-hide></button>
-                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #F39C12; max-height: 85vh; overflow-y: auto;">
+                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #9B59B6; max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
                         <span style="font-size: 4rem;">⚡</span>
-                        <h3 class="fs-13 m-10-t" style="color: #F39C12;">Híbrido</h3>
+                        <h3 class="fs-13 m-10-t" style="color: #9B59B6;">Híbrido</h3>
                         <p style="color: var(--cor-texto-secundario); font-style: italic;">"Você não é humano. Não é demônio. É uma arma viva. Nada além disso."</p>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #F39C12;">📊 Atributos Base</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #9B59B6;">📊 Atributos Base</h4>
                         <div class="row gap-10">
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Pontos:</span> 16-22</div></div>
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Stress:</span> 6 + Vigor + Vínculo</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Pontos:</span> 16-22</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Stress:</span> 6 + Vigor + Vínculo</div></div>
                         </div>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #27AE60;">✅ Benefícios</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-gold);">✅ Benefícios</h4>
                         <ul style="color: var(--cor-texto-secundario); padding-left: 20px; line-height: 1.8;">
                             <li><strong style="color: var(--cor-texto);">+1 Poder Demoníaco</strong> (transformação com gatilho)</li>
                             <li><strong style="color: var(--cor-texto);">Ignorar 1 consequência física</strong> por combate</li>
                             <li>Stress <strong style="color: var(--cor-texto);">REDUZIDO</strong> em combate direto</li>
-                            <li><strong style="color: #F39C12;">RECUSA DA MORTE</strong> — pode voltar... mas algo fica pra trás</li>
+                            <li><strong style="color: #9B59B6;">RECUSA DA MORTE</strong> — pode voltar... mas algo fica pra trás</li>
                         </ul>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">❌ Malefícios</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">❌ Malefícios</h4>
                         <ul style="color: var(--cor-texto-secundario); padding-left: 20px; line-height: 1.8;">
-                            <li>Stress <strong style="color: var(--cor-accent);">AUMENTADO</strong> em cenas psicológicas</li>
+                            <li>Stress <strong style="color: var(--cor-secundaria);">AUMENTADO</strong> em cenas psicológicas</li>
                             <li>Recuperação emocional <strong style="color: var(--cor-texto);">FRACA</strong></li>
                             <li>Reação <strong style="color: var(--cor-texto);">extrema</strong> do mundo</li>
-                            <li><strong style="color: var(--cor-accent);">Sistema de GRILHÕES</strong></li>
+                            <li><strong style="color: var(--cor-secundaria);">Sistema de GRILHÕES</strong></li>
                         </ul>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #F39C12;">⛓️ Sistema de Grilhões</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #9B59B6;">⛓️ Sistema de Grilhões</h4>
                         <p class="m-10-b" style="color: var(--cor-texto-secundario);">Representam o controle do demônio sobre você.</p>
                         <table class="table-scar">
                             <tr>
@@ -1776,7 +1837,7 @@
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #F39C12;">❓ Perguntas de Criação</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #9B59B6;">❓ Perguntas de Criação</h4>
                         <div class="code-block" style="font-size: 0.85rem;">
                             1. Como aconteceu a fusão?<br>
                             2. O demônio quer algo de você?<br>
@@ -1786,80 +1847,80 @@
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #F39C12;">💎 Custos de Pontos de Marca</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #9B59B6;">💎 Custos de Pontos de Marca</h4>
                         <div class="row gap-10">
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">3 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">3 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Poder Demoníaco</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">2 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">2 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Habilidade Geral</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">2 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">2 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Hab. Origem Híbrida</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">2 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">2 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Evolução Poder</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">3 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">3 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Contrato Menor</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">4 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">4 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Contrato Médio</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">5 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">5 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Contrato Maior</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">6 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">6 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">Transf. Completa</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">5 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">5 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">+1 Atributo</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">3 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">3 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">+1 Injúria Leve</div>
                                 </div>
                             </div>
                             <div class="c-xs-6 c-sm-4">
-                                <div class="pm-cost-card" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.4); border-radius: 8px; padding: 12px; text-align: center;">
-                                    <div style="font-size: 1.5rem; font-weight: 700; color: #F39C12;">4 PM</div>
+                                <div class="pm-cost-card" style="background: rgba(155,89,182,0.15); border: 1px solid rgba(155,89,182,0.4); border-radius: 8px; padding: 12px; text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #9B59B6;">4 PM</div>
                                     <div style="font-size: 0.8rem; color: var(--cor-texto-secundario);">+1 Injúria Grave</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(243,156,18,0.1); border: 1px solid rgba(243,156,18,0.3);">
+                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(155,89,182,0.1); border: 1px solid rgba(155,89,182,0.3);">
                         <p class="text-center" style="color: var(--cor-texto-secundario);">
-                            <strong style="color: #F39C12;">Ideal para:</strong> Conflito interno, poder vs controle, perda de humanidade<br>
+                            <strong style="color: #9B59B6;">Ideal para:</strong> Conflito interno, poder vs controle, perda de humanidade<br>
                             <em>"Quanto da minha humanidade eu perco?"</em>
                         </p>
                     </div>
@@ -1874,25 +1935,25 @@
             <div class="dialog-backdrop" data-modal-hide></div>
             <div class="dialog-inline w-700px xs-w-95">
                 <button class="dialog-close" data-modal-hide></button>
-                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto;">
+                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #2a2a2a; max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
                         <span style="font-size: 4rem;">👹</span>
-                        <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Demônio Puro</h3>
+                        <h3 class="fs-13 m-10-t" style="color: #666;">Demônio Puro</h3>
                         <p style="color: var(--cor-texto-secundario); font-style: italic;">"Um Demônio não nasce — ele CONDENSA."</p>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">📊 Atributos Base</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #666;">📊 Atributos Base</h4>
                         <div class="row gap-10">
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Pontos:</span> 18 + bônus da origem</div></div>
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Medo Inicial:</span> Nível 1</div></div>
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Poderes:</span> 2 Demoníacos</div></div>
-                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-accent);">Falha Central:</span> Obrigatória</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Pontos:</span> 18 + bônus da origem</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Medo Inicial:</span> Nível 1</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Poderes:</span> 2 Demoníacos</div></div>
+                            <div class="c-xs-6"><div class="atributo-item"><span style="color: var(--cor-secundaria);">Falha Central:</span> Obrigatória</div></div>
                         </div>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">🔥 Origens do Medo</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #666;">🔥 Origens do Medo</h4>
                         <p style="color: var(--cor-texto-secundario); margin-bottom: 15px; font-size: 0.9rem;">A origem define de qual tipo de medo você nasceu. Todas dão +4 atributos (total 22).</p>
 
                         <!-- Medo Incomum -->
@@ -1900,9 +1961,9 @@
                             <div class="atributo-nome">🔥 Medo Incomum</div>
                             <div class="atributo-desc" style="font-size: 0.8rem; margin-bottom: 8px;">Dor, fogo, altura, sangue, lâminas, afogamento</div>
                             <div style="font-size: 0.75rem; line-height: 1.6;">
-                                <span style="color: #27AE60;">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Regenera 1 Injúria Leve ao final de cada cena</span><br>
+                                <span style="color: var(--cor-gold);">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Regenera 1 Injúria Leve ao final de cada cena</span><br>
                                 <span style="color: #F1C40F;">⚠ Limite:</span> <span style="color: var(--cor-texto-secundario);">Atributos máx 5 inicial • Precisa presença física</span><br>
-                                <span style="color: var(--cor-accent);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">Injúrias acumulam rápido • Vulnerável a táticas</span>
+                                <span style="color: var(--cor-secundaria);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">Injúrias acumulam rápido • Vulnerável a táticas</span>
                             </div>
                         </div>
 
@@ -1911,9 +1972,9 @@
                             <div class="atributo-nome">👥 Medo Social / Sistêmico</div>
                             <div class="atributo-desc" style="font-size: 0.8rem; margin-bottom: 8px;">Repressão, vigilância, guerra, fome coletiva, autoridade</div>
                             <div style="font-size: 0.75rem; line-height: 1.6;">
-                                <span style="color: #27AE60;">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Autoridade mín 3 • +1d10 com 3+ pessoas presentes</span><br>
+                                <span style="color: var(--cor-gold);">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Autoridade mín 3 • +1d10 com 3+ pessoas presentes</span><br>
                                 <span style="color: #F1C40F;">⚠ Limite:</span> <span style="color: var(--cor-texto-secundario);">Depende de contexto social para poder pleno</span><br>
-                                <span style="color: var(--cor-accent);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">Isolado: -2d10 em todos os testes</span>
+                                <span style="color: var(--cor-secundaria);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">Isolado: -2d10 em todos os testes</span>
                             </div>
                         </div>
 
@@ -1922,9 +1983,9 @@
                             <div class="atributo-nome">✝️ Medo Bíblico / Arquetípico</div>
                             <div class="atributo-desc" style="font-size: 0.8rem; margin-bottom: 8px;">Juízo, inferno, pecado, castigo divino, apocalipse</div>
                             <div style="font-size: 0.75rem; line-height: 1.6;">
-                                <span style="color: #27AE60;">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Autoridade+Vínculo como fonte • Ignora 1 Injúria Leve no dogma</span><br>
+                                <span style="color: var(--cor-gold);">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Autoridade+Vínculo como fonte • Ignora 1 Injúria Leve no dogma</span><br>
                                 <span style="color: #F1C40F;">⚠ Limite:</span> <span style="color: var(--cor-texto-secundario);">Preso a símbolos, rituais e dogmas pessoais</span><br>
-                                <span style="color: var(--cor-accent);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">Quebrar dogma = 1 Injúria Grave automática</span>
+                                <span style="color: var(--cor-secundaria);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">Quebrar dogma = 1 Injúria Grave automática</span>
                             </div>
                         </div>
 
@@ -1933,26 +1994,26 @@
                             <div class="atributo-nome">🌀 Medo Conceitual / Abstrato</div>
                             <div class="atributo-desc" style="font-size: 0.8rem; margin-bottom: 8px;">Silêncio, esquecimento, vazio, solidão, tempo, inexistência</div>
                             <div style="font-size: 0.75rem; line-height: 1.6;">
-                                <span style="color: #27AE60;">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Formas variadas • Reduz Injúrias físicas em 1 grau</span><br>
+                                <span style="color: var(--cor-gold);">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Formas variadas • Reduz Injúrias físicas em 1 grau</span><br>
                                 <span style="color: #F1C40F;">⚠ Limite:</span> <span style="color: var(--cor-texto-secundario);">Falha Central extremamente específica</span><br>
-                                <span style="color: var(--cor-accent);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">Vulnerável ao conceito oposto • Fratura Crítica desestabiliza</span>
+                                <span style="color: var(--cor-secundaria);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">Vulnerável ao conceito oposto • Fratura Crítica desestabiliza</span>
                             </div>
                         </div>
 
                         <!-- Medo Primordial -->
-                        <div class="atributo-item" style="background: rgba(139,0,0,0.2); border-color: var(--cor-principal);">
-                            <div class="atributo-nome" style="color: var(--cor-accent);">💀 Medo Primordial</div>
+                        <div class="atributo-item" style="background: rgba(255,255,255,0.08); border-color: var(--cor-principal);">
+                            <div class="atributo-nome" style="color: var(--cor-secundaria);">💀 Medo Primordial</div>
                             <div class="atributo-desc" style="font-size: 0.8rem; margin-bottom: 8px;">Morte, extinção, trevas absolutas, o fim</div>
                             <div style="font-size: 0.75rem; line-height: 1.6;">
-                                <span style="color: #27AE60;">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Não pode ser destruído permanentemente • Regenera de qualquer ferimento</span><br>
+                                <span style="color: var(--cor-gold);">✓ Bônus:</span> <span style="color: var(--cor-texto-secundario);">Não pode ser destruído permanentemente • Regenera de qualquer ferimento</span><br>
                                 <span style="color: #F1C40F;">⚠ Limite:</span> <span style="color: var(--cor-texto-secundario);">NÃO pode existir livremente (precisa avatar/hospedeiro)</span><br>
-                                <span style="color: var(--cor-accent);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">APENAS 1 AÇÃO POR RODADA • Extremamente lento • Distorce realidade</span>
+                                <span style="color: var(--cor-secundaria);">✗ Fraqueza:</span> <span style="color: var(--cor-texto-secundario);">APENAS 1 AÇÃO POR RODADA • Extremamente lento • Distorce realidade</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">📈 Níveis de Evolução</h4>
+                        <h4 class="fs-10 m-15-b" style="color: #666;">📈 Níveis de Evolução</h4>
                         <p style="color: var(--cor-texto-secundario); margin-bottom: 15px; font-size: 0.9rem;">Conforme espalha terror, o demônio sobe de nível e ganha escolhas.</p>
 
                         <table class="table-scar" style="font-size: 0.85rem;">
@@ -1986,24 +2047,24 @@
                                 <td>35-40</td>
                                 <td style="color: var(--cor-texto-secundario);">+2 buffs + Forma Verdadeira</td>
                             </tr>
-                            <tr style="background: rgba(139,0,0,0.2);">
-                                <td style="color: var(--cor-accent);">5</td>
-                                <td style="color: var(--cor-accent);">Incompreendido</td>
-                                <td style="color: var(--cor-accent);">40+</td>
-                                <td style="color: var(--cor-accent);">Reservado para Primordiais</td>
+                            <tr style="background: rgba(255,255,255,0.08);">
+                                <td style="color: var(--cor-secundaria);">5</td>
+                                <td style="color: var(--cor-secundaria);">Incompreendido</td>
+                                <td style="color: var(--cor-secundaria);">40+</td>
+                                <td style="color: var(--cor-secundaria);">Reservado para Primordiais</td>
                             </tr>
                         </table>
 
                         <div class="m-15-t p-15-all border-rd-8" style="background: rgba(255,255,255,0.02); font-size: 0.8rem;">
-                            <strong style="color: var(--cor-secundaria);">Opções de Buff:</strong>
+                            <strong style="color: #666;">Opções de Buff:</strong>
                             <span style="color: var(--cor-texto-secundario);">+1 atributo • +1 Injúria máx • -1 Stress em poder • Aumento de alcance</span><br>
-                            <strong style="color: var(--cor-secundaria);">Ganhos Únicos:</strong>
+                            <strong style="color: #666;">Ganhos Únicos:</strong>
                             <span style="color: var(--cor-texto-secundario);">Novo Poder • Evolução de Poder • Transformação • Passiva do conceito</span>
                         </div>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: #27AE60;">✅ Benefícios</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-gold);">✅ Benefícios</h4>
                         <ul style="color: var(--cor-texto-secundario); padding-left: 20px; line-height: 1.8;">
                             <li><strong style="color: var(--cor-texto);">RENASCE</strong> após morrer (Terra → Inferno → Terra)</li>
                             <li>Quanto mais <strong style="color: var(--cor-texto);">temido</strong>, mais poderoso</li>
@@ -2013,23 +2074,23 @@
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">❌ Malefícios</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">❌ Malefícios</h4>
                         <ul style="color: var(--cor-texto-secundario); padding-left: 20px; line-height: 1.8;">
-                            <li><strong style="color: var(--cor-accent);">Sem empatia natural</strong> — precisa APRENDER</li>
+                            <li><strong style="color: var(--cor-secundaria);">Sem empatia natural</strong> — precisa APRENDER</li>
                             <li>Aflições <strong style="color: var(--cor-texto);">ligadas ao medo</strong></li>
-                            <li><strong style="color: var(--cor-accent);">Falha Central</strong> obrigatória</li>
-                            <li>⚠️ Devorado pelo Demônio da Motosserra = <strong style="color: var(--cor-accent);">APAGADO</strong> da existência</li>
+                            <li><strong style="color: var(--cor-secundaria);">Falha Central</strong> obrigatória</li>
+                            <li>⚠️ Devorado pelo Demônio da Motosserra = <strong style="color: var(--cor-secundaria);">APAGADO</strong> da existência</li>
                         </ul>
                     </div>
 
-                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(139,0,0,0.15); border: 1px solid var(--cor-principal);">
-                        <h4 class="fs-9 m-10-b" style="color: var(--cor-secundaria);">⚡ Regra de Ouro do Poder</h4>
+                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(42,42,42,0.3); border: 1px solid #2a2a2a;">
+                        <h4 class="fs-9 m-10-b" style="color: #666;">⚡ Regra de Ouro do Poder</h4>
                         <p class="text-center" style="color: var(--cor-texto);">
                             <strong>QUANTO MAIS PESSOAS TEMEM UM CONCEITO,<br>MAIS PODEROSO É O DEMÔNIO.</strong>
                         </p>
                     </div>
 
-                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(220,20,60,0.1); border: 1px solid rgba(220,20,60,0.3);">
+                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);">
                         <p class="text-center" style="color: var(--cor-texto-secundario);">
                             <strong style="color: var(--cor-secundaria);">Ideal para:</strong> Ser o monstro, evolução pelo terror, perspectiva inumana<br>
                             <em>"O que significa ser feito de medo?"</em>
@@ -2048,7 +2109,7 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 3rem;">👥</span>
+                        <span class="iccon-user-5" style="font-size: 3rem; color: var(--cor-secundaria);"></span>
                         <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Tipos de Seres</h3>
                         <p style="color: var(--cor-texto-secundario);">Escolha sua natureza. Ela define como você existe, como sofre e como o mundo reage a você.</p>
                     </div>
@@ -2067,7 +2128,7 @@
                                     <span class="arma-stat">✅ Contratos</span>
                                     <span class="arma-stat">❌ Morte definitiva</span>
                                 </div>
-                                <p class="m-10-t fs-3" style="color: var(--cor-accent);">Clique para detalhes →</p>
+                                <p class="m-10-t fs-3" style="color: var(--cor-secundaria);">Clique para detalhes →</p>
                             </div>
                         </div>
 
@@ -2084,7 +2145,7 @@
                                     <span class="arma-stat">✅ Detectar demônios</span>
                                     <span class="arma-stat">❌ Sem contratos</span>
                                 </div>
-                                <p class="m-10-t fs-3" style="color: var(--cor-accent);">Clique para detalhes →</p>
+                                <p class="m-10-t fs-3" style="color: var(--cor-secundaria);">Clique para detalhes →</p>
                             </div>
                         </div>
 
@@ -2101,7 +2162,7 @@
                                     <span class="arma-stat">✅ Transformação</span>
                                     <span class="arma-stat">❌ Grilhões</span>
                                 </div>
-                                <p class="m-10-t fs-3" style="color: var(--cor-accent);">Clique para detalhes →</p>
+                                <p class="m-10-t fs-3" style="color: var(--cor-secundaria);">Clique para detalhes →</p>
                             </div>
                         </div>
 
@@ -2118,14 +2179,14 @@
                                     <span class="arma-stat">✅ 2 Poderes</span>
                                     <span class="arma-stat">❌ Sem empatia</span>
                                 </div>
-                                <p class="m-10-t fs-3" style="color: var(--cor-accent);">Clique para detalhes →</p>
+                                <p class="m-10-t fs-3" style="color: var(--cor-secundaria);">Clique para detalhes →</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="m-30-t p-15-all border-rd-8" style="background: rgba(139,0,0,0.1); border: 1px solid rgba(139,0,0,0.3);">
+                    <div class="m-30-t p-15-all border-rd-8" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);">
                         <p class="text-center" style="color: var(--cor-texto-secundario);">
-                            <strong style="color: var(--cor-accent);">Dica:</strong> Clique em cada tipo para ver detalhes completos, benefícios, malefícios e perguntas de criação.
+                            <strong style="color: var(--cor-secundaria);">Dica:</strong> Clique em cada tipo para ver detalhes completos, benefícios, malefícios e perguntas de criação.
                         </p>
                     </div>
                 </div>
@@ -2141,15 +2202,15 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid #9B59B6; max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 3rem;">🎲</span>
-                        <h3 class="fs-13 m-10-t" style="color: #9B59B6;">10 Atributos</h3>
+                        <span class="iccon-layer-1" style="font-size: 3rem; color: var(--cor-secundaria);"></span>
+                        <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">10 Atributos</h3>
                         <p style="color: var(--cor-texto-secundario);">Distribua 16-22 pontos. Mínimo 0, máximo 5 por atributo.</p>
                     </div>
 
                     <div class="row gap-20 m-30-t">
                         <!-- Físicos -->
                         <div class="c-xs-12 c-md-4">
-                            <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">⚔️ Físicos</h4>
+                            <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">⚔️ Físicos</h4>
                             <div class="atributo-item m-10-b">
                                 <div class="atributo-nome">💪 Força</div>
                                 <div class="atributo-desc">Violência direta, combate corporal</div>
@@ -2166,7 +2227,7 @@
 
                         <!-- Táticos -->
                         <div class="c-xs-12 c-md-4">
-                            <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">🎲 Táticos</h4>
+                            <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">🎲 Táticos</h4>
                             <div class="atributo-item m-10-b">
                                 <div class="atributo-nome">🃏 Malandragem</div>
                                 <div class="atributo-desc">Furtividade, enganação, lockpick</div>
@@ -2183,7 +2244,7 @@
 
                         <!-- Mentais/Sociais -->
                         <div class="c-xs-12 c-md-4">
-                            <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">🧠 Mentais/Sociais</h4>
+                            <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">🧠 Mentais/Sociais</h4>
                             <div class="atributo-item m-10-b">
                                 <div class="atributo-nome">🔍 Investigação</div>
                                 <div class="atributo-desc">Análise, dedução, pistas</div>
@@ -2205,7 +2266,7 @@
 
                     <div class="m-30-t p-15-all border-rd-8" style="background: rgba(155,89,182,0.1); border: 1px solid rgba(155,89,182,0.3);">
                         <p class="text-center" style="color: var(--cor-texto-secundario);">
-                            <strong style="color: var(--cor-accent);">⚠️ Atributo 0:</strong> Ainda pode agir, mas falha gera +1 Stress adicional
+                            <strong style="color: var(--cor-secundaria);">⚠️ Atributo 0:</strong> Ainda pode agir, mas falha gera +1 Stress adicional
                         </p>
                     </div>
                 </div>
@@ -2221,7 +2282,7 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 3rem;">⚔️</span>
+                        <span class="iccon-shield-1" style="font-size: 3rem; color: var(--cor-secundaria);"></span>
                         <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Estilos de Luta</h3>
                         <p style="color: var(--cor-texto-secundario);">Escolha 1 na criação. São passivos — sempre ativos, sem custo.</p>
                     </div>
@@ -2326,13 +2387,13 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 3rem;">🍀</span>
+                        <span class="iccon-diamond-1" style="font-size: 3rem; color: var(--cor-secundaria);"></span>
                         <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Talismã (Objeto da Sorte)</h3>
                         <p style="color: var(--cor-texto-secundario);">Cada personagem possui 1 Talismã — algo que ancora sua humanidade.</p>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">Como Definir</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">Como Definir</h4>
                         <div class="row gap-10">
                             <div class="c-xs-12 c-sm-4">
                                 <div class="atributo-item text-center">
@@ -2359,7 +2420,7 @@
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">Efeitos (1×/sessão)</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">Efeitos (1×/sessão)</h4>
                         <p style="color: var(--cor-texto-secundario); margin-bottom: 15px;">Escolha UM efeito por sessão:</p>
                         <div class="row gap-10">
                             <div class="c-xs-6 c-sm-4">
@@ -2429,14 +2490,14 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 3rem;">⚔️</span>
+                        <span class="iccon-shield-2" style="font-size: 3rem; color: var(--cor-secundaria);"></span>
                         <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Armamentos & Equipamentos</h3>
                         <p style="color: var(--cor-texto-secundario);">Armas, armaduras e seus efeitos.</p>
                     </div>
 
                     <!-- Estrutura de Armas -->
                     <div class="m-20-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">📋 Estrutura de Armas</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">📋 Estrutura de Armas</h4>
                         <div class="row gap-10">
                             <div class="c-xs-6 c-sm-4 c-md-2">
                                 <div class="atributo-item text-center" style="padding: 10px;">
@@ -2479,7 +2540,7 @@
 
                     <!-- Curto Alcance -->
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">🗡️ Curto Alcance</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">🗡️ Curto Alcance</h4>
                         <div class="table-responsive">
                             <table class="table-scar" style="font-size: 0.85rem;">
                                 <tr>
@@ -2560,7 +2621,7 @@
 
                     <!-- Médio Alcance -->
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">🔫 Médio Alcance</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">🔫 Médio Alcance</h4>
                         <div class="table-responsive">
                             <table class="table-scar" style="font-size: 0.85rem;">
                                 <tr>
@@ -2609,7 +2670,7 @@
 
                     <!-- Longo Alcance -->
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">🎯 Longo Alcance</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">🎯 Longo Alcance</h4>
                         <div class="table-responsive">
                             <table class="table-scar" style="font-size: 0.85rem;">
                                 <tr>
@@ -2650,7 +2711,7 @@
 
                     <!-- Armas Especiais -->
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">💥 Armas Especiais</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">💥 Armas Especiais</h4>
                         <div class="table-responsive">
                             <table class="table-scar" style="font-size: 0.85rem;">
                                 <tr>
@@ -2691,7 +2752,7 @@
 
                     <!-- Armaduras -->
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">🛡️ Armaduras</h4>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">🛡️ Armaduras</h4>
                         <div class="table-responsive">
                             <table class="table-scar" style="font-size: 0.85rem;">
                                 <tr>
@@ -2757,7 +2818,7 @@
                     <!-- Tipos de Dano e Efeitos -->
                     <div class="row gap-20 m-30-t">
                         <div class="c-xs-12 c-md-6">
-                            <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">⚡ Tipos de Dano</h4>
+                            <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">⚡ Tipos de Dano</h4>
                             <div class="row gap-5">
                                 <div class="c-xs-6">
                                     <div class="estilo-card" style="height: auto; padding: 10px;">
@@ -2798,7 +2859,7 @@
                             </div>
                         </div>
                         <div class="c-xs-12 c-md-6">
-                            <h4 class="fs-10 m-15-b" style="color: var(--cor-accent);">🏷️ Efeitos Comuns</h4>
+                            <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">🏷️ Efeitos Comuns</h4>
                             <div class="row gap-5">
                                 <div class="c-xs-6">
                                     <div class="estilo-card" style="height: auto; padding: 10px;">
@@ -2852,7 +2913,7 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-principal); max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 3rem;">📜</span>
+                        <span class="iccon-file-1" style="font-size: 3rem; color: var(--cor-secundaria);"></span>
                         <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Contratos Demoníacos</h3>
                         <p style="color: var(--cor-texto-secundario);">Pactos vinculantes entre humano e demônio.</p>
                         <p style="color: var(--cor-accent); font-weight: bold;">⚠️ Demônios NÃO são seus amigos. Eles vão cobrar. SEMPRE.</p>
@@ -2922,7 +2983,7 @@
                             <tr>
                                 <td>Restrição</td>
                                 <td>Extremo</td>
-                                <td style="color: var(--cor-accent);">MORTE</td>
+                                <td style="color: var(--cor-secundaria);">MORTE</td>
                                 <td>Aprovação</td>
                             </tr>
                         </table>
@@ -2965,7 +3026,7 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 3rem;">📋</span>
+                        <span class="iccon-clipboard-1" style="font-size: 3rem; color: var(--cor-secundaria);"></span>
                         <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Ficha de Personagem</h3>
                         <p style="color: var(--cor-texto-secundario);">Estrutura completa para criar seu personagem</p>
                     </div>
@@ -2981,17 +3042,17 @@
 
                         <span class="highlight">═══ ATRIBUTOS (16-22 PONTOS) ═══</span><br><br>
 
-                        <span style="color: var(--cor-accent);">▸ Físicos</span><br>
+                        <span style="color: var(--cor-secundaria);">▸ Físicos</span><br>
                         &nbsp;&nbsp;<span class="comment">Força:</span> [ ]<br>
                         &nbsp;&nbsp;<span class="comment">Vigor:</span> [ ]<br>
                         &nbsp;&nbsp;<span class="comment">Coordenação:</span> [ ]<br><br>
 
-                        <span style="color: var(--cor-accent);">▸ Táticos / Técnicos</span><br>
+                        <span style="color: var(--cor-secundaria);">▸ Táticos / Técnicos</span><br>
                         &nbsp;&nbsp;<span class="comment">Malandragem:</span> [ ]<br>
                         &nbsp;&nbsp;<span class="comment">Tecnologia:</span> [ ]<br>
                         &nbsp;&nbsp;<span class="comment">Percepção:</span> [ ]<br><br>
 
-                        <span style="color: var(--cor-accent);">▸ Mentais / Sociais</span><br>
+                        <span style="color: var(--cor-secundaria);">▸ Mentais / Sociais</span><br>
                         &nbsp;&nbsp;<span class="comment">Investigação:</span> [ ]<br>
                         &nbsp;&nbsp;<span class="comment">Negociação:</span> [ ]<br>
                         &nbsp;&nbsp;<span class="comment">Autoridade:</span> [ ]<br>
@@ -3023,7 +3084,7 @@
                         <span class="comment">MARCA DO DEMÔNIO:</span> _______________________<br>
                     </div>
 
-                    <div class="m-20-t p-15-all border-rd-8" style="background: rgba(220,20,60,0.1); border: 1px solid rgba(220,20,60,0.3);">
+                    <div class="m-20-t p-15-all border-rd-8" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);">
                         <p class="text-center" style="color: var(--cor-texto-secundario);">
                             <strong style="color: var(--cor-secundaria);">💡 Dica:</strong> Copie esta estrutura para criar sua ficha no papel ou em um documento digital.
                         </p>
@@ -3041,15 +3102,15 @@
                 <button class="dialog-close" data-modal-hide></button>
                 <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-accent); max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
-                        <span style="font-size: 3rem;">⭐</span>
-                        <h3 class="fs-13 m-10-t" style="color: var(--cor-accent);">Pontos de Marca (PM)</h3>
+                        <span class="iccon-star-1" style="font-size: 3rem; color: var(--cor-accent);"></span>
+                        <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Pontos de Marca (PM)</h3>
                         <p style="color: var(--cor-texto-secundario);">O sistema de progressão do SCAR</p>
                     </div>
 
-                    <div class="p-20-all border-rd-8 m-20-b" style="background: rgba(139,0,0,0.2); border: 1px solid var(--cor-principal);">
+                    <div class="p-20-all border-rd-8 m-20-b" style="background: rgba(255,255,255,0.08); border: 1px solid var(--cor-principal);">
                         <p class="text-center fs-9" style="color: var(--cor-texto);">
                             <strong>PM = Experiência + Trauma + Evolução</strong><br>
-                            <span style="color: var(--cor-accent);">"Você não fica forte sem sofrer."</span>
+                            <span style="color: var(--cor-secundaria);">"Você não fica forte sem sofrer."</span>
                         </p>
                     </div>
 
@@ -3095,7 +3156,7 @@
                         <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">📈 Como Ganhar PM</h4>
                         <div class="row gap-15">
                             <div class="c-xs-12 c-md-6">
-                                <h5 class="fs-8 m-10-b" style="color: var(--cor-accent);">Durante Missões</h5>
+                                <h5 class="fs-8 m-10-b" style="color: var(--cor-secundaria);">Durante Missões</h5>
                                 <table class="table-scar" style="font-size: 0.9rem;">
                                     <tr>
                                         <th>Situação</th>
@@ -3116,7 +3177,7 @@
                                 </table>
                             </div>
                             <div class="c-xs-12 c-md-6">
-                                <h5 class="fs-8 m-10-b" style="color: var(--cor-accent);">Treinos e Conhecimento</h5>
+                                <h5 class="fs-8 m-10-b" style="color: var(--cor-secundaria);">Treinos e Conhecimento</h5>
                                 <table class="table-scar" style="font-size: 0.9rem;">
                                     <tr>
                                         <th>Situação</th>
@@ -3196,8 +3257,8 @@
                     </div>
 
                     <!-- Marcos -->
-                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(139,0,0,0.15); border: 1px dashed var(--cor-principal);">
-                        <h4 class="fs-10 m-10-b text-center" style="color: var(--cor-accent);">⚠️ Marcos de Progressão</h4>
+                    <div class="m-30-t p-20-all border-rd-8" style="background: rgba(255,255,255,0.06); border: 1px dashed var(--cor-principal);">
+                        <h4 class="fs-10 m-10-b text-center" style="color: var(--cor-secundaria);">⚠️ Marcos de Progressão</h4>
                         <p class="text-center" style="color: var(--cor-texto-secundario);">
                             A cada <strong style="color: var(--cor-texto);">10 / 20 / 30 PM gastos</strong>, a narrativa exige:
                         </p>
@@ -3413,7 +3474,7 @@
                     <div class="c-xs-12 c-md-6 m-40-b md-m-0-b">
                         <h2 class="section-title wow fadeInLeft">Stress & Colapso</h2>
                         <p class="fs-9 m-30-t wow fadeInLeft" data-wow-delay="0.2s" style="color: var(--cor-texto-secundario);">
-                            <strong style="color: var(--cor-texto);">Stress</strong> é a pressão acumulada — mental, física e emocional. É o recurso que você <em>gasta</em> para fazer coisas extraordinárias, mas se acumular demais... você <strong style="color: var(--cor-accent);">quebra</strong>.
+                            <strong style="color: var(--cor-texto);">Stress</strong> é a pressão acumulada — mental, física e emocional. É o recurso que você <em>gasta</em> para fazer coisas extraordinárias, mas se acumular demais... você <strong style="color: var(--cor-secundaria);">quebra</strong>.
                         </p>
 
                         <div class="code-block m-30-t wow fadeInLeft" data-wow-delay="0.3s">
@@ -3423,13 +3484,13 @@
                         <div class="m-30-t wow fadeInLeft" data-wow-delay="0.4s">
                             <p class="m-10-b"><strong>Gastar Stress para:</strong></p>
                             <div class="atributo-item m-10-b">
-                                <span style="color: var(--cor-accent);">1 Stress</span> → +1d10 para aliado
+                                <span style="color: var(--cor-secundaria);">1 Stress</span> → +1d10 para aliado
                             </div>
                             <div class="atributo-item m-10-b">
-                                <span style="color: var(--cor-accent);">2 Stress</span> → Rerolar um teste
+                                <span style="color: var(--cor-secundaria);">2 Stress</span> → Rerolar um teste
                             </div>
                             <div class="atributo-item">
-                                <span style="color: var(--cor-accent);">3 Stress</span> → +1 ação extra
+                                <span style="color: var(--cor-secundaria);">3 Stress</span> → +1 ação extra
                             </div>
                         </div>
                     </div>
@@ -3452,8 +3513,8 @@
                             </div>
                             <p class="fs-8 m-20-t" style="color: var(--cor-texto-secundario);">8 / 12 Stress</p>
 
-                            <div class="card m-40-t" style="background: rgba(139,0,0,0.2); border-color: var(--cor-principal);">
-                                <h4 style="color: var(--cor-accent);">⚠️ COLAPSO</h4>
+                            <div class="card m-40-t" style="background: rgba(255,255,255,0.08); border-color: var(--cor-principal);">
+                                <h4 style="color: var(--cor-secundaria);">⚠️ COLAPSO</h4>
                                 <p class="m-15-t" style="color: var(--cor-texto-secundario);">
                                     Ao atingir Stress Máximo:<br>
                                     <strong style="color: var(--cor-texto);">Sofre 1 Injúria + Stress reseta para 0</strong>
@@ -3487,7 +3548,7 @@
                                 <span class="arma-stat">✅ +2 Stress Máx</span>
                                 <span class="arma-stat">❌ Morte definitiva</span>
                             </div>
-                            <p class="m-15-t fs-3" style="color: var(--cor-accent);">Clique para detalhes →</p>
+                            <p class="m-15-t fs-3" style="color: var(--cor-secundaria);">Clique para detalhes →</p>
                         </div>
                     </div>
 
@@ -3502,7 +3563,7 @@
                                 <span class="arma-stat">✅ Poderes inatos</span>
                                 <span class="arma-stat">❌ Sem contratos</span>
                             </div>
-                            <p class="m-15-t fs-3" style="color: var(--cor-accent);">Clique para detalhes →</p>
+                            <p class="m-15-t fs-3" style="color: var(--cor-secundaria);">Clique para detalhes →</p>
                         </div>
                     </div>
 
@@ -3517,7 +3578,7 @@
                                 <span class="arma-stat">✅ Recusa da Morte</span>
                                 <span class="arma-stat">❌ Grilhões</span>
                             </div>
-                            <p class="m-15-t fs-3" style="color: var(--cor-accent);">Clique para detalhes →</p>
+                            <p class="m-15-t fs-3" style="color: var(--cor-secundaria);">Clique para detalhes →</p>
                         </div>
                     </div>
 
@@ -3532,7 +3593,7 @@
                                 <span class="arma-stat">✅ Renasce</span>
                                 <span class="arma-stat">❌ Sem empatia</span>
                             </div>
-                            <p class="m-15-t fs-3" style="color: var(--cor-accent);">Clique para detalhes →</p>
+                            <p class="m-15-t fs-3" style="color: var(--cor-secundaria);">Clique para detalhes →</p>
                         </div>
                     </div>
                 </div>
@@ -3588,23 +3649,23 @@
                 <div class="row gap-20">
                     <div class="c-xs-12 c-sm-6 c-lg-3">
                         <div class="card wow fadeInUp cursor-pointer" data-wow-delay="0.1s" data-modal-show="modal-naturezas">
-                            <div class="card-icon" style="background: linear-gradient(135deg, #3498DB, #5DADE2);">1</div>
+                            <div class="card-icon">1</div>
                             <h4 class="card-title">Escolha a Natureza</h4>
                             <p class="card-text">Humano, Infernal, Híbrido ou Demônio. Cada um tem vantagens e custos únicos.</p>
-                            <p class="fs-3 m-10-t" style="color: var(--cor-accent);">Ver origens →</p>
+                            <p class="fs-3 m-10-t" style="color: var(--cor-secundaria);">Ver origens →</p>
                         </div>
                     </div>
                     <div class="c-xs-12 c-sm-6 c-lg-3">
                         <div class="card wow fadeInUp cursor-pointer" data-wow-delay="0.2s" data-modal-show="modal-atributos">
-                            <div class="card-icon" style="background: linear-gradient(135deg, #9B59B6, #8E44AD);">2</div>
+                            <div class="card-icon">2</div>
                             <h4 class="card-title">Distribua Atributos</h4>
                             <p class="card-text">16 a 22 pontos entre os 10 atributos. Mínimo 0, máximo 5 cada.</p>
-                            <p class="fs-3 m-10-t" style="color: var(--cor-accent);">Ver atributos →</p>
+                            <p class="fs-3 m-10-t" style="color: var(--cor-secundaria);">Ver atributos →</p>
                         </div>
                     </div>
                     <div class="c-xs-12 c-sm-6 c-lg-3">
                         <div class="card wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="card-icon" style="background: linear-gradient(135deg, #E67E22, #F39C12);">3</div>
+                            <div class="card-icon">3</div>
                             <h4 class="card-title">Calcule Stress</h4>
                             <p class="card-text"><strong>6 + Vigor + Vínculo</strong><br>Humanos ganham +2 extra.</p>
                         </div>
@@ -3624,7 +3685,7 @@
                             <div class="card-icon">5</div>
                             <h4 class="card-title">Estilo de Luta</h4>
                             <p class="card-text">Escolha 1: Boxe, Espadachim, Atirador, Wrestling, Judô, Spetsnaz...</p>
-                            <p class="fs-3 m-10-t" style="color: var(--cor-accent);">Ver estilos →</p>
+                            <p class="fs-3 m-10-t" style="color: var(--cor-secundaria);">Ver estilos →</p>
                         </div>
                     </div>
                     <div class="c-xs-12 c-sm-6 c-lg-3">
@@ -3632,7 +3693,7 @@
                             <div class="card-icon">6</div>
                             <h4 class="card-title">Defina o Talismã</h4>
                             <p class="card-text">Objeto que ancora sua humanidade. 1×/sessão: rerolar, reduzir injúria, +3d10...</p>
-                            <p class="fs-3 m-10-t" style="color: var(--cor-accent);">Ver talismã →</p>
+                            <p class="fs-3 m-10-t" style="color: var(--cor-secundaria);">Ver talismã →</p>
                         </div>
                     </div>
                     <div class="c-xs-12 c-sm-6 c-lg-3">
@@ -3640,7 +3701,7 @@
                             <div class="card-icon">7</div>
                             <h4 class="card-title">Contratos/Poderes</h4>
                             <p class="card-text">Humanos: 1 contrato opcional.<br>Infernais/Híbridos: poderes inatos.</p>
-                            <p class="fs-3 m-10-t" style="color: var(--cor-accent);">Ver contratos →</p>
+                            <p class="fs-3 m-10-t" style="color: var(--cor-secundaria);">Ver contratos →</p>
                         </div>
                     </div>
                     <div class="c-xs-12 c-sm-6 c-lg-3">
@@ -3648,7 +3709,7 @@
                             <div class="card-icon">8</div>
                             <h4 class="card-title">Preencha a Ficha</h4>
                             <p class="card-text">Nome, história, medos, falha central. Quem você era? O que você teme?</p>
-                            <p class="fs-3 m-10-t" style="color: var(--cor-accent);">Ver ficha →</p>
+                            <p class="fs-3 m-10-t" style="color: var(--cor-secundaria);">Ver ficha →</p>
                         </div>
                     </div>
                 </div>
@@ -3658,24 +3719,24 @@
                     <div class="c-xs-12 c-md-6">
                         <div class="card wow fadeInUp cursor-pointer h-100" style="border-color: var(--cor-secundaria);" data-modal-show="modal-armamentos">
                             <div class="d-flex f-items-center f-gap-15 f-wrap">
-                                <span style="font-size: 2rem;">⚔️</span>
+                                <span class="iccon-shield-1" style="font-size: 2rem;"></span>
                                 <div class="f-grow-1">
                                     <h4 class="fs-10" style="color: var(--cor-secundaria);">Armamentos & Equipamentos</h4>
                                     <p class="card-text m-5-t fs-4">Armas • Armaduras • Tipos de dano</p>
                                 </div>
-                                <span class="fs-4" style="color: var(--cor-accent);">Ver →</span>
+                                <span class="fs-4" style="color: var(--cor-secundaria);">Ver →</span>
                             </div>
                         </div>
                     </div>
                     <div class="c-xs-12 c-md-6">
                         <div class="card wow fadeInUp cursor-pointer h-100" style="border-color: var(--cor-accent);" data-wow-delay="0.1s" data-modal-show="modal-pm">
                             <div class="d-flex f-items-center f-gap-15 f-wrap">
-                                <span style="font-size: 2rem;">⭐</span>
+                                <span class="iccon-star-1" style="font-size: 2rem;"></span>
                                 <div class="f-grow-1">
-                                    <h4 class="fs-10" style="color: var(--cor-accent);">Pontos de Marca (PM)</h4>
+                                    <h4 class="fs-10" style="color: var(--cor-secundaria);">Pontos de Marca (PM)</h4>
                                     <p class="card-text m-5-t fs-4">Progressão • Custos • Marcos</p>
                                 </div>
-                                <span class="fs-4" style="color: var(--cor-accent);">Ver →</span>
+                                <span class="fs-4" style="color: var(--cor-secundaria);">Ver →</span>
                             </div>
                         </div>
                     </div>
@@ -3683,10 +3744,10 @@
 
                 <!-- Tabela de Referência -->
                 <div class="card m-60-t wow fadeInUp">
-                    <h3 class="fs-11 m-20-b" style="color: var(--cor-secundaria);">📊 Tabela de Referência Rápida</h3>
+                    <h3 class="fs-11 m-20-b" style="color: var(--cor-secundaria);"><span class="iccon-chart-1" style="color: var(--cor-secundaria);"></span> Tabela de Referência Rápida</h3>
                     <div class="row gap-30">
                         <div class="c-xs-12 c-md-6">
-                            <h4 class="fs-9 m-15-b" style="color: var(--cor-accent);">Fórmulas Essenciais</h4>
+                            <h4 class="fs-9 m-15-b" style="color: var(--cor-secundaria);">Fórmulas Essenciais</h4>
                             <table class="table-scar">
                                 <tr>
                                     <th>Cálculo</th>
@@ -3711,7 +3772,7 @@
                             </table>
                         </div>
                         <div class="c-xs-12 c-md-6">
-                            <h4 class="fs-9 m-15-b" style="color: var(--cor-accent);">Comparativo de Origens</h4>
+                            <h4 class="fs-9 m-15-b" style="color: var(--cor-secundaria);">Comparativo de Origens</h4>
                             <table class="table-scar">
                                 <tr>
                                     <th>Aspecto</th>
@@ -3758,7 +3819,7 @@
                     <h2 class="section-title centered wow fadeInUp">Contratos Demoníacos</h2>
                     <p class="fs-9 m-30-t wow fadeInUp" data-wow-delay="0.2s" style="color: var(--cor-texto-secundario); max-width: 700px; margin-left: auto; margin-right: auto;">
                         Pactos vinculantes entre humano e demônio. A principal forma de ganhar poder sobrenatural.
-                        <br><strong style="color: var(--cor-accent);">⚠️ Demônios NÃO são seus amigos. Eles vão cobrar. SEMPRE.</strong>
+                        <br><strong style="color: var(--cor-secundaria);">⚠️ Demônios NÃO são seus amigos. Eles vão cobrar. SEMPRE.</strong>
                     </p>
                 </div>
 
@@ -3925,8 +3986,8 @@
                                     <div class="atributo-desc">20+</div>
                                 </div>
                                 <span style="font-size: 1.2rem; color: var(--cor-texto-secundario);">→</span>
-                                <div class="atributo-item" style="flex: 1; text-align: center; background: rgba(139,0,0,0.3); border-color: var(--cor-principal);">
-                                    <div class="atributo-nome" style="color: var(--cor-accent);">Morte</div>
+                                <div class="atributo-item" style="flex: 1; text-align: center; background: rgba(255,255,255,0.1); border-color: var(--cor-principal);">
+                                    <div class="atributo-nome" style="color: var(--cor-secundaria);">Morte</div>
                                 </div>
                             </div>
 
@@ -3935,15 +3996,15 @@
                                 <div class="d-flex f-gap-20 f-wrap">
                                     <div>
                                         <span style="color: var(--cor-texto-secundario);">Leves:</span>
-                                        <span style="color: var(--cor-accent);">☐ ☐ ☐ ☐</span>
+                                        <span style="color: var(--cor-secundaria);">☐ ☐ ☐ ☐</span>
                                     </div>
                                     <div>
                                         <span style="color: var(--cor-texto-secundario);">Graves:</span>
-                                        <span style="color: var(--cor-accent);">☐ ☐</span>
+                                        <span style="color: var(--cor-secundaria);">☐ ☐</span>
                                     </div>
                                     <div>
                                         <span style="color: var(--cor-texto-secundario);">Crítica:</span>
-                                        <span style="color: var(--cor-accent);">☐</span>
+                                        <span style="color: var(--cor-secundaria);">☐</span>
                                     </div>
                                 </div>
                             </div>
@@ -4003,7 +4064,7 @@
                 <div class="row gap-20">
                     <!-- Curto Alcance -->
                     <div class="c-xs-12 c-md-6 c-lg-4">
-                        <h3 class="fs-10 m-20-b wow fadeInUp" style="color: var(--cor-accent);">⚔️ Curto Alcance</h3>
+                        <h3 class="fs-10 m-20-b wow fadeInUp" style="color: var(--cor-secundaria);">⚔️ Curto Alcance</h3>
 
                         <div class="arma-card m-15-b wow fadeInUp" data-wow-delay="0.1s">
                             <div class="arma-nome">Katana</div>
@@ -4038,7 +4099,7 @@
 
                     <!-- Médio Alcance -->
                     <div class="c-xs-12 c-md-6 c-lg-4">
-                        <h3 class="fs-10 m-20-b wow fadeInUp" style="color: var(--cor-accent);">🔫 Médio Alcance</h3>
+                        <h3 class="fs-10 m-20-b wow fadeInUp" style="color: var(--cor-secundaria);">🔫 Médio Alcance</h3>
 
                         <div class="arma-card m-15-b wow fadeInUp" data-wow-delay="0.1s">
                             <div class="arma-nome">Revólver</div>
@@ -4073,7 +4134,7 @@
 
                     <!-- Longo Alcance -->
                     <div class="c-xs-12 c-md-6 c-lg-4">
-                        <h3 class="fs-10 m-20-b wow fadeInUp" style="color: var(--cor-accent);">🎯 Longo Alcance</h3>
+                        <h3 class="fs-10 m-20-b wow fadeInUp" style="color: var(--cor-secundaria);">🎯 Longo Alcance</h3>
 
                         <div class="arma-card m-15-b wow fadeInUp" data-wow-delay="0.1s">
                             <div class="arma-nome">Rifle de Caça</div>
@@ -4220,7 +4281,7 @@
                         <div class="card m-20-b wow fadeInUp" data-wow-delay="0.2s" style="height: auto;">
                             <h4 class="fs-10" style="color: var(--cor-secundaria);">💀 Meu personagem pode morrer?</h4>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                <strong style="color: var(--cor-accent);">Sim.</strong> Humanos e Infernais morrem definitivamente.
+                                <strong style="color: var(--cor-secundaria);">Sim.</strong> Humanos e Infernais morrem definitivamente.
                                 Híbridos têm a "Recusa da Morte" mas algo fica pra trás. Demônios renascem, mas podem ser apagados pelo Demônio da Motosserra.
                             </p>
                         </div>
@@ -4230,7 +4291,7 @@
                             <h4 class="fs-10" style="color: var(--cor-secundaria);">📜 O que acontece se eu quebrar um contrato?</h4>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario);">
                                 Depende do contrato. Contratos menores podem causar aflições ou perda de poder.
-                                <strong style="color: var(--cor-accent);">Contratos de Restrição causam MORTE INSTANTÂNEA.</strong> Demônios sempre cobram.
+                                <strong style="color: var(--cor-secundaria);">Contratos de Restrição causam MORTE INSTANTÂNEA.</strong> Demônios sempre cobram.
                             </p>
                         </div>
 
@@ -4285,16 +4346,16 @@
                             </p>
                             <ul style="color: var(--cor-texto-secundario); padding-left: 20px; margin-top: 10px; line-height: 1.6;">
                                 <li><strong style="color: #5DADE2;">Humano:</strong> Drama, sobrevivência, contratos</li>
-                                <li><strong style="color: #9B59B6;">Infernal:</strong> Outsider, aprender humanidade</li>
-                                <li><strong style="color: #F39C12;">Híbrido:</strong> Conflito interno, poder vs controle</li>
-                                <li><strong style="color: var(--cor-secundaria);">Demônio:</strong> Ser o monstro, terror</li>
+                                <li><strong style="color: #E74C3C;">Infernal:</strong> Outsider, aprender humanidade</li>
+                                <li><strong style="color: #9B59B6;">Híbrido:</strong> Conflito interno, poder vs controle</li>
+                                <li><strong style="color: #666;">Demônio:</strong> Ser o monstro, terror</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <!-- Dicas de Jogo -->
-                <div class="card m-60-t wow fadeInUp" style="border-color: var(--cor-secundaria); background: linear-gradient(135deg, rgba(220,20,60,0.05) 0%, transparent 100%);">
+                <div class="card m-60-t wow fadeInUp" style="border-color: var(--cor-secundaria); background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);">
                     <h3 class="fs-11 m-20-b" style="color: var(--cor-secundaria);">💡 Dicas Para Jogar SCAR</h3>
                     <div class="row gap-20">
                         <div class="c-xs-12 c-sm-6 c-md-4">
@@ -4403,7 +4464,7 @@
                         </a>
                     </div>
                     <p class="m-15-t footer-version">
-                        <span style="color: var(--cor-accent);">Versão 1.0</span> • Última atualização: Janeiro 2026
+                        <span style="color: var(--cor-secundaria);">Versão 1.0</span> • Última atualização: Janeiro 2026
                     </p>
                 </div>
 
