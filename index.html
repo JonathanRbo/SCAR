@@ -808,6 +808,8 @@
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.7rem;
+            top: 50%;
+            transform: translateY(-50%);
             text-transform: uppercase;
             letter-spacing: 2px;
             border: 1px solid rgba(255,255,255,0.1);
@@ -1026,343 +1028,134 @@
             box-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
-        /* Footer */
-        .site-footer {
+        /* CTA Section */
+        .cta-section {
             position: relative;
             background: url('assets/images/Banner Footer SCAR.jpeg') center center / cover no-repeat;
-            border-top: 1px solid var(--cor-borda);
-            min-height: 400px;
             overflow: hidden;
         }
 
-        .site-footer::before {
+        .cta-section::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 40%, rgba(10,10,10,0.4) 100%);
+            background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.9) 100%);
             pointer-events: none;
         }
 
-        .footer-wrapper {
+        .cta-content {
             position: relative;
             z-index: 1;
-            display: flex;
-            min-height: 420px;
-            padding: 30px;
         }
 
-        /* Tabs laterais */
-        .footer-tabs {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 20px 15px;
+        .cta-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--cor-texto);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
-        .footer-tab {
-            padding: 12px 20px;
-            background: rgba(10,10,10,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px 0 0 8px;
-            color: var(--cor-texto-secundario);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
-            position: relative;
-        }
-
-        .footer-tab::before {
-            content: '◆';
-            font-size: 0.5rem;
-            margin-right: 8px;
+        .cta-title span {
             color: var(--cor-secundaria);
-            opacity: 0;
+        }
+
+        /* Footer Simples */
+        .site-footer {
+            background: var(--cor-fundo);
+            border-top: 1px solid var(--cor-borda);
+            padding: 40px 0 30px;
+        }
+
+        .footer-brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .footer-brand a {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--cor-secundaria);
+            text-decoration: none;
+            letter-spacing: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-brand a:hover {
+            text-shadow: 0 0 20px rgba(220,20,60,0.5);
+        }
+
+        .footer-brand span {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--cor-texto-secundario);
+            letter-spacing: 3px;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .footer-links a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--cor-texto-secundario);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+        }
+
+        .footer-links a:hover {
+            color: var(--cor-secundaria);
+            border-color: var(--cor-borda);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .footer-links svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.7;
             transition: opacity 0.3s ease;
         }
 
-        .footer-tab:hover {
-            color: var(--cor-texto);
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.2);
-        }
-
-        .footer-tab:hover::before {
-            opacity: 0.5;
-        }
-
-        .footer-tab.active {
-            color: var(--cor-secundaria);
-            background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, rgba(10,10,10,0.8) 100%);
-            border-color: rgba(255,255,255,0.25);
-            border-right-color: transparent;
-        }
-
-        .footer-tab.active::before {
+        .footer-links a:hover svg {
             opacity: 1;
         }
 
-        /* Conteúdo das tabs */
-        .footer-panels {
-            flex: 1;
-            padding: 30px 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            max-width: 600px;
+        .footer-divider-line {
+            width: 60%;
+            max-width: 400px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cor-borda), transparent);
+            margin: 0 auto 20px;
         }
 
-        .footer-panel {
-            display: none;
-            animation: fadeIn 0.4s ease;
-            background: linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(20,20,20,0.7) 100%);
-            backdrop-filter: blur(15px);
-            padding: 25px 30px;
-            border-radius: 0 12px 12px 0;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-left: 3px solid var(--cor-secundaria);
-            position: relative;
-        }
-
-        .footer-panel::before,
-        .footer-panel::after {
-            content: '❧';
-            position: absolute;
-            font-size: 1rem;
-            color: var(--cor-secundaria);
-            opacity: 0.4;
-        }
-
-        .footer-panel::before {
-            top: 8px;
-            right: 12px;
-        }
-
-        .footer-panel::after {
-            bottom: 8px;
-            left: 12px;
-            transform: rotate(180deg);
-        }
-
-        .footer-panel.active {
-            display: block;
-        }
-
-        .footer-panel h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            color: var(--cor-secundaria);
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .footer-panel > p:first-of-type {
-            margin-top: 0;
-        }
-
-        .footer-panel p {
-            color: var(--cor-texto-secundario);
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-
-        /* Social links no footer */
-        .footer-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .footer-social a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
-            background: rgba(10,10,10,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
-            color: var(--cor-texto);
-            font-size: 0.85rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--cor-secundaria);
-            color: var(--cor-secundaria);
-            transform: translateX(5px);
-        }
-
-        .footer-social svg {
-            flex-shrink: 0;
-            opacity: 0.8;
-        }
-
-        /* Quote styling */
-        .footer-quote {
-            font-style: italic;
-            color: var(--cor-texto-secundario);
-            font-size: 0.9rem;
-            line-height: 1.8;
-            margin: 0;
-            padding: 0 0 0 20px;
-            border: none;
-            border-left: 2px solid rgba(255,255,255,0.2);
-            position: relative;
-        }
-
-        .footer-quote::before {
-            content: none;
-        }
-
-        .footer-quote p {
-            padding-left: 0;
-            margin: 0;
-        }
-
-        .footer-quote cite {
-            display: block;
-            margin-top: 12px;
-            color: var(--cor-secundaria);
-            font-style: normal;
-            font-size: 0.8rem;
-        }
-
-        .footer-quote cite::before {
-            content: '— ';
-        }
-
-        /* Downloads */
-        .footer-downloads {
-            display: flex;
-            flex-direction: row;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .footer-download-item {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            background: rgba(10,10,10,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
-            color: var(--cor-texto);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-download-item:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--cor-secundaria);
-            transform: translateY(-3px);
-        }
-
-        .download-icon {
-            font-size: 1.5rem;
-        }
-
-        .download-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .download-info strong {
-            font-size: 0.85rem;
-            color: var(--cor-texto);
-        }
-
-        .download-info span {
-            font-size: 0.75rem;
-            color: var(--cor-texto-secundario);
-        }
-
-        .footer-version {
-            font-size: 0.75rem;
-            color: var(--cor-secundaria);
-            opacity: 0.8;
-            margin-top: 10px;
-        }
-
-        /* Copyright */
-        .footer-copyright {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
+        .footer-copy {
             text-align: center;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-        }
-
-        /* Mobile footer */
-        @media (max-width: 768px) {
-            .footer-wrapper {
-                flex-direction: column;
-                min-height: auto;
-                padding: 20px 15px;
-            }
-
-            .footer-tabs {
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 8px;
-                padding: 10px;
-                margin-bottom: 15px;
-            }
-
-            .footer-tab {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-                border-radius: 6px;
-            }
-
-            .footer-tab::before {
-                display: none;
-            }
-
-            .footer-tab.active {
-                background: rgba(255,255,255,0.15);
-                border-color: var(--cor-secundaria);
-            }
-
-            .footer-panels {
-                padding: 0 10px 50px;
-            }
-
-            .footer-panel {
-                padding: 20px;
-                border-radius: 8px;
-                border-left-width: 2px;
-            }
-
-            .footer-panel::before,
-            .footer-panel::after {
-                display: none;
-            }
-
-            .footer-social {
-                flex-wrap: wrap;
-            }
-
-            .site-footer::before {
-                background: linear-gradient(180deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.8) 100%);
-            }
-        }
-
-        .footer-bottom p {
             color: var(--cor-texto-secundario);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Blood Glow Effect */
+        .blood-glow {
+            background:
+                radial-gradient(ellipse at center top, rgba(139,0,0,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 50%, rgba(220,20,60,0.08) 0%, transparent 50%);
+        }
+
+        .blood-glow-center {
+            background:
+                radial-gradient(ellipse at center top, rgba(139,0,0,0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at center, rgba(220,20,60,0.05) 0%, transparent 60%);
         }
 
         /* Animação de sangue */
@@ -1469,6 +1262,89 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--cor-secundaria);
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--cor-principal);
+        }
+
+        .faq-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-header:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .faq-header .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-header .icon {
+            font-size: 1.3rem;
+        }
+
+        .faq-header .title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
+            color: var(--cor-secundaria);
+        }
+
+        .faq-header .arrow {
+            transition: transform 0.3s ease;
+            color: var(--cor-texto-secundario);
+            font-size: 0.9rem;
+        }
+
+        .faq-item.open .faq-header .arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.open {
+            border-color: var(--cor-principal);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .faq-content {
+            display: none;
+            padding: 0 24px 20px;
+            color: var(--cor-texto-secundario);
+            line-height: 1.7;
+            border-top: 1px solid var(--cor-borda);
+        }
+
+        .faq-item.open .faq-content {
+            display: block;
+        }
+
+        .faq-content p {
+            margin-top: 15px;
+        }
+
+        .faq-content strong {
+            color: var(--cor-texto);
+        }
+
+        .faq-content .highlight {
+            color: var(--cor-secundaria);
         }
     </style>
 </head>
@@ -2116,8 +1992,8 @@
 
                     <div class="row gap-15 m-30-t">
                         <!-- Humano -->
-                        <div class="c-xs-12 c-sm-6">
-                            <div class="tipo-card humano cursor-pointer" style="height: auto;" data-modal-show="modal-humano" data-modal-hide>
+                        <div class="c-xs-12 c-sm-6 ">
+                            <div class="tipo-card humano cursor-pointer h-100" data-modal-show="modal-humano" data-modal-hide>
                                 <span class="tipo-icon">👤</span>
                                 <h3 class="fs-11">Humano</h3>
                                 <p class="m-10-t" style="color: var(--cor-texto-secundario); font-size: 0.85rem;">
@@ -2134,7 +2010,7 @@
 
                         <!-- Infernal -->
                         <div class="c-xs-12 c-sm-6">
-                            <div class="tipo-card infernal cursor-pointer" style="height: auto;" data-modal-show="modal-infernal" data-modal-hide>
+                            <div class="tipo-card infernal cursor-pointer h-100" data-modal-show="modal-infernal" data-modal-hide>
                                 <span class="tipo-icon">👁️</span>
                                 <h3 class="fs-11">Infernal</h3>
                                 <p class="m-10-t" style="color: var(--cor-texto-secundario); font-size: 0.85rem;">
@@ -2151,7 +2027,7 @@
 
                         <!-- Híbrido -->
                         <div class="c-xs-12 c-sm-6">
-                            <div class="tipo-card hibrido cursor-pointer" style="height: auto;" data-modal-show="modal-hibrido" data-modal-hide>
+                            <div class="tipo-card hibrido cursor-pointer h-100" data-modal-show="modal-hibrido" data-modal-hide>
                                 <span class="tipo-icon">⚡</span>
                                 <h3 class="fs-11">Híbrido</h3>
                                 <p class="m-10-t" style="color: var(--cor-texto-secundario); font-size: 0.85rem;">
@@ -2167,8 +2043,8 @@
                         </div>
 
                         <!-- Demônio -->
-                        <div class="c-xs-12 c-sm-6">
-                            <div class="tipo-card demonio cursor-pointer" style="height: auto;" data-modal-show="modal-demonio" data-modal-hide>
+                        <div class="c-xs-12 c-sm-6 h-100">
+                            <div class="tipo-card demonio cursor-pointer h-100" data-modal-show="modal-demonio" data-modal-hide>
                                 <span class="tipo-icon">👹</span>
                                 <h3 class="fs-11">Demônio</h3>
                                 <p class="m-10-t" style="color: var(--cor-texto-secundario); font-size: 0.85rem;">
@@ -3299,7 +3175,7 @@
         <div class="section-divider"></div>
 
         <!-- Sobre Section -->
-        <section id="sobre" class="p-100-tb xs-p-60-tb">
+        <section id="sobre" class="p-100-tb xs-p-60-tb blood-glow">
             <div class="container">
                 <div class="row f-items-center">
                     <div class="c-xs-12 c-md-6 m-40-b md-m-0-b">
@@ -3348,7 +3224,7 @@
         </section>
 
         <!-- Sistema Section -->
-        <section id="sistema" class="p-100-tb xs-p-60-tb" style="background: var(--cor-fundo-card);">
+        <section id="sistema" class="p-100-tb xs-p-60-tb blood-glow" style="background: var(--cor-fundo-card);">
             <div class="container">
                 <div class="text-center m-60-b">
                     <h2 class="section-title centered wow fadeInUp">Fundamentos do Sistema</h2>
@@ -3468,7 +3344,7 @@
         <div class="section-divider" style="background: linear-gradient(90deg, transparent, var(--cor-borda), transparent);"></div>
 
         <!-- Stress Section -->
-        <section id="stress" class="p-100-tb xs-p-60-tb">
+        <section id="stress" class="p-100-tb xs-p-60-tb blood-glow-center">
             <div class="container">
                 <div class="row f-items-center">
                     <div class="c-xs-12 c-md-6 m-40-b md-m-0-b">
@@ -3527,7 +3403,7 @@
         </section>
 
         <!-- Seres Section -->
-        <section id="seres" class="p-100-tb xs-p-60-tb" style="background: var(--cor-fundo-card);">
+        <section id="seres" class="p-100-tb xs-p-60-tb blood-glow-center" style="background: var(--cor-fundo-card);">
             <div class="container">
                 <div class="text-center m-60-b">
                     <h2 class="section-title centered wow fadeInUp">Tipos de Seres</h2>
@@ -3538,7 +3414,7 @@
 
                 <div class="row gap-20">
                     <div class="c-xs-12 c-sm-6 c-lg-3">
-                        <div class="tipo-card humano wow fadeInUp cursor-pointer" data-wow-delay="0.1s" data-modal-show="modal-humano">
+                        <div class="tipo-card humano wow fadeInUp cursor-pointer h-100" data-wow-delay="0.1s" data-modal-show="modal-humano">
                             <span class="tipo-icon">👤</span>
                             <h3 class="fs-11">Humano</h3>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario); font-size: 0.9rem;">
@@ -3553,7 +3429,7 @@
                     </div>
 
                     <div class="c-xs-12 c-sm-6 c-lg-3">
-                        <div class="tipo-card infernal wow fadeInUp cursor-pointer" data-wow-delay="0.2s" data-modal-show="modal-infernal">
+                        <div class="tipo-card infernal wow fadeInUp cursor-pointer h-100" data-wow-delay="0.2s" data-modal-show="modal-infernal">
                             <span class="tipo-icon">👁️</span>
                             <h3 class="fs-11">Infernal</h3>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario); font-size: 0.9rem;">
@@ -3568,7 +3444,7 @@
                     </div>
 
                     <div class="c-xs-12 c-sm-6 c-lg-3">
-                        <div class="tipo-card hibrido wow fadeInUp cursor-pointer" data-wow-delay="0.3s" data-modal-show="modal-hibrido">
+                        <div class="tipo-card hibrido wow fadeInUp cursor-pointer h-100" data-wow-delay="0.3s" data-modal-show="modal-hibrido">
                             <span class="tipo-icon">⚡</span>
                             <h3 class="fs-11">Híbrido</h3>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario); font-size: 0.9rem;">
@@ -3583,7 +3459,7 @@
                     </div>
 
                     <div class="c-xs-12 c-sm-6 c-lg-3">
-                        <div class="tipo-card demonio wow fadeInUp cursor-pointer" data-wow-delay="0.4s" data-modal-show="modal-demonio">
+                        <div class="tipo-card demonio wow fadeInUp cursor-pointer h-100" data-wow-delay="0.4s" data-modal-show="modal-demonio">
                             <span class="tipo-icon">👹</span>
                             <h3 class="fs-11">Demônio</h3>
                             <p class="m-15-t" style="color: var(--cor-texto-secundario); font-size: 0.9rem;">
@@ -3636,7 +3512,7 @@
         </section>
 
         <!-- Criação de Personagem Section -->
-        <section id="criacao" class="p-100-tb xs-p-60-tb">
+        <section id="criacao" class="p-100-tb xs-p-60-tb blood-glow">
             <div class="container">
                 <div class="text-center m-60-b">
                     <h2 class="section-title centered wow fadeInUp">Criar Personagem</h2>
@@ -3813,7 +3689,7 @@
         <div class="section-divider"></div>
 
         <!-- Contratos Section -->
-        <section id="contratos" class="p-100-tb xs-p-60-tb">
+        <section id="contratos" class="p-100-tb xs-p-60-tb blood-glow">
             <div class="container">
                 <div class="text-center m-60-b">
                     <h2 class="section-title centered wow fadeInUp">Contratos Demoníacos</h2>
@@ -3946,7 +3822,7 @@
         </section>
 
         <!-- Combate Section -->
-        <section id="combate" class="p-100-tb xs-p-60-tb" style="background: var(--cor-fundo-card);">
+        <section id="combate" class="p-100-tb xs-p-60-tb blood-glow-center" style="background: var(--cor-fundo-card);">
             <div class="container">
                 <div class="text-center m-60-b">
                     <h2 class="section-title centered wow fadeInUp">Sistema de Combate</h2>
@@ -4055,7 +3931,7 @@
         </section>
 
         <!-- Armas Section -->
-        <section id="armas" class="p-100-tb xs-p-60-tb">
+        <section id="armas" class="p-100-tb xs-p-60-tb blood-glow">
             <div class="container">
                 <div class="text-center m-60-b">
                     <h2 class="section-title centered wow fadeInUp">Armamento</h2>
@@ -4171,7 +4047,7 @@
         </section>
 
         <!-- Estilos Section -->
-        <section id="estilos" class="p-100-tb xs-p-60-tb" style="background: var(--cor-fundo-card);">
+        <section id="estilos" class="p-100-tb xs-p-60-tb blood-glow" style="background: var(--cor-fundo-card);">
             <div class="container">
                 <div class="text-center m-60-b">
                     <h2 class="section-title centered wow fadeInUp">Estilos de Luta</h2>
@@ -4257,7 +4133,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq" class="p-100-tb xs-p-60-tb">
+        <section id="faq" class="p-100-tb xs-p-60-tb blood-glow-center">
             <div class="container">
                 <div class="text-center m-60-b">
                     <h2 class="section-title centered wow fadeInUp">Perguntas Frequentes</h2>
@@ -4266,90 +4142,137 @@
                     </p>
                 </div>
 
-                <div class="row gap-20 f-items-start">
+                <div class="row gap-20">
                     <div class="c-xs-12 c-md-6">
                         <!-- FAQ Item 1 -->
-                        <div class="card m-20-b wow fadeInUp" data-wow-delay="0.1s" style="height: auto;">
-                            <h4 class="fs-10" style="color: var(--cor-secundaria);">🎲 Quantos dados eu rolo?</h4>
-                            <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                Role <strong style="color: var(--cor-texto);">Xd10</strong> onde X é o valor do seu atributo.
-                                Força 3? Role 3d10. Some todos os resultados. Atributo 0 ainda permite rolar 1d10, mas falhas dão +1 Stress extra.
-                            </p>
+                        <div class="faq-item wow fadeInUp" data-wow-delay="0.1s" id="faq-1">
+                            <div class="faq-header" onclick="toggleFaq('faq-1')">
+                                <div class="left">
+                                    <span class="icon">🎲</span>
+                                    <span class="title">Quantos dados eu rolo?</span>
+                                </div>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="faq-content">
+                                <p>Role <strong>Xd10</strong> onde X é o valor do seu atributo. Força 3? Role 3d10. Some todos os resultados.</p>
+                                <p>Atributo 0 ainda permite rolar 1d10, mas falhas dão <span class="highlight">+1 Stress extra</span>.</p>
+                            </div>
                         </div>
 
                         <!-- FAQ Item 2 -->
-                        <div class="card m-20-b wow fadeInUp" data-wow-delay="0.2s" style="height: auto;">
-                            <h4 class="fs-10" style="color: var(--cor-secundaria);">💀 Meu personagem pode morrer?</h4>
-                            <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                <strong style="color: var(--cor-secundaria);">Sim.</strong> Humanos e Infernais morrem definitivamente.
-                                Híbridos têm a "Recusa da Morte" mas algo fica pra trás. Demônios renascem, mas podem ser apagados pelo Demônio da Motosserra.
-                            </p>
+                        <div class="faq-item wow fadeInUp" data-wow-delay="0.15s" id="faq-2">
+                            <div class="faq-header" onclick="toggleFaq('faq-2')">
+                                <div class="left">
+                                    <span class="icon">💀</span>
+                                    <span class="title">Meu personagem pode morrer?</span>
+                                </div>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="faq-content">
+                                <p><span class="highlight">Sim.</span> Humanos e Infernais morrem definitivamente.</p>
+                                <p>Híbridos têm a "Recusa da Morte" mas algo fica pra trás. Demônios renascem, mas podem ser apagados pelo <strong>Demônio da Motosserra</strong>.</p>
+                            </div>
                         </div>
 
                         <!-- FAQ Item 3 -->
-                        <div class="card m-20-b wow fadeInUp" data-wow-delay="0.3s" style="height: auto;">
-                            <h4 class="fs-10" style="color: var(--cor-secundaria);">📜 O que acontece se eu quebrar um contrato?</h4>
-                            <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                Depende do contrato. Contratos menores podem causar aflições ou perda de poder.
-                                <strong style="color: var(--cor-secundaria);">Contratos de Restrição causam MORTE INSTANTÂNEA.</strong> Demônios sempre cobram.
-                            </p>
+                        <div class="faq-item wow fadeInUp" data-wow-delay="0.2s" id="faq-3">
+                            <div class="faq-header" onclick="toggleFaq('faq-3')">
+                                <div class="left">
+                                    <span class="icon">📜</span>
+                                    <span class="title">O que acontece se eu quebrar um contrato?</span>
+                                </div>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="faq-content">
+                                <p>Depende do contrato. Contratos menores podem causar aflições ou perda de poder.</p>
+                                <p><span class="highlight">Contratos de Restrição causam MORTE INSTANTÂNEA.</span> Demônios sempre cobram.</p>
+                            </div>
                         </div>
 
                         <!-- FAQ Item 4 -->
-                        <div class="card m-20-b wow fadeInUp" data-wow-delay="0.4s" style="height: auto;">
-                            <h4 class="fs-10" style="color: var(--cor-secundaria);">⚡ Como funciona o crítico?</h4>
-                            <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                Quando seu resultado é <strong style="color: var(--cor-texto);">múltiplo de 10</strong> (20, 30, 40...):
-                            </p>
-                            <div class="m-10-t d-flex f-wrap f-gap-5">
-                                <span class="arma-stat">2× = +1 Injúria + Aflição</span>
-                                <span class="arma-stat">3× = +2 Injúrias</span>
-                                <span class="arma-stat">4×+ = Aflição permanente</span>
+                        <div class="faq-item wow fadeInUp" data-wow-delay="0.25s" id="faq-4">
+                            <div class="faq-header" onclick="toggleFaq('faq-4')">
+                                <div class="left">
+                                    <span class="icon">⚡</span>
+                                    <span class="title">Como funciona o crítico?</span>
+                                </div>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="faq-content">
+                                <p>Quando seu resultado é <strong>múltiplo de 10</strong> (20, 30, 40...):</p>
+                                <div class="m-15-t d-flex f-wrap f-gap-5">
+                                    <span class="arma-stat">2× = +1 Injúria + Aflição</span>
+                                    <span class="arma-stat">3× = +2 Injúrias</span>
+                                    <span class="arma-stat">4×+ = Aflição permanente</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="c-xs-12 c-md-6">
                         <!-- FAQ Item 5 -->
-                        <div class="card m-20-b wow fadeInUp" data-wow-delay="0.1s" style="height: auto;">
-                            <h4 class="fs-10" style="color: var(--cor-secundaria);">😱 Preciso fazer Teste de Medo sempre?</h4>
-                            <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                Não sempre. O Mestre decide quando é necessário — geralmente ao encontrar demônios poderosos pela primeira vez.
-                                <strong style="color: var(--cor-texto);">Você escolhe</strong> qual atributo usar para resistir, cada um com efeitos diferentes.
-                            </p>
+                        <div class="faq-item wow fadeInUp" data-wow-delay="0.1s" id="faq-5">
+                            <div class="faq-header" onclick="toggleFaq('faq-5')">
+                                <div class="left">
+                                    <span class="icon">😱</span>
+                                    <span class="title">Preciso fazer Teste de Medo sempre?</span>
+                                </div>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="faq-content">
+                                <p>Não sempre. O Mestre decide quando é necessário — geralmente ao encontrar demônios poderosos pela primeira vez.</p>
+                                <p><strong>Você escolhe</strong> qual atributo usar para resistir, cada um com efeitos diferentes.</p>
+                            </div>
                         </div>
 
                         <!-- FAQ Item 6 -->
-                        <div class="card m-20-b wow fadeInUp" data-wow-delay="0.2s" style="height: auto;">
-                            <h4 class="fs-10" style="color: var(--cor-secundaria);">⛓️ O que são Grilhões?</h4>
-                            <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                <strong style="color: var(--cor-texto);">Exclusivo de Híbridos.</strong> Representam o controle do demônio sobre você.
-                                Cada uso de poder = +1 Grilhão. A cada 5, o demônio pode agir através de você.
-                                15+ = possessão total.
-                            </p>
+                        <div class="faq-item wow fadeInUp" data-wow-delay="0.15s" id="faq-6">
+                            <div class="faq-header" onclick="toggleFaq('faq-6')">
+                                <div class="left">
+                                    <span class="icon">⛓️</span>
+                                    <span class="title">O que são Grilhões?</span>
+                                </div>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="faq-content">
+                                <p><strong>Exclusivo de Híbridos.</strong> Representam o controle do demônio sobre você.</p>
+                                <p>Cada uso de poder = <span class="highlight">+1 Grilhão</span>. A cada 5, o demônio pode agir através de você. 15+ = possessão total.</p>
+                            </div>
                         </div>
 
                         <!-- FAQ Item 7 -->
-                        <div class="card m-20-b wow fadeInUp" data-wow-delay="0.3s" style="height: auto;">
-                            <h4 class="fs-10" style="color: var(--cor-secundaria);">🩸 Como funciona o Sangue?</h4>
-                            <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                Sangue é um recurso que permite <strong style="color: var(--cor-texto);">curar injúrias em combate</strong>.
-                                Usar 1 Sangue diminui 1 grau da maior injúria (Crítica → Grave → Leve → Curado).
-                            </p>
+                        <div class="faq-item wow fadeInUp" data-wow-delay="0.2s" id="faq-7">
+                            <div class="faq-header" onclick="toggleFaq('faq-7')">
+                                <div class="left">
+                                    <span class="icon">🩸</span>
+                                    <span class="title">Como funciona o Sangue?</span>
+                                </div>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="faq-content">
+                                <p>Sangue é um recurso que permite <strong>curar injúrias em combate</strong>.</p>
+                                <p>Usar 1 Sangue diminui 1 grau da maior injúria: <span class="highlight">Crítica → Grave → Leve → Curado</span>.</p>
+                            </div>
                         </div>
 
                         <!-- FAQ Item 8 -->
-                        <div class="card m-20-b wow fadeInUp" data-wow-delay="0.4s" style="height: auto;">
-                            <h4 class="fs-10" style="color: var(--cor-secundaria);">🎭 Qual origem devo escolher?</h4>
-                            <p class="m-15-t" style="color: var(--cor-texto-secundario);">
-                                Depende da história que quer contar:
-                            </p>
-                            <ul style="color: var(--cor-texto-secundario); padding-left: 20px; margin-top: 10px; line-height: 1.6;">
-                                <li><strong style="color: #5DADE2;">Humano:</strong> Drama, sobrevivência, contratos</li>
-                                <li><strong style="color: #E74C3C;">Infernal:</strong> Outsider, aprender humanidade</li>
-                                <li><strong style="color: #9B59B6;">Híbrido:</strong> Conflito interno, poder vs controle</li>
-                                <li><strong style="color: #666;">Demônio:</strong> Ser o monstro, terror</li>
-                            </ul>
+                        <div class="faq-item wow fadeInUp" data-wow-delay="0.25s" id="faq-8">
+                            <div class="faq-header" onclick="toggleFaq('faq-8')">
+                                <div class="left">
+                                    <span class="icon">🎭</span>
+                                    <span class="title">Qual origem devo escolher?</span>
+                                </div>
+                                <span class="arrow">▼</span>
+                            </div>
+                            <div class="faq-content">
+                                <p>Depende da história que quer contar:</p>
+                                <ul style="padding-left: 20px; margin-top: 10px; line-height: 1.8;">
+                                    <li><strong style="color: #5DADE2;">Humano:</strong> Drama, sobrevivência, contratos</li>
+                                    <li><strong style="color: #E74C3C;">Infernal:</strong> Outsider, aprender humanidade</li>
+                                    <li><strong style="color: #9B59B6;">Híbrido:</strong> Conflito interno, poder vs controle</li>
+                                    <li><strong style="color: #666;">Demônio:</strong> Ser o monstro, terror</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4401,93 +4324,50 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-wrapper">
-            <!-- Tabs laterais -->
-            <nav class="footer-tabs">
-                <button class="footer-tab active" data-tab="contato">Contato</button>
-                <button class="footer-tab" data-tab="criador">Criador</button>
-                <button class="footer-tab" data-tab="downloads">Downloads</button>
-                <button class="footer-tab" data-tab="sobre">Sobre</button>
-            </nav>
-
-            <!-- Painéis de conteúdo -->
-            <div class="footer-panels">
-                <!-- Contato -->
-                <div class="footer-panel active" id="panel-contato">
-                    <h3>Entre em Contato</h3>
-                    <p>Dúvidas, sugestões ou quer contribuir? Me encontre aqui:</p>
-                    <div class="footer-social">
-                        <a href="mailto:jonathan.ribeiro.dev@gmail.com">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                            Email
-                        </a>
-                        <a href="https://www.instagram.com/jonathan.rbo/" target="_blank" rel="noopener">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                            Instagram
-                        </a>
-                        <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Citação do Criador -->
-                <div class="footer-panel" id="panel-criador">
-                    <h3>Do Criador</h3>
-                    <blockquote class="footer-quote">
-                        <p>SCAR nasceu da paixão por Chainsaw Man e RPGs de mesa. Cada regra foi pensada para capturar a brutalidade e a emoção do universo original. Espero que vocês se divirtam tanto jogando quanto eu me diverti criando.</p>
-                        <cite>Jonathan Ribeiro</cite>
-                    </blockquote>
-                </div>
-
-                <!-- Downloads -->
-                <div class="footer-panel" id="panel-downloads">
-                    <h3>Downloads</h3>
-                    <p>Baixe os materiais para começar a jogar:</p>
-                    <div class="footer-downloads">
-                        <a href="MANUAL_SCAR.pdf" class="footer-download-item" download>
-                            <span class="download-icon">📄</span>
-                            <div class="download-info">
-                                <strong>Manual Completo</strong>
-                                <span>PDF formatado para impressão</span>
-                            </div>
-                        </a>
-                        <a href="MANUAL_SCAR.md" class="footer-download-item" download>
-                            <span class="download-icon">📝</span>
-                            <div class="download-info">
-                                <strong>Manual Markdown</strong>
-                                <span>Ideal para edição e referência</span>
-                            </div>
-                        </a>
-                    </div>
-                    <p class="m-15-t footer-version">
-                        <span style="color: var(--cor-secundaria);">Versão 1.0</span> • Última atualização: Janeiro 2026
-                    </p>
-                </div>
-
-                <!-- Sobre o Projeto -->
-                <div class="footer-panel" id="panel-sobre">
-                    <h3>Sobre o Projeto</h3>
-                    <p>
-                        <strong style="color: var(--cor-texto);">SCAR</strong> (Sacrificial Contract & Risk) é um RPG de mesa independente, criado por fãs para fãs, sem fins lucrativos.
-                    </p>
-                    <p class="m-15-t">
-                        Inspirado no universo brutal de <strong style="color: var(--cor-secundaria);">Chainsaw Man</strong>, obra de Tatsuki Fujimoto publicada pela Shueisha.
-                    </p>
-                    <p class="m-15-t" style="font-size: 0.85rem; opacity: 0.7;">
-                        Este projeto é uma homenagem e não possui qualquer afiliação oficial com os detentores dos direitos da obra original.
-                    </p>
+    <!-- CTA Section -->
+    <section class="cta-section p-100-tb xs-p-60-tb">
+        <div class="container">
+            <div class="cta-content text-center">
+                <h2 class="cta-title wow fadeInUp">Pronto para <span>assinar o contrato</span>?</h2>
+                <p class="fs-9 m-20-t wow fadeInUp" data-wow-delay="0.1s" style="color: var(--cor-texto-secundario); max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Baixe o manual completo e comece sua jornada no mundo brutal de SCAR.
+                </p>
+                <div class="m-40-t d-flex f-justify-center f-wrap f-gap-15 wow fadeInUp" data-wow-delay="0.2s">
+                    <a href="MANUAL_SCAR.pdf" class="btn btn-primary" download>
+                        📄 Baixar Manual PDF
+                    </a>
+                    <a href="#criacao" class="btn btn-outline">
+                        Criar Personagem
+                    </a>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Copyright -->
-        <div class="footer-copyright">
-            © 2024 SCAR RPG • Feito com 🩸 por fãs, para fãs
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a href="index.html">SCAR</a>
+            <span>Sacrificial Contract & Risk</span>
         </div>
+
+        <div class="footer-links">
+            <a href="#sobre">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                Sobre
+            </a>
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="https://www.instagram.com/jonathan.rbo/" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Instagram
+            </a>
+        </div>
+
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">© 2026 SCAR RPG • Feito com 🩸 por fãs, para fãs</p>
     </footer>
 
     <!-- Squeleton JS (Footer) -->
@@ -4523,21 +4403,10 @@
             new WOW().init();
         }
 
-        // Footer tabs
-        document.querySelectorAll('.footer-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Remove active de todas as tabs
-                document.querySelectorAll('.footer-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.footer-panel').forEach(p => p.classList.remove('active'));
-
-                // Adiciona active na tab clicada
-                this.classList.add('active');
-
-                // Mostra o painel correspondente
-                const panelId = 'panel-' + this.dataset.tab;
-                document.getElementById(panelId).classList.add('active');
-            });
-        });
+        // FAQ Accordion toggle
+        function toggleFaq(id) {
+            document.getElementById(id).classList.toggle('open');
+        }
     </script>
 </body>
 </html>
