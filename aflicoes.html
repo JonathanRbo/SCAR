@@ -44,12 +44,29 @@
             scrollbar-color: var(--cor-principal) var(--cor-fundo);
         }
 
+        /* Animação suave de entrada */
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+                filter: brightness(0.8);
+            }
+            to {
+                opacity: 1;
+                filter: brightness(1);
+            }
+        }
+
         body {
             background: var(--cor-fundo);
             color: var(--cor-texto);
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             min-height: 100vh;
+            animation: pageLoad 0.5s ease-out forwards;
+        }
+
+        body.page-exit {
+            animation: pageLoad 0.3s ease-in reverse forwards;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -59,45 +76,68 @@
 
         /* Header */
         .site-header {
-            background: rgba(10,10,10,0.95);
-            padding: 20px 0;
-            border-bottom: 1px solid var(--cor-borda);
-            position: sticky;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
+            transition: background 0.3s ease;
+        }
+
+        .site-header.scrolled {
+            background: rgba(10,10,10,0.95);
             backdrop-filter: blur(10px);
         }
 
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .logo {
+        .logo-text {
             font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
             color: var(--cor-secundaria);
             text-decoration: none;
-            font-size: 1.6rem;
             letter-spacing: 4px;
         }
-        .nav a {
-            color: var(--cor-texto-soft);
+
+        .nav-link {
+            color: var(--cor-texto);
             text-decoration: none;
-            margin-left: 25px;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: color 0.3s;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+            position: relative;
         }
-        .nav a:hover, .nav a.active { color: var(--cor-accent); }
+
+        .nav-link:hover {
+            color: var(--cor-accent);
+        }
+
+        .nav-link.active {
+            color: var(--cor-accent);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--cor-accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
 
         /* Hero */
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 120px 20px 60px;
             background:
                 radial-gradient(ellipse at center top, rgba(139,0,0,0.15) 0%, transparent 60%),
                 radial-gradient(ellipse at 30% 50%, rgba(220,20,60,0.08) 0%, transparent 50%);
@@ -525,15 +565,14 @@
 </head>
 <body>
 
-    <header class="site-header">
+    <header class="site-header p-15-tb">
         <div class="container">
-            <div class="header-inner">
-                <a href="index.html" class="logo">SCAR</a>
-                <nav class="nav">
-                    <a href="index.html">Inicio</a>
-                    <a href="index.html#criacao">Criacao</a>
-                    <a href="habilidades.html">Habilidades</a>
-                    <a href="aflicoes.html" class="active">Aflicoes</a>
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+                <nav class="d-flex f-items-center f-gap-10">
+                    <a href="index.html" class="nav-link">Início</a>
+                    <a href="habilidades.html" class="nav-link">Habilidades</a>
+                    <a href="aflicoes.html" class="nav-link active">Aflições</a>
                 </nav>
             </div>
         </div>
@@ -1128,6 +1167,20 @@
                 }
             });
         }
+
+        // Transição suave entre páginas
+        document.querySelectorAll('a[href$=".html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#')) {
+                    e.preventDefault();
+                    document.body.classList.add('page-exit');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 250);
+                }
+            });
+        });
     </script>
 
 </body>
