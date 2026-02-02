@@ -127,17 +127,6 @@ Atributo + Habilidade + Xd10 vs Dificuldade
 
 ---
 
-## 📬 Contato
-
-<p align="center">
-  <a href="https://www.instagram.com/jonathan.rbo/">
-    <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram">
-  </a>
-  <a href="https://github.com/JonathanRbo">
-    <img src="https://img.shields.io/badge/GitHub-333?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-  </a>
-</p>
-
 Dúvidas, sugestões ou quer contribuir? Entre em contato!
 
 ---
