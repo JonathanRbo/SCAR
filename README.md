@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="assets/images/logo 2.png" alt="SCAR" width="450">
+  <img src="assets/images/logo2.jpg" alt="SCAR" width="450">
 </h1>
 
 <p align="center">
@@ -133,7 +133,7 @@ Este é um **projeto de fã**, criado para fins de entretenimento e **sem fins l
 ---
 
 <p align="center">
-  <img src="assets/images/logo 1.jpg" alt="SCAR Banner" width="600">
+  <img src="assets/images/logo1.jpg" alt="SCAR Banner" width="600">
 </p>
 
 <p align="center">
