@@ -115,13 +115,6 @@ Atributo + Habilidade + Xd10 vs Dificuldade
       <br>
       <sub>Ideal para edição</sub>
     </td>
-    <td align="center">
-      <a href="index.html">
-        <img src="https://img.shields.io/badge/Site_do_Projeto-8B0000?style=for-the-badge&logo=html5&logoColor=white" alt="Site">
-      </a>
-      <br>
-      <sub>Versão web completa</sub>
-    </td>
   </tr>
 </table>
 
