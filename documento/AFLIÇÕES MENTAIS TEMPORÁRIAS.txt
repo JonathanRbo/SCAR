@@ -1,0 +1,309 @@
+
+**Duração:** 1d3 rodadas (ou até recuperar Stress)
+
+### COLAPSO PSICOLÓGICO (01-15)
+01 – **Negação Total:** Fecha os olhos gritando "isso é só um sonho!"
+    *Debuff:* -3d10 em Percepção, não pode atacar (só defende)
+
+02 – **Fuga da Realidade:** Foge em pânico descontrolado
+    *Debuff:* Deve fugir da ameaça, -2d10 em todos os testes enquanto foge
+
+03 – **Riso Histérico:** Gargalha de desespero incontrolavelmente
+    *Debuff:* -2d10 em Malandragem, revela posição automaticamente
+
+04 – **Congelamento Mental:** Medo incontrolável, mente paralisa
+    *Debuff:* Perde 1 ação por rodada, -2d10 em testes mentais
+
+05 – **Amnésia Súbita:** Esquece momentaneamente quem é
+    *Debuff:* -3d10 em Investigação e Vínculo, não reconhece aliados
+
+06 – **Regressão Infantil:** Reverte mentalmente para criança
+    *Debuff:* Todos atributos mentais -2d10, não pode usar poderes complexos
+
+07 – **Apatia Mortal:** Depressão súbita, desiste de tudo
+    *Debuff:* Não pode gastar Stress voluntariamente, -2d10 em ataques
+
+08 – **Lamento Infinito:** Chora compulsivamente, incapaz de agir
+    *Debuff:* Perde todas as ações, só pode se defender com metade dos dados
+
+09 – **Desespero Absoluto:** Grita "tudo está perdido!"
+    *Debuff:* -2d10 em Autoridade, aliados próximos ganham +1 Stress
+
+10 – **Memória Traumática:** Revive cena dolorosa da infância vividamente
+    *Debuff:* -2d10 em todos os testes, +2 Stress por rodada
+
+11 – **Sugestionável:** Perde vontade própria, obedece qualquer ordem
+    *Debuff:* Deve obedecer primeira ordem recebida, não pode resistir
+
+12 – **Dissociação:** Se desliga do presente, vive memória feliz
+    *Debuff:* Age aleatoriamente (Mestre decide), ignora perigo real
+
+13 – **Fuga Mental Divina:** Vê luz e sorri, imóvel
+    *Debuff:* Não pode se mover ou agir, imune a dor mas vulnerável
+
+14 – **Amnésia de Identidade:** Esquece completamente quem é
+    *Debuff:* Não pode usar poderes, -3d10 em todos atributos mentais
+
+15 – **Terror Existencial:** Certeza absoluta da própria morte iminente
+    *Debuff:* -3d10 em Vigor e Vínculo, +2 Stress ao ver sangue
+
+### VISÕES E ALUCINAÇÕES (16-30)
+16 – **Marca Fantasma:** Vê corentes queimando em seu corpo
+    *Debuff:* -2d10 em Coordenação, +1 Stress por rodada
+
+17 – **Presença dos Mortos:** Vê ente falecido acenando ao longe
+    *Debuff:* -2d10 em Vínculo, pode seguir a aparição ignorando perigo
+
+18 – **Transformação Corporal:** Vê braços virando tentáculos
+    *Debuff:* -3d10 em ações com os braços, pode atacar aliados
+
+19 – **Aliados Mortos-Vivos:** Vê aliados como cadáveres ambulantes
+    *Debuff:* -2d10 ao ajudar aliados, +1 Stress ao tocar neles
+
+20 – **Aliados Demoníacos:** Vê aliados como demônios horrendos
+    *Debuff:* Pode atacar aliados confundindo com inimigos, teste de Vínculo para evitar
+
+21 – **Autopsia Viva:** Vê suas tripas saindo do corpo
+    *Debuff:* -3d10 em Vigor, tenta "colocar tripas de volta"
+
+22 – **Pele Derretendo:** Vê a pele caindo em pedaços
+    *Debuff:* -2d10 em todos os testes físicos, arranha o próprio corpo
+
+23 – **Sangramento Fantasma:** Vê sangue jorrando dos olhos
+    *Debuff:* -3d10 em Percepção, cobre os olhos desesperadamente
+
+24 – **Infestação Visual:** Vê insetos saindo da boca e orelhas
+    *Debuff:* -2d10 em Malandragem, cospe e sacode a cabeça constantemente
+
+25 – **Possessão Demoníaca:** Acha que a mão está possuída por algum demonio
+    *Debuff:* Não pode usar uma mão, pode tentar automutilar
+
+26 – **Decomposição:** Tem visão da própria morte
+    *Debuff:* -3d10 em todos os testes, age como se já estivesse morto
+
+27 – **Premonição do Apocalipse:** Visão do fim do mundo em chamas
+    *Debuff:* -2d10 em testes mentais, fica paralisado de horror
+
+28 – **Leviatãs Emergindo:** Vê criaturas gigantes saindo dos mares
+    *Debuff:* -3d10 em Autoridade, grita alertas sobre monstros inexistentes
+
+29 – **Porta do Inferno:** Vê Porta para o Inferno se abrindo
+    *Debuff:* -2d10 em todos os testes, +2 Stress, pode tentar fugir da porta
+
+30 – **Revelação do Medo:** Vê seu próprio medo se materializando
+    *Debuff:* Teste de Medo adicional, -3d10 até passar
+
+### DISTORÇÃO DE PERCEPÇÃO (31-45)
+31 – **Hiperacusia:** Sons ficam ensurdecedores e insuportáveis
+    *Debuff:* -3d10 em Percepção, cobre os ouvidos, sons causam +1 Stress
+
+32 – **Hiperosmia:** Cheiros ficam nauseantes
+    *Debuff:* -2d10 em Percepção e Vigor, pode vomitar
+
+33 – **Saturação Visual:** Cores fortíssimas, não abre os olhos
+    *Debuff:* -4d10 em Percepção e Coordenação, age quase cego
+
+34 – **Monocromia:** Vê tudo em preto e branco
+    *Debuff:* -2d10 em Percepção, dificuldade em distinguir detalhes
+
+35 – **Neblina Mental:** Visão enevoada, tudo nebuloso
+    *Debuff:* -3d10 em Percepção e Coordenação
+
+36 – **Batidas Cardíacas:** Escuta coração como trovões
+    *Debuff:* -2d10 em Percepção, +1 Stress por rodada
+
+37 – **Mundo Líquido:** Acha que o chão está derretendo
+    *Debuff:* -3d10 em Coordenação, perde ação de movimento
+
+38 – **Devoração Fantasma:** Acha que algo devora seu corpo
+    *Debuff:* -2d10 em todos os testes, +2 Stress por rodada
+
+39 – **Marimbondos Cerebrais:** Insetos tentando sair da cabeça
+    *Debuff:* -3d10 em Investigação, bate na própria cabeça
+
+40 – **Pés Colados:** Acredita estar preso ao chão
+    *Debuff:* Não pode se mover, -2d10 em testes físicos
+
+41 – **Vertigem Mental:** Mundo gira como turbilhão
+    *Debuff:* -3d10 em Coordenação, cai ao tentar se mover rápido
+
+42 – **Sinestesia Caótica:** Sentidos trocam de lugar
+    *Debuff:* -2d10 em Percepção e Investigação, confusão sensorial
+
+43 – **Eco Mental:** Pensamentos repetem infinitamente
+    *Debuff:* -2d10 em Investigação e Tecnologia, não consegue focar
+
+44 – **Dupla Visão:** Vê tudo duplicado e distorcido
+    *Debuff:* -3d10 em Coordenação e Percepção
+
+45 – **Tempo Congelado:** Sente que o tempo parou
+    *Debuff:* Perde 1 ação por rodada, -2d10 em iniciativa
+
+### DELÍRIOS E MANIA (46-60)
+46 – **Onipotência:** Mania de ser poderoso e imortal
+    *Debuff:* Não se defende adequadamente, ignora ferimentos, +2 Stress ao falhar
+
+47 – **Confusão de Identidade:** Não reconhece aliados
+    *Debuff:* -3d10 em Vínculo, pode atacar aliados por engano
+
+48 – **Família Fantasma:** Vê aliados como membros da família
+    *Debuff:* -2d10 em Autoridade, protege "familiares" obsessivamente
+
+49 – **Inversão de Alianças:** Reconhece inimigo como amigo
+    *Debuff:* Pode ajudar inimigos, -3d10 em Percepção
+
+50 – **Possessão Mental:** Acredita ser um demônio carnívoro
+    *Debuff:* Ataca tudo que vê como "presa", teste de Vínculo para evitar
+
+51 – **Messias Delirante:** Acha que deve salvar o mundo
+    *Debuff:* Age imprudentemente, -2d10 em testes táticos
+
+52 – **Perseguição Paranóica:** Todos querem matá-lo
+    *Debuff:* -3d10 em Vínculo, ataca quem se aproxima
+
+53 – **Controle Remoto:** Acha que está sendo controlado
+    *Debuff:* Resiste a ordens de aliados, -2d10 em Autoridade
+
+54 – **Realidade Simulada:** Acredita estar em uma ilusão
+    *Debuff:* Não leva perigos a sério, ignora ferimentos (-2d10 em Vigor)
+
+55 – **Profecia Falsa:** Acredita ter visões do futuro
+    *Debuff:* Age baseado em "visões", -2d10 em Investigação
+
+56 – **Transmutação:** Acha que está virando demônio
+    *Debuff:* -2d10 em todos os testes, +1 Stress por rodada
+
+57 – **Corpo Estranho:** Não reconhece próprio corpo
+    *Debuff:* -3d10 em Coordenação, age descoordenadamente
+
+58 – **Morte Iminente:** Certeza de que morrerá nos próximos segundos
+    *Debuff:* -3d10 em todos os testes, pode tentar "última ação" suicida
+
+59 – **Imortalidade Ilusória:** Acha que não pode morrer
+    *Debuff:* Não se defende, ignora dano, sofre Injúrias mais facilmente
+
+60 – **Dualidade:** Acredita ter duas consciências
+    *Debuff:* Ações aleatórias, -2d10 em Investigação, conversa sozinho
+
+### PERDA DE CONTROLE (61-75)
+61 – **Logorréia:** Fala rápido e sem sentido
+    *Debuff:* -2d10 em Malandragem, revela posição, não pode ficar quieto
+
+62 – **Glossolalia:** Fala em língua inventada
+    *Debuff:* Não pode se comunicar, -3d10 em Negociação
+
+63 – **Amnésia Linguística:** Esquece o idioma que fala
+    *Debuff:* Não pode se comunicar, -2d10 em Investigação
+
+64 – **Conversa Interna:** Conversa consigo mesmo compulsivamente
+    *Debuff:* -2d10 em Percepção, aliados ficam perturbados (+1 Stress)
+
+65 – **Oração Compulsiva:** Reza sem parar
+    *Debuff:* Perde 1 ação por rodada, -2d10 em ações ofensivas
+
+66 – **Oração Desesperada:** Implora perdão de joelhos
+    *Debuff:* Não pode se mover ou atacar, só defende com metade dos dados
+
+67 – **Canção Infantil:** Canta música de infância chorando
+    *Debuff:* -2d10 em Malandragem e Autoridade, revela posição
+
+68 – **Movimento Circular:** Anda em círculos falando
+    *Debuff:* Não controla direção de movimento, -2d10 em Coordenação
+
+69 – **Abraço Protetor:** Abraça aliado sem largar
+    *Debuff:* Imobiliza aliado e a si mesmo, ambos com -3d10
+
+70 – **Abraço Pesadelo:** Abraça-se gritando sobre pesadelos
+    *Debuff:* Não pode agir, +1 Stress por rodada
+
+71 – **Impulso Suicida:** Vontade incontrolável de se matar
+    *Debuff:* Teste de Vínculo para resistir, pode se ferir intencionalmente
+
+72 – **Impulso Homicida:** Vontade de matar aliados
+    *Debuff:* Teste de Vínculo para resistir, -2d10 ao resistir impulso
+
+73 – **Frenesi Mental:** Raiva descontrolada
+    *Debuff:* Ataca tudo próximo, +2d10 em ataques mas -3d10 em defesa
+
+74 – **Catatonia:** Fica imóvel, olhar vazio
+    *Debuff:* Não pode agir, não reage a dano ou estímulos
+
+75 – **Ecolalia:** Repete últimas palavras ouvidas
+    *Debuff:* Não pode falar normalmente, -2d10 em Negociação
+
+### TRANSTORNOS EXTREMOS (76-90)
+76 – **Fobia Instantânea:** Desenvolve medo paralisante de algo
+    *Debuff:* -3d10 ao enfrentar gatilho da fobia, +2 Stress
+
+77 – **Claustrofobia Aguda:** Sente estar sendo esmagado
+    *Debuff:* -2d10 em todos os testes, deve tentar sair de espaços fechados
+
+78 – **Agorafobia:** Terror de espaços abertos
+    *Debuff:* -3d10 em espaços abertos, tenta encontrar cobertura
+
+79 – **Hemofobia:** Pânico ao ver sangue
+    *Debuff:* Teste de Vigor ao ver sangue, falha causa +2 Stress
+
+80 – **Espelhamento:** Imita comportamento dos outros
+    *Debuff:* Não age de forma independente, copia ações próximas
+
+81 – **Fixação:** Foca obsessivamente em objeto/pessoa
+    *Debuff:* -3d10 em ações não relacionadas à fixação
+
+82 – **Compulsão de Contagem:** Conta tudo compulsivamente
+    *Debuff:* -2d10 em Percepção e Coordenação, perde tempo contando
+
+83 – **Ritual Obsessivo:** Repete ação específica sem parar
+    *Debuff:* Perde 1 ação por rodada para ritual
+
+84 – **Pensamento Mágico:** Acredita que pensamentos alteram realidade
+    *Debuff:* Age baseado em superstições, -2d10 em Investigação
+
+85 – **Despersonalização:** Sente-se desconectado de si mesmo
+    *Debuff:* -2d10 em todos os testes, age como espectador
+
+86 – **Desrealização:** Mundo parece irreal e falso
+    *Debuff:* -3d10 em Percepção, não leva perigo a sério
+
+87 – **Transe:** Entra em estado alterado de consciência
+    *Debuff:* Age no "piloto automático", Mestre controla ações
+
+88 – **Sonambulismo:** Age como se estivesse dormindo
+    *Debuff:* -3d10 em todos os testes, movimentos lentos
+
+89 – **Estupor:** Não responde a estímulos externos
+    *Debuff:* Não pode agir voluntariamente, -4d10 em defesa
+
+90 – **Alucinação Contextual:** Alucinação ligada ao trauma
+    *Debuff:* -2d10 em Percepção, reage a ameaças inexistentes
+
+### COLAPSO FINAL (91-100)
+91 – **Mutismo Seletivo:** Incapaz de falar com certas pessoas
+    *Debuff:* Não pode se comunicar com pessoas específicas, -2d10 em Vínculo
+
+92 – **Bloqueio Mental:** Mente desliga completamente
+    *Debuff:* Todos atributos mentais -4d10, age instintivamente
+
+93 – **Esquizofrenia Temporária:** Ouve vozes comandando
+    *Debuff:* Pode obedecer vozes hostis, teste de Vínculo para resistir
+
+94 – **Bipolaridade Aguda:** Oscila entre euforia e desespero
+    *Debuff:* Alterna entre +2d10 ataques/-2d10 defesa e vice-versa por rodada
+
+95 – **Anedonia Total:** Incapaz de sentir qualquer emoção
+    *Debuff:* Não pode gastar Stress, -3d10 em Vínculo
+
+96 – **Empatia Extrema:** Sente dor de todos ao redor
+    *Debuff:* +1 Stress por Injúria que aliados sofrem
+
+97 – **Solidão Absoluta:** Sente que está completamente só
+    *Debuff:* -3d10 em Vínculo, ignora aliados
+
+98 – **Fusão Mental:** Confunde sua mente com a de outros
+    *Debuff:* Não distingue pensamentos próprios, -3d10 em Investigação
+
+99 – **Fragmentação:** Personalidade se divide em partes
+    *Debuff:* Age com personalidades diferentes, -2d10 em todos os testes
+
+100 – **Aflição Mental Única:** Mestre cria aflição personalizada
+    *Debuff:* Mestre define debuff apropriado ao trauma

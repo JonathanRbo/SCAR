@@ -1,0 +1,309 @@
+
+**Duração:** 1d3 rodadas (ou até receber tratamento/usar Sangue)
+
+### COLAPSO CORPORAL (01-15)
+01 – **Desmaio Súbito:** Desmaia imediatamente, corpo cede
+    *Debuff:* Inconsciente por 1 rodada, perde todas as ações
+
+02 – **Grito Paralisante:** Grita sem parar, imobilizado
+    *Debuff:* Não pode se mover, -3d10 em Coordenação, revela posição
+
+03 – **Posição Fetal:** Cai no chão em posição fetal
+    *Debuff:* Não pode atacar, -2d10 em defesa, não se move
+
+04 – **Tremores Violentos:** Corpo treme incontrolavelmente
+    *Debuff:* -4d10 em Coordenação, não pode segurar objetos
+
+05 – **Convulsão:** Ataque epiléptico, cai no chão
+    *Debuff:* Incapacitado, solta tudo que segura, sofre 1 Injúria Leve
+
+06 – **Rigidez Cadavérica:** Corpo fica rígido como estátua
+    *Debuff:* Não pode se mover, -4d10 em Coordenação
+
+07 – **Colapso Muscular:** Músculos cedem, não sustenta peso
+    *Debuff:* Cai, não pode ficar em pé, -3d10 em Força
+
+08 – **Espasmos:** Músculos contraem e relaxam violentamente
+    *Debuff:* -3d10 em Coordenação e Força, ações imprevisíveis
+
+09 – **Câimbras Generalizadas:** Câimbras em todo o corpo
+    *Debuff:* -2d10 em todos os testes físicos, +1 Stress por rodada
+
+10 – **Letargia Extrema:** Corpo pesa toneladas, mal se move
+    *Debuff:* Perde 2 ações por rodada, -3d10 em Vigor
+
+11 – **Hiperventilação:** Respira rápido e descontroladamente
+    *Debuff:* -2d10 em Vigor e Coordenação, pode desmaiar
+
+12 – **Apneia:** Para de respirar por segundos
+    *Debuff:* +2 Stress, -3d10 em todos os testes, sufocando
+
+13 – **Taquicardia:** Coração dispara perigosamente
+    *Debuff:* -2d10 em Vigor, +1 Stress por rodada, risco de desmaio
+
+14 – **Bradicardia:** Coração desacelera drasticamente
+    *Debuff:* -3d10 em Coordenação, movimentos lentos
+
+15 – **Choque Corporal:** Corpo entra em estado de choque
+    *Debuff:* -3d10 em todos os testes físicos, +2 Stress
+
+### PERDA SENSORIAL (16-30)
+16 – **Mudez Total:** Perde completamente a fala
+    *Debuff:* Não pode falar ou fazer sons, -3d10 em Negociação
+
+17 – **Surdez Súbita:** Perde completamente a audição
+    *Debuff:* -4d10 em Percepção, não ouve ordens ou avisos
+
+18 – **Cegueira Temporária:** Perde completamente a visão
+    *Debuff:* -5d10 em Coordenação e Percepção, age às cegas
+
+19 – **Anestesia Corporal:** Corpo anestesiado, sem sensações
+    *Debuff:* -3d10 em Coordenação, não sente ferimentos (ignora Injúrias mas pioram)
+
+20 – **Paralisia dos Braços:** Perde movimento dos braços
+    *Debuff:* Não pode usar braços, solta tudo que segura, -5d10 em Força
+
+21 – **Paralisia das Pernas:** Perde movimento das pernas
+    *Debuff:* Não pode se mover, cai se estiver em pé, -5d10 em Vigor
+
+22 – **Hemiplegia Direita:** Lado direito paralisado
+    *Debuff:* Metade do corpo paralisa, -4d10 em todos os testes físicos
+
+23 – **Hemiplegia Esquerda:** Lado esquerdo paralisado
+    *Debuff:* Metade do corpo paralisa, -4d10 em todos os testes físicos
+
+24 – **Perda de Equilíbrio:** Incapaz de ficar em pé
+    *Debuff:* Cai, -3d10 em Coordenação, movimentos erráticos
+
+25 – **Perda de Tato:** Não sente nada ao tocar
+    *Debuff:* -3d10 em Coordenação para ações delicadas, não sente dor
+
+26 – **Perda de Olfato:** Não sente cheiros
+    *Debuff:* -2d10 em Percepção, não detecta gases ou fogo
+
+27 – **Perda de Paladar:** Não sente sabores
+    *Debuff:* -1d10 em Percepção, pode ingerir veneno sem notar
+
+28 – **Perda de Propriocepção:** Não sabe onde membros estão
+    *Debuff:* -4d10 em Coordenação, movimentos descoordenados
+
+29 – **Perda de Temperatura:** Não sente frio nem calor
+    *Debuff:* -2d10 em Percepção, pode se queimar ou congelar
+
+30 – **Dormência Total:** Todo corpo dormente
+    *Debuff:* -3d10 em todos os testes físicos, não sente ferimentos
+
+### DOR E TORMENTO (31-45)
+31 – **Dor Cerebral:** Dores de cabeça enlouquecedoras
+    *Debuff:* -3d10 em Investigação e Percepção, +2 Stress
+
+32 – **Choque Neural:** Choques elétricos pelo corpo
+    *Debuff:* -2d10 em Coordenação, espasmos aleatórios
+
+33 – **Queimadura Fantasma:** Sente corpo pegando fogo
+    *Debuff:* -3d10 em Vigor, tenta apagar "chamas" inexistentes
+
+34 – **Infestação Subcutânea:** Sente insetos sob a pele
+    *Debuff:* -2d10 em todos os testes, arranha o próprio corpo
+
+35 – **Calafrios Extremos:** Calafrios fazem corpo tremer
+    *Debuff:* -2d10 em Coordenação, +1 Stress por rodada
+
+36 – **Dor Muscular:** Músculos doem como se rasgassem
+    *Debuff:* -3d10 em Força e Vigor
+
+37 – **Dor Óssea:** Ossos doem profundamente
+    *Debuff:* -2d10 em todos os testes físicos
+
+38 – **Dor Visceral:** Órgãos internos doem intensamente
+    *Debuff:* -3d10 em Vigor, pode vomitar (perde 1 ação)
+
+39 – **Dor Fantasma:** Dor em partes que não existem
+    *Debuff:* -2d10 em Coordenação, +1 Stress
+
+40 – **Neuralgia:** Dor nos nervos, aguda e lancinante
+    *Debuff:* -3d10 em Coordenação, +2 Stress
+
+41 – **Enxaqueca:** Dor de cabeça pulsante e cegante
+    *Debuff:* -4d10 em Percepção e Investigação
+
+42 – **Dor Ocular:** Olhos doem como se fossem furados
+    *Debuff:* -4d10 em Percepção, fecha os olhos
+
+43 – **Dor Dentária:** Todos os dentes doem simultaneamente
+    *Debuff:* -2d10 em todos os testes, +1 Stress
+
+44 – **Dor Articular:** Todas as juntas doem e rangem
+    *Debuff:* -3d10 em Coordenação e Força
+
+45 – **Dor Total:** Cada célula do corpo está em agonia
+    *Debuff:* -4d10 em todos os testes físicos, +3 Stress por rodada
+
+### DEFORMAÇÃO TEMPORÁRIA (46-60)
+46 – **Língua Enrolada:** Língua se enrosca, dificulta respirar
+    *Debuff:* -2d10 em Vigor, não pode falar, +1 Stress
+
+47 – **Mandíbula Trancada:** Trava os dentes com força
+    *Debuff:* Não pode falar ou comer, -1d10 em Vigor
+
+48 – **Pescoço Rígido:** Pescoço trava em posição
+    *Debuff:* -3d10 em Percepção e Coordenação
+
+49 – **Dedos Retorcidos:** Dedos se retorcem em ângulos estranhos
+    *Debuff:* -4d10 ao usar mãos, não segura objetos, -3d10 em Coordenação
+
+50 – **Coluna Curvada:** Coluna se curva dolorosamente
+    *Debuff:* -3d10 em Força e Coordenação, movimentos limitados
+
+51 – **Ombros Deslocados:** Ombros saem parcialmente do lugar
+    *Debuff:* -4d10 ao usar braços, -2d10 em Força, +2 Stress
+
+52 – **Joelhos Invertidos:** Joelhos dobram para trás
+    *Debuff:* Não pode ficar em pé, -5d10 em movimento, sofre 1 Injúria Leve
+
+53 – **Tornozelos Torcidos:** Tornozelos viram para dentro
+    *Debuff:* -4d10 em Coordenação ao andar, risco de queda
+
+54 – **Cotovelos Travados:** Cotovelos ficam presos esticados
+    *Debuff:* -3d10 ao usar braços, não flexiona cotovelos
+
+55 – **Pulsos Quebrados:** Pulsos dobram em ângulos errados
+    *Debuff:* -4d10 ao usar mãos, -3d10 em Coordenação, +2 Stress
+
+56 – **Costelas Rachadas:** Sente costelas se partindo
+    *Debuff:* -3d10 em Vigor, respirar causa dor (+1 Stress por rodada)
+
+57 – **Quadril Deslocado:** Quadril sai do lugar
+    *Debuff:* Não pode andar normalmente, -4d10 em Coordenação, -2d10 em Vigor
+
+58 – **Face Distorcida:** Músculos faciais se contorcem
+    *Debuff:* -3d10 em Negociação e Vínculo, +1 Stress
+
+59 – **Olhos Giratórios:** Olhos giram descontroladamente
+    *Debuff:* -4d10 em Percepção e Coordenação
+
+60 – **Pálpebras Invertidas:** Pálpebras viram para dentro
+    *Debuff:* -3d10 em Percepção, dor constante (+1 Stress por rodada)
+
+### AUTO-LESÃO (61-75)
+61 – **Arranhar Face:** Arranha face até sangrar
+    *Debuff:* Sofre 1 Injúria Leve, -1d10 em Negociação
+
+62 – **Arrancar Cabelos:** Arranca cabelos compulsivamente
+    *Debuff:* -2d10 em Coordenação, +1 Stress
+
+63 – **Arrancar Olhos:** Tenta arrancar os próprios olhos
+    *Debuff:* Sofre 1 Injúria Grave se conseguir, -4d10 em Percepção
+
+64 – **Automutilar Mão:** Tenta arrancar a própria mão
+    *Debuff:* Sofre 1 Injúria Grave, pode perder uso da mão, -5d10 em Coordenação
+
+65 – **Morder Língua:** Morde a própria língua até sangrar
+    *Debuff:* Sofre 1 Injúria Leve, -2d10 em fala e Negociação
+
+66 – **Morder Lábios:** Morde lábios até rasgar
+    *Debuff:* Sofre 1 Injúria Leve, sangramento visível
+
+67 – **Morder Mãos:** Morde as próprias mãos
+    *Debuff:* Sofre 1 Injúria Leve, -2d10 ao usar mãos, -1d10 em Coordenação
+
+68 – **Bater Cabeça:** Bate cabeça contra parede repetidamente
+    *Debuff:* Sofre 1 Injúria Grave, -3d10 em Percepção e Investigação
+
+69 – **Socar Peito:** Soca próprio peito tentando parar coração
+    *Debuff:* Sofre 1 Injúria Leve, -2d10 em Vigor
+
+70 – **Estrangular-se:** Tenta estrangular a si mesmo
+    *Debuff:* +2 Stress, -3d10 em todos os testes, sufocando
+
+71 – **Arranhar Corpo:** Arranha todo o corpo
+    *Debuff:* Sofre 1 Injúria Leve, -1d10 em todos os testes físicos
+
+72 – **Puxar Orelhas:** Puxa orelhas com força
+    *Debuff:* -2d10 em Percepção, +1 Stress
+
+73 – **Bater no Rosto:** Bate no próprio rosto repetidamente
+    *Debuff:* Sofre 1 Injúria Leve, -2d10 em Percepção
+
+74 – **Torcer Membros:** Torce braços e pernas
+    *Debuff:* -3d10 ao usar membros torcidos, -2d10 em Coordenação, +2 Stress
+
+75 – **Rasgar Pele:** Tenta rasgar a própria pele
+    *Debuff:* Sofre 1 Injúria Grave, sangramento intenso, -3d10 em Vigor
+
+### REAÇÕES VIOLENTAS (76-90)
+76 – **Vômito Incontrolável:** Vomita tudo do estômago
+    *Debuff:* Perde 1 ação, -2d10 em Vigor
+
+77 – **Sangramento Nasal:** Sangra pelo nariz abundantemente
+    *Debuff:* -1d10 em Percepção, +1 Stress
+
+78 – **Sangramento Ocular:** Lágrimas de sangue
+    *Debuff:* -3d10 em Percepção, +2 Stress
+
+79 – **Sangramento Auricular:** Sangra pelos ouvidos
+    *Debuff:* -2d10 em Percepção, +1 Stress
+
+80 – **Tosse de Sangue:** Tosse sangue violentamente
+    *Debuff:* -2d10 em Vigor, +2 Stress, pode sufocar
+
+81 – **Suor de Sangue:** Poros suam sangue
+    *Debuff:* -2d10 em todos os testes, +2 Stress
+
+82 – **Urinar Involuntariamente:** Perde controle da bexiga
+    *Debuff:* -2d10 em Autoridade, +1 Stress
+
+83 – **Defecar Involuntariamente:** Perde controle intestinal
+    *Debuff:* -3d10 em Autoridade e Vínculo, +2 Stress
+
+84 – **Espumar:** Espuma sai da boca
+    *Debuff:* -2d10 em Vigor, +1 Stress
+
+85 – **Babar:** Baba escorre sem controle
+    *Debuff:* -1d10 em Negociação
+
+86 – **Lágrimas Contínuas:** Chora lágrimas sem parar
+    *Debuff:* -2d10 em Percepção
+
+87 – **Suor Frio:** Sua frio copiosamente
+    *Debuff:* -1d10 em Coordenação, +1 Stress
+
+88 – **Febre Súbita:** Temperatura dispara instantaneamente
+    *Debuff:* -3d10 em todos os testes físicos, +2 Stress
+
+89 – **Hipotermia:** Temperatura corporal cai drasticamente
+    *Debuff:* -3d10 em Coordenação e Vigor, tremores incontroláveis
+
+90 – **Pulso Ausente:** Pulso quase desaparece
+    *Debuff:* -4d10 em Vigor, +3 Stress, perto da morte
+
+### COLAPSO FINAL (91-100)
+91 – **Tique Facial:** Tique nervoso domina a face
+    *Debuff:* -2d10 em Negociação e Percepção
+
+92 – **Tremor Generalizado:** Sua, pisca e treme sem parar
+    *Debuff:* -3d10 em Coordenação, +1 Stress
+
+93 – **Agarra Orelhas:** Aperta orelhas com força, grita
+    *Debuff:* -3d10 em Percepção, não usa as mãos
+
+94 – **Grito Silencioso:** Abre boca gritando sem som
+    *Debuff:* -2d10 em Vigor, não pode respirar direito
+
+95 – **Cegueira Parcial:** Visão turva, quase não enxerga
+    *Debuff:* -4d10 em Percepção e Coordenação
+
+96 – **Paralisia Facial:** Metade do rosto paralisa
+    *Debuff:* -3d10 em Negociação, dificulta fala
+
+97 – **Ataque Animal:** Urra como animal, morde quem tocar
+    *Debuff:* Ataca aliados próximos, +2d10 em ataques corpo a corpo mas -3d10 em defesa
+
+98 – **Frenesi Físico:** Ataca tudo violentamente
+    *Debuff:* Ataca indiscriminadamente, +3d10 em Força mas -4d10 em defesa
+
+99 – **Catalepsia:** Corpo congela em posição estranha
+    *Debuff:* Completamente imóvel, consciente mas não pode agir
+
+100 – **Aflição Física Única:** Mestre cria aflição personalizada
+    *Debuff:* Mestre define debuff apropriado ao trauma físico

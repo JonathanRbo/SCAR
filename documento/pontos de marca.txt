@@ -1,0 +1,1393 @@
+Origens e seus custos
+
+# **CUSTOS DAS ORIGENS**
+Os valores não são fixos podendo pechinchar pois existem habilidades mais fracas e mais fortes
+-------
+
+# **HUMANO**
+- Habilidade Geral: 2 PM
+- Habilidade de Origem Humano: 2 PM
+- Novo Contrato Menor: 2 PM
+- Novo Contrato Médio: 3 PM
+- Novo Contrato Maior: 4 PM
+- Evolução de Contrato: 2 PM
+- +1 Injúria Leve Máx.: 2 PM
+- +1 Injúria Grave Máx.: 3 PM
+- +1 atributo: 4 PM
+
+
+# **INFERNAL**
+- Novo Poder Demoníaco: 3 PM
+- Habilidade Geral: 2 PM
+- Habilidade de Origem Infernal: 2 PM
+- Evolução de Poder: 3 PM
+- Transformação Parcial: 4 PM
+- Transformação Completa: 6 PM
+- +1 Injúria Leve Máx.: 3 PM
+- +1 Injúria Grave Máx.: 4 PM
+- +1 atributo: 4 PM
+
+
+# **HÍBRIDO**
+- Novo Poder Demoníaco: 3 PM
+- Habilidade Geral: 2 PM
+- Habilidade de Origem Híbrida: 2 PM
+- Evolução de Poder: 2 PM
+- Novo Contrato Menor: 3 PM
+- Novo Contrato Médio: 4 PM
+- Novo Contrato Maior: 5 PM
+- Transformação Completa: 6 PM
+- +1 atributo: 5 PM
+- +1 Injúria Leve Máx.: 3 PM
+- +1 Injúria Grave Máx.: 4 PM
+
+
+Habilidades de origem
+
+# **HUMANO — PODER DE ORIGEM**
+
+**Treinamento Tático**
+Requisito: Coordenação 2
++1d10 em ações defensivas quando você se prepara no turno anterior
+Passivo
+
+**Sangue Frio**
+Requisito: Vigor 2
+A primeira falha da cena não gera Stress adicional
+Passivo
+
+**Última Bala**
+Requisito: Vigor 4
+Uma vez por missão, age normalmente mesmo incapacitado (1 cena completa)
+Passivo
+
+**Instinto de Sobrevivência**
+Requisito: Vigor 3
+Quando sofreria Injúria Grave, pode convertê-la em 2 Injúrias Leves
+Custo: 2 Stress (1 vez por combate)
+
+**Mira Calculada**
+Requisito: Percepção 2, Coordenação 2
+Se observar alvo por 1 turno, próximo ataque à distância ganha +1d10 e ignora cobertura parcial
+Passivo
+
+**Combate Sujo**
+Requisito: Malandragem 3
+Pode usar Malandragem no lugar de Força em ataques corpo a corpo improvisados
+Passivo
+
+**Fôlego de Guerra**
+Requisito: Vigor 3
+Uma vez por cena, ao chegar a 0 Stress, recupera 1d10 Stress imediatamente
+Passivo
+
+**Uso Criativo de Armas**
+Requisito: Tecnologia 2
+Pode usar armas de forma não convencional (alavanca, escudo, distração) sem penalidade
+Passivo
+
+**Postura de Comando**
+Requisito: Autoridade 3
+Gastando 2 Stress, concede +1d10 a até dois aliados na mesma rodada
+Custo: 2 Stress
+
+**Não Vou Cair Aqui** (CUSTO: 3 PM)
+Requisito: Vigor 5
+Quando sofreria morte certa, permanece vivo por 1 cena inteira
+⚠️ Após o evento: Ganha 1 Aflição permanente obrigatória
+Limite: 1 vez por arco
+
+**Veterano de Guerra**
+Requisito: Vigor 3
+Ignore a primeira penalidade de Injúria da cena (não o dano, apenas a penalidade)
+Passivo
+
+**Treinamento Anti-Demônio**
+Requisito: Investigação 3, Percepção 2
++1d10 em testes contra Demônios que você já enfrentou antes (mesmo tipo)
+Passivo
+
+**Preparo Tático**
+Requisito: Autoridade 3, Percepção 2
+No início do combate, pode distribuir +2d10 entre aliados (máx +1d10 por pessoa)
+Custo: 2 Stress
+-
+
+**Sobrevivente Nato**
+Requisito: Vínculo 2
+Quando recebe ajuda de aliado, recupera +1 Stress adicional
+Passivo
+
+**Munição Especial**
+Requisito: Tecnologia 3, Coordenação 2
+Uma vez por cena, um ataque à distância causa +1 estágio de Injúria se acertar
+Custo: 2 Stress
+
+**Corpo Treinado**
+Requisito: Vigor 4
+Escolha 1 atributo físico (Força/Vigor/Coordenação): Reduz -1 Stress de ações relacionadas (mín 1)
+Passivo
+
+**Mentalidade Inabalável**
+Requisito: Autoridade 3
+Ao sofrer efeito de Medo, pode rolar novamente e escolher o melhor resultado
+Custo: 2 Stress (1 vez por cena)
+
+**Execução Precisa**
+Requisito: Força 4 ou Coordenação 4
+Se vencer confronto por 15+, causa +2 Stress no alvo adicional
+Passivo
+
+**Arsenal Adaptado**
+Requisito: Coordenação 3, Tecnologia 2
+Pode trocar de arma sem penalidade de tempo
+Passivo
+
+**Reflexos de Combate**
+Requisito: Coordenação 5
++2d10 em testes de defesa quando você não atacou no turno anterior
+Passivo
+
+**Mestre Tático**
+Requisito: Investigação 4, Autoridade 3
+Aliados sob seu comando recuperam +1d5 Stress quando seguem sua estratégia
+Passivo
+
+**Guerreiro Implacável**
+Requisito: Força 5, Vigor 4
+Suas Injúrias Leves não geram penalidades até fim da missão
+Passivo
+
+
+
+# **INFERNAL — PODER DE ORIGEM**
+
+**Corpo Anômalo**
+Requisito: Vigor 2
+A 1ª Injúria Leve da cena é cancelada automaticamente
+Passivo
+
+**Manifestação Maior**
+Requisito: Força 3
+Sua transformação fica mais poderosa: +1d10 em testes físicos enquanto transformado
+Custo: +1 Stress por rodada ativa
+
+**Forma Irreversível** (CUSTO: 3 PM)
+Requisito: Vigor 5
+Um poder menor fica sempre ativo como passiva, sem custo de Stress
+⚠️ Gera Marca do Demônio permanente e visível
+
+**Regeneração Profana**
+Requisito: Vigor 4
+No início do turno, pode curar 1 Injúria completamente
+Custo: Ganha +4 Stress (Leve) ou +6 Stress (Grave)
+
+**Corpo Adaptável**
+Requisito: Vigor 3
+Após sofrer um tipo de ataque, ganha +1d10 para resistir ao mesmo tipo até fim da cena
+Passivo
+
+**Presença Antinatural**
+Requisito: Autoridade 3
+Inimigos humanos sofrem -1d10 em testes de resistência a medo contra você
+Passivo
+
+**Carne Mutável**
+Requisito: Força 2
+Pode alterar aparência corporal para justificar novos usos de ataque ou defesa
+Custo: 1 Stress por mudança
+
+**Instinto Demoníaco**
+Requisito: Percepção 2
+Uma vez por cena, pode refazer um teste falho
+Custo: +2 Stress
+
+**Dor como Combustível**
+Requisito: Vigor 3
+Sempre que sofre Injúria, ganha +1d10 no próximo ataque
+Passivo
+
+**Existência Errada** (CUSTO: 3 PM)
+Requisito: Vigor 5
+Ignora efeitos que impedem ação (medo, pânico, atordoamento)
+⚠️ Não pode receber bônus de aliados enquanto ativo
+
+**Sangue Demoníaco**
+Requisito: Vigor 2
+Quando usa Sangue para curar, também recupera 1d5 Stress
+Passivo
+
+**Membros Regenerativos**
+Requisito: Vigor 4
+Membros perdidos regeneram ao fim do combate automaticamente
+⚠️ Aparência fica mais monstruosa a cada regeneração
+Passivo
+
+**Aura de Terror**
+Requisito: Autoridade 4
+Inimigos a curta distância sofrem +1 Stress ao início do turno deles
+Custo: 2 Stress por rodada ativa
+
+**Transformação Parcial Gratuita**
+Requisito: Força 2
+Pode manifestar 1 aspecto demoníaco (garras, olhos, etc) sem custo de Stress
+Passivo
+-
+
+
+**Casca Rígida**
+Requisito: Vigor 4
+Primeira Injúria Grave da cena se torna Injúria Leve
+Custo: 3 Stress (1 vez por cena)
+
+**Essência Contaminada**
+Requisito: Vigor 3
+Quem te causar Injúria Grave sofre +2 Stress imediatamente
+Passivo
+
+**Forma Bestial**
+Requisito: Força 4, Vigor 3
+Enquanto transformado, +1d10 em Força e Vigor, mas -1d10 em testes mentais
+Passivo
+
+**Marca Rastejante**
+Requisito: Percepção 3
+Pode deixar "marca" em lugar/pessoa tocada. Sempre sabe onde está (até fim da missão)
+Custo: 2 Stress
+
+**Grito Demoníaco**
+Requisito: Autoridade 3, Força 3
+Todos inimigos próximos fazem teste de Medo (DT 20 + seu Vigor)
+Custo: 4 Stress (1 vez por combate)
+
+**Evolução Forçada**
+Requisito: Vigor 6
+Pode evoluir temporariamente: +2d10 em todos testes físicos por 3 rodadas
+Custo: 1 Injúria Grave ao fim do efeito
+Limite: 1 vez por combate
+
+**Essência Primordial**
+Requisito: Força 5, Vigor 5
+Seus ataques físicos sempre causam no mínimo Injúria Leve, mesmo se perder confronto
+Passivo
+
+**Imortalidade Menor**
+Requisito: Vigor 6
+Não morre de Injúrias Críticas por 1 hora; apenas fica incapacitado
+⚠️ Após 1 hora sem cura, morre automaticamente
+Passivo
+
+
+
+# **HÍBRIDO — PODER DE ORIGEM**
+**Equilíbrio Instável**
+Requisito: Vínculo 2
+Recupera +1 Stress quando ajuda aliado significativamente
+Passivo
+
+**Dupla Natureza**
+Requisito: Percepção 3
+Copia 1 efeito menor de um poder que testemunhou nesta cena
+Custo: 3 Stress (dura até fim da cena)
+
+**Síntese Imperfeita** (CUSTO: 3 PM)
+Requisito: Vigor 4, Vínculo 3
+Crie 1 poder único que mistura aspectos humanos e demoníacos
+⚠️ Deve ser aprovado pelo mestre
+
+**Corpo Entre Mundos**
+Requisito: Vigor 3, Vínculo 2
+Pode usar Vigor no lugar de Vínculo para resistir a efeitos mentais/medo
+Passivo
+
+**Explosão Controlada**
+Requisito: Força 3, Vigor 3
+Gastando 3 Stress, adiciona +2d10 a uma ação física, mas sofre -1d10 na próxima
+Custo: 3 Stress
+
+**Arma Viva**
+Requisito: Força 2
+Seu corpo pode substituir uma arma comum (espada, machado, lança) sem penalidades
+Passivo
+
+**Instinto Compartilhado**
+Requisito: Vínculo 3, Percepção 2
+Uma vez por cena, você e um aliado usam o melhor atributo entre vocês para 1 teste conjunto
+Custo: 1 Stress
+
+**Limite Forçado**
+Requisito: Vigor 4
+Pode agir normalmente mesmo com atributo reduzido a 0 por 1 cena
+Custo: 2 Stress por atributo afetado
+
+**Cura Forçada**
+Requisito: Vigor 4
+Quando sofreria Injúria, pode cancelar completamente o dano
+⚠️ Sofre 1 Aflição automática + não pode regenerar até fim do combate
+Limite: 1 vez por missão
+
+**Limite do Ser** (CUSTO: 3 PM)
+Requisito: Força 4, Vigor 4
+Por 1 cena: +1d10 em todos testes físicos
+⚠️ Ao final: Injúria Grave automática + Aflição temática
+Limite: 1 vez por dia
+
+**Sincronização Perfeita**
+Requisito: Vínculo 4
+Escolha 1 aliado: ambos ganham +1d10 enquanto lutarem juntos na mesma área
+Custo: 2 Stress (dura a cena)
+
+**Adaptação Rápida**
+Requisito: Percepção 3
+Após falhar em teste, +1d10 no próximo teste do mesmo tipo
+Passivo
+
+**Ressonância Demoníaca**
+Requisito: Percepção 2
+Sente presença de Demônios/Híbridos/Infernais a média distância (100-200m)
+Passivo
+
+**Forma Intermediária**
+Requisito: Vigor 3
+Pode entrar em forma "meio transformada": +1d10 físico, sem penalidade mental
+Custo: 1 Stress por rodada
+
+**Fome Controlada**
+Requisito: Vigor 2
+Se beber sangue (humano ou demônio), recupera 1 Injúria Leve imediatamente
+Limite: 1 vez por combate
+
+**Natureza Dual Reativa**
+Requisito: Percepção 3
+Se sofrer dano demoníaco, ganha +1d10 contra demônios até fim da cena
+Se sofrer dano humano, ganha +1d10 contra humanos até fim da cena
+Passivo
+
+**Transição Suave**
+Requisito: Coordenação 2
+Transformar ou destransformar não causa penalidade de tempo
+Passivo
+
+**Essência Mista**
+Requisito: Vínculo 3
+Pode usar 1 poder humano (contrato/equipamento) mesmo transformado sem penalidade
+Passivo
+
+**Simbiose Forçada**
+Requisito: Vínculo 4
+Toque em aliado: ambos ganham +2d10 em 1 teste cada, mas compartilham Stress gerado
+Limite: 1 vez por cena
+
+**Harmonia Instável**
+Requisito: Vigor 5, Vínculo 4
+Pode usar simultaneamente 1 poder demoníaco + 1 contrato sem penalidade
+Custo: +2 Stress adicional
+Passivo
+
+**Metamorfose Controlada**
+Requisito: Força 5, Coordenação 4
+Pode alterar forma corporal drasticamente (tamanho, membros, estrutura)
+Custo: 3 Stress por mudança significativa
+Passivo
+
+**Equilíbrio Perfeito**
+Requisito: Vigor 5, Vínculo 5
+Nunca sofre penalidade por usar poderes conflitantes (humano/demônio)
+Passivo
+
+
+Contratos
+São acordos conscientes com entidades demoníacas, oferecendo coisas para essas entidades por algo sendo categorizado nessas seguintes formas
+
+**EX CONTRATO MENOR** 
+- Poder limitado
+- Aflição leve
+- Controle razoável
+
+### **CONTRATOS MENORES** 
+
+**DEMÔNIO DO CIGARRO**
+Categoria: Menor
+Poder: Crie cortina de fumaça densa que bloqueia visão (área média)
+Atributo: Percepção
+Custo: 2 Stress por uso
+Aflição: Tosse persistente (-5 em testes de furtividade)
+Restrição: Deve fumar ao menos 1 cigarro por dia
+Marca: Dedos amarelados permanentes
+
+**DEMÔNIO DO VIDRO**
+Categoria: Menor
+Poder: Crie espinhos de vidro em 1 arma corpo a corpo (+1d10 dano, 1 cena)
+Atributo: Coordenação
+Custo: 1 Stress + corta sua mão (1 Injúria Leve)
+Aflição: Cicatrizes de vidro nas mãos
+Restrição: Não pode usar luvas
+Marca: Palmas das mãos refletem luz estranhamente
+
+**DEMÔNIO DO MARTELO**
+Categoria: Menor
+Poder: Invoque martelo grande (causa Injúria +1 estágio, 1 ataque)
+Atributo: Força
+Custo: 3 Stress
+Aflição: Dores crônicas nos braços
+Restrição: Deve destruir 1 objeto por dia
+Marca: Mãos sempre ásperas e calejadas
+
+**DEMÔNIO DA PELE**
+Categoria: Menor
+Poder: Endureça sua pele (reduza 1 Injúria em 1 estágio, 1 vez)
+Atributo: Vigor
+Custo: 2 Stress
+Aflição: Pele ressecada e rachada
+Restrição: Deve tocar pele de estranho 1 vez por dia
+Marca: Textura de pele estranha ao toque
+
+**DEMÔNIO DO RATO**
+Categoria: Menor
+Poder: Invoque 3 ratos que espionam por você (dura 1 cena)
+Atributo: Malandragem
+Custo: 1 Stress por rato
+Aflição: Cheiro persistente de esgoto
+Restrição: Não pode matar ratos
+Marca: Unhas amareladas
+
+**DEMÔNIO DA AGULHA**
+Categoria: Menor
+Poder: Lance agulhas à distância (ataque Coordenação, causa múltiplas Injúrias Leves)
+Atributo: Coordenação
+Custo: 2 Stress
+Aflição: Dor fantasma constante
+Restrição: Deve se furar com agulha 1 vez por semana
+Marca: Pequenos furos nas pontas dos dedos
+
+
+**EX CONTRATO MÉDIO** 
+- Poder forte
+- Aflição ativa
+- Risco de escalada
+
+### **CONTRATOS MÉDIOS**
+
+**DEMÔNIO DA RAPOSA**
+Categoria: Médio
+Poder: Invoque cabeça gigante de raposa que mastiga inimigos (causa Injúria Grave)
+Atributo: Autoridade
+Custo: 4 Stress + sacrifício de memória recente
+Aflição: Esquecimento progressivo de rostos
+Restrição: Não pode mentir para demônios
+Marca: Olhos ficam alaranjados em situações de raiva
+
+**DEMÔNIO DA MALDIÇÃO**
+Categoria: Médio
+Poder: Amaldiçoe 1 alvo: ele sofre -2d10 em todos testes por 1 cena
+Atributo: Investigação
+Custo: 5 Stress + deve falar nome do alvo 3 vezes
+Aflição: Pesadelos constantes
+Restrição: Não pode ajudar quem está amaldiçoado
+Marca: Língua escurecida permanentemente
+
+**DEMÔNIO DO PUNHO**
+Categoria: Médio
+Poder: Seus socos causam +2d10 dano e empurram alvos (1 cena)
+Atributo: Força
+Custo: 3 Stress por cena
+Aflição: Dores articulares severas
+Restrição: Deve nocautear ao menos 1 pessoa por semana
+Marca: Punhos inchados permanentemente
+
+**DEMÔNIO DA FACA**
+Categoria: Médio
+Poder: Crie lâminas flutuantes que atacam independentemente (3 lâminas, 1d10 cada)
+Atributo: Coordenação
+Custo: 4 Stress + 1 Injúria Leve
+Aflição: Cicatrizes que ardem
+Restrição: Deve cortar a própria palma 1 vez por lua
+Marca: Palmas sempre com corte fresco
+
+**DEMÔNIO DA CORRENTE**
+Categoria: Médio
+Poder: Invoque correntes que prendem alvos (teste de Força para escapar)
+Atributo: Malandragem
+Custo: 3 Stress por alvo
+Aflição: Marcas de corrente no pescoço
+Restrição: Não pode ser completamente livre (sempre deve ter compromisso)
+Marca: Som de correntes ao se mover rápido
+
+**DEMÔNIO DO VENENO**
+Categoria: Médio
+Poder: Seus ataques envenenam: alvo sofre +2 Stress por turno (dura 3 turnos)
+Atributo: Tecnologia
+Custo: 4 Stress
+Aflição: Náusea constante
+Restrição: Deve consumir algo tóxico semanalmente
+Marca: Saliva esverdeada
+
+**EX CONTRATO MAIOR** 
+- Poder destruidor 
+- Aflição severa
+- Marca permanente
+
+### **CONTRATOS MAIORES**
+
+**DEMÔNIO DA ARANHA**
+Categoria: Maior
+Poder: Controle teias gigantes que imobilizam múltiplos alvos (área grande)
+Atributo: Percepção
+Custo: 6 Stress + 1 Injúria Grave
+Aflição: Aracnofobia invertida (medo de estar sem aranhas)
+Restrição: Não pode matar aranhas + deve oferecer 1 presa viva por mês
+Marca: Olhos extras aparecem temporariamente sob stress
+
+**DEMÔNIO DA KATANA**
+Categoria: Maior
+Poder: Invoque katana demoníaca (cada corte causa Injúria +1 estágio)
+Atributo: Coordenação
+Custo: 5 Stress + sangue de inimigo derrotado
+Aflição: Sede de sangue crescente
+Restrição: Deve matar ao menos 1 ser vivo (humano/demônio) por mês
+Marca: Cicatriz de katana nas costas
+
+**DEMÔNIO DO PESADELO**
+Categoria: Maior
+Poder: Todos inimigos em área média fazem teste de Medo 3 (DT 30)
+Atributo: Autoridade
+Custo: 7 Stress + não pode dormir por 2 dias após uso
+Aflição: Insônia crônica
+Restrição: Não pode despertar quem está dormindo
+Marca: Olheiras permanentes e profundas
+
+**DEMÔNIO DO TROVÃO**
+Categoria: Maior
+Poder: Invoque raio devastador (área, 3d10 dano)
+Atributo: Força
+Custo: 6 Stress + 1 Injúria Grave
+Aflição: Tremores constantes nas mãos
+Restrição: Não pode tocar água parada
+Marca: Cicatrizes de Lichtenberg no corpo
+
+**DEMÔNIO DO ESPELHO**
+Categoria: Maior
+Poder: Crie cópia perfeita de 1 inimigo (dura 3 rodadas, mesmos atributos)
+Atributo: Investigação
+Custo: 8 Stress + pedaço de cabelo/sangue do alvo
+Aflição: Confusão de identidade
+Restrição: Não pode olhar próprio reflexo por 1 semana após uso
+Marca: Reflexo ocasionalmente não corresponde aos movimentos
+
+**EX CONTRATO INVOCAÇÕES**
+- poder medio/fraco
+- aflição = força
+
+### **CONTRATOS DE INVOCAÇÃO** (Custo: 3 PM)
+
+**INVOCAÇÃO: DEMÔNIO MENOR FAMILIAR**
+Categoria: Invocação
+Poder: Invoque 1 demônio menor que luta ao seu lado (atributos 2 em tudo, 3 Injúrias Leves)
+Atributo: Vínculo
+Custo: 4 Stress por invocação (dura até ser derrotado ou 1 cena)
+Aflição: Vozes sussurrando constantemente
+Restrição: Deve alimentar o demônio com sangue próprio semanalmente
+Marca: Tatuagem demoníaca que pulsa
+
+**INVOCAÇÃO: ENXAME**
+Categoria: Invocação
+Poder: Invoque enxame de insetos demoníacos (cobre área, causa -2d10 a inimigos)
+Atributo: Malandragem
+Custo: 3 Stress (dura 2 rodadas)
+Aflição: Sensação constante de algo rastejando na pele
+Restrição: Não pode usar repelente de insetos
+Marca: Pequenas marcas de picada que nunca curam
+
+**INVOCAÇÃO: GUARDIÃO ESPECTRAL**
+Categoria: Invocação
+Poder: Invoque espírito guardião que bloqueia 1 ataque automaticamente
+Atributo: Vínculo
+Custo: 4 Stress (1 uso, depois desaparece)
+Aflição: Frio constante no peito
+Restrição: Deve visitar túmulo de alguém mensalmente
+Marca: Halo pálido visível em escuridão total
+
+------
+**EX CONTRATO RESTRIÇÕES** (Aprovação do mestre)
+- morte instantânea caso aceitado
+- marca permanente enquanto o contrato e ativo
+
+### **CONTRATOS DE RESTRIÇÃO** (Aprovação do mestre)
+
+**CONTRATO: IMORTALIDADE TEMPORÁRIA**
+Efeito: Não pode morrer por 1 missão completa
+Restrição: Ao fim, sofre todas Injúrias acumuladas de uma vez
+Marca: Coração para de bater (permanente)
+Morte Instantânea se: Quebrar promessa feita durante contrato
+
+**CONTRATO: PODER MÁXIMO**
+Efeito: +3d10 em todos testes por 1 cena
+Restrição: Perde 1 sentido permanentemente (escolha aleatória)
+Marca: Área do corpo começa a se demonizar
+Morte Instantânea se: Usar mais de 1 vez por mês
+
+**CONTRATO: TROCA DE VIDA**
+Efeito: Transfira todas suas Injúrias para 1 alvo
+Restrição: Alvo deve ser aliado ou inocente
+Marca: Mãos manchadas de vermelho permanente
+Morte Instantânea se: Usar em inimigo
+
+
+
+
+# **HABILIDADES GERAIS**
+Representam técnica extrema, sobrevivência, trauma ou adaptação. Elas não criam fenômenos sobrenaturais, apenas mudam como o personagem lida com risco, pressão e violência.
+
+### **CATEGORIA: COMBATE CORPO A CORPO**
+
+**Golpe Decisivo**
+Requisito: Força 4 ou Coordenação 4
+Efeito: Se vencer confronto por 10+, aumente Injúria em +1 estágio
+Custo: 2 Stress
+
+**Pressão Constante**
+Requisito: Força 3
+Efeito: Se causar Injúria, alvo sofre +1 Stress adicional
+Passivo
+
+**Golpe na Garganta**
+Requisito: Coordenação 4
+Efeito: Se vencer por 10+, alvo sofre -2d10 no próximo turno
+Custo: 2 Stress
+
+**Luta de Rua**
+Requisito: Malandragem 3
+Efeito: Use objetos do cenário como armas sem penalidade
+Passivo
+
+**Combate Sujo**
+Requisito: Malandragem 3
+Efeito: Pode usar Malandragem no lugar de Força em ataques improvisados
+Passivo
+
+**Pressão Implacável**
+Requisito: Força 5
+Efeito: Sempre que causar Injúria, alvo sofre -1d10 na próxima ação
+Passivo
+-
+
+**Soco Básico** (CUSTO: 1 PM)
+Requisito: Força 2
+Efeito: +5 em testes de soco
+Passivo
+
+**Soco Forte** (CUSTO: 2 PM)
+Requisito: Força 4
+Efeito: +10 em testes de soco
+Custo: +1 Stress ao errar ataque físico
+
+**Soco Brutal** (CUSTO: 3 PM)
+Requisito: Força 6
+Efeito: +15 em soco; se vencer por 5+, causa +1 Stress no alvo
+Passivo
+
+**Quebra-Ossos**
+Requisito: Força 5
+Efeito: Se causar Injúria Grave, alvo sofre -1d10 em testes físicos até ser curado
+Custo: 3 Stress
+
+**Contra-Ataque Brutal**
+Requisito: Vigor 4, Força 3
+Efeito: Quando aparar ataque corpo a corpo com sucesso, pode revidar imediatamente com +1d10
+Custo: 2 Stress (1 vez por rodada)
+
+**Agarrão Tático**
+Requisito: Força 5, Vigor 3
+Efeito: Prenda 1 alvo. Ambos rolam Força a cada turno; perdedor fica imobilizado
+Custo: 2 Stress para iniciar
+
+**Postura Ofensiva**
+Requisito: Força 3
+Efeito: +1d10 em ataques corpo a corpo, mas -1d10 em defesas (dura a cena)
+Custo: 1 Stress
+
+**Postura Defensiva**
+Requisito: Vigor 4
+Efeito: +1d10 em defesas, mas -1d10 em ataques (dura a cena)
+Custo: 1 Stress
+
+**Técnica de Desarme**
+Requisito: Coordenação 4, Malandragem 3
+Efeito: Se vencer confronto corpo a corpo por 8+, desarma o oponente
+Custo: 2 Stress
+
+**Golpe Perfurante**
+Requisito: Força 5, Coordenação 4
+Efeito: Ignora armadura leve/média em ataques corpo a corpo
+Custo: 3 Stress
+
+**Maestria em Combate** (CUSTO: 3 PM)
+Requisito: Força 6, Coordenação 5
+Efeito: +2d10 em todos ataques corpo a corpo
+Custo: +1 Stress por ataque
+Passivo
+
+**Executor Implacável** (CUSTO: 3 PM)
+Requisito: Força 7, Vigor 5
+Efeito: Seus ataques corpo a corpo sempre causam no mínimo Injúria Leve, mesmo se perder
+Passivo
+
+**Técnica Mortal** (CUSTO: 4 PM)
+Requisito: Força 7, Coordenação 6
+Efeito: Uma vez por combate, declare "Golpe Mortal": ataque causa +2 estágios de Injúria
+Custo: 5 Stress
+Limite: 1 vez por combate
+
+**Domínio do Punho**
+Requisito: Força 5
+Efeito: Seus socos ignoram resistência parcial (armadura leve)
+Passivo
+-
+
+**Sequência Devastadora**
+Requisito: Força 6, Coordenação 5
+Efeito: Se acertar 2 ataques seguidos no mesmo alvo, o 3º ganha +2d10
+Passivo
+
+**Contra-Ataque Perfeito** (CUSTO: 3 PM)
+Requisito: Coordenação 6, Percepção 5
+Efeito: Ao defender com sucesso, pode contra-atacar com dano dobrado
+Custo: 4 Stress (1 vez por cena)
+
+**Cabeçada Desesperada**
+Requisito: Vigor 3
+Efeito: Ataque usando Vigor; se acertar, causa +1 Stress no alvo
+Custo: Sofre 1 Stress
+
+**Punho em Cadeia**
+Requisito: Força 4
+Efeito: Ao acertar, pode empurrar alvo e mudar sua posição
+Custo: 1 Stress
+------
+
+### **CATEGORIA: COMBATE À DISTÂNCIA**
+
+**Atirador Básico** (CUSTO: 1 PM)
+Requisito: Coordenação 2
+Efeito: +5 em ataques à distância
+Passivo
+
+**Atirador Avançado** (CUSTO: 2 PM)
+Requisito: Coordenação 4
+Efeito: +10 em ataques à distância
+Custo: +1 Stress ao errar
+
+**Atirador Letal** (CUSTO: 3 PM)
+Requisito: Coordenação 6
+Efeito: +15 em ataques à distância; Se vencer por 10+, ignora cobertura parcial
+Passivo
+
+**Tiro de Supressão**
+Requisito: Coordenação 4
+Efeito: Inimigos na área sofrem -1d10 enquanto expostos
+Custo: 2 Stress
+
+**Recarga Instintiva**
+Requisito: Coordenação 3
+Efeito: Pode recarregar arma enquanto se move sem penalidade
+Passivo
+
+**Mira Estabilizada**
+Requisito: Vigor 3, Coordenação 3
+Efeito: Se não se mover no turno, +1d10 em ataque à distância
+Passivo
+
+**Tiro Duplo**
+Requisito: Coordenação 5
+Efeito: Ataque 2 alvos adjacentes com -1d10 em cada
+Custo: 2 Stress
+
+**Tiro de Precisão**
+Requisito: Percepção 4, Coordenação 5
+Efeito: Ignore armadura parcial e cobertura leve
+Custo: 3 Stress
+
+**Tiro em Movimento**
+Requisito: Coordenação 4
+Efeito: Pode se mover e atirar sem penalidade
+Passivo
+
+**Munição Conservada**
+Requisito: Tecnologia 3
+Efeito: Munição rende o dobro (aspecto narrativo)
+Passivo
+
+**Atirador de Elite Extremo** (CUSTO: 4 PM)
+Requisito: Coordenação 7, Percepção 5
+Efeito: Uma vez por missão, 1 tiro é automaticamente crítico (causa Injúria +1 estágio, ignora tudo)
+Custo: 4 Stress
+Limite: 1 vez por missão
+
+**Tiro Cegante**
+Requisito: Coordenação 4
+Efeito: Se acertar cabeça/olhos, alvo sofre -2d10 por 2 rodadas
+Custo: 2 Stress
+
+**Rajada Controlada**
+Requisito: Coordenação 5, Vigor 3
+Efeito: Ataque 1 alvo 3 vezes seguidas com -1d10 cada
+Custo: 3 Stress (1 vez por cena)
+
+**Sniper Profissional**
+Requisito: Coordenação 5, Percepção 4
+Efeito: A distância longa não impõe penalidade
+Passivo
+
+**Caçador Paciente** (CUSTO: 3 PM)
+Requisito: Percepção 6, Coordenação 5
+Efeito: Se esperar 2 turnos mirando, próximo tiro ganha +3d10
+Custo: 2 Stress
+-
+
+
+**Tiro Ricochete**
+Requisito: Coordenação 6, Percepção 4
+Efeito: Pode atingir alvo atrás de cobertura com ricochete
+Custo: 3 Stress (teste de Percepção necessário)
+
+**Maestria em Armas de Fogo** (CUSTO: 4 PM)
+Requisito: Coordenação 7, Percepção 5
+Efeito: +2d10 em todos ataques à distância
+Passivo
+
+---
+
+
+### **CATEGORIA: MOBILIDADE, EVASÃO E DEFESA** 
+
+**Movimento Calculado**
+Requisito: Coordenação 3
+Efeito: Reposicione-se sem gerar reação inimiga
+Custo: 1 Stress
+
+**Mãos Rápidas** 
+Requisito: Coordenação 3
+Efeito: Ganha +1 ação de aparagem na rodada
+Custo: 1 Stress
+Limite: 1 vez por rodada
+
+**Passo Veloz** 
+Requisito: Coordenação 3
+Efeito: Ganha +1 ação de esquiva na rodada
+Custo: 1 Stress
+Limite: 1 vez por rodada
+
+**Arrancada Relâmpago** 
+Requisito: Coordenação 2
+Efeito: Ganhe +1 ação de movimento imediatamente
+Custo: 1 Stress
+Limite: 1 vez por rodada
+
+**Deslocamento Instintivo** 
+Requisito: Percepção 3, Coordenação 2
+Efeito: Ao ser alvo de ataque, mova-se antes da resolução do golpe
+Custo: 1 Stress
+Limite: 1 vez por rodada
+
+**Passo Fantasma**
+Requisito: Coordenação 5, Malandragem 3
+Efeito: Ao mover, ignore reações inimigas completamente
+Custo: 2 Stress
+
+**Reflexo Antecipado**
+Requisito: Coordenação 4
+Efeito: +1d10 em esquivas contra primeiro ataque do turno
+Passivo
+
+**Quebra de Ritmo**
+Requisito: Coordenação 3, Percepção 2
+Efeito: Se esquivar com sucesso, próximo ataque contra mesmo alvo ganha +1d10
+Passivo
+
+**Sombra em Movimento**
+Requisito: Malandragem 4, Coordenação 3
+Efeito: Enquanto se move, inimigos sofrem -1d10 para acertar
+Passivo
+
+**Passos Cortantes**
+Requisito: Coordenação 5
+Efeito: Ao atravessar espaço inimigo, causa 1 Injúria Leve automática
+Custo: 2 Stress (1 vez por rodada)
+
+**Foco em Alta Velocidade**
+Requisito: Vigor 4, Coordenação 3
+Efeito: Ignore -1 penalidade em ações consecutivas no mesmo turno
+Passivo
+
+**Rolamento Instintivo**
+Requisito: Coordenação 4
+Efeito: Ao sofrer ataque à distância, pode rolar para reduzir Injúria em 1 estágio
+Custo: 2 Stress
+
+**Speed Blitz** (CUSTO: 4 PM)
+Requisito: Coordenação 7, Vigor 5
+Efeito: Estado de aceleração extrema (1 turno):
+- Pode atacar multiplos alvos diferentes estando 
+- Ignore reações inimigas
+- Cada ataque causa +1 Stress no alvo
+Custo: 4 Stress + sofre +4 Stress ao fim
+Limite: 1 vez por cena
+-
+
+
+**Evasão Acrobática**
+Requisito: Coordenação 5
+Efeito: +2d10 em esquivas se tiver espaço para se mover
+Passivo
+
+**Cobertura Dinâmica**
+Requisito: Percepção 3, Malandragem 2
+Efeito: Pode usar aliados, inimigos ou objetos como cobertura improvisada sem penalidade
+Passivo
+
+**Salto Tático**
+Requisito: Coordenação 4, Vigor 3
+Efeito: Pode saltar verticalmente ou horizontalmente o dobro da distância normal
+Passivo
+
+**Esquiva Perfeita** (CUSTO: 3 PM)
+Requisito: Coordenação 6
+Efeito: Uma vez por cena, esquive automaticamente de 1 ataque (sem rolar dados)
+Custo: 3 Stress
+Limite: 1 vez por cena
+
+**Reflexos Sobre-Humanos** (CUSTO: 4 PM)
+Requisito: Coordenação 6, Percepção 5
+Efeito: Sempre age primeiro no turno (iniciativa automática)
+Passivo
+
+**Velocidade Cegante**
+Requisito: Coordenação 6
+Efeito: Inimigos com Coordenação menor que a sua sofrem -1d10 para te acertar
+Passivo
+
+**Dança da Morte**
+Requisito: Coordenação 5, Malandragem 4
+Efeito: Ao esquivar, pode se mover para posição vantajosa gratuitamente
+Passivo
+
+**Aparagem Mestra** 
+Requisito: Coordenação 5, Força 3
+Efeito: +2d10 em testes de aparagem
+Passivo
+
+**Bloqueio Perfeito** 
+Requisito: Vigor 5, Coordenação 4
+Efeito: Ao bloquear com sucesso com +10 nos testes, reduza 1 estágio de Injúria
+Custo: 2 Stress
+Limite: 1 vez por cena
+
+**Defensor Natural** 
+Requisito: Vigor 4, Coordenação 3
+Efeito: +1d10 em todos testes defensivos (aparagem/esquiva/bloqueio)
+Passivo
+
+**Muralha Viva** 
+Requisito: Vigor 6, Força 4
+Efeito: Pode bloquear ataques destinados a aliados adjacentes
+Custo: 1 Stress por bloqueio
+
+**Esquiva Impossível**  (CUSTO: 3 PM)
+Requisito: Coordenação 6, Percepção 5
+Efeito: Pode esquivar de ataques em área ou múltiplos simultaneamente
+Custo: 3 Stress
+
+**Mobilidade de Combate** 
+Requisito: Coordenação 4
+Efeito: Pode se mover livremente entre ataques sem provocar reações
+Custo: 2 Stress (dura a rodada)
+
+---
+
+### **CATEGORIA: RESISTÊNCIA E SOBREVIVÊNCIA**
+
+**Postura de Impacto**
+Requisito: Vigor 3
+Efeito: 1 vez por cena, reduza Injúria em 1 estágio (Crítica→Grave→Leve)
+Custo: 2 Stress
+
+**Corpo Condicionado**
+Requisito: Vigor 4
+Efeito: Reduz -1 Stress de fontes físicas (mín 1)
+Passivo
+
+**Ficar de Pé**
+Requisito: Vigor 4, ter ao menos 1 Injúria Grave
+Efeito: Age normalmente por 1 rodada mesmo incapacitado
+Custo: +2 Stress após ação
+
+**Dor Conhecida**
+Requisito: Vigor 3
+Efeito: Ignore penalidades da primeira Injúria da cena
+Passivo
+
+**Segurar no Osso**
+Requisito: Vigor 5
+Efeito: Injúrias Leves não geram penalidade até fim da cena
+Custo: 1 Stress por rodada
+
+**Pé no Chão**
+Requisito: Vigor 4, Força 3
+Efeito: Ignore empurrões, quedas ou deslocamentos forçados
+Custo: 1 Stress por uso
+
+**Respiração Controlada**
+Requisito: Vigor 3
+Efeito: Reduz -1 Stress ganho no próximo efeito
+Custo: 1 Stress
+
+**Último Fôlego**
+Requisito: Vigor 5, já ter sofrido Colapso
+Efeito: Evite Colapso iminente
+Custo: Sofre 1 Injúria Grave automática
+Limite: 1 vez por missão
+
+**Instinto de Sobrevivência**
+Requisito: Vínculo 3, Vigor 2
+Efeito: Ao chegar a 0 Stress, recupere 1d5 imediatamente
+Passivo (1 vez por sessão)
+
+**Nada a Perder**
+Requisito: Vigor 4, Stress no máximo
+Efeito: Converte toda falha em falha simples (nunca crítica) enquanto no limite
+Custo: Colapso automático ao fim da cena
+
+**Ignorar o Medo**
+Requisito: Autoridade 4, já ter enfrentado Medo 3+
+Efeito: Ignore penalidades de Medo por 1 cena
+Custo: 2 Stress + risco de Aflição
+
+**Pele Dura**
+Requisito: Vigor 4
+Efeito: Primeira Injúria Leve da cena é reduzida a 0
+Passivo (1 vez por cena)
+
+**Adrenalina Pura**
+Requisito: Vigor 4
+Efeito: Ao sofrer Injúria Grave, ganha +1d10 em testes físicos por 2 rodadas
+Passivo
+
+**Força de Vontade**
+Requisito: Vínculo 4, Vigor 3
+Efeito: Pode usar Vínculo no lugar de Vigor para resistir a dor/fadiga
+Passivo
+
+**Recuperação Acelerada**
+Requisito: Vigor 5
+Efeito: Ao descansar, recupera +1d5 Stress adicional
+Passivo
+
+**Tanque Humano** (CUSTO: 3 PM)
+Requisito: Vigor 6, Força 4
+Efeito: Injúrias Graves são tratadas como Leves para efeito de penalidades
+Passivo
+
+-
+**Indestrutível** (CUSTO: 4 PM)
+Requisito: Vigor 7
+Efeito: Primeira Injúria Crítica da missão se torna Injúria Grave
+Passivo (1 vez por missão)
+
+**Regeneração Natural**
+Requisito: Vigor 6
+Efeito: Ao fim de cada combate, recupera 1 Injúria Leve automaticamente
+Passivo
+
+**Vontade Inabalável**
+Requisito: Vigor 5, Vínculo 4
+Efeito: Não pode ser forçado a fugir ou desistir por efeitos mentais
+Passivo
+
+---
+
+### **CATEGORIA: TÁTICA E SUPORTE**
+
+**Abertura Tática**
+Requisito: Percepção 3
+Efeito: Um aliado ganha +1d10 na próxima ação contra mesmo alvo que você marcou
+Custo: 1 Stress
+
+**Plano Rápido**
+Requisito: Investigação 3
+Efeito: Declare plano simples e ignore 1 falha relacionada
+Custo: 2 Stress (1 vez por cena)
+
+**Cobertura Improvisada**
+Requisito: Percepção 3, Tecnologia 2
+Efeito: Converte área comum em cobertura parcial rapidamente
+Custo: 1 Stress
+
+**Leitura de Cena**
+Requisito: Percepção 4
+Efeito: Faça 1 pergunta objetiva ao mestre sobre a cena atual
+Custo: 1 Stress
+
+**Voz de Comando**
+Requisito: Autoridade 4
+Efeito: Aliado próximo pode repetir um teste falho imediatamente
+Custo: 2 Stress
+
+**Segurar a Linha**
+Requisito: Autoridade 3, Vigor 3
+Efeito: Aliados adjacentes recebem -1 Stress enquanto você não sair da posição
+Custo: 1 Stress por rodada
+
+**Aproveitar Brecha**
+Requisito: Percepção 4
+Efeito: Se aliado está em confronto, role 1d10 e pode trocar resultado com aliado(1-4 falha e 5-10 consegue)
+Custo: 2 Stress (1 vez por rodada)
+
+**Leitura Corporal**
+Requisito: Percepção 5
+Efeito: Descubra se próximo ataque será físico, à distância ou especial
+Custo: 1 Stress
+
+**Plano de Emergência**
+Requisito: Tecnologia 3, Investigação 2
+Efeito: Declare plano; todos que seguirem ganham +1d10
+Custo: 2 Stress (1 vez por cena)
+
+**Memória de Combate**
+Requisito: Investigação 3
+Efeito: Após sofrer ataque, ganha +1d10 para resistir ao mesmo tipo até fim da cena
+Passivo
+
+**Arma na Mão Certa**
+Requisito: Percepção 3
+Efeito: Sempre sabe qual arma/ferramenta está mais acessível
+Passivo
+
+**Coordenação de Equipe**
+Requisito: Autoridade 4
+Efeito: Aliados que agem após você ganham +5 no primeiro teste
+Custo: 2 Stress (dura a rodada)
+
+**Estrategista de Campo** (CUSTO: 3 PM)
+Requisito: Investigação 5, Percepção 4, Autoridade 3
+Efeito: No início do combate, distribua +3d10 entre aliados como quiser
+Custo: 3 Stress (1 vez por combate)
+
+**Flanqueamento**
+Requisito: Coordenação 3, Percepção 2
+Efeito: Se você e aliado atacarem mesmo alvo de lados opostos, ambos ganham +1d10
+Passivo
+
+**Marcação Tática**
+Requisito: Percepção 4
+Efeito: "Marque" 1 inimigo; todos aliados ganham +5 contra ele até fim da cena
+Custo: 1 Stress
+
+**Inspirar Aliados**
+Requisito: Vínculo 5, Autoridade 3
+Efeito: Todos aliados próximos recuperam 1d5 Stress imediatamente
+Custo: 3 Stress (1 vez por combate)
+
+**Mestre Estrategista** (CUSTO: 4 PM)
+Requisito: Investigação 6, Autoridade 5, Percepção 5
+Efeito: Pode redistribuir iniciativa da equipe e conceder +2d10 a 1 aliado por turno
+Custo: 2 Stress por turno
+Passivo
+
+**Líder Natural**
+Requisito: Autoridade 5, Vínculo 4
+Efeito: Aliados sob seu comando ignoram primeira falha de teste mental da cena
+Passivo
+
+**Comandante de Campo**
+Requisito: Autoridade 6
+Efeito: Aliados próximos ganham +1d10 em defesas enquanto você estiver consciente
+Passivo
+
+---
+
+### **CATEGORIA: PERÍCIA TÉCNICA**
+
+**Toque do Especialista**
+Requisito: Tecnologia 3
+Efeito: Ignore penalidades por armas improvisadas ou danificadas
+Passivo
+
+**Arma Personalizada**
+Requisito: Tecnologia 4
+Efeito: Escolha 1 arma: recebe +1d10 em situação específica que você definir
+Custo: 2 Stress por cena
+
+**Improviso Bruto**
+Requisito: Tecnologia 3
+Efeito: Cria solução temporária com ambiente
+Custo: 1 Stress
+Consequência: Falha crítica gera complicação
+
+**Hoje Não**
+Requisito: Coordenação 5, Percepção 4
+Efeito: Pode atacar quem te atacou antes do dano ser resolvido (interceptação)
+Custo: 2 Stress (1 vez por cena)
+
+**Engenheiro de Campo**
+Requisito: Tecnologia 4
+Efeito: Pode reparar 1 arma quebrada ou criar armadilha simples
+Custo: 2 Stress + tempo narrativo
+
+**Sabotagem Rápida**
+Requisito: Tecnologia 4, Malandragem 3
+Efeito: Pode desativar dispositivo eletrônico/mecânico inimigo
+Custo: 2 Stress (teste necessário)
+
+**Mestre em Explosivos** (CUSTO: 3 PM)
+Requisito: Tecnologia 5
+Efeito: Pode criar/desarmar explosivos. Dano aumentado em área (+2d10)
+Custo: 3 Stress por uso
+
+**Armeiro Profissional**
+Requisito: Tecnologia 5
+Efeito: Pode modificar armas para conceder +1d10 temporário
+Custo: Tempo + materiais
+
+**Hacker de Campo**
+Requisito: Tecnologia 5
+Efeito: Pode invadir sistemas eletrônicos em combate
+Custo: 2 Stress (teste necessário)
+
+**Mestre Inventor** (CUSTO: 4 PM)
+Requisito: Tecnologia 7
+Efeito: Pode criar dispositivos únicos com efeitos especiais (aprovação do mestre)
+Passivo
+
+---
+
+
+### **CATEGORIA: SOCIAL E MENTAL**
+
+**Frieza Profissional**
+Requisito: Autoridade 4 ou Investigação 4
+Efeito: Ignore próximo ganho de Stress psicológico
+Custo: 2 Stress
+
+**Bom Homem**
+Requisito: Vínculo 3, seja alguém bom
+Efeito: +20 em testes sociais se alvo conhece seu passado heroico
+Custo: 1 Stress
+
+**Laços Inquebráveis**
+Requisito: Vínculo 5
+Efeito: Quando aliado próximo sofreria Injúria Grave, pode sofrer no lugar dele
+Custo: 1 Stress
+
+**Olhar que Quebra**
+Requisito: Autoridade 4
+Efeito: Inimigo sofre +1 Stress ao encarar você diretamente
+Passivo
+
+**História que Assombra**
+Requisito: Autoridade 5, ser temido
+Efeito: +20 em testes sociais quando alvo sabe do passado violento
+Passivo
+
+**Mentira Convincente**
+Requisito: Malandragem 4, Negociação 2
+Efeito: Mentira simples é tratada como verdade até confrontada com evidência
+Custo: 2 Stress
+
+**Última Promessa**
+Requisito: Vínculo 4
+Efeito: Se cair, aliado escolhido ganha +2d10 na próxima ação
+Passivo
+
+**Fúria Contida**
+Requisito: Vigor 3, já ter sofrido Aflição
+Efeito: +1d10 em ataques enquanto com Aflição ativa
+Passivo
+
+**Ódio Direcionado**
+Requisito: Investigação 3
+Efeito: Escolha 1 grupo (demônios, híbridos, pessoa especifica etc): +1d10 em ações contra eles
+Passivo
+
+**Repulsa**
+Requisito: Investigação 4, já ter sofrido Aflição
+Efeito: Contra alvo do ódio, +10 em testes ofensivos
+Custo: +1 Stress sempre que não atacar esse alvo na rodada
+
+**Negociador Experiente**
+Requisito: Negociação 4
+Efeito: +1d10 em testes de persuasão/barganha fora de combate
+Passivo
+
+**Intimidação Natural**
+Requisito: Autoridade 5
+Efeito: Inimigos humanos comuns ou Medo 1(demonios) podem fugir ao vê-lo
+Custo: 2 Stress
+
+**Leitor de Pessoas**
+Requisito: Percepção 4, Vínculo 3
+Efeito: Detecta mentiras óbvias automaticamente
+Passivo
+
+**Carisma de Líder**
+Requisito: Autoridade 5, Vínculo 4
+Efeito: Aliados sob comando ignoram primeira penalidade de Stress social/mental da cena
+Custo: 2 Stress (dura a cena)
+
+**Presença Dominante** (CUSTO: 3 PM)
+Requisito: Autoridade 6
+Efeito: Todos inimigos de Nível de Medo 2 ou menos sofrem -1d10 em sua presença
+Passivo
+
+**Manipulador Mestre**
+Requisito: Malandragem 5, Negociação 4
+Efeito: Pode plantar ideia na mente do alvo (teste oposto)
+Custo: 3 Stress
+
+**Aura de Proteção**
+Requisito: Vínculo 6, Autoridade 4
+Efeito: Aliados próximos recebem -2 Stress de fontes mentais
+Passivo
+
+---
+
+### **CATEGORIA: HABILIDADES MESTRES** (Custo: 4 PM)
+
+**Reflexo de Batalha**
+Requisito: Coordenação 7, Percepção 6
+Efeito: Pode reagir a qualquer ataque visível sem custo adicional
+Passivo
+
+**Senhor da Guerra**
+Requisito: Autoridade 7, Força 5, Vigor 5
+Efeito: Aliados ganham +1d10 em testes enquanto você estiver de pé e visível
+Passivo
+
+**Presença Aterrorizante**
+Requisito: Autoridade 7
+Efeito: Inimigos de Medo 3(Demonios) ou menos fazem teste de medo (DT 35) ao vê-lo
+Custo: 3 Stress (1 vez por cena)
+
+**Mente de Aço**
+Requisito: Investigação 5, Autoridade 5
+Efeito: Imune a efeitos mentais de Nível de Medo 3 ou menos
+Passivo
+
+**Sobrevivente Lendário**
+Requisito: Vigor 7, Vínculo 5
+Efeito: Pode sobreviver a qualquer ataque sofrendo 0 de injuria
+Limite: 1 vez por missão
+
+**Assassino Silencioso**
+Requisito: Malandragem 7, Coordenação 6
+Efeito: Ataques furtivos causam +2 estágios de Injúria automaticamente
+Passivo
+
+**Imortal de Combate**
+Requisito: Vigor 7, Força 6
+Efeito: Não pode ser incapacitado por Injúrias Graves (apenas Críticas)
+Passivo
+
+**Olho do Predador**
+Requisito: Percepção 7
+Efeito: Detecta automaticamente pontos fracos: +2d10 contra alvos analisados
+Custo: 2 Stress por alvo

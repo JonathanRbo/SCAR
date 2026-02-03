@@ -580,3 +580,131 @@ select option {
         font-size: 24px;
     }
 }
+
+/* ============================================
+   15. CLASSES UTILITÁRIAS EXTRAS
+   ============================================ */
+
+/* PM Cost Cards */
+.pm-cost-card {
+    background: rgba(74,144,217,0.15);
+    border: 1px solid rgba(74,144,217,0.4);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pm-cost-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(74,144,217,0.2);
+}
+
+.pm-cost-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #5DADE2;
+}
+
+.pm-cost-label {
+    font-size: 0.8rem;
+    color: var(--cor-texto-secundario);
+}
+
+/* Variações de cor para PM costs */
+.pm-cost-card.pm-3 {
+    background: rgba(155,89,182,0.15);
+    border-color: rgba(155,89,182,0.4);
+}
+
+.pm-cost-card.pm-3 .pm-cost-value {
+    color: #9B59B6;
+}
+
+.pm-cost-card.pm-3:hover {
+    box-shadow: 0 4px 15px rgba(155,89,182,0.2);
+}
+
+.pm-cost-card.pm-4 {
+    background: rgba(220,20,60,0.15);
+    border-color: rgba(220,20,60,0.4);
+}
+
+.pm-cost-card.pm-4 .pm-cost-value {
+    color: var(--cor-secundaria);
+}
+
+.pm-cost-card.pm-4:hover {
+    box-shadow: 0 4px 15px rgba(220,20,60,0.2);
+}
+
+.pm-cost-card.pm-variavel {
+    background: rgba(212,175,55,0.15);
+    border-color: rgba(212,175,55,0.4);
+}
+
+.pm-cost-card.pm-variavel .pm-cost-value {
+    color: var(--cor-gold);
+}
+
+.pm-cost-card.pm-variavel:hover {
+    box-shadow: 0 4px 15px rgba(212,175,55,0.2);
+}
+
+/* Tipo descrição (usado em modais) */
+.tipo-descricao {
+    color: var(--cor-texto-secundario);
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* Modal section title */
+.modal-section-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cor-secundaria);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+/* Badge de custo */
+.cost-badge {
+    display: inline-block;
+    background: rgba(52,152,219,0.15);
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(52,152,219,0.3);
+    font-weight: 600;
+    color: #3498db;
+}
+
+.cost-badge.pm-2 { 
+    background: rgba(52,152,219,0.15);
+    border-color: rgba(52,152,219,0.3);
+    color: #5DADE2;
+}
+
+.cost-badge.pm-3 { 
+    background: rgba(155,89,182,0.15);
+    border-color: rgba(155,89,182,0.3);
+    color: #9B59B6;
+}
+
+.cost-badge.pm-4 { 
+    background: rgba(220,20,60,0.15);
+    border-color: rgba(220,20,60,0.3);
+    color: var(--cor-secundaria);
+}
+
+/* Ícone grande centralizado (usado em modais) */
+.modal-icon {
+    font-size: 3rem;
+    color: var(--cor-secundaria);
+}
+
+.modal-icon.blue { color: #3498db; }
+.modal-icon.purple { color: #9B59B6; }
+.modal-icon.red { color: var(--cor-secundaria); }
+.modal-icon.gold { color: var(--cor-gold); }
+

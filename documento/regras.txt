@@ -1,0 +1,437 @@
+# RPG - SCAR(Sacrificial Contract & Risk) SISTEMA
+══════════════════
+### ATRIBUTOS
+
+**Físicos**
+> Força: violência direta, combate corporal
+> Vigor: resistência, fôlego, esforço prolongado
+> Coordenação: mira, reflexos, uso de armas
+
+**Táticos / Técnicos**
+> Malandragem: furtividade, enganação, lockpick
+> Tecnologia: tecnologia, veículos, dispositivos
+> Percepção: observação, rastreio, vigilância
+
+**Mentais / Sociais**
+> Investigação: análise, dedução, pistas
+> Negociação: barganha, persuasão
+> Autoridade: liderança, intimidação institucional
+> Vínculo: empatia, vínculos humanos
+
+**Nota:** Atributo 0 não impede ação, mas qualquer falha gera +1 Stress adicional.
+
+---
+
+### TESTES DE AÇÃO
+Quando uma ação é arriscada:
+1. Escolha o atributo apropriado
+2. Role Xd10 = resultado
+
+---
+
+### COMBATE E INJÚRIAS
+
+**Como funciona:**
+- Atacante e defensor escolhem atributos coerentes
+- Exemplos: Força vs Vigor | Coordenação vs Coordenação | Coordenação vs Malandragem
+- Subtraia: Resultado do atacante − resultado do defensor
+
+**Se positivo, causa Injúria:**
+- 1-9: Leve
+- 10-19: Grave
+- 20+: Crítica
+
+**Cálculo de Injúrias:**
+- Leves = 2 + ⌊Vigor / 2⌋
+- Graves = 1 + ⌊Vigor / 3⌋
+- Críticas = 1 (fixo)
+
+---
+
+### STRESS
+
+**O que é:** Pressão mental, física e emocional.
+
+**Gasto de Stress (você pode usar para):**
+- Ajudar outro personagem (1d10 por Stress gasto)
+- Forçar dados (2 Stress)
+- Usar poderes e contratos demoníacos
+- Aumentar uma ação (+1 ação padrão por 3 Stress. Máx: 1 por rodada)
+
+**Colapso:**
+- Ao atingir limite de Stress → sofre 1 Injúria automaticamente (depende da situação)
+- Stress reseta para 0
+
+**Recuperação de Stress (1 vez por luta):**
+- Cena de descanso → d10 + Vínculo (recupera metade/total)
+- Cena de combate → d10 + Vigor
+- 2+ pessoas → d10 + atributo escolhido (mesmo para todos)
+
+---
+
+### SANGUE
+Diminui 1 grau da maior injúria no momento. Se todas as injúrias estiverem quase totalmente cheias, zera 1 unidade da maior injúria.
+
+--
+
+### TESTE DE MEDO
+
+**Níveis de Medo (causados por Demônios):**
+- Medo 1 – Perturbador (DT 20-25)
+- Medo 2 – Amedrontador (DT 25-30)
+- Medo 3 – Horripilante (DT 30-35)
+- Medo 4 – Aterrorizante (DT 35-40)
+- Medo 5 – Incompreendido (DT 40+)
+
+**O jogador escolhe qual atributo usa para resistir:**
+
+**FORÇA**
+- Sucesso: +2 Stress, pode agir normalmente
+- Falha: -Xd10 em testes físicos por 1 rodada (X = grau do Medo)
+
+**VIGOR**
+- Sucesso: Sem penalidade, ignora efeitos de pânico
+- Falha: Não pode fugir, -1 ação de movimento por 1 rodada
+
+**MALANDRAGEM**
+- Sucesso: Ignora o medo temporariamente, sem penalidade
+- Falha: -Xd10 em testes mentais por 1 rodada (X = grau do Medo)
+
+**TECNOLOGIA**
+- Sucesso: Imune a efeitos psicológicos menores, pode ajudar aliados
+- Falha: -Xd10 em testes mentais + não pode usar poderes complexos por 1 rodada
+
+**AUTORIDADE**
+- Sucesso: Sem efeito, concede +1d10 a um aliado
+- Falha: -Xd10 em testes mentais + liderança abalada (-10 em comandar)
+
+**VÍNCULO**
+- Sucesso: Sem efeito, concede +1d30 a aliados (dividido: 2 aliados = +1d15 cada, 3 = +1d10 cada)
+- Falha: -Xd10 em testes mentais por 1 rodada (X = grau do Medo)
+
+---
+
+### PORTAS PARA O INFERNO
+São literalmente portas que ligam o mundo humano ao Inferno, um lugar vasto cheio de portas que representam medos humanos.
+
+**Como abrir:**
+- Demônios, Híbridos ou Infernais podem usar sua mente para imaginar e abrir sua porta
+- A porta surge próxima ao usuário, sobrepondo o que já existe (chão, céu, etc.)
+- Nem todos conseguem abri-la - é um terror que poucos aceitam
+
+**Aviso:** Se encontrar uma porta, reze e se afaste. Grandes chances de algo sair ou um demônio estar próximo.
+
+═══════════════════════════════
+## DEMÔNIOS
+═══════════════════════════════
+
+### CRIAÇÃO
+- **Pontos de Atributos:** 18 + bônus da origem
+
+### STRESS
+- Calculado conforme origem do medo (não usa fórmula fixa)
+
+### AFLIÇÕES (específico de Demônios)
+- Condições persistentes e permanentes
+- Sempre ligadas ao medo
+- Podem gerar Stress passivo
+- Evoluem conforme Injúrias surgem
+- Nunca são removidas, apenas transformadas
+
+---
+
+### MARCA DO DEMÔNIO
+**O Demônio não é marcado — ele marca.**
+
+Demônios deixam marcas em:
+- Pessoas com contratos
+- Lugares corrompidos
+
+**Efeitos das Marcas:**
+- Criam novos medos
+- Alimentam o demônio
+- Deixam consequências permanentes
+
+---
+
+═════════════════════════════════
+## **EVOLUÇÃO DEMONÍACA: NÍVEIS DE MEDO**
+═════════════════════════════════
+### **Como Subir de Nível de Medo:**
+- Causa Injúria Grave ou Crítica
+- Provoca falhas em Testes de Medo
+- Mata alguém importante
+- Age de forma coerente e cruel com seu conceito
+- É temido, cultuado ou comentado publicamente
+
+### **Como Descer de Nível:**
+- Protege humanos contra seu próprio conceito
+- Age com empatia contrária à sua natureza
+- É ridicularizado ou ignorado
+- Tem seu conceito superado (ex: fogo controlado, vigilância quebrada)
+- Sofre derrota pública humilhante
+
+---
+
+### PODERES DEMONÍACOS
+**Todo Demônio Completo possui:**
+- 2 Poderes Demoníacos (geral)
+- + Poderes adicionais conforme a origem do medo
+
+**Estrutura de cada poder:**
+- Nome
+- Descrição
+- Atributo usado
+- Custo
+
+**Custos possíveis:**
+- Gasto de Stress
+- Avanço de Injúria
+- Aflição nova ou agravada
+- Uso limitado por cena
+
+---
+
+### ARMAS + PODERES (Demônios)
+
+**Poderes podem:**
+- Usar armamento como canal
+- Distorcer armas humanas
+- Criar armas temporárias
+
+**Armas podem:**
+- Reduzir custo de poder
+- Ser destruídas como sacrifício
+- Aumentar o grau da injúria
+
+═══════════════════════════════
+## HUMANOS / INFERNAIS / HÍBRIDOS
+═══════════════════════════════
+
+### CRIAÇÃO
+- **Pontos de Atributos:** 16-22
+- **Stress:** 6 + Vigor + Vínculo
+- **Armamento:** 2 itens de batalha iniciais
+
+---
+
+### AFLIÇÕES (específico de Humanos/Infernais/Híbridos)
+Aflição é um estado mais grave que Injúria, porém diferente de dano puro.
+
+**Como se ganha Aflição:**
+- Sofrer Injúria Grave
+- Levar muito Stress de uma vez (+40% do total)
+- Presenciar algo perturbador
+- Falhar criticamente em situações extremas
+
+---
+
+### PODERES (Humanos/Infernais/Híbridos)
+
+**Quantidade Inicial:**
+- 1 Poder Principal
+- 1 Poder Secundário (opcional)
+
+**Estrutura de cada poder:**
+- Nome
+- Descrição
+- Atributo usado
+- Custo
+- Consequência de falha (se necessário)
+
+**Custos possíveis:**
+- Stress (1–6)
+- Risco de Aflição
+- Uso limitado por cena
+
+---
+
+### TALISMÃ (OBJETO DA SORTE)
+Cada personagem possui 1 Talismã:
+- Talismã não é só um objeto de sorte - é algo que ancora a humanidade do personagem. Tem poder real, mas usá-lo tem consequências.
+
+- Objeto ou marca com significado pessoal profundo
+- Representa algo que o mantém humano/são
+
+Escolha:
+1. O que é (objeto físico ou marca)
+2. De onde veio (pessoa, evento, lugar)
+3. O que representa (amor, promessa, memória, esperança)
+
+ATIVAR TALISMÃ (1x por sessão):
+- Gasta 0 Stress
+- Escolha UM efeito:
+> 1)Rerolar um teste falho
+> 2)Reduzir 1 nível de Injúria recebida
+> 3)Ignorar 1 Aflição por 1 cena
+> 4)+3d10 em teste relacionado ao significado do Talismã
+> 5)Resistir automaticamente a 1 Teste de Medo
+> 6)Recupera 1d7 + Vínculo de Stress
+
+RISCO:
+- Se o Talismã for destruído ou perdido:
+> +1 Aflição permanente imediata
+> Não pode usar nenhum efeito de Talismã até conseguir novo
+> Novo Talismã só após evento narrativo significativo
+
+---
+
+### MARCA DO DEMÔNIO (em Humanos)
+Campo inicialmente vazio.
+
+**Obtida ao:**
+- Recusar a morte
+- Sobreviver a um evento irreversível
+- Fazer um contrato
+- Virar um infernal
+
+**Efeitos:**
+- Altera permanentemente o personagem
+- Pode criar novos poderes ou Aflições
+
+# **MOVIMENTO BASE**
+Todo personagem possui um Movimento Base por turno, sem gastar Stress.
+
+**Movimento Base:** Coordenação × 2 metros
+
+**Exemplo:**
+- Coordenação 3 = 6 m
+- Coordenação 5 = 10 m
+- Coordenação 7 = 14 m
+
+**MOVIMENTO EXTRA**
+O personagem pode exceder o limite humano, pagando Stress.
+
+- Para cada +2 metros extras, gasta 1 STRESS
+
+**Exemplo:**
+- Base 10 m
+- Quer andar 18 m = +8 m
+
+# **PODER DE ORIGEM:**
+Todos crescem e ficam mais fortes com base em suas dificuldades
+É o quanto o mundo, o sistema e os demônios já deixaram cicatriz em você.
+partir do momento que crescerem eles ganham pontos sendo chamados de PONTOS DE MARCA (PM)
+
+**COMO GANHAR PONTOS DE MARCA**
+O Mestre concede PM ao final de eventos significativos e finalizações de missões 
+
+**PM INICIAL (HISTÓRIA DO PERSONAGEM)**
+- Vida comum, sem eventos extremos: 2 PM
+- Já enfrentou mortes, violência ou caos: 3 PM
+- Sobreviveu a eventos traumáticos graves: 4 PM
+- Passado extremo (massacre, contrato antigo, quase-morte): 5 PM
+- pontos totais das missões concluidas: "1d10" e a cada 3 anos de experiencia soma +1 no teste 
+
+**GANHO DE PM DURANTE O JOGO**
+
+Situação    
+Missão padrão concluída: +1 PM
+Missão com risco real / trauma: +2 PM
+Evento que muda o personagem: +3 PM (raro)
+
+**ENSINAMENTOS / TREINOS**
+Treino comum: +1 PM
+Treino perigoso ou demoníaco: +2 PM
+Ritual / conhecimento proibido: +3 PM (raro)
+
+**REGRA FINAL**
+Sempre que um personagem atingir:
+10 / 20 / 30 PM gastos
+
+**A lore exige 1 desses topicos:**
+- Marca do Demônio
+- Aflição permanente
+- Ou consequência narrativa séria
+------------------------
+
+# CRÍTICO OFENSIVO (Atacante)
+Quando o atacante rola múltiplos dados com valor 10:
+
+| Dados com 10 | Efeito |
+|--------------|--------|
+| 2x (2 dados) | +1 nível de Injúria + 1 Aflição |
+| 3x (3 dados) | +2 níveis de Injúria + 1 Aflição |
+| 4x+ (4+ dados) | +3 níveis de Injúria OU Aflição permanente |
+
+**Nota:** O crítico só é verificado se o atacante acertou (diferença > 0).
+
+---
+
+# CRÍTICO DEFENSIVO (Defensor)
+Quando o defensor rola múltiplos dados com valor 10, reduz o nível da injúria recebida:
+
+| Dados com 10 | Efeito |
+|--------------|--------|
+| 2x (2 dados) | Reduz 1 nível de Injúria |
+| 3x (3 dados) | Reduz 2 níveis de Injúria |
+| 4x+ (4+ dados) | Reduz 3 níveis de Injúria |
+
+**Nota:** A injúria mínima é sempre Leve se o defensor foi acertado. O crítico defensivo não pode anular completamente o dano.
+
+---
+
+# FALHAS (Múltiplos de 1)
+Quando você rola múltiplos dados com valor 1, sofre penalidade no resultado total:
+
+| Dados com 1 | Penalidade |
+|-------------|------------|
+| 0-1 (até 1 dado) | Sem penalidade |
+| 2x (2 dados) | -5 no total |
+| 3x (3 dados) | -10 no total |
+| 4x+ (4+ dados) | -15 no total |
+
+**Nota:** A penalidade é subtraída do resultado total da rolagem antes de calcular diferença em combate.
+
+---
+
+# E HORA DO DUELO!
+**CONDIÇÕES**
+- Ambos devem aceitar (recusar = -3d10 por 2 rodadas + marca de covarde)
+
+**PREPARAÇÃO**
+1. Cada duelista escolhe 3 atributos (forte, médio, fraco)
+2. Rolam os 3 secretamente e anotam
+3. Declaram intenção: Matar ou Incapacitar
+
+**RODADAS (melhor de 3)**
+- Escolhem secretamente qual resultado usar
+- Revelam ao mestre simultaneamente
+- Maior resultado vence a rodada
+- Empate: ambos +2 Stress, rodada não conta
+- Resultado usado é descartado
+
+**CONSEQUÊNCIAS POR RODADA PERDIDA**
+- 1ª derrota: +3 Stress
+- 2ª derrota: Injúria Leve
+
+**RESULTADO FINAL (3 rodada)**
+| Diferença | Perdedor sofre              |
+|-----------|-----------------------------|
+| 1-9       | Injúria Grave               |
+| 10-19     | Injúria Grave + Aflição     |
+| 20+       | Morte (ou Incapacitado)     |
+
+**MARCA DO DUELO**
+- Sobrevivente ganha cicatriz permanente (narrativa)
+
+**ALL-IN (opcional)**
+- Declarar antes de revelar na 2ª ou 3ª rodada
+- Soma todos os resultados restantes
+- Se perder: consequência dobrada
+- Se ambos usarem: perdedor sofre consequência triplicada
+
+## GRILHÕES
+> Todo hibrido detem esse malefico chamado "grilhões" que representam o quanto o demônio tem de controle sobre você. Cada vez que você usa um poder demoníaco, ganha 1 ponto de Grilhões so diminuindo 1 ponto a cada 20 minutos de descanso.
+
+**O QUE ACONTECE**
+A cada 5 pontos de grilhões acumulado, o Mestre pode fazer o demônio agir através de você uma vez:
+- Sussurrar uma ordem (teste de medo DT 25 para ignorar)
+- Forçar uma ação violenta em momento de raiva
+- Tomar controle por 1 rodada em combate
+- Fazer você falar algo que não queria
+- Sabotar uma interação social
+
+**Domínio 10+:** Mestre pode assumir controle do personagem por 1 cena inteira quando quiser (uma vez por sessão).
+
+**Domínio 15+:** Demônio pode tentar possessão total - teste de medo DT 40 ou vira Infernal temporariamente.

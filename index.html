@@ -11,1366 +11,18 @@
     <!-- SCAR CSS Compartilhado -->
     <link rel="stylesheet" href="assets/css/main.css">
 
+    <!-- CSS de Contratos -->
+    <link rel="stylesheet" href="assets/css/contratos.css">
+
+    <!-- CSS Específico da Página Index -->
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+
     <!-- Squeleton JS (Head) -->
     <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <style>
-        /* ============================================
-           SCAR Index - Estilos Especificos da Pagina
-           Estilos comuns estao em assets/css/main.css
-           ============================================ */
-
-        /* Hero Section */
-        .hero {
-            background: url('assets/images/chainsaw-horror.jpeg') center center / cover no-repeat;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg,
-                rgba(0,0,0,0.4) 0%,
-                rgba(10,10,10,0.6) 50%,
-                rgba(10,10,10,0.8) 100%);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, transparent 0%, rgba(10,10,10,0.5) 100%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero-title {
-            font-size: clamp(5rem, 18vw, 12rem);
-            color: var(--cor-secundaria);
-            text-shadow:
-                0 0 40px rgba(220,20,60,0.3),
-                0 4px 0 #5a0000,
-                0 8px 20px rgba(0,0,0,0.8);
-            line-height: 0.85;
-            letter-spacing: -2px;
-            animation: title-glow 3s ease-in-out infinite alternate;
-            position: relative;
-        }
-
-        @keyframes title-glow {
-            from { text-shadow: 0 0 30px rgba(220,20,60,0.2), 0 4px 0 #5a0000; }
-            to { text-shadow: 0 0 50px rgba(220,20,60,0.4), 0 4px 0 #5a0000; }
-        }
-
-        /* Efeito de sangue pingando */
-        .blood-drips {
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            right: 0;
-            height: 80px;
-            pointer-events: none;
-            overflow: visible;
-        }
-
-        .blood-drop {
-            position: absolute;
-            width: 8px;
-            background: linear-gradient(180deg, var(--cor-secundaria) 0%, #8B0000 100%);
-            border-radius: 0 0 50% 50%;
-            animation: drip 3s ease-in infinite;
-            transform-origin: top center;
-        }
-
-        .blood-drop::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            background: var(--cor-secundaria);
-            border-radius: 50%;
-            opacity: 0;
-            animation: droplet 3s ease-in infinite;
-        }
-
-        @keyframes drip {
-            0% { height: 0; opacity: 0; }
-            10% { height: 0; opacity: 1; }
-            50% { height: 60px; opacity: 1; }
-            80% { height: 60px; opacity: 1; }
-            100% { height: 60px; opacity: 0; }
-        }
-
-        @keyframes droplet {
-            0%, 70% { opacity: 0; transform: translateX(-50%) scale(0); }
-            75% { opacity: 1; transform: translateX(-50%) scale(1); }
-            100% { opacity: 0; transform: translateX(-50%) scale(0) translateY(20px); }
-        }
-
-        .blood-drop:nth-child(1) { left: 8%; animation-delay: 0s; width: 6px; }
-        .blood-drop:nth-child(2) { left: 22%; animation-delay: 1.5s; width: 8px; }
-        .blood-drop:nth-child(3) { left: 35%; animation-delay: 0.8s; width: 5px; }
-        .blood-drop:nth-child(4) { left: 52%; animation-delay: 2.2s; width: 7px; }
-        .blood-drop:nth-child(5) { left: 68%; animation-delay: 0.4s; width: 6px; }
-        .blood-drop:nth-child(6) { left: 78%; animation-delay: 1.8s; width: 8px; }
-        .blood-drop:nth-child(7) { left: 92%; animation-delay: 1s; width: 5px; }
-
-        .hero-subtitle {
-            font-family: 'Roboto', sans-serif;
-            font-size: clamp(0.7rem, 1.8vw, 1rem);
-            letter-spacing: 12px;
-            color: var(--cor-texto-secundario);
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-
-        .hero-tagline {
-            font-style: italic;
-            color: var(--cor-accent);
-            font-size: 1.3rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero-tagline::before,
-        .hero-tagline::after {
-            content: '—';
-            margin: 0 15px;
-            color: var(--cor-principal);
-        }
-
-        /* Decorative chains */
-        .hero-decor {
-            position: absolute;
-            font-size: 3rem;
-            opacity: 0.1;
-            color: var(--cor-secundaria);
-        }
-        .hero-decor.left { left: 5%; top: 20%; }
-        .hero-decor.right { right: 5%; bottom: 20%; }
-
-        /* Scroll indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            color: var(--cor-texto-secundario);
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator span {
-            width: 24px;
-            height: 40px;
-            border: 2px solid var(--cor-borda);
-            border-radius: 12px;
-            position: relative;
-        }
-
-        .scroll-indicator span::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 8px;
-            background: var(--cor-secundaria);
-            border-radius: 2px;
-            animation: scroll-dot 2s infinite;
-        }
-
-        /* Tipo de Ser Cards */
-        .tipo-card {
-            background: var(--cor-fundo-card);
-            border: 1px solid var(--cor-borda);
-            border-radius: 16px;
-            padding: 40px 25px;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tipo-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--tipo-color, var(--gradient-blood));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .tipo-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center top, var(--tipo-glow, rgba(255,255,255,0.05)) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .tipo-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .tipo-card:hover::after {
-            opacity: 1;
-        }
-
-        .tipo-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4), var(--tipo-shadow, 0 0 30px rgba(255,255,255,0.1));
-            border-color: var(--tipo-border, var(--cor-principal));
-        }
-
-        .tipo-icon {
-            font-size: 4.5rem;
-            margin-bottom: 20px;
-            display: block;
-            position: relative;
-            z-index: 1;
-            filter: drop-shadow(0 5px 15px var(--tipo-glow, rgba(255,255,255,0.15)));
-            transition: transform 0.3s ease;
-        }
-
-        .tipo-card:hover .tipo-icon {
-            transform: scale(1.15);
-        }
-
-        .tipo-card.humano {
-            --tipo-color: linear-gradient(90deg, #3498DB, #5DADE2);
-            --tipo-glow: rgba(74,144,217,0.15);
-            --tipo-shadow: 0 0 30px rgba(74,144,217,0.2);
-            --tipo-border: #4A90D9;
-        }
-        .tipo-card.humano .tipo-icon { color: #5DADE2; }
-
-        .tipo-card.infernal {
-            --tipo-color: linear-gradient(90deg, #C0392B, #E74C3C);
-            --tipo-glow: rgba(231,76,60,0.15);
-            --tipo-shadow: 0 0 30px rgba(231,76,60,0.2);
-            --tipo-border: #E74C3C;
-        }
-        .tipo-card.infernal .tipo-icon { color: #E74C3C; }
-
-        .tipo-card.hibrido {
-            --tipo-color: linear-gradient(90deg, #8E44AD, #9B59B6);
-            --tipo-glow: rgba(155,89,182,0.15);
-            --tipo-shadow: 0 0 30px rgba(155,89,182,0.2);
-            --tipo-border: #9B59B6;
-        }
-        .tipo-card.hibrido .tipo-icon { color: #9B59B6; }
-
-        .tipo-card.demonio {
-            --tipo-color: linear-gradient(90deg, #0a0a0a, #1a1a1a);
-            --tipo-glow: rgba(10,10,10,0.3);
-            --tipo-shadow: 0 0 40px rgba(0,0,0,0.5);
-            --tipo-border: #2a2a2a;
-        }
-        .tipo-card.demonio .tipo-icon { color: #444; }
-
-        .tipo-card h3 {
-            position: relative;
-            z-index: 1;
-        }
-
-        .tipo-card p {
-            position: relative;
-            z-index: 1;
-        }
-
-        .tipo-card .m-20-t {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Imagens dos tipos de seres */
-        .tipo-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: top center;
-            border: 3px solid var(--tipo-border, var(--cor-borda));
-            margin-bottom: 15px;
-            transition: all 0.4s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .tipo-card:hover .tipo-img {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px var(--tipo-glow, rgba(255,255,255,0.2));
-        }
-
-        .tipo-img-modal {
-            width: 100%;
-            max-width: 280px;
-            aspect-ratio: 3/4;
-            border-radius: 16px;
-            object-fit: cover;
-            object-position: top center;
-            border: 3px solid var(--modal-accent, var(--cor-borda));
-            margin: 20px auto;
-            display: block;
-            box-shadow:
-                0 0 30px rgba(0,0,0,0.5),
-                0 0 60px var(--modal-glow, rgba(139,0,0,0.3)),
-                inset 0 0 20px rgba(0,0,0,0.3);
-            position: relative;
-        }
-
-        /* Cores específicas para cada modal */
-        [data-modal="modal-humano"] .tipo-img-modal {
-            --modal-accent: #4A90D9;
-            --modal-glow: rgba(74,144,217,0.5);
-        }
-
-        [data-modal="modal-infernal"] .tipo-img-modal {
-            --modal-accent: #E74C3C;
-            --modal-glow: rgba(231,76,60,0.5);
-        }
-
-        [data-modal="modal-hibrido"] .tipo-img-modal {
-            --modal-accent: #9B59B6;
-            --modal-glow: rgba(155,89,182,0.5);
-        }
-
-        [data-modal="modal-demonio"] .tipo-img-modal {
-            --modal-accent: #333;
-            --modal-glow: rgba(139,0,0,0.4);
-        }
-
-        /* Atributos Grid */
-        .atributo-item {
-            background: var(--cor-fundo-card);
-            border: 1px solid var(--cor-borda);
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .atributo-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--gradient-blood);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .atributo-item:hover {
-            border-color: var(--cor-principal);
-            transform: translateX(5px);
-        }
-
-        .atributo-item:hover::after {
-            transform: scaleX(1);
-        }
-
-        .atributo-nome {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            color: var(--cor-secundaria);
-            margin-bottom: 8px;
- 
-            align-items: center;
-            gap: 10px;
-        }
-
-        .atributo-nome .attr-icon {
             font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        .atributo-desc {
-            color: var(--cor-texto-secundario);
-            font-size: 0.9rem;
-        }
-
-        /* Categoria header */
-        .categoria-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--cor-borda);
-        }
-
-        .categoria-header h4 {
-            margin: 0;
-        }
-
-        .categoria-icon {
-            width: 45px;
-            height: 45px;
-            background: var(--gradient-blood);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-
-        /* Code Blocks */
-        .code-block {
-            background: #1a1a1a;
-            border: 1px solid var(--cor-borda);
-            border-radius: 8px;
-            padding: 25px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            color: #ddd;
-        }
-
-        .code-block .highlight {
-            color: var(--cor-secundaria);
-        }
-
-        .code-block .comment {
-            color: #666;
-        }
-
-        /* Stress Meter */
-        .stress-meter {
-            display: flex;
-            gap: 6px;
-            margin: 25px 0;
-        }
-
-        .stress-bar {
-            width: 32px;
-            height: 45px;
-            background: var(--cor-fundo-card);
-            border: 1px solid var(--cor-borda);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stress-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .stress-bar:hover::before {
-            opacity: 1;
-        }
-
-        .stress-bar.filled {
-            background: linear-gradient(180deg, var(--cor-accent), var(--cor-secundaria), var(--cor-principal));
-            border-color: var(--cor-secundaria);
-            box-shadow: 0 0 15px rgba(255,255,255,0.2), inset 0 2px 4px rgba(255,255,255,0.2);
-            animation: stress-pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes stress-pulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.15); }
-            50% { box-shadow: 0 0 25px rgba(255,255,255,0.3); }
-        }
-
-        .stress-bar:hover {
-            transform: scaleY(1.1);
-        }
-
-        /* Contrato Card */
-        .contrato-card {
-            background: var(--cor-fundo-card);
-            border: 1px solid var(--cor-borda);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            height: 100%;
-        }
-
-        .contrato-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4), var(--shadow-glow);
-            border-color: var(--cor-principal);
-        }
-
-        .contrato-header {
-            background: var(--gradient-blood);
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contrato-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .contrato-categoria {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(5px);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            top: 50%;
-            transform: translateY(-50%);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .contrato-nome {
-            font-size: 1.5rem;
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contrato-body {
-            padding: 25px;
-        }
-
-        .contrato-item {
-            margin-bottom: 18px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .contrato-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .contrato-label {
-            color: var(--cor-secundaria);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .contrato-item p {
-            color: var(--cor-texto-secundario);
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        /* Arma Card */
-        .arma-card {
-            background: var(--cor-fundo-card);
-            border: 1px solid var(--cor-borda);
-            border-radius: 12px;
-            padding: 22px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .arma-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: var(--gradient-blood);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .arma-card:hover {
-            border-color: var(--cor-principal);
-            transform: translateX(5px);
-            box-shadow: -5px 0 20px rgba(255,255,255,0.1);
-        }
-
-        .arma-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .arma-nome {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            color: var(--cor-texto);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .arma-nome .arma-icon {
-            font-size: 1.2rem;
-        }
-
-        .arma-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .arma-stat {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            transition: all 0.2s ease;
-        }
-
-        .arma-stat:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        .arma-stat span {
-            color: var(--cor-accent);
-            font-weight: 600;
-        }
-
-        /* Estilo de Luta Card */
-        .estilo-card {
-            background: var(--cor-fundo-card);
-            border: 1px solid var(--cor-borda);
-            border-radius: 14px;
-            padding: 28px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-        }
-
-        .estilo-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at top right, rgba(255,255,255,0.05) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .estilo-card:hover {
-            border-color: var(--cor-principal);
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-glow), var(--shadow-card);
-        }
-
-        .estilo-card:hover::before {
-            opacity: 1;
-        }
-
-        .estilo-nome {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            color: var(--cor-secundaria);
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .estilo-nome .estilo-icon {
-            font-size: 1.5rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-        }
-
-        .estilo-beneficio {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-            border-left: 3px solid var(--cor-principal);
-            border-radius: 0 8px 8px 0;
-            padding: 14px 18px;
-            margin: 12px 0;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 1;
-            transition: all 0.2s ease;
-        }
-
-        .estilo-beneficio:hover {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            padding-left: 22px;
-        }
-
-        .estilo-beneficio strong {
-            color: var(--cor-secundaria);
-        }
-
-        /* Navegação por seções */
-        .nav-sections {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 99;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--cor-borda);
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-dot:hover,
-        .nav-dot.active {
-            background: var(--cor-secundaria);
-            box-shadow: 0 0 10px rgba(255,255,255,0.3);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            position: relative;
-            background: url('assets/images/banner-footer.jpeg') center center / cover no-repeat;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.6) 100%);
-            pointer-events: none;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            color: var(--cor-texto);
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        .cta-title span {
-            color: var(--cor-secundaria);
-        }
-
-        /* Footer Simples */
-        .site-footer {
-            background: var(--cor-fundo);
-            border-top: 1px solid var(--cor-borda);
-            padding: 40px 0 30px;
-        }
-
-        .footer-brand {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .footer-brand a {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
-            color: var(--cor-secundaria);
-            text-decoration: none;
-            letter-spacing: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .footer-brand a:hover {
-            text-shadow: 0 0 20px rgba(220,20,60,0.5);
-        }
-
-        .footer-brand span {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--cor-texto-secundario);
-            letter-spacing: 3px;
-            margin-top: 5px;
-            text-transform: uppercase;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-bottom: 25px;
-        }
-
-        .footer-links a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--cor-texto-secundario);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: 1px solid transparent;
-        }
-
-        .footer-links a:hover {
-            color: var(--cor-secundaria);
-            border-color: var(--cor-borda);
-            background: rgba(255,255,255,0.03);
-        }
-
-        .footer-links svg {
-            width: 18px;
-            height: 18px;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer-links a:hover svg {
-            opacity: 1;
-        }
-
-        .footer-divider-line {
-            width: 60%;
-            max-width: 400px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cor-borda), transparent);
-            margin: 0 auto 20px;
-        }
-
-        .footer-copy {
-            text-align: center;
-            color: var(--cor-texto-secundario);
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        /* Blood Glow Effect */
-        .blood-glow {
-            background:
-                radial-gradient(ellipse at center top, rgba(139,0,0,0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 30% 50%, rgba(220,20,60,0.08) 0%, transparent 50%);
-        }
-
-        .blood-glow-center {
-            background:
-                radial-gradient(ellipse at center top, rgba(139,0,0,0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at center, rgba(220,20,60,0.05) 0%, transparent 60%);
-        }
-
-        /* Animação de sangue */
-        @keyframes blood-drip {
-            0% { transform: translateY(-100%); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-
-        .blood-drip {
-            position: fixed;
-            top: 0;
-            width: 2px;
-            height: 100px;
-            background: linear-gradient(180deg, transparent, var(--cor-secundaria), transparent);
-            pointer-events: none;
-            animation: blood-drip 3s ease-in infinite;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--cor-borda);
-            color: var(--cor-texto);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 10px 14px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover {
-            background: rgba(220,20,60,0.2);
-            border-color: var(--cor-secundaria);
-        }
-
-        @media (max-width: 991px) {
-            .mobile-menu-btn {
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .nav-desktop {
-                display: none !important;
-            }
-
-            .nav-sections {
-                display: none !important;
-            }
-
-            .site-header {
-                padding: 10px 0;
-            }
-
-            .site-header .container {
-                padding: 0 15px;
-            }
-
-            .logo-text {
-                font-size: 1.6rem !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo-text {
-                font-size: 1.4rem !important;
-            }
-
-            .mobile-menu-btn {
-                padding: 8px 12px;
-                font-size: 1.3rem;
-            }
-        }
-
-        /* ========== MOBILE MENU STYLES ========== */
-        .mobile-menu-container {
-            width: 100%;
-            height: 100vh;
-            background: var(--cor-fundo);
-            position: relative;
-            overflow-y: auto;
-            overflow-x: hidden;
-            /* Esconde scrollbar */
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .mobile-menu-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .mobile-menu-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(ellipse at top center, rgba(139,0,0,0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 80%, rgba(100,0,0,0.15) 0%, transparent 40%),
-                radial-gradient(ellipse at 80% 90%, rgba(80,0,0,0.1) 0%, transparent 35%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .mobile-menu-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 250px;
-            background: radial-gradient(ellipse at center top, rgba(220,20,60,0.3) 0%, rgba(139,0,0,0.1) 50%, transparent 80%);
-            pointer-events: none;
-            animation: menuGlowPulse 3s ease-in-out infinite;
-            z-index: 2;
-        }
-
-        @keyframes menuGlowPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        .mobile-menu-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--cor-borda);
-            color: var(--cor-texto);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .mobile-menu-close:hover {
-            background: rgba(220,20,60,0.2);
-            border-color: var(--cor-secundaria);
-            transform: rotate(90deg);
-        }
-
-        .mobile-menu-content {
-            position: relative;
-            z-index: 5;
-            padding: 60px 30px 40px;
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-menu-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .mobile-menu-logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            color: var(--cor-secundaria);
-            letter-spacing: 8px;
-            text-shadow: 0 0 40px rgba(220,20,60,0.5);
-            display: block;
-        }
-
-        .mobile-menu-subtitle {
-            font-size: 0.75rem;
-            color: var(--cor-texto-secundario);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-
-        .mobile-menu-divider {
-            width: 80px;
-            height: 2px;
-            background: var(--gradient-blood);
-            margin: 20px auto 0;
-            box-shadow: 0 0 10px rgba(220,20,60,0.5);
-        }
-
-        .mobile-menu-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .mobile-nav-link {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.3rem;
-            color: var(--cor-texto);
-            text-decoration: none;
-            letter-spacing: 2px;
-            padding: 14px 20px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid transparent;
-        }
-
-        .mobile-nav-link .link-icon {
-            font-size: 1.1rem;
-            width: 28px;
-            text-align: center;
-        }
-
-        .mobile-nav-link .link-text {
-            flex: 1;
-        }
-
-        .mobile-nav-link:hover,
-        .mobile-nav-link:active {
-            color: var(--cor-accent);
-            background: rgba(220,20,60,0.1);
-            border-color: rgba(220,20,60,0.3);
-            transform: translateX(5px);
-        }
-
-        .mobile-nav-link.secondary {
-            font-size: 1.1rem;
-            padding: 12px 20px;
-            color: var(--cor-texto-secundario);
-            background: transparent;
-        }
-
-        .mobile-nav-link.secondary:hover {
-            color: var(--cor-texto);
-            background: rgba(255,255,255,0.03);
-        }
-
-        .mobile-menu-section-divider {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cor-borda), transparent);
-            margin: 20px 0;
-        }
-
-        .mobile-menu-nav-secondary {
-            gap: 5px;
-        }
-
-        .mobile-menu-footer {
-            margin-top: auto;
-            padding-top: 30px;
-            text-align: center;
-        }
-
-        .mobile-menu-footer p {
-            font-style: italic;
-            color: var(--cor-texto-secundario);
-            font-size: 0.85rem;
-            opacity: 0.6;
-        }
-
-        /* Grid de Níveis de Injúria - Responsivo */
-        .injuria-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .injuria-item {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--cor-borda);
-            border-radius: 8px;
-            padding: 15px 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .injuria-item:hover {
-            border-color: var(--cor-principal);
-            transform: translateY(-2px);
-        }
-
-        .injuria-nome {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            color: var(--cor-texto);
-            margin-bottom: 5px;
-        }
-
-        .injuria-valor {
-            font-size: 0.85rem;
-            color: var(--cor-texto-secundario);
-        }
-
-        .injuria-morte {
-            background: rgba(139,0,0,0.2);
-            border-color: var(--cor-principal);
-        }
-
-        .injuria-morte .injuria-nome {
-            color: var(--cor-secundaria);
-        }
-
-        @media (max-width: 640px) {
-            .injuria-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-
-            .injuria-item {
-                padding: 12px 8px;
-            }
-
-            .injuria-nome {
-                font-size: 0.9rem;
-            }
-
-            .injuria-valor {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Modal Styling */
-        .modal-popup {
-            scrollbar-width: thin;
-            scrollbar-color: var(--cor-principal) var(--cor-fundo-card);
-        }
-
-        .modal-popup::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .modal-popup::-webkit-scrollbar-track {
-            background: var(--cor-fundo-card);
-        }
-
-        .modal-popup::-webkit-scrollbar-thumb {
-            background: var(--cor-principal);
-            border-radius: 3px;
-        }
-
-        .dialog-close {
-            color: var(--cor-texto);
-            font-size: 1.5rem;
-            opacity: 0.7;
-            transition: opacity 0.2s ease;
-        }
-
-        .dialog-close:hover {
-            opacity: 1;
-        }
-
-        /* FAQ Cards hover */
-        .card:hover .card-title,
-        .card:hover h4 {
-            color: var(--cor-secundaria);
-        }
-
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Selection */
-        ::selection {
-            background: var(--cor-principal);
-            color: white;
-        }
-
-        /* FAQ Accordion */
-        .faq-item {
-            background: var(--cor-fundo-card);
-            border: 1px solid var(--cor-borda);
-            border-radius: 10px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            border-color: var(--cor-principal);
-        }
-
-        .faq-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .faq-header:hover {
-            background: rgba(255,255,255,0.03);
-        }
-
-        .faq-header .left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .faq-header .icon {
-            font-size: 1.3rem;
-        }
-
-        .faq-header .title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.15rem;
-            letter-spacing: 1px;
-            color: var(--cor-secundaria);
-        }
-
-        .faq-header .arrow {
-            transition: transform 0.3s ease;
-            color: var(--cor-texto-secundario);
-            font-size: 0.9rem;
-        }
-
-        .faq-item.open .faq-header .arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-item.open {
-            border-color: var(--cor-principal);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .faq-content {
-            display: none;
-            padding: 0 24px 20px;
-            color: var(--cor-texto-secundario);
-            line-height: 1.7;
-            border-top: 1px solid var(--cor-borda);
-        }
-
-        .faq-item.open .faq-content {
-            display: block;
-        }
-
-        .faq-content p {
-            margin-top: 15px;
-        }
-
-        .faq-content strong {
-            color: var(--cor-texto);
-        }
-
-        .faq-content .highlight {
-            color: var(--cor-secundaria);
         }
     </style>
 </head>
@@ -2864,107 +1516,84 @@
     <div data-modal="modal-contratos" class="modal-dialog" aria-hidden="true">
         <div class="dialog-content">
             <div class="dialog-backdrop" data-modal-hide></div>
-            <div class="dialog-inline w-800px xs-w-95">
+            <div class="dialog-inline w-900px xs-w-95">
                 <button class="dialog-close" data-modal-hide></button>
-                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-principal); max-height: 85vh; overflow-y: auto;">
+                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto;">
                     <div class="text-center m-20-b">
                         <span class="iccon-file-1" style="font-size: 3rem; color: var(--cor-secundaria);"></span>
                         <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Contratos Demoníacos</h3>
-                        <p style="color: var(--cor-texto-secundario);">Pactos vinculantes entre humano e demônio.</p>
+                        <p style="color: var(--cor-texto-secundario);">Pactos vinculantes entre humano e demônio. A principal forma de ganhar poder sobrenatural.</p>
                         <p style="color: var(--cor-accent); font-weight: bold;">⚠️ Demônios NÃO são seus amigos. Eles vão cobrar. SEMPRE.</p>
                     </div>
 
                     <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">Estrutura de Todo Contrato</h4>
-                        <div class="row gap-10">
-                            <div class="c-xs-6 c-md-3">
-                                <div class="atributo-item text-center">
-                                    <div style="font-size: 1.5rem;">⚡</div>
-                                    <div class="atributo-nome">O Poder</div>
-                                    <div class="atributo-desc">O que o demônio te dá</div>
-                                </div>
-                            </div>
-                            <div class="c-xs-6 c-md-3">
-                                <div class="atributo-item text-center">
-                                    <div style="font-size: 1.5rem;">💰</div>
-                                    <div class="atributo-nome">O Preço</div>
-                                    <div class="atributo-desc">O que você paga</div>
-                                </div>
-                            </div>
-                            <div class="c-xs-6 c-md-3">
-                                <div class="atributo-item text-center">
-                                    <div style="font-size: 1.5rem;">📜</div>
-                                    <div class="atributo-nome">A Restrição</div>
-                                    <div class="atributo-desc">Regras a seguir</div>
-                                </div>
-                            </div>
-                            <div class="c-xs-6 c-md-3">
-                                <div class="atributo-item text-center">
-                                    <div style="font-size: 1.5rem;">💀</div>
-                                    <div class="atributo-nome">A Quebra</div>
-                                    <div class="atributo-desc">Se violar o contrato</div>
-                                </div>
-                            </div>
+                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">Classificação de Contratos</h4>
+                        <div style="overflow-x: auto;">
+                            <table class="table-scar">
+                                <thead>
+                                    <tr>
+                                        <th>Tier</th>
+                                        <th>Poder</th>
+                                        <th>Injúria Mínima</th>
+                                        <th>Aflição / Preço</th>
+                                        <th>Custo PM</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="color: var(--cor-secundaria); font-weight: 600;">Menor</td>
+                                        <td>Limitado, utilitário</td>
+                                        <td>—</td>
+                                        <td style="font-size: 0.85rem;">
+                                            <strong>Escolha 1:</strong> Aflição Leve • Preço simbólico • Restrição comportamental
+                                        </td>
+                                        <td style="font-weight: 600;">2 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: var(--cor-secundaria); font-weight: 600;">Médio</td>
+                                        <td>Forte, combate efetivo</td>
+                                        <td><strong>Leve (1-9)</strong></td>
+                                        <td style="font-size: 0.85rem;">
+                                            <strong>Escolha 1:</strong> Rola 2x Aflição • Potencializa existente • Preço físico
+                                        </td>
+                                        <td style="font-weight: 600;">3 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: var(--cor-secundaria); font-weight: 600;">Maior</td>
+                                        <td>Destruidor, game-changer</td>
+                                        <td><strong>Grave (10-19)</strong></td>
+                                        <td style="font-size: 0.85rem;">
+                                            <strong>Obrigatório:</strong> Aflição Severa + Marca visível + Preço recorrente
+                                        </td>
+                                        <td style="font-weight: 600;">4 PM</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: var(--cor-secundaria); font-weight: 600;">Invocação</td>
+                                        <td>Invoca entidade aliada</td>
+                                        <td>Varia</td>
+                                        <td style="font-size: 0.85rem;">
+                                            <strong>Escolha 1:</strong> Aflição proporcional • Manter criatura • Vínculo emocional
+                                        </td>
+                                        <td style="font-weight: 600;">3 PM</td>
+                                    </tr>
+                                    <tr style="background: rgba(0,0,0,0.2);">
+                                        <td style="color: var(--cor-secundaria); font-weight: 600;">Restrição</td>
+                                        <td>Poder absoluto</td>
+                                        <td><strong style="color: var(--cor-secundaria);">Crítica (20+)</strong></td>
+                                        <td style="font-size: 0.85rem; color: var(--cor-secundaria);">
+                                            <strong>☠️ Morte Instantânea</strong> se violar condição
+                                        </td>
+                                        <td style="font-weight: 600;">Mestre</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
 
-                    <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">Categorias</h4>
-                        <table class="table-scar">
-                            <tr>
-                                <th>Categoria</th>
-                                <th>Poder</th>
-                                <th>Aflição</th>
-                                <th>Custo PM</th>
-                            </tr>
-                            <tr>
-                                <td>Menor</td>
-                                <td>Limitado</td>
-                                <td>Leve</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>Médio</td>
-                                <td>Forte</td>
-                                <td>Ativa</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>Maior</td>
-                                <td>Destruidor</td>
-                                <td>Severa</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td>Restrição</td>
-                                <td>Extremo</td>
-                                <td style="color: var(--cor-secundaria);">MORTE</td>
-                                <td>Aprovação</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="m-30-t">
-                        <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">Exemplos Rápidos</h4>
-                        <div class="row gap-10">
-                            <div class="c-xs-12 c-md-4">
-                                <div class="atributo-item">
-                                    <div class="atributo-nome">🚬 Cigarro</div>
-                                    <div class="atributo-desc">Cortina de fumaça. Deve fumar 1/dia.</div>
-                                </div>
-                            </div>
-                            <div class="c-xs-12 c-md-4">
-                                <div class="atributo-item">
-                                    <div class="atributo-nome">🦊 Raposa</div>
-                                    <div class="atributo-desc">Cabeça gigante ataca. Perde memórias.</div>
-                                </div>
-                            </div>
-                            <div class="c-xs-12 c-md-4">
-                                <div class="atributo-item">
-                                    <div class="atributo-nome">⚔️ Katana</div>
-                                    <div class="atributo-desc">Lâmina demoníaca. Matar 1/mês.</div>
-                                </div>
-                            </div>
+                        <!-- Nota explicativa -->
+                        <div class="m-20-t p-15-all" style="background: rgba(220,20,60,0.05); border: 1px solid var(--cor-borda); border-radius: 8px;">
+                            <p class="fs-4" style="color: var(--cor-texto-secundario); text-align: center; margin: 0;">
+                                <strong style="color: var(--cor-texto);">Injúria Mínima:</strong> Dano base que o poder causa ao alvo em combate. Poderes não-ofensivos não causam injúria.
+                            </p>
                         </div>
                     </div>
 
@@ -2974,7 +1603,7 @@
     </div>
 
     <!-- Modal Ficha de Personagem -->
-    <div data-modal="modal-ficha" class="modal-dialog" aria-hidden="true">
+    <div data-modal="modal-ficha-padrao" class="modal-dialog" aria-hidden="true">
         <div class="dialog-content">
             <div class="dialog-backdrop" data-modal-hide></div>
             <div class="dialog-inline w-700px xs-w-95">
@@ -3049,6 +1678,86 @@
         </div>
     </div>
 
+    <!-- Modal Ficha Demônio Puro -->
+    <div data-modal="modal-ficha-demonio" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide></div>
+            <div class="dialog-inline w-700px xs-w-95">
+                <button class="dialog-close" data-modal-hide></button>
+                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto;">
+                    <div class="text-center m-20-b">
+                        <span style="font-size: 3rem; color: var(--cor-secundaria);">👹</span>
+                        <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Ficha de Demônio Puro</h3>
+                        <p style="color: var(--cor-texto-secundario);">Para criar demônios nascidos do medo coletivo</p>
+                    </div>
+
+                    <div class="code-block m-20-t" style="font-size: 0.85rem; line-height: 1.8;">
+                        <span class="highlight">═══ DADOS BÁSICOS ═══</span><br><br>
+                        <span class="comment">NOME:</span> _______________________ <span style="color: #666;">(raro)</span><br>
+                        <span class="comment">IDADE:</span> _______________________ <span style="color: #666;">(desde quando existe o medo)</span><br>
+                        <span class="comment">CONCEITO:</span> _______________________ <span style="color: #666;">(Ex: Demônio do Fogo, Solidão, Guerra)</span><br>
+                        <span class="comment">FALHA CENTRAL:</span> _______________________ <span style="color: var(--cor-secundaria);">(OBRIGATÓRIA)</span><br>
+                        <span class="comment">APARÊNCIA:</span> _______________________<br><br>
+
+                        <span class="highlight">═══ ORIGEM DO MEDO ═══</span><br><br>
+                        <span class="comment">Escolha 1:</span><br>
+                        ☐ <span style="color: var(--cor-secundaria);">Incomum</span> <span style="color: #666;">(dor, fogo, altura, sangue)</span><br>
+                        ☐ <span style="color: var(--cor-secundaria);">Social/Sistêmico</span> <span style="color: #666;">(repressão, guerra, vigilância)</span><br>
+                        ☐ <span style="color: var(--cor-secundaria);">Bíblico</span> <span style="color: #666;">(juízo, inferno, pecado, apocalipse)</span><br>
+                        ☐ <span style="color: var(--cor-secundaria);">Conceitual</span> <span style="color: #666;">(silêncio, vazio, solidão, tempo)</span><br>
+                        ☐ <span style="color: var(--cor-secundaria);">Primordial</span> <span style="color: #666;">(morte, extinção, trevas absolutas)</span><br><br>
+
+                        <span class="highlight">═══ ATRIBUTOS (18 + 4 ORIGEM = 22) ═══</span><br><br>
+
+                        <span style="color: var(--cor-secundaria);">▸ Físicos</span><br>
+                        &nbsp;&nbsp;<span class="comment">Força:</span> [ ]<br>
+                        &nbsp;&nbsp;<span class="comment">Vigor:</span> [ ]<br>
+                        &nbsp;&nbsp;<span class="comment">Coordenação:</span> [ ]<br><br>
+
+                        <span style="color: var(--cor-secundaria);">▸ Táticos / Técnicos</span><br>
+                        &nbsp;&nbsp;<span class="comment">Malandragem:</span> [ ]<br>
+                        &nbsp;&nbsp;<span class="comment">Tecnologia:</span> [ ]<br>
+                        &nbsp;&nbsp;<span class="comment">Percepção:</span> [ ]<br><br>
+
+                        <span style="color: var(--cor-secundaria);">▸ Mentais / Sociais</span><br>
+                        &nbsp;&nbsp;<span class="comment">Investigação:</span> [ ]<br>
+                        &nbsp;&nbsp;<span class="comment">Negociação:</span> [ ]<br>
+                        &nbsp;&nbsp;<span class="comment">Autoridade:</span> [ ]<br>
+                        &nbsp;&nbsp;<span class="comment">Vínculo:</span> [ ]<br><br>
+
+                        <span class="highlight">═══ RECURSOS ═══</span><br><br>
+
+                        <span class="comment">STRESS:</span> 6 + Vigor + <span style="color: #666;">[atributo relevante]</span> = ____<br><br>
+
+                        <span class="comment">INJÚRIAS</span><br>
+                        &nbsp;&nbsp;Leve: ☐ ☐ ☐ ☐<br>
+                        &nbsp;&nbsp;Grave: ☐ ☐<br>
+                        &nbsp;&nbsp;Crítica: ☐<br><br>
+
+                        <span class="comment">NÍVEL DE MEDO:</span> <span class="highlight">1</span> <span style="color: #666;">(Perturbador)</span><br><br>
+
+                        <span class="highlight">═══ PODERES DEMONÍACOS ═══</span><br><br>
+
+                        <span class="comment">1.</span> _______________________ <span style="color: #666;">(ligado ao conceito)</span><br>
+                        <span class="comment">2.</span> _______________________ <span style="color: #666;">(ligado ao conceito)</span><br><br>
+
+                        <span class="highlight">═══ MARCA DO DEMÔNIO ═══</span><br><br>
+
+                        <span class="comment">Como seu conceito se manifesta fisicamente:</span><br>
+                        _______________________<br>
+                        _______________________<br>
+                    </div>
+
+                    <div class="m-20-t p-15-all border-rd-8" style="background: rgba(139, 0, 0, 0.2); border: 1px solid var(--cor-secundaria);">
+                        <p class="text-center fs-8" style="color: var(--cor-texto-secundario);">
+                            <strong style="color: var(--cor-secundaria);">⚠️ Lembre-se:</strong> Demônios não escolhem existir. Eles <strong>são</strong> o medo que os criou. Sua natureza define tudo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal PM (Pontos de Marca) -->
     <div data-modal="modal-pm" class="modal-dialog" aria-hidden="true">
         <div class="dialog-content">
@@ -3111,11 +1820,15 @@
                         <h4 class="fs-10 m-15-b" style="color: var(--cor-secundaria);">📈 Como Ganhar PM</h4>
                         <div class="row gap-15">
                             <div class="c-xs-12 c-md-6">
-                                <h5 class="fs-8 m-10-b" style="color: var(--cor-secundaria);">Durante Missões</h5>
+                                <h5 class="fs-8 m-10-b" style="color: var(--cor-secundaria);">Durante Sessões e Missões</h5>
                                 <table class="table-scar" style="font-size: 0.9rem;">
                                     <tr>
                                         <th>Situação</th>
                                         <th>PM</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Por sessão (automático)</td>
+                                        <td class="text-center">+1</td>
                                     </tr>
                                     <tr>
                                         <td>Missão padrão concluída</td>
@@ -3126,7 +1839,19 @@
                                         <td class="text-center">+2</td>
                                     </tr>
                                     <tr>
-                                        <td>Evento que muda o personagem</td>
+                                        <td>Sobrevivência extrema</td>
+                                        <td class="text-center">+2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Roleplay impactante</td>
+                                        <td class="text-center">+1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Derrotar boss/demônio importante</td>
+                                        <td class="text-center">+2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Completar arco de história</td>
                                         <td class="text-center">+3</td>
                                     </tr>
                                 </table>
@@ -3151,6 +1876,11 @@
                                         <td class="text-center">+3</td>
                                     </tr>
                                 </table>
+                                <div class="m-15-t p-15-all border-rd-8" style="background: rgba(139, 0, 0, 0.15); border-left: 3px solid var(--cor-secundaria);">
+                                    <p class="fs-4" style="color: var(--cor-texto-secundario); line-height: 1.6;">
+                                        <strong style="color: var(--cor-secundaria);">💡 Dica:</strong> O Mestre deve recompensar escolhas difíceis, sacrifícios e momentos que mudam a história. PM não é só XP — é cicatriz.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -3228,6 +1958,410 @@
         </div>
     </div>
 
+
+    <!-- Modal Contratos de Poder -->
+    <div data-modal="modal-contratos-poder" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide></div>
+            <div class="dialog-inline w-900px xs-w-95">
+                <button class="dialog-close" data-modal-hide></button>
+                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 2px solid #4CAF50; max-height: 85vh; overflow-y: auto;">
+                    <div class="text-center m-30-b">
+                        <div style="font-size: 3.5rem; margin-bottom: 15px;">⚡</div>
+                        <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Contratos de Poder</h3>
+                        <p style="color: var(--cor-texto-secundario);">Poderes demoníacos tradicionais • Custo: 2-4 PM</p>
+                    </div>
+
+                    <!-- Explicação -->
+                    <div class="p-20-all border-rd-8 m-30-b" style="background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50;">
+                        <p class="fs-8 text-center m-0" style="line-height: 1.7;">
+                            Contratos tradicionais que concedem poderes para combate, defesa ou utilidade. O custo varia conforme a força do demônio.
+                        </p>
+                    </div>
+
+                    <!-- Níveis -->
+                    <div class="row gap-10 m-30-b">
+                        <div class="c-xs-12 c-md-4">
+                            <div class="p-15-all border-rd-8 text-center" style="background: rgba(76, 175, 80, 0.15); border: 1px solid #4CAF50;">
+                                <strong style="color: #4CAF50;">Menor • 2 PM</strong><br>
+                                <span class="fs-4">Utilidade básica</span>
+                            </div>
+                        </div>
+                        <div class="c-xs-12 c-md-4">
+                            <div class="p-15-all border-rd-8 text-center" style="background: rgba(255, 152, 0, 0.15); border: 1px solid #FF9800;">
+                                <strong style="color: #FF9800;">Médio • 3 PM</strong><br>
+                                <span class="fs-4">Efeitos moderados</span>
+                            </div>
+                        </div>
+                        <div class="c-xs-12 c-md-4">
+                            <div class="p-15-all border-rd-8 text-center" style="background: rgba(244, 67, 54, 0.15); border: 1px solid #F44336;">
+                                <strong style="color: #F44336;">Maior • 4 PM</strong><br>
+                                <span class="fs-4">Poder devastador</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exemplos -->
+                    <div class="row gap-20">
+                        <div class="c-xs-12 c-md-6">
+                            <div class="contrato-card">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #4CAF50, #2E7D32);">
+                                    <span class="contrato-categoria">Menor • 2 PM</span>
+                                    <h4 class="contrato-nome">🚬 Demônio do Cigarro</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">⚡ Poder</div>
+                                        <p>Cortina de fumaça que bloqueia visão em área 3m</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">💰 Custo</div>
+                                        <p>2 Stress por uso</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">📜 Restrição</div>
+                                        <p>Deve fumar 1 cigarro por dia</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">🔖 Marca</div>
+                                        <p>Dedos amarelados permanentes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="c-xs-12 c-md-6">
+                            <div class="contrato-card">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #FF9800, #E65100);">
+                                    <span class="contrato-categoria">Médio • 3 PM</span>
+                                    <h4 class="contrato-nome">🦊 Demônio da Raposa</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">⚡ Poder</div>
+                                        <p>Cabeça gigante de raposa que morde (Injúria Grave)</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">💰 Custo</div>
+                                        <p>4 Stress + sacrifício de memória</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">📜 Restrição</div>
+                                        <p>Não pode mentir para demônios</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">🔖 Marca</div>
+                                        <p>Olhos alaranjados quando sente raiva</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="c-xs-12">
+                            <div class="contrato-card">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #F44336, #B71C1C);">
+                                    <span class="contrato-categoria">Maior • 4 PM</span>
+                                    <h4 class="contrato-nome">⚔️ Demônio da Katana</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="row gap-15">
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">⚡ Poder</div>
+                                                <p>Katana demoníaca. Injúrias aumentam 1 grau</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">💰 Custo</div>
+                                                <p>5 Stress + sangue de inimigo</p>
+                                            </div>
+                                        </div>
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">📜 Restrição</div>
+                                                <p>Matar 1 ser vivo por mês</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">🔖 Marca</div>
+                                                <p>Cicatriz de katana nas costas</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Contratos de Invocação -->
+    <div data-modal="modal-contratos-invocacao" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide></div>
+            <div class="dialog-inline w-900px xs-w-95">
+                <button class="dialog-close" data-modal-hide></button>
+                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 2px solid #9C27B0; max-height: 85vh; overflow-y: auto;">
+                    <div class="text-center m-30-b">
+                        <div style="font-size: 3.5rem; margin-bottom: 15px;">👹</div>
+                        <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Contratos de Invocação</h3>
+                        <p style="color: var(--cor-texto-secundario);">Criaturas e manifestações demoníacas • Custo: 3 PM</p>
+                    </div>
+
+                    <!-- Explicação -->
+                    <div class="p-20-all border-rd-8 m-30-b" style="background: rgba(156, 39, 176, 0.1); border: 1px solid #9C27B0;">
+                        <p class="fs-8 text-center m-10-b" style="line-height: 1.7;">
+                            Invoque criaturas ou manifestações demoníacas que lutam ao seu lado. <strong>Duram até serem derrotadas, dissipadas ou o contrato ser rompido.</strong>
+                        </p>
+                        <p class="fs-7 text-center m-0" style="color: #9C27B0;">
+                            ⚠️ Você NÃO controla totalmente o que invoca
+                        </p>
+                    </div>
+
+                    <!-- Exemplos -->
+                    <div class="row gap-20">
+                        <div class="c-xs-12 c-md-6">
+                            <div class="contrato-card">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #9C27B0, #6A1B9A);">
+                                    <span class="contrato-categoria">Invocação • 3 PM</span>
+                                    <h4 class="contrato-nome">👹 Familiar</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">⚡ Poder</div>
+                                        <p>Demônio menor (Atributos 2, 3 Injúrias Leves)</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">🎯 Atributo</div>
+                                        <p>Vínculo</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">💰 Custo</div>
+                                        <p>4 Stress por invocação</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">😱 Aflição</div>
+                                        <p>Vozes sussurrando</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">📜 Restrição</div>
+                                        <p>Alimentar com sangue semanalmente</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">🔖 Marca</div>
+                                        <p>Tatuagem que pulsa</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="c-xs-12 c-md-6">
+                            <div class="contrato-card">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #9C27B0, #6A1B9A);">
+                                    <span class="contrato-categoria">Invocação • 3 PM</span>
+                                    <h4 class="contrato-nome">🦗 Enxame</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">⚡ Poder</div>
+                                        <p>Insetos cobrem área. Inimigos -2d10 por 2 rodadas</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">🎯 Atributo</div>
+                                        <p>Malandragem</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">💰 Custo</div>
+                                        <p>3 Stress</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">😱 Aflição</div>
+                                        <p>Sensação de insetos na pele</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">📜 Restrição</div>
+                                        <p>Não usar repelente</p>
+                                    </div>
+                                    <div class="contrato-item">
+                                        <div class="contrato-label">🔖 Marca</div>
+                                        <p>Marcas de picada permanentes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="c-xs-12">
+                            <div class="contrato-card">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #9C27B0, #6A1B9A);">
+                                    <span class="contrato-categoria">Invocação • 3 PM</span>
+                                    <h4 class="contrato-nome">👻 Guardião Espectral</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="row gap-15">
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">⚡ Poder</div>
+                                                <p>Bloqueia 1 ataque automaticamente</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">🎯 Atributo</div>
+                                                <p>Vínculo</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">💰 Custo</div>
+                                                <p>4 Stress (uso único)</p>
+                                            </div>
+                                        </div>
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">😱 Aflição</div>
+                                                <p>Frio constante no peito</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">📜 Restrição</div>
+                                                <p>Visitar túmulo mensalmente</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">🔖 Marca</div>
+                                                <p>Halo pálido em escuridão</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Contratos de Restrição -->
+    <div data-modal="modal-contratos-restricao" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide></div>
+            <div class="dialog-inline w-900px xs-w-95">
+                <button class="dialog-close" data-modal-hide></button>
+                <div class="modal-popup border-rd-10 p-30-all xs-p-20-all" style="background: var(--cor-fundo-card); border: 2px solid var(--cor-secundaria); max-height: 85vh; overflow-y: auto; box-shadow: 0 0 30px rgba(139, 0, 0, 0.5);">
+                    <div class="text-center m-30-b">
+                        <div style="font-size: 3.5rem; margin-bottom: 15px;">☠️</div>
+                        <h3 class="fs-13 m-10-t" style="color: var(--cor-secundaria);">Contratos de Restrição</h3>
+                        <p style="color: var(--cor-texto-secundario);">Poder imenso • Morte instantânea se quebrar</p>
+                    </div>
+
+                    <!-- Aviso -->
+                    <div class="p-25-all border-rd-8 m-30-b" style="background: rgba(139, 0, 0, 0.2); border: 3px solid var(--cor-secundaria);">
+                        <h4 class="fs-10 m-15-b text-center" style="color: var(--cor-secundaria);">⚠️ APROVAÇÃO DO MESTRE OBRIGATÓRIA</h4>
+                        <p class="fs-8 text-center m-0" style="line-height: 1.7;">
+                            Quebrar qualquer condição resulta em <strong style="color: var(--cor-secundaria);">MORTE INSTANTÂNEA</strong>. A marca permanece enquanto o contrato estiver ativo. Use com extremo cuidado.
+                        </p>
+                    </div>
+
+                    <!-- Exemplos -->
+                    <div class="row gap-20">
+                        <div class="c-xs-12">
+                            <div class="contrato-card" style="border: 2px solid var(--cor-secundaria); box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #8B0000, #4B0000);">
+                                    <span class="contrato-categoria" style="background: #000;">Restrição</span>
+                                    <h4 class="contrato-nome">⏳ Imortalidade Temporária</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="row gap-15">
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">⚡ Efeito</div>
+                                                <p>Não pode morrer por 1 missão</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">📜 Restrição</div>
+                                                <p>Ao fim, sofre TODAS injúrias de uma vez</p>
+                                            </div>
+                                        </div>
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">🔖 Marca</div>
+                                                <p>Coração para de bater</p>
+                                            </div>
+                                            <div class="contrato-item" style="background: rgba(139, 0, 0, 0.3); padding: 15px; border-radius: 8px; border: 2px solid var(--cor-secundaria);">
+                                                <div class="contrato-label" style="color: var(--cor-secundaria);">☠️ Morte Se</div>
+                                                <p style="font-weight: 700;">Quebrar promessa feita durante contrato</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="c-xs-12">
+                            <div class="contrato-card" style="border: 2px solid var(--cor-secundaria); box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #8B0000, #4B0000);">
+                                    <span class="contrato-categoria" style="background: #000;">Restrição</span>
+                                    <h4 class="contrato-nome">💥 Poder Máximo</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="row gap-15">
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">⚡ Efeito</div>
+                                                <p>+3d10 em TODOS testes por 1 cena</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">📜 Restrição</div>
+                                                <p>Perde 1 sentido permanentemente (aleatório)</p>
+                                            </div>
+                                        </div>
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">🔖 Marca</div>
+                                                <p>Área do corpo demoniza</p>
+                                            </div>
+                                            <div class="contrato-item" style="background: rgba(139, 0, 0, 0.3); padding: 15px; border-radius: 8px; border: 2px solid var(--cor-secundaria);">
+                                                <div class="contrato-label" style="color: var(--cor-secundaria);">☠️ Morte Se</div>
+                                                <p style="font-weight: 700;">Usar mais de 1× por mês</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="c-xs-12">
+                            <div class="contrato-card" style="border: 2px solid var(--cor-secundaria); box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);">
+                                <div class="contrato-header" style="background: linear-gradient(135deg, #8B0000, #4B0000);">
+                                    <span class="contrato-categoria" style="background: #000;">Restrição</span>
+                                    <h4 class="contrato-nome">🔄 Troca de Vida</h4>
+                                </div>
+                                <div class="contrato-body">
+                                    <div class="row gap-15">
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">⚡ Efeito</div>
+                                                <p>Transfere TODAS injúrias para 1 alvo</p>
+                                            </div>
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">📜 Restrição</div>
+                                                <p>Alvo DEVE ser aliado ou inocente</p>
+                                            </div>
+                                        </div>
+                                        <div class="c-xs-12 c-md-6">
+                                            <div class="contrato-item">
+                                                <div class="contrato-label">🔖 Marca</div>
+                                                <p>Mãos manchadas de vermelho</p>
+                                            </div>
+                                            <div class="contrato-item" style="background: rgba(139, 0, 0, 0.3); padding: 15px; border-radius: 8px; border: 2px solid var(--cor-secundaria);">
+                                                <div class="contrato-label" style="color: var(--cor-secundaria);">☠️ Morte Se</div>
+                                                <p style="font-weight: 700;">Usar em inimigo</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <main>
         <!-- Hero Section -->
         <section id="hero" class="hero h-100vh f-items-center f-justify-center text-center p-30-all">
@@ -3381,43 +2515,393 @@
                     </div>
                 </div>
 
-                <!-- Como Funciona -->
-                <div class="row f-items-center m-60-t">
-                    <div class="c-xs-12 c-md-6 m-40-b md-m-0-b">
-                        <h3 class="fs-12 m-30-b wow fadeInLeft" style="color: var(--cor-secundaria);">Como Funciona?</h3>
-                        <div class="code-block wow fadeInLeft" data-wow-delay="0.2s">
-                            <span class="comment">// Teste de Ação</span><br><br>
-                            Role <span class="highlight">[ATRIBUTO]</span> d10 = RESULTADO<br><br>
-                            <span class="comment">// Exemplo: Força 3</span><br>
-                            Role <span class="highlight">3d10</span> → 4 + 7 + 2 = <span class="highlight">13</span>
-                        </div>
-                    </div>
-                    <div class="c-xs-12 c-md-6">
-                        <div class="card wow fadeInRight" data-wow-delay="0.3s">
-                            <h4 class="card-title" style="color: var(--cor-secundaria);">Tabela de Injúrias</h4>
-                            <table class="table-scar">
-                                <tr>
-                                    <th>Diferença</th>
-                                    <th>Resultado</th>
-                                </tr>
-                                <tr>
-                                    <td>1-9</td>
-                                    <td>Injúria Leve</td>
-                                </tr>
-                                <tr>
-                                    <td>10-19</td>
-                                    <td>Injúria Grave</td>
-                                </tr>
-                                <tr>
-                                    <td>20+</td>
-                                    <td>Injúria Crítica</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
+
+<section id="power-scaling" class="p-60-tb xs-p-30-tb">
+    <div class="container">
+        <div class="text-center m-50-b xs-m-30-b">
+            <h2 class="section-title wow fadeInUp">POWER SCALING</h2>
+            <p class="fs-8 m-20-t wow fadeInUp" data-wow-delay="0.2s" style="color: var(--cor-texto-secundario); max-width: 700px; margin-left: auto; margin-right: auto;">
+                Sistema de progressão de poder com 10 níveis divididos em 5 tiers.
+            </p>
+        </div>
+
+        <!-- Tabela de Tiers -->
+        <div class="card wow fadeInUp">
+            <h3 class="fs-11 m-20-b text-center" style="color: var(--cor-secundaria);">Tiers de Poder</h3>
+            <div class="tier-table">
+                <div class="tier-row">
+                    <div class="tier-levels">1-2</div>
+                    <div class="tier-name">Humano Comum</div>
+                    <div class="tier-desc">Pessoa sem treinamento especial</div>
+                </div>
+                <div class="tier-row">
+                    <div class="tier-levels">3-4</div>
+                    <div class="tier-name">Treinado</div>
+                    <div class="tier-desc">Profissional competente</div>
+                </div>
+                <div class="tier-row">
+                    <div class="tier-levels">5-6</div>
+                    <div class="tier-name">Sobre-humano</div>
+                    <div class="tier-desc">Ultrapassa limites naturais</div>
+                </div>
+                <div class="tier-row">
+                    <div class="tier-levels">7-8</div>
+                    <div class="tier-name">Monstruoso</div>
+                    <div class="tier-desc">Poder de demônio menor</div>
+                </div>
+                <div class="tier-row">
+                    <div class="tier-levels">9-10</div>
+                    <div class="tier-name">Primordial</div>
+                    <div class="tier-desc">Transcende compreensão humana</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .tier-table {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .tier-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 2fr;
+            gap: 15px;
+            align-items: center;
+            padding: 15px;
+            background: rgba(139, 0, 0, 0.1);
+            border-left: 4px solid var(--cor-secundaria);
+            border-radius: 8px;
+        }
+        .tier-levels {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cor-secundaria);
+            text-align: center;
+        }
+        .tier-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--cor-texto);
+        }
+        .tier-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        @media (max-width: 639px) {
+            .tier-row {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</section>
+
+<!-- CSS Adicional (Adicionar no <style> do index.html) -->
+<style>
+/* Power Scaling Styles */
+.tier-table {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tier-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.02);
+    border-left: 3px solid var(--cor-secundaria);
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.tier-row:hover {
+    background: rgba(255,255,255,0.05);
+    border-left-width: 5px;
+}
+
+.tier-level {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--cor-secundaria);
+    min-width: 60px;
+}
+
+.tier-name {
+    font-weight: 600;
+    min-width: 180px;
+}
+
+.tier-desc {
+    color: var(--cor-texto-soft);
+}
+
+.attributes-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.attr-nav-btn {
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--cor-borda);
+    border-radius: 6px;
+    color: var(--cor-texto);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.attr-nav-btn:hover {
+    background: rgba(220,20,60,0.1);
+    border-color: var(--cor-secundaria);
+}
+
+.attr-nav-btn.active {
+    background: var(--cor-secundaria);
+    color: #000;
+    border-color: var(--cor-secundaria);
+    font-weight: 600;
+}
+
+.attribute-section {
+    display: none;
+}
+
+.attribute-section.active {
+    display: block;
+}
+
+.subsection-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.attr-icon {
+    font-size: 2rem;
+}
+
+.attr-subtitle {
+    color: var(--cor-texto-soft);
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+}
+
+.power-scale-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.power-level {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    border-left: 3px solid rgba(255,255,255,0.1);
+    transition: all 0.3s;
+}
+
+.power-level:hover {
+    background: rgba(255,255,255,0.04);
+    border-left-width: 5px;
+}
+
+.power-level.highlight {
+    border-left-color: var(--cor-secundaria);
+    background: rgba(220,20,60,0.05);
+}
+
+.power-level.primordial {
+    border-left-color: var(--cor-gold);
+    background: rgba(212,175,55,0.05);
+}
+
+.level-badge {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cor-secundaria);
+    color: #000;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.primordial .level-badge {
+    background: var(--cor-gold);
+}
+
+.level-content h4 {
+    margin: 0 0 8px 0;
+    color: var(--cor-texto);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.level-content p {
+    margin: 0;
+    color: var(--cor-texto-soft);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.character-examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.char-card {
+    padding: 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.char-card:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: var(--cor-secundaria);
+}
+
+.char-card.highlight-char {
+    border-color: var(--cor-secundaria);
+    background: rgba(220,20,60,0.05);
+}
+
+.char-card.primordial-char {
+    border-color: var(--cor-gold);
+    background: rgba(212,175,55,0.05);
+}
+
+.char-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--cor-secundaria);
+    margin: 0 0 15px 0;
+    letter-spacing: 1px;
+}
+
+.char-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.char-stats span {
+    color: var(--cor-texto-soft);
+}
+
+.char-stats .highlight-stat {
+    color: var(--cor-secundaria);
+    font-weight: 600;
+}
+
+.char-note {
+    margin: 15px 0 0 0;
+    padding: 10px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--cor-texto-soft);
+    font-style: italic;
+}
+
+.progression-table {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.prog-row {
+    display: flex;
+    gap: 15px;
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 6px;
+    align-items: center;
+}
+
+.prog-row.primordial {
+    border: 1px solid var(--cor-gold);
+    background: rgba(212,175,55,0.05);
+}
+
+.prog-level {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--cor-secundaria);
+    min-width: 60px;
+}
+
+.prog-row.primordial .prog-level {
+    color: var(--cor-gold);
+}
+
+.prog-desc {
+    color: var(--cor-texto-soft);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .tier-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .char-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .attributes-nav {
+        gap: 5px;
+    }
+
+    .attr-nav-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
+</style>
+
+<!-- JavaScript (Adicionar no final do body do index.html, antes do script principal) -->
+<script>
+// Power Scaling - Navigation entre atributos
+document.addEventListener('DOMContentLoaded', function() {
+    const attrBtns = document.querySelectorAll('.attr-nav-btn');
+    const attrSections = document.querySelectorAll('.attribute-section');
+
+    attrBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetAttr = btn.getAttribute('data-attr');
+
+            // Remove active de todos
+            attrBtns.forEach(b => b.classList.remove('active'));
+            attrSections.forEach(s => s.classList.remove('active'));
+
+            // Adiciona active no clicado
+            btn.classList.add('active');
+            document.getElementById('attr-' + targetAttr).classList.add('active');
+        });
+    });
+});
+</script>
 
         <!-- Divider -->
         <div class="section-divider" style="background: linear-gradient(90deg, transparent, var(--cor-borda), transparent);"></div>
@@ -3660,11 +3144,18 @@
                         </div>
                     </div>
                     <div class="c-xs-12 c-sm-6 c-lg-3">
-                        <div class="card wow fadeInUp cursor-pointer" data-wow-delay="0.8s" data-modal-show="modal-ficha">
+                        <div class="card wow fadeInUp" data-wow-delay="0.8s">
                             <div class="card-icon">8</div>
                             <h4 class="card-title">Preencha a Ficha</h4>
-                            <p class="card-text">Nome, história, medos, falha central. Quem você era? O que você teme?</p>
-                            <p class="fs-3 m-10-t" style="color: var(--cor-secundaria);">Ver ficha →</p>
+                            <p class="card-text">Escolha o tipo de ficha para preencher</p>
+                            <div class="d-flex f-gap-10 m-15-t">
+                                <button class="btn-ficha" data-modal-show="modal-ficha-padrao">
+                                    <span class="iccon-user-1"></span> Padrão
+                                </button>
+                                <button class="btn-ficha" data-modal-show="modal-ficha-demonio">
+                                    <span class="iccon-fire-1"></span> Demônio
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3762,143 +3253,289 @@
                     </div>
                 </div>
             </div>
-        </section>
+
 
         <!-- Divider -->
         <div class="section-divider"></div>
 
-        <!-- Contratos Section -->
-        <section id="contratos" class="p-100-tb xs-p-60-tb blood-glow">
-            <div class="container">
-                <div class="text-center m-60-b">
-                    <h2 class="section-title centered wow fadeInUp">Contratos Demoníacos</h2>
-                    <p class="fs-9 m-30-t wow fadeInUp" data-wow-delay="0.2s" style="color: var(--cor-texto-secundario); max-width: 700px; margin-left: auto; margin-right: auto;">
-                        Pactos vinculantes entre humano e demônio. A principal forma de ganhar poder sobrenatural.
-                        <br><strong style="color: var(--cor-secundaria);">⚠️ Demônios NÃO são seus amigos. Eles vão cobrar. SEMPRE.</strong>
+
+<!-- Contratos Section - VERSÃO REFATORADA -->
+<!-- Contratos Section - VERSÃO MINIMALISTA -->
+<section id="contratos" class="p-100-tb xs-p-60-tb blood-glow">
+    <div class="container">
+        <!-- Header -->
+        <div class="text-center m-60-b">
+            <h2 class="section-title centered wow fadeInUp">Contratos Demoníacos</h2>
+            <p class="fs-9 m-30-t wow fadeInUp" data-wow-delay="0.2s" style="color: var(--cor-texto-secundario); max-width: 800px; margin-left: auto; margin-right: auto;">
+                Pactos vinculantes entre humano e demônio. A principal forma de ganhar poder sobrenatural.
+                <br><strong style="color: var(--cor-secundaria);">⚠️ Demônios NÃO são seus amigos. Eles vão cobrar. SEMPRE.</strong>
+            </p>
+        </div>
+
+        <!-- Classificação de Contratos - Minimalista -->
+        <div class="m-80-b wow fadeInUp">
+            <h3 class="fs-11 m-40-b text-center" style="color: var(--cor-secundaria);">Classificação de Contratos</h3>
+
+            <!-- Tabela Minimalista -->
+            <div class="card" style="background: var(--cor-fundo-card); border: 1px solid var(--cor-borda); overflow-x: auto;">
+                <table class="table-scar">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Poder</th>
+                            <th>Injúria Mínima</th>
+                            <th>Aflição / Preço</th>
+                            <th>Custo PM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--cor-secundaria); font-weight: 600;">Menor</td>
+                            <td>Limitado, utilitário</td>
+                            <td>—</td>
+                            <td style="font-size: 0.85rem;">
+                                <strong>Escolha 1:</strong> Aflição Leve • Preço simbólico • Restrição comportamental
+                            </td>
+                            <td style="font-weight: 600;">2 PM</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--cor-secundaria); font-weight: 600;">Médio</td>
+                            <td>Forte, combate efetivo</td>
+                            <td><strong>Leve (1-9)</strong></td>
+                            <td style="font-size: 0.85rem;">
+                                <strong>Escolha 1:</strong> Rola 2x Aflição • Potencializa existente • Preço físico
+                            </td>
+                            <td style="font-weight: 600;">3 PM</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--cor-secundaria); font-weight: 600;">Maior</td>
+                            <td>Destruidor, game-changer</td>
+                            <td><strong>Grave (10-19)</strong></td>
+                            <td style="font-size: 0.85rem;">
+                                <strong>Obrigatório:</strong> Aflição Severa + Marca visível + Preço recorrente
+                            </td>
+                            <td style="font-weight: 600;">4 PM</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--cor-secundaria); font-weight: 600;">Invocação</td>
+                            <td>Invoca entidade aliada</td>
+                            <td>Varia</td>
+                            <td style="font-size: 0.85rem;">
+                                <strong>Escolha 1:</strong> Aflição proporcional • Manter criatura • Vínculo emocional
+                            </td>
+                            <td style="font-weight: 600;">3 PM</td>
+                        </tr>
+                        <tr style="background: rgba(0,0,0,0.2);">
+                            <td style="color: var(--cor-secundaria); font-weight: 600;">Restrição</td>
+                            <td>Poder absoluto</td>
+                            <td><strong style="color: var(--cor-secundaria);">Crítica (20+)</strong></td>
+                            <td style="font-size: 0.85rem; color: var(--cor-secundaria);">
+                                <strong>☠️ Morte Instantânea</strong> se violar condição
+                            </td>
+                            <td style="font-weight: 600;">Mestre</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Nota explicativa -->
+                <div class="m-20-t p-15-all" style="background: rgba(220,20,60,0.05); border-top: 1px solid var(--cor-borda);">
+                    <p class="fs-4" style="color: var(--cor-texto-secundario); text-align: center; margin: 0;">
+                        <strong style="color: var(--cor-texto);">Injúria Mínima:</strong> Dano base que o poder causa ao alvo em combate. Poderes não-ofensivos não causam injúria.
                     </p>
                 </div>
-
-                <!-- Estrutura -->
-                <div class="card m-40-b wow fadeInUp">
-                    <h3 class="fs-11 m-20-b" style="color: var(--cor-secundaria);">Estrutura de Todo Contrato</h3>
-                    <div class="row gap-15 f-justify-center">
-                        <div class="c-xs-6 c-sm-3">
-                            <div class="atributo-item text-center">
-                                <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
-                                <div class="atributo-nome">O Poder</div>
-                                <div class="atributo-desc">O que o demônio te dá</div>
-                            </div>
-                        </div>
-                        <div class="c-xs-6 c-sm-3">
-                            <div class="atributo-item text-center">
-                                <div style="font-size: 2rem; margin-bottom: 10px;">💰</div>
-                                <div class="atributo-nome">O Preço</div>
-                                <div class="atributo-desc">O que você paga</div>
-                            </div>
-                        </div>
-                        <div class="c-xs-6 c-sm-3">
-                            <div class="atributo-item text-center">
-                                <div style="font-size: 2rem; margin-bottom: 10px;">📜</div>
-                                <div class="atributo-nome">A Restrição</div>
-                                <div class="atributo-desc">Regras a seguir</div>
-                            </div>
-                        </div>
-                        <div class="c-xs-6 c-sm-3">
-                            <div class="atributo-item text-center">
-                                <div style="font-size: 2rem; margin-bottom: 10px;">💀</div>
-                                <div class="atributo-nome">A Quebra</div>
-                                <div class="atributo-desc">Se violar</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Exemplos de Contratos -->
-                <h3 class="fs-11 m-40-b wow fadeInUp" style="color: var(--cor-secundaria);">Exemplos de Contratos</h3>
-                <div class="row gap-20">
-                    <div class="c-xs-12 c-md-6 c-lg-4">
-                        <div class="contrato-card wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="contrato-header">
-                                <span class="contrato-categoria">Menor</span>
-                                <h4 class="contrato-nome">🚬 Demônio do Cigarro</h4>
-                            </div>
-                            <div class="contrato-body">
-                                <div class="contrato-item">
-                                    <div class="contrato-label">⚡ Poder</div>
-                                    <p>Cortina de fumaça que bloqueia visão</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">💰 Custo</div>
-                                    <p>2 Stress por uso</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">📜 Restrição</div>
-                                    <p>Deve fumar 1 cigarro por dia</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">🔖 Marca</div>
-                                    <p>Dedos amarelados permanentes</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="c-xs-12 c-md-6 c-lg-4">
-                        <div class="contrato-card wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="contrato-header">
-                                <span class="contrato-categoria">Médio</span>
-                                <h4 class="contrato-nome">🦊 Demônio da Raposa</h4>
-                            </div>
-                            <div class="contrato-body">
-                                <div class="contrato-item">
-                                    <div class="contrato-label">⚡ Poder</div>
-                                    <p>Cabeça gigante de raposa (Injúria Grave)</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">💰 Custo</div>
-                                    <p>4 Stress + sacrifício de memória</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">📜 Restrição</div>
-                                    <p>Não pode mentir para demônios</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">🔖 Marca</div>
-                                    <p>Olhos alaranjados quando com raiva</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="c-xs-12 c-md-6 c-lg-4">
-                        <div class="contrato-card wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="contrato-header">
-                                <span class="contrato-categoria">Maior</span>
-                                <h4 class="contrato-nome">⚔️ Demônio da Katana</h4>
-                            </div>
-                            <div class="contrato-body">
-                                <div class="contrato-item">
-                                    <div class="contrato-label">⚡ Poder</div>
-                                    <p>Katana demoníaca (Injúria +1 estágio)</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">💰 Custo</div>
-                                    <p>5 Stress + sangue de inimigo</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">📜 Restrição</div>
-                                    <p>Matar 1 ser vivo por mês</p>
-                                </div>
-                                <div class="contrato-item">
-                                    <div class="contrato-label">🔖 Marca</div>
-                                    <p>Cicatriz de katana nas costas</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </section>
+        </div>
+
+        <!-- Call to Action Final -->
+        <div class="card wow fadeInUp" style="background: linear-gradient(135deg, rgba(139,0,0,0.2) 0%, rgba(10,10,10,0.8) 100%); border: 1px solid var(--cor-secundaria); text-align: center; padding: 40px 30px;">
+            <h3 class="fs-12 m-20-b" style="color: var(--cor-secundaria);">Pronto para Fazer seu Contrato?</h3>
+            <p style="color: var(--cor-texto-secundario); max-width: 600px; margin: 0 auto 20px; line-height: 1.8;">
+                Cada contrato marca você <strong style="color: var(--cor-texto);">permanentemente</strong>.
+                Escolha com sabedoria, pois demônios <strong style="color: var(--cor-secundaria);">SEMPRE</strong> cobram o preço.
+            </p>
+            <p style="font-style: italic; color: var(--cor-gold); font-size: 1.1rem; margin-bottom: 25px;">
+                "Todo contrato tem um preço. Você está disposto a pagar?"
+            </p>
+            <button data-modal-show="modal-criar-contrato" class="btn btn-primary" style="background: var(--cor-secundaria); border-color: var(--cor-secundaria); padding: 15px 35px; font-size: 1.1rem;">
+                Ver contratos →
+            </button>
+        </div>
+
+
+<!-- ========================================
+     MODAL: CRIAR CONTRATO
+     ======================================== -->
+<div data-modal="modal-criar-contrato" class="modal-dialog" aria-hidden="true">
+    <div class="dialog-content">
+        <div class="dialog-backdrop" data-modal-hide></div>
+        <div class="dialog-inline w-700px xs-w-95">
+            <button class="dialog-close" data-modal-hide></button>
+            <div class="modal-popup border-rd-10 p-40-all xs-p-25-all" style="background: var(--cor-fundo-card); border: 2px solid var(--cor-secundaria); max-height: 90vh; overflow-y: auto;">
+
+                <!-- Header do Modal -->
+                <div class="text-center m-30-b">
+                    <span style="font-size: 3.5rem;">📜</span>
+                    <h3 class="fs-13 m-15-t" style="color: var(--cor-secundaria);">Criar Contrato Demoníaco</h3>
+                    <p style="color: var(--cor-texto-secundario); font-size: 0.95rem;">Preencha os campos abaixo para registrar seu pacto</p>
+                </div>
+
+                <!-- Formulário do Contrato -->
+                <form class="contract-form">
+                    <!-- Nome do Demônio -->
+                    <div class="form-group m-25-b">
+                        <label class="contract-form-label">
+                            <span class="label-icon">👹</span>
+                            <span class="label-text">Nome do Demônio</span>
+                        </label>
+                        <input type="text" class="contract-input" placeholder="Ex: Demônio do Cigarro" id="nome-demonio">
+                    </div>
+
+                    <!-- Categoria -->
+                    <div class="form-group m-25-b">
+                        <label class="contract-form-label">
+                            <span class="label-icon">🏷️</span>
+                            <span class="label-text">Categoria</span>
+                        </label>
+                        <select class="contract-select" id="categoria-contrato">
+                            <option value="">Selecione a categoria...</option>
+                            <option value="Menor">Menor (2 PM)</option>
+                            <option value="Médio">Médio (3 PM)</option>
+                            <option value="Maior">Maior (4 PM)</option>
+                            <option value="Invocação">Invocação (3 PM)</option>
+                            <option value="Restrição">Restrição (Aprovação do Mestre)</option>
+                        </select>
+                    </div>
+
+                    <!-- Poder -->
+                    <div class="form-group m-25-b">
+                        <label class="contract-form-label">
+                            <span class="label-icon">⚡</span>
+                            <span class="label-text">Poder</span>
+                        </label>
+                        <textarea class="contract-textarea" rows="3" placeholder="Descreva o poder concedido pelo contrato..." id="poder-contrato"></textarea>
+                    </div>
+
+                    <!-- Atributo -->
+                    <div class="form-group m-25-b">
+                        <label class="contract-form-label">
+                            <span class="label-icon">🎯</span>
+                            <span class="label-text">Atributo</span>
+                        </label>
+                        <select class="contract-select" id="atributo-contrato">
+                            <option value="">Selecione o atributo...</option>
+                            <option value="Força">Força</option>
+                            <option value="Vigor">Vigor</option>
+                            <option value="Coordenação">Coordenação</option>
+                            <option value="Raciocínio">Raciocínio</option>
+                            <option value="Presença">Presença</option>
+                            <option value="Percepção">Percepção</option>
+                        </select>
+                    </div>
+
+                    <!-- Custo -->
+                    <div class="form-group m-25-b">
+                        <label class="contract-form-label">
+                            <span class="label-icon">💰</span>
+                            <span class="label-text">Custo</span>
+                        </label>
+                        <input type="text" class="contract-input" placeholder="Ex: 2 Stress por uso" id="custo-contrato">
+                    </div>
+
+                    <!-- Aflição -->
+                    <div class="form-group m-25-b">
+                        <label class="contract-form-label">
+                            <span class="label-icon">⚠️</span>
+                            <span class="label-text">Aflição</span>
+                        </label>
+                        <textarea class="contract-textarea" rows="3" placeholder="Descreva a aflição permanente ou efeito colateral..." id="aflicao-contrato"></textarea>
+                    </div>
+
+                    <!-- Restrição -->
+                    <div class="form-group m-25-b">
+                        <label class="contract-form-label">
+                            <span class="label-icon">🚫</span>
+                            <span class="label-text">Restrição</span>
+                        </label>
+                        <textarea class="contract-textarea" rows="2" placeholder="Condições ou limitações do poder..." id="restricao-contrato"></textarea>
+                    </div>
+
+                    <!-- Marca -->
+                    <div class="form-group m-25-b">
+                        <label class="contract-form-label">
+                            <span class="label-icon">🔖</span>
+                            <span class="label-text">Marca</span>
+                        </label>
+                        <input type="text" class="contract-input" placeholder="Ex: Olhos negros permanentes" id="marca-contrato">
+                    </div>
+
+                    <!-- Botão de Copiar -->
+                    <div class="text-center m-30-t">
+                        <button type="button" onclick="copiarContrato()" class="btn-copy-contract" style="background: linear-gradient(135deg, #8B0000, #DC143C); border: none; color: white; padding: 15px 40px; border-radius: 10px; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                            <span>📋</span>
+                            <span>Copiar Contrato</span>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copiarContrato() {
+    const nome = document.getElementById('nome-demonio').value || '[Nome do Demônio]';
+    const categoria = document.getElementById('categoria-contrato').value || '[Categoria]';
+    const poder = document.getElementById('poder-contrato').value || '[Poder]';
+    const atributo = document.getElementById('atributo-contrato').value || '[Atributo]';
+    const custo = document.getElementById('custo-contrato').value || '[Custo]';
+    const aflicao = document.getElementById('aflicao-contrato').value || '[Aflição]';
+    const restricao = document.getElementById('restricao-contrato').value || '[Restrição]';
+    const marca = document.getElementById('marca-contrato').value || '[Marca]';
+
+    const textoContrato = `
+═══════════════════════════════════════
+🩸 CONTRATO DEMONÍACO
+═══════════════════════════════════════
+
+📜 NOME DO DEMÔNIO: ${nome}
+🏷️ CATEGORIA: ${categoria}
+
+⚡ PODER:
+${poder}
+
+🎯 ATRIBUTO: ${atributo}
+
+💰 CUSTO DE USO:
+${custo}
+
+⚠️ AFLIÇÃO:
+${aflicao}
+
+🚫 RESTRIÇÃO:
+${restricao}
+
+🔖 MARCA:
+${marca}
+
+═══════════════════════════════════════
+⚠️ "Todo contrato tem um preço."
+═══════════════════════════════════════
+`;
+
+    navigator.clipboard.writeText(textoContrato).then(() => {
+        alert('✅ Contrato copiado para a área de transferência!');
+    }).catch(() => {
+        alert('❌ Erro ao copiar. Copie manualmente:\n\n' + textoContrato);
+    });
+}
+</script>
+
+        </div>
+    </div>
+</div>
+
+
 
         <!-- Combate Section -->
         <section id="combate" class="p-100-tb xs-p-60-tb blood-glow-center" style="background: var(--cor-fundo-card);">
@@ -4467,4 +4104,3 @@
 
 </body>
 </html>
-
