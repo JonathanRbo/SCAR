@@ -959,17 +959,17 @@
 
         @media (max-width: 991px) {
             .mobile-menu-btn {
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 justify-content: center;
             }
 
             .nav-desktop {
-                display: none;
+                display: none !important;
             }
 
             .nav-sections {
-                display: none;
+                display: none !important;
             }
 
             .site-header {
@@ -1017,6 +1017,68 @@
             background: rgba(220,20,60,0.1);
             border-color: rgba(220,20,60,0.3);
             transform: scale(1.02);
+        }
+
+        /* Grid de Níveis de Injúria - Responsivo */
+        .injuria-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .injuria-item {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .injuria-item:hover {
+            border-color: var(--cor-principal);
+            transform: translateY(-2px);
+        }
+
+        .injuria-nome {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: var(--cor-texto);
+            margin-bottom: 5px;
+        }
+
+        .injuria-valor {
+            font-size: 0.85rem;
+            color: var(--cor-texto-secundario);
+        }
+
+        .injuria-morte {
+            background: rgba(139,0,0,0.2);
+            border-color: var(--cor-principal);
+        }
+
+        .injuria-morte .injuria-nome {
+            color: var(--cor-secundaria);
+        }
+
+        @media (max-width: 640px) {
+            .injuria-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .injuria-item {
+                padding: 12px 8px;
+            }
+
+            .injuria-nome {
+                font-size: 0.9rem;
+            }
+
+            .injuria-valor {
+                font-size: 0.8rem;
+            }
         }
 
         /* Modal Styling */
@@ -3655,24 +3717,22 @@
                     <div class="c-xs-12 c-md-6">
                         <div class="card wow fadeInRight">
                             <h3 class="fs-11 m-20-b" style="color: var(--cor-secundaria);">Níveis de Injúria</h3>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div class="atributo-item" style="flex: 1; text-align: center;">
-                                    <div class="atributo-nome">Leve</div>
-                                    <div class="atributo-desc">1-9</div>
+                            <div class="injuria-grid">
+                                <div class="injuria-item">
+                                    <div class="injuria-nome">Leve</div>
+                                    <div class="injuria-valor">1-9</div>
                                 </div>
-                                <span style="font-size: 1.2rem; color: var(--cor-texto-secundario);">→</span>
-                                <div class="atributo-item" style="flex: 1; text-align: center;">
-                                    <div class="atributo-nome">Grave</div>
-                                    <div class="atributo-desc">10-19</div>
+                                <div class="injuria-item">
+                                    <div class="injuria-nome">Grave</div>
+                                    <div class="injuria-valor">10-19</div>
                                 </div>
-                                <span style="font-size: 1.2rem; color: var(--cor-texto-secundario);">→</span>
-                                <div class="atributo-item" style="flex: 1; text-align: center;">
-                                    <div class="atributo-nome">Crítica</div>
-                                    <div class="atributo-desc">20+</div>
+                                <div class="injuria-item">
+                                    <div class="injuria-nome">Crítica</div>
+                                    <div class="injuria-valor">20+</div>
                                 </div>
-                                <span style="font-size: 1.2rem; color: var(--cor-texto-secundario);">→</span>
-                                <div class="atributo-item" style="flex: 1; text-align: center; background: rgba(255,255,255,0.1); border-color: var(--cor-principal);">
-                                    <div class="atributo-nome" style="color: var(--cor-secundaria);">Morte</div>
+                                <div class="injuria-item injuria-morte">
+                                    <div class="injuria-nome">Morte</div>
+                                    <div class="injuria-valor">—</div>
                                 </div>
                             </div>
 
