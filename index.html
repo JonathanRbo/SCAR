@@ -996,27 +996,179 @@
             }
         }
 
-        /* Mobile Navigation Links */
-        .mobile-nav-link {
+        /* ========== MOBILE MENU STYLES ========== */
+        .mobile-menu-container {
+            width: 100%;
+            height: 100vh;
+            background: var(--cor-fundo);
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .mobile-menu-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at top left, rgba(139,0,0,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(139,0,0,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .mobile-menu-glow {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(220,20,60,0.2) 0%, transparent 70%);
+            pointer-events: none;
+            animation: menuGlowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes menuGlowPulse {
+            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .mobile-menu-close:hover {
+            background: rgba(220,20,60,0.2);
+            border-color: var(--cor-secundaria);
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu-content {
+            position: relative;
+            z-index: 5;
+            padding: 60px 30px 40px;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .mobile-menu-logo {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
+            font-size: 3rem;
+            color: var(--cor-secundaria);
+            letter-spacing: 8px;
+            text-shadow: 0 0 40px rgba(220,20,60,0.5);
+            display: block;
+        }
+
+        .mobile-menu-subtitle {
+            font-size: 0.75rem;
+            color: var(--cor-texto-secundario);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .mobile-menu-divider {
+            width: 80px;
+            height: 2px;
+            background: var(--gradient-blood);
+            margin: 20px auto 0;
+            box-shadow: 0 0 10px rgba(220,20,60,0.5);
+        }
+
+        .mobile-menu-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
             color: var(--cor-texto);
             text-decoration: none;
             letter-spacing: 2px;
-            padding: 12px 30px;
-            border-radius: 8px;
+            padding: 14px 20px;
+            border-radius: 10px;
             transition: all 0.3s ease;
-            width: 100%;
-            max-width: 280px;
-            text-align: center;
+            background: rgba(255,255,255,0.02);
             border: 1px solid transparent;
         }
 
-        .mobile-nav-link:hover {
+        .mobile-nav-link .link-icon {
+            font-size: 1.1rem;
+            width: 28px;
+            text-align: center;
+        }
+
+        .mobile-nav-link .link-text {
+            flex: 1;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link:active {
             color: var(--cor-accent);
             background: rgba(220,20,60,0.1);
             border-color: rgba(220,20,60,0.3);
-            transform: scale(1.02);
+            transform: translateX(5px);
+        }
+
+        .mobile-nav-link.secondary {
+            font-size: 1.1rem;
+            padding: 12px 20px;
+            color: var(--cor-texto-secundario);
+            background: transparent;
+        }
+
+        .mobile-nav-link.secondary:hover {
+            color: var(--cor-texto);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .mobile-menu-section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cor-borda), transparent);
+            margin: 20px 0;
+        }
+
+        .mobile-menu-nav-secondary {
+            gap: 5px;
+        }
+
+        .mobile-menu-footer {
+            margin-top: auto;
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        .mobile-menu-footer p {
+            font-style: italic;
+            color: var(--cor-texto-secundario);
+            font-size: 0.85rem;
+            opacity: 0.6;
         }
 
         /* Grid de Níveis de Injúria - Responsivo */
@@ -1242,26 +1394,72 @@
     <!-- Mobile Menu Modal -->
     <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
         <div class="dialog-content">
-            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.9);"></div>
-            <div class="dialog-inline w-100 h-100vh" style="background: linear-gradient(180deg, var(--cor-fundo) 0%, rgba(139,0,0,0.1) 100%);">
-                <button class="dialog-close" data-modal-hide style="color: white; font-size: 2rem; top: 20px; right: 20px;"></button>
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <!-- Efeitos de fundo -->
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
 
-                <!-- Logo no menu -->
-                <div class="text-center p-40-t">
-                    <span style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--cor-secundaria); letter-spacing: 6px;">SCAR</span>
-                    <div style="width: 60px; height: 2px; background: var(--gradient-blood); margin: 15px auto;"></div>
-                </div>
+                <!-- Botão fechar -->
+                <button class="mobile-menu-close" data-modal-hide>✕</button>
 
-                <div class="d-flex f-col f-items-center f-justify-center h-100 f-gap-20 p-30-all" style="margin-top: -80px;">
-                    <a href="#sobre" class="mobile-nav-link" data-modal-hide>Sobre</a>
-                    <a href="#sistema" class="mobile-nav-link" data-modal-hide>Sistema</a>
-                    <a href="#seres" class="mobile-nav-link" data-modal-hide>Seres</a>
-                    <a href="#criacao" class="mobile-nav-link" data-modal-hide>Criar Personagem</a>
-                    <a href="#contratos" class="mobile-nav-link" data-modal-hide>Contratos</a>
-                    <a href="#combate" class="mobile-nav-link" data-modal-hide>Combate</a>
-                    <a href="habilidades.html" class="mobile-nav-link" data-modal-hide>Habilidades</a>
-                    <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide>Aflições</a>
-                    <a href="#faq" class="mobile-nav-link" data-modal-hide>FAQ</a>
+                <!-- Conteúdo do menu -->
+                <div class="mobile-menu-content">
+                    <!-- Logo -->
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+
+                    <!-- Links principais -->
+                    <nav class="mobile-menu-nav">
+                        <a href="#sobre" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">📜</span>
+                            <span class="link-text">Sobre</span>
+                        </a>
+                        <a href="#sistema" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🎲</span>
+                            <span class="link-text">Sistema</span>
+                        </a>
+                        <a href="#seres" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">👹</span>
+                            <span class="link-text">Seres</span>
+                        </a>
+                        <a href="#criacao" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">⚔️</span>
+                            <span class="link-text">Criar Personagem</span>
+                        </a>
+                        <a href="#contratos" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">📝</span>
+                            <span class="link-text">Contratos</span>
+                        </a>
+                        <a href="#combate" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">💀</span>
+                            <span class="link-text">Combate</span>
+                        </a>
+                    </nav>
+
+                    <!-- Divider -->
+                    <div class="mobile-menu-section-divider"></div>
+
+                    <!-- Links secundários -->
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="habilidades.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Habilidades</span>
+                        </a>
+                        <a href="aflicoes.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Aflições</span>
+                        </a>
+                        <a href="#faq" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">FAQ</span>
+                        </a>
+                    </nav>
+
+                    <!-- Footer do menu -->
+                    <div class="mobile-menu-footer">
+                        <p>"Todo contrato tem um preço"</p>
+                    </div>
                 </div>
             </div>
         </div>
