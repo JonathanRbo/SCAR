@@ -349,7 +349,7 @@ Ritual / conhecimento proibido: +5 PM
 Sonho Comum (ex: comer uma refeição incrível, beijar alguém): +3 PM
 Sonho Pessoal (ex: fazer um amigo de verdade, ter um lar): +5 PM
 Sonho Ambicioso (ex: viver até os 60, proteger alguém até o fim): +8 PM
-Sonho Lendário (ex: derrotar um Primordial, mudar o mundo): +12 PM
+Sonho Tolo (ex: derrotar um Primordial, mudar o mundo): +12 PM
 
 **REGRA FINAL**
 Sempre que um personagem atingir:

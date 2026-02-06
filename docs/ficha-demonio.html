@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCAR - Registro Demoniaco</title>
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;600;700&family=Special+Elite&family=Creepster&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blood: #8B0000;
+            --blood-bright: #DC143C;
+            --blood-glow: #FF4444;
+            --dark: #0a0a0a;
+            --dark-deep: #0d0505;
+            --text: #f5f5f5;
+            --text-muted: #888;
+            --border: #3a1515;
+            --gold: #D4AF37;
+            --blue: #5DADE2;
+            --purple: #9B59B6;
+            --green: #27ae60;
+            --crimson: #8B0000;
+        }
+
+        @media print {
+            body { background: white !important; }
+            .no-print { display: none !important; }
+            .ficha-page { box-shadow: none !important; }
+            .ficha-page * { color: #222 !important; }
+            .page-bg { opacity: 0.08 !important; }
+            .blood-overlay { display: none !important; }
+            input, textarea { border-color: #999 !important; background: transparent !important; color: #222 !important; }
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--dark-deep);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* === TOOLBAR === */
+        .toolbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(13,5,5,0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--blood);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .toolbar-title {
+            font-family: 'Creepster', cursive;
+            font-size: 1.5rem;
+            color: var(--blood-bright);
+            letter-spacing: 3px;
+        }
+
+        .toolbar-actions { display: flex; gap: 8px; }
+
+        .btn-action {
+            background: var(--blood);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1.5px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .btn-action:hover {
+            background: var(--blood-bright);
+            box-shadow: 0 0 15px rgba(220,20,60,0.4);
+        }
+
+        .btn-action.outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .btn-action.outline:hover {
+            border-color: var(--blood-bright);
+            color: var(--blood-bright);
+        }
+
+        /* === FICHA === */
+        .ficha-wrapper {
+            max-width: 750px;
+            margin: 80px auto 40px;
+            padding: 0 15px;
+        }
+
+        .ficha-page {
+            position: relative;
+            background: #120808;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.8),
+                0 0 60px rgba(139,0,0,0.25),
+                inset 0 0 100px rgba(139,0,0,0.05);
+            border: 1px solid rgba(139,0,0,0.5);
+        }
+
+        .page-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('../assets/images/livro 1.jpeg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blood-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg,
+                rgba(139,0,0,0.15) 0%,
+                transparent 20%,
+                transparent 80%,
+                rgba(139,0,0,0.1) 100%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Blood splatter corners */
+        .blood-corner {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .blood-corner.top-right {
+            top: -20px; right: -20px;
+            background: radial-gradient(ellipse at 100% 0%, var(--blood-bright) 0%, transparent 70%);
+        }
+
+        .blood-corner.bottom-left {
+            bottom: -20px; left: -20px;
+            background: radial-gradient(ellipse at 0% 100%, var(--blood-bright) 0%, transparent 70%);
+        }
+
+        .ficha-content {
+            position: relative;
+            z-index: 1;
+            padding: 40px 35px;
+        }
+
+        @media (max-width: 640px) {
+            .ficha-content { padding: 25px 15px; }
+        }
+
+        /* === TITLE === */
+        .ficha-title {
+            font-family: 'Creepster', cursive;
+            font-size: clamp(2.8rem, 7vw, 4.5rem);
+            color: var(--blood-bright);
+            text-align: center;
+            letter-spacing: 6px;
+            text-shadow:
+                0 0 40px rgba(220,20,60,0.6),
+                0 0 80px rgba(220,20,60,0.3),
+                0 4px 0 #3a0000;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .ficha-subtitle {
+            text-align: center;
+            color: var(--blood-glow);
+            font-size: 0.75rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            opacity: 0.6;
+        }
+
+        /* === SECTIONS === */
+        .secao {
+            margin-bottom: 25px;
+        }
+
+        .secao-header {
+            font-family: 'Creepster', cursive;
+            font-size: 1.15rem;
+            color: var(--blood-glow);
+            letter-spacing: 3px;
+            padding: 8px 14px;
+            background: linear-gradient(90deg, rgba(139,0,0,0.3), rgba(139,0,0,0.05), transparent);
+            border-left: 4px solid var(--blood-bright);
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .secao-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--blood), transparent);
+        }
+
+        .secao-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--blood), transparent);
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .secao-divider::after {
+            content: '\2720';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: #120808;
+            padding: 0 12px;
+            color: var(--blood);
+            font-size: 0.9rem;
+        }
+
+        /* === INPUTS === */
+        .field-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .field-label {
+            font-family: 'Creepster', cursive;
+            font-size: 0.95rem;
+            color: var(--blood-glow);
+            letter-spacing: 1.5px;
+            min-width: 80px;
+            white-space: nowrap;
+        }
+
+        .field-input {
+            flex: 1;
+            min-width: 80px;
+            background: rgba(139,0,0,0.05);
+            border: none;
+            border-bottom: 1px solid rgba(220,20,60,0.2);
+            color: var(--text);
+            padding: 6px 8px;
+            font-family: 'Special Elite', monospace;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+            border-radius: 0;
+        }
+
+        .field-input:focus {
+            border-bottom-color: var(--blood-bright);
+            background: rgba(139,0,0,0.08);
+        }
+
+        .field-input::placeholder {
+            color: rgba(220,20,60,0.15);
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.75rem;
+        }
+
+        .field-input.small { max-width: 60px; text-align: center; }
+        .field-input.medium { max-width: 120px; }
+
+        /* === ATRIBUTOS === */
+        .attr-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px 20px;
+        }
+
+        @media (max-width: 640px) {
+            .attr-grid { grid-template-columns: 1fr; }
+        }
+
+        .attr-cat-title {
+            font-family: 'Creepster', cursive;
+            font-size: 0.9rem;
+            color: var(--blood-bright);
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid rgba(220,20,60,0.2);
+        }
+
+        .attr-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .attr-name {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        .attr-value {
+            width: 38px;
+            height: 38px;
+            background: rgba(139,0,0,0.1);
+            border: 2px solid rgba(220,20,60,0.25);
+            border-radius: 50%;
+            color: var(--blood-glow);
+            text-align: center;
+            font-family: 'Creepster', cursive;
+            font-size: 1.3rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .attr-value:focus {
+            border-color: var(--blood-bright);
+            box-shadow: 0 0 15px rgba(220,20,60,0.3);
+            background: rgba(139,0,0,0.2);
+        }
+
+        /* === ORIGIN SELECT === */
+        .origin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .origin-card {
+            background: rgba(139,0,0,0.08);
+            border: 1px solid rgba(220,20,60,0.15);
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .origin-card:hover {
+            border-color: var(--blood-bright);
+            background: rgba(139,0,0,0.15);
+        }
+
+        .origin-card.selected {
+            border-color: var(--blood-bright);
+            background: rgba(139,0,0,0.2);
+            box-shadow: 0 0 15px rgba(220,20,60,0.2);
+        }
+
+        .origin-card .origin-name {
+            font-family: 'Creepster', cursive;
+            font-size: 0.85rem;
+            color: var(--blood-glow);
+            letter-spacing: 1px;
+        }
+
+        .origin-card .origin-desc {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* === STATUS === */
+        .stress-bar { display: flex; gap: 4px; margin: 8px 0; flex-wrap: wrap; }
+
+        .stress-box {
+            width: 28px;
+            height: 28px;
+            background: rgba(139,0,0,0.1);
+            border: 1px solid rgba(220,20,60,0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .stress-box.filled {
+            background: linear-gradient(135deg, var(--blood), var(--blood-bright));
+            border-color: var(--blood-bright);
+            box-shadow: 0 0 10px rgba(220,20,60,0.4);
+        }
+
+        .stress-box:hover { border-color: var(--blood-bright); transform: scale(1.1); }
+
+        /* === INJURIES === */
+        .injury-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .injury-label { font-size: 0.85rem; min-width: 65px; }
+        .injury-label.leve { color: var(--gold); }
+        .injury-label.grave { color: #e67e22; }
+        .injury-label.critica { color: var(--blood-bright); }
+
+        .injury-slots { display: flex; gap: 5px; }
+
+        .injury-slot {
+            width: 24px;
+            height: 24px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(220,20,60,0.15);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .injury-slot.filled.leve { background: var(--gold); border-color: var(--gold); }
+        .injury-slot.filled.grave { background: #e67e22; border-color: #e67e22; }
+        .injury-slot.filled.critica { background: var(--blood-bright); border-color: var(--blood-bright); box-shadow: 0 0 10px rgba(220,20,60,0.5); }
+        .injury-slot:hover { transform: scale(1.15); }
+
+        .injury-counter { font-size: 0.8rem; color: var(--text-muted); margin-left: 5px; }
+
+        /* === PHOTO === */
+        .photo-frame {
+            width: 110px;
+            height: 130px;
+            background: rgba(139,0,0,0.08);
+            border: 2px solid rgba(220,20,60,0.3);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .photo-frame:hover {
+            border-color: var(--blood-bright);
+            box-shadow: 0 0 20px rgba(220,20,60,0.2);
+        }
+
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-placeholder { font-size: 0.6rem; color: var(--text-muted); text-align: center; padding: 5px; }
+        .photo-input { display: none; }
+
+        /* === FALHA CENTRAL === */
+        .falha-box {
+            background: linear-gradient(90deg, rgba(139,0,0,0.2), rgba(139,0,0,0.05));
+            border: 2px solid rgba(220,20,60,0.4);
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .falha-icon {
+            font-size: 1.5rem;
+            color: var(--blood-bright);
+            text-shadow: 0 0 10px rgba(220,20,60,0.5);
+        }
+
+        /* === EVOLUTION === */
+        .evo-track {
+            display: flex;
+            gap: 4px;
+            margin: 10px 0;
+        }
+
+        .evo-level {
+            flex: 1;
+            text-align: center;
+            padding: 8px 4px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(220,20,60,0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .evo-level.active {
+            background: linear-gradient(135deg, var(--blood), var(--blood-bright));
+            border-color: var(--blood-bright);
+            color: white;
+            box-shadow: 0 0 12px rgba(220,20,60,0.3);
+        }
+
+        .evo-level:hover { border-color: var(--blood-bright); }
+
+        .evo-num {
+            font-family: 'Creepster', cursive;
+            font-size: 1.1rem;
+            display: block;
+            color: var(--blood-glow);
+        }
+
+        .evo-level.active .evo-num { color: white; }
+
+        /* === EQUIP === */
+        .equip-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .equip-bullet {
+            width: 6px;
+            height: 6px;
+            background: var(--blood-bright);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* === TEXTAREA === */
+        .notes-area {
+            width: 100%;
+            min-height: 60px;
+            background: rgba(139,0,0,0.05);
+            border: 1px solid rgba(220,20,60,0.15);
+            border-radius: 6px;
+            color: var(--text);
+            padding: 10px;
+            font-family: 'Special Elite', monospace;
+            font-size: 0.9rem;
+            outline: none;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        .notes-area:focus { border-color: var(--blood-bright); }
+
+        /* === CLASSIFIED STAMP === */
+        .classified-stamp {
+            position: absolute;
+            bottom: 30px;
+            right: 25px;
+            text-align: center;
+        }
+
+        .classified-stamp .stamp-text {
+            font-family: 'Creepster', cursive;
+            font-size: 1.2rem;
+            color: var(--blood-bright);
+            letter-spacing: 3px;
+            border: 3px solid var(--blood-bright);
+            padding: 4px 15px;
+            transform: rotate(-8deg);
+            display: inline-block;
+            opacity: 0.4;
+        }
+
+        .classified-stamp .stamp-date {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            opacity: 0.4;
+            margin-top: 3px;
+        }
+
+        /* === PENTAGRAM === */
+        .pentagram-icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--blood-bright);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 26px;
+            font-size: 0.9rem;
+            color: var(--blood-bright);
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar no-print">
+        <a href="../index.html" class="toolbar-title" style="text-decoration:none;">SCAR</a>
+        <span class="toolbar-title">Registro Demoniaco</span>
+        <div class="toolbar-actions">
+            <button class="btn-action outline" onclick="clearForm()">Limpar</button>
+            <button class="btn-action outline" onclick="saveToLocal()">Salvar</button>
+            <button class="btn-action outline" onclick="loadFromLocal()">Carregar</button>
+            <button class="btn-action" onclick="window.print()">PDF</button>
+        </div>
+    </div>
+
+    <!-- FICHA -->
+    <div class="ficha-wrapper">
+        <div class="ficha-page">
+            <div class="page-bg"></div>
+            <div class="blood-overlay"></div>
+            <div class="blood-corner top-right"></div>
+            <div class="blood-corner bottom-left"></div>
+
+            <div class="ficha-content">
+
+                <h1 class="ficha-title">Registro Demoniaco</h1>
+                <p class="ficha-subtitle">SCAR &mdash; Classificacao de Entidade Demoniaca</p>
+
+                <!-- SECAO 1: DESIGNACAO -->
+                <div class="secao">
+                    <div class="secao-header">Section 1: Designacao</div>
+
+                    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+                        <div style="flex:1;min-width:250px;">
+                            <div class="field-row">
+                                <span class="field-label">Nome:</span>
+                                <input type="text" class="field-input" id="nome" placeholder="Designacao do demonio">
+                                <span style="font-size:0.7rem;color:var(--text-muted);">(raro)</span>
+                            </div>
+                            <div class="field-row">
+                                <span class="field-label">Idade:</span>
+                                <input type="text" class="field-input small" id="idade" placeholder="--">
+                                <span class="field-label" style="min-width:auto;">/</span>
+                                <input type="text" class="field-input small" id="idade2" placeholder="--">
+                            </div>
+                            <div class="field-row">
+                                <span class="field-label">Conceito:</span>
+                                <input type="text" class="field-input" id="conceito" placeholder="Conceito / Resumo">
+                            </div>
+                            <div class="field-row">
+                                <span class="field-label">Ligacao:</span>
+                                <input type="text" class="field-input" id="ligacao" placeholder="Ligacao com demonios">
+                            </div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                            <div class="photo-frame" onclick="document.getElementById('photoInput').click()">
+                                <span class="photo-placeholder" id="photoPlaceholder">FOTO</span>
+                                <img id="photoPreview" style="display:none;">
+                            </div>
+                            <input type="file" class="photo-input" id="photoInput" accept="image/*" onchange="loadPhoto(event)">
+                        </div>
+                    </div>
+
+                    <!-- FALHA CENTRAL -->
+                    <div class="falha-box">
+                        <span class="falha-icon">&#9760;</span>
+                        <div style="flex:1;">
+                            <div style="font-family:'Creepster',cursive;font-size:0.9rem;color:var(--blood-glow);letter-spacing:2px;margin-bottom:4px;">Falha Central</div>
+                            <input type="text" class="field-input" id="falha" placeholder="A fraqueza fundamental do demonio" style="width:100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="secao-divider"></div>
+
+                <!-- SECAO 2: ATRIBUTOS + ORIGEM -->
+                <div class="secao">
+                    <div class="secao-header">Section 2: Atributos 18 + Origem</div>
+
+                    <div class="attr-grid">
+                        <div>
+                            <div class="attr-cat-title">Fisicos</div>
+                            <div class="attr-row">
+                                <span class="attr-name">Forca</span>
+                                <input type="number" class="attr-value" id="forca" value="0" min="0" max="10">
+                            </div>
+                            <div class="attr-row">
+                                <span class="attr-name">Vigor</span>
+                                <input type="number" class="attr-value" id="vigor" value="0" min="0" max="10" onchange="calcularStatus()">
+                            </div>
+                            <div class="attr-row">
+                                <span class="attr-name">Coordenacao</span>
+                                <input type="number" class="attr-value" id="coordenacao" value="0" min="0" max="10">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="attr-cat-title">Taticos</div>
+                            <div class="attr-row">
+                                <span class="attr-name">Malandragem</span>
+                                <input type="number" class="attr-value" id="malandragem" value="0" min="0" max="10">
+                            </div>
+                            <div class="attr-row">
+                                <span class="attr-name">Tecnologia</span>
+                                <input type="number" class="attr-value" id="tecnologia" value="0" min="0" max="10">
+                            </div>
+                            <div class="attr-row">
+                                <span class="attr-name">Percepcao</span>
+                                <input type="number" class="attr-value" id="percepcao" value="0" min="0" max="10">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="attr-cat-title">Mentais</div>
+                            <div class="attr-row">
+                                <span class="attr-name">Investigacao</span>
+                                <input type="number" class="attr-value" id="investigacao" value="0" min="0" max="10">
+                            </div>
+                            <div class="attr-row">
+                                <span class="attr-name">Negociacao</span>
+                                <input type="number" class="attr-value" id="negociacao" value="0" min="0" max="10">
+                            </div>
+                            <div class="attr-row">
+                                <span class="attr-name">Autoridade</span>
+                                <input type="number" class="attr-value" id="autoridade" value="0" min="0" max="10">
+                            </div>
+                            <div class="attr-row">
+                                <span class="attr-name">Vinculo</span>
+                                <input type="number" class="attr-value" id="vinculo" value="0" min="0" max="10" onchange="calcularStatus()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align:center;margin-top:10px;">
+                        <span style="font-size:0.8rem;color:var(--text-muted);">Total: </span>
+                        <span id="totalPontos" style="font-family:'Creepster';font-size:1.2rem;color:var(--blood-glow);">0</span>
+                        <span style="font-size:0.75rem;color:var(--text-muted);"> / 18 + Origem</span>
+                    </div>
+
+                    <!-- ORIGEM DO MEDO -->
+                    <div style="margin-top:15px;">
+                        <span class="field-label" style="display:block;margin-bottom:8px;">Origem do Medo:</span>
+                        <div class="origin-grid">
+                            <div class="origin-card" onclick="selectOrigin(this, 'incomum')">
+                                <div class="origin-name">Incomum</div>
+                                <div class="origin-desc">Dor, fogo, sangue</div>
+                            </div>
+                            <div class="origin-card" onclick="selectOrigin(this, 'social')">
+                                <div class="origin-name">Social</div>
+                                <div class="origin-desc">Vigilancia, guerra</div>
+                            </div>
+                            <div class="origin-card" onclick="selectOrigin(this, 'biblico')">
+                                <div class="origin-name">Biblico</div>
+                                <div class="origin-desc">Juizo, pecado</div>
+                            </div>
+                            <div class="origin-card" onclick="selectOrigin(this, 'conceitual')">
+                                <div class="origin-name">Conceitual</div>
+                                <div class="origin-desc">Silencio, vazio, tempo</div>
+                            </div>
+                            <div class="origin-card" onclick="selectOrigin(this, 'primordial')">
+                                <div class="origin-name">Primordial</div>
+                                <div class="origin-desc">Morte, extincao</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="origemSelecionada" value="">
+                        <div class="field-row">
+                            <span class="field-label" style="min-width:auto;">Medo:</span>
+                            <input type="text" class="field-input" id="medoEspecifico" placeholder="Ex: Demonio do Fogo, Demonio da Solidao...">
+                        </div>
+                    </div>
+
+                    <!-- NIVEL DE EVOLUCAO -->
+                    <div style="margin-top:15px;">
+                        <span class="field-label" style="display:block;margin-bottom:8px;">Nivel de Evolucao:</span>
+                        <div class="evo-track">
+                            <div class="evo-level active" onclick="setEvo(1, this)">
+                                <span class="evo-num">1</span>
+                                Perturbador
+                            </div>
+                            <div class="evo-level" onclick="setEvo(2, this)">
+                                <span class="evo-num">2</span>
+                                Amedrontador
+                            </div>
+                            <div class="evo-level" onclick="setEvo(3, this)">
+                                <span class="evo-num">3</span>
+                                Horripilante
+                            </div>
+                            <div class="evo-level" onclick="setEvo(4, this)">
+                                <span class="evo-num">4</span>
+                                Aterrorizante
+                            </div>
+                            <div class="evo-level" onclick="setEvo(5, this)">
+                                <span class="evo-num">5</span>
+                                Incompreensivel
+                            </div>
+                        </div>
+                        <input type="hidden" id="nivelEvo" value="1">
+                    </div>
+                </div>
+
+                <div class="secao-divider"></div>
+
+                <!-- SECAO 3: STATUS -->
+                <div class="secao">
+                    <div style="display:flex;gap:30px;flex-wrap:wrap;">
+                        <div style="flex:1;min-width:200px;">
+                            <div class="secao-header">Section 3: Status</div>
+
+                            <div class="field-row" style="margin-bottom:5px;">
+                                <span class="field-label" style="min-width:auto;">Stress</span>
+                                <span style="font-size:0.8rem;color:var(--text-muted);">Atual: <strong id="stressAtual" style="color:var(--blood-bright);">0</strong> / Max: <strong id="stressMax" style="color:var(--text);">6</strong></span>
+                            </div>
+                            <div class="stress-bar" id="stressBar"></div>
+
+                            <span class="field-label" style="display:block;margin:12px 0 6px;">Injurias</span>
+                            <div class="injury-row">
+                                <span class="injury-label leve">Leve</span>
+                                <div class="injury-slots" id="injLeve"></div>
+                                <span class="injury-counter" id="injLeveCount">0/2</span>
+                            </div>
+                            <div class="injury-row">
+                                <span class="injury-label grave">Grave</span>
+                                <div class="injury-slots" id="injGrave"></div>
+                                <span class="injury-counter" id="injGraveCount">0/1</span>
+                            </div>
+                            <div class="injury-row">
+                                <span class="injury-label critica">Critica</span>
+                                <div class="injury-slots" id="injCritica"></div>
+                                <span class="injury-counter" id="injCriticaCount">0/1</span>
+                            </div>
+                        </div>
+
+                        <div style="flex:1;min-width:200px;">
+                            <div class="secao-header">Section 4: Equipamento e Marcas</div>
+
+                            <span class="field-label" style="display:block;margin-bottom:6px;">Armamento:</span>
+                            <div class="equip-item">
+                                <span class="equip-bullet"></span>
+                                <input type="text" class="field-input" id="arma1" placeholder="Arma / poder 1">
+                            </div>
+                            <div class="equip-item">
+                                <span class="equip-bullet"></span>
+                                <input type="text" class="field-input" id="arma2" placeholder="Arma / poder 2">
+                            </div>
+                            <div class="equip-item">
+                                <span class="equip-bullet"></span>
+                                <input type="text" class="field-input" id="arma3" placeholder="Arma / poder 3">
+                            </div>
+
+                            <div class="field-row" style="margin-top:12px;">
+                                <span class="field-label" style="min-width:auto;">Marca:</span>
+                                <input type="text" class="field-input" id="marca" placeholder="Marca do demonio">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="secao-divider"></div>
+
+                <!-- SECAO 5: PODERES -->
+                <div class="secao">
+                    <div class="secao-header">Section 5: Poderes Demoniacos</div>
+
+                    <span class="field-label" style="display:block;margin-bottom:8px;">Poder 1:</span>
+                    <div class="field-row">
+                        <span class="field-label" style="min-width:auto;font-size:0.8rem;">Nome:</span>
+                        <input type="text" class="field-input" id="poder1nome" placeholder="Nome do poder">
+                        <span class="field-label" style="min-width:auto;font-size:0.8rem;">Custo:</span>
+                        <input type="text" class="field-input small" id="poder1custo" placeholder="Stress">
+                    </div>
+                    <textarea class="notes-area" id="poder1desc" placeholder="Descricao do poder, efeitos, restricoes..." style="min-height:40px;"></textarea>
+
+                    <span class="field-label" style="display:block;margin:12px 0 8px;">Poder 2:</span>
+                    <div class="field-row">
+                        <span class="field-label" style="min-width:auto;font-size:0.8rem;">Nome:</span>
+                        <input type="text" class="field-input" id="poder2nome" placeholder="Nome do poder">
+                        <span class="field-label" style="min-width:auto;font-size:0.8rem;">Custo:</span>
+                        <input type="text" class="field-input small" id="poder2custo" placeholder="Stress">
+                    </div>
+                    <textarea class="notes-area" id="poder2desc" placeholder="Descricao do poder, efeitos, restricoes..." style="min-height:40px;"></textarea>
+                </div>
+
+                <div class="secao-divider"></div>
+
+                <!-- SECAO 6: NOTAS -->
+                <div class="secao">
+                    <div class="secao-header">Section 6: Anotacoes</div>
+                    <textarea class="notes-area" id="notas" placeholder="Historia, comportamento, territorio, aliancas, inimigos..."></textarea>
+                </div>
+
+                <div class="classified-stamp">
+                    <div class="stamp-text">CLASSIFICADO</div>
+                    <div class="stamp-date">199X.XX.XX</div>
+                    <div class="pentagram-icon" style="margin-top:5px;">&#9734;</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+    <script>
+        // === STRESS SYSTEM ===
+        let stressAtual = 0;
+        let stressMax = 6;
+
+        function calcularStatus() {
+            const vigor = parseInt(document.getElementById('vigor').value) || 0;
+            const vinculo = parseInt(document.getElementById('vinculo').value) || 0;
+            const coord = parseInt(document.getElementById('coordenacao').value) || 0;
+
+            stressMax = 6 + vigor + vinculo;
+            document.getElementById('stressMax').textContent = stressMax;
+            renderStressBar();
+
+            const leves = 2 + Math.floor(vigor / 2);
+            const graves = 1 + Math.floor(vigor / 3);
+            renderInjurySlots('injLeve', leves, 'leve');
+            renderInjurySlots('injGrave', graves, 'grave');
+            renderInjurySlots('injCritica', 1, 'critica');
+
+            calcularTotal();
+        }
+
+        function renderStressBar() {
+            const bar = document.getElementById('stressBar');
+            bar.innerHTML = '';
+            for (let i = 0; i < stressMax; i++) {
+                const box = document.createElement('div');
+                box.className = 'stress-box' + (i < stressAtual ? ' filled' : '');
+                box.onclick = function() {
+                    stressAtual = (i < stressAtual) ? i : i + 1;
+                    document.getElementById('stressAtual').textContent = stressAtual;
+                    renderStressBar();
+                };
+                bar.appendChild(box);
+            }
+        }
+
+        // === INJURY SYSTEM ===
+        const injuries = { leve: 0, grave: 0, critica: 0 };
+
+        function renderInjurySlots(containerId, max, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            if (injuries[type] > max) injuries[type] = max;
+            for (let i = 0; i < max; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'injury-slot' + (i < injuries[type] ? ' filled ' + type : '');
+                slot.onclick = function() {
+                    injuries[type] = (i < injuries[type]) ? i : i + 1;
+                    renderInjurySlots(containerId, max, type);
+                };
+                container.appendChild(slot);
+            }
+            document.getElementById(containerId + 'Count').textContent = injuries[type] + '/' + max;
+        }
+
+        // === TOTAL POINTS ===
+        function calcularTotal() {
+            const ids = ['forca','vigor','coordenacao','malandragem','tecnologia','percepcao','investigacao','negociacao','autoridade','vinculo'];
+            let total = 0;
+            ids.forEach(function(id) { total += parseInt(document.getElementById(id).value) || 0; });
+            document.getElementById('totalPontos').textContent = total;
+        }
+
+        document.querySelectorAll('.attr-value').forEach(function(input) {
+            input.addEventListener('change', calcularStatus);
+            input.addEventListener('input', calcularTotal);
+        });
+
+        // === ORIGIN SELECT ===
+        function selectOrigin(el, value) {
+            document.querySelectorAll('.origin-card').forEach(function(c) { c.classList.remove('selected'); });
+            el.classList.add('selected');
+            document.getElementById('origemSelecionada').value = value;
+        }
+
+        // === EVOLUTION ===
+        let currentEvo = 1;
+        function setEvo(level, el) {
+            currentEvo = level;
+            document.getElementById('nivelEvo').value = level;
+            document.querySelectorAll('.evo-level').forEach(function(e, i) {
+                e.classList.toggle('active', i < level);
+            });
+        }
+
+        // === PHOTO ===
+        function loadPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('photoPreview').src = e.target.result;
+                    document.getElementById('photoPreview').style.display = 'block';
+                    document.getElementById('photoPlaceholder').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // === SAVE / LOAD ===
+        function saveToLocal() {
+            const data = {};
+            document.querySelectorAll('input, select, textarea').forEach(function(el) {
+                if (el.id) data[el.id] = el.value;
+            });
+            data._stress = stressAtual;
+            data._injuries = injuries;
+            data._evo = currentEvo;
+            data._photo = document.getElementById('photoPreview').src;
+            data._origem = document.getElementById('origemSelecionada').value;
+            localStorage.setItem('scar-ficha-demonio', JSON.stringify(data));
+            alert('Registro salvo com sucesso!');
+        }
+
+        function loadFromLocal() {
+            const saved = localStorage.getItem('scar-ficha-demonio');
+            if (!saved) { alert('Nenhum registro salvo encontrado.'); return; }
+            const data = JSON.parse(saved);
+            document.querySelectorAll('input, select, textarea').forEach(function(el) {
+                if (el.id && data[el.id] !== undefined) el.value = data[el.id];
+            });
+            if (data._stress !== undefined) stressAtual = data._stress;
+            if (data._injuries) {
+                injuries.leve = data._injuries.leve || 0;
+                injuries.grave = data._injuries.grave || 0;
+                injuries.critica = data._injuries.critica || 0;
+            }
+            if (data._evo) setEvo(data._evo);
+            if (data._origem) {
+                document.querySelectorAll('.origin-card').forEach(function(c) {
+                    if (c.onclick.toString().includes(data._origem)) {
+                        selectOrigin(c, data._origem);
+                    }
+                });
+            }
+            if (data._photo && data._photo !== '') {
+                document.getElementById('photoPreview').src = data._photo;
+                document.getElementById('photoPreview').style.display = 'block';
+                document.getElementById('photoPlaceholder').style.display = 'none';
+            }
+            calcularStatus();
+            alert('Registro carregado!');
+        }
+
+        function clearForm() {
+            if (!confirm('Limpar todo o registro? Isso nao pode ser desfeito.')) return;
+            document.querySelectorAll('input, select, textarea').forEach(function(el) {
+                if (el.type === 'number') el.value = 0;
+                else if (el.type === 'hidden') el.value = '';
+                else if (el.tagName === 'SELECT') el.selectedIndex = 0;
+                else el.value = '';
+            });
+            stressAtual = 0;
+            injuries.leve = 0;
+            injuries.grave = 0;
+            injuries.critica = 0;
+            document.querySelectorAll('.origin-card').forEach(function(c) { c.classList.remove('selected'); });
+            setEvo(1);
+            document.getElementById('photoPreview').style.display = 'none';
+            document.getElementById('photoPlaceholder').style.display = 'block';
+            calcularStatus();
+        }
+
+        // Init
+        calcularStatus();
+    </script>
+</body>
+</html>

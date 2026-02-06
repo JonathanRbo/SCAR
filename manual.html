@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCAR — Manual do Sistema</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        /* ═══ RESET & BASE ═══ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --cor-sangue: #DC143C;
+            --cor-sangue-escuro: #8B0000;
+            --cor-gold: #D4AF37;
+            --cor-texto: #e8e0d4;
+            --cor-texto-sec: #b0a89c;
+            --cor-fundo: #1a1410;
+            --cor-card: rgba(20, 15, 10, 0.85);
+            --cor-borda: rgba(139, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            color: var(--cor-texto);
+            background: var(--cor-fundo);
+            line-height: 1.7;
+            font-size: 11pt;
+        }
+
+        /* ═══ PAGE / PRINT ═══ */
+        .page {
+            position: relative;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            padding: 25mm 20mm 30mm 20mm;
+            background-image: url('assets/images/livro 1.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 8, 5, 0.55);
+            z-index: 0;
+        }
+
+        .page > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @media print {
+            body { background: none; margin: 0; padding: 0; }
+            .page {
+                margin: 0;
+                page-break-after: always;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page:last-child { page-break-after: avoid; }
+            .no-print { display: none !important; }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        /* ═══ TIPOGRAFIA ═══ */
+        h1, h2, h3, h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--cor-sangue);
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--cor-gold);
+            margin: 25px 0 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--cor-borda);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: var(--cor-sangue);
+            margin: 18px 0 8px;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--cor-texto);
+            margin: 12px 0 6px;
+            letter-spacing: 1px;
+        }
+
+        p { margin-bottom: 8px; }
+
+        strong { color: var(--cor-texto); }
+
+        em { color: var(--cor-texto-sec); font-style: italic; }
+
+        /* ═══ CAPA ═══ */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 297mm;
+            padding: 40mm 20mm;
+        }
+
+        .cover h1 {
+            font-size: 6rem;
+            letter-spacing: 12px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 40px rgba(220, 20, 60, 0.6), 0 0 80px rgba(220, 20, 60, 0.3);
+        }
+
+        .cover .subtitle {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: var(--cor-gold);
+            letter-spacing: 6px;
+            margin-bottom: 40px;
+        }
+
+        .cover .tagline {
+            font-size: 1.1rem;
+            color: var(--cor-texto-sec);
+            font-style: italic;
+            max-width: 400px;
+            line-height: 1.8;
+        }
+
+        .cover .divider {
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cor-sangue), transparent);
+            margin: 30px 0;
+        }
+
+        .cover .version {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--cor-texto-sec);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-top: 60px;
+        }
+
+        /* ═══ SUMÁRIO ═══ */
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 6px 0;
+            border-bottom: 1px dotted rgba(139, 0, 0, 0.2);
+        }
+
+        .toc-item .toc-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            color: var(--cor-texto);
+        }
+
+        .toc-item .toc-num {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--cor-sangue);
+            font-size: 1rem;
+        }
+
+        .toc-item.sub {
+            padding-left: 20px;
+        }
+
+        .toc-item.sub .toc-title {
+            font-size: 0.95rem;
+            color: var(--cor-texto-sec);
+        }
+
+        /* ═══ BLOCOS ESPECIAIS ═══ */
+        .quote-box {
+            border-left: 3px solid var(--cor-sangue);
+            padding: 10px 15px;
+            margin: 12px 0;
+            background: rgba(139, 0, 0, 0.08);
+            font-style: italic;
+            color: var(--cor-texto-sec);
+        }
+
+        .warning-box {
+            border: 1px solid var(--cor-sangue);
+            border-left: 4px solid var(--cor-sangue);
+            padding: 12px 15px;
+            margin: 12px 0;
+            background: rgba(139, 0, 0, 0.12);
+        }
+
+        .warning-box::before {
+            content: '⚠ ';
+            color: var(--cor-sangue);
+            font-weight: bold;
+        }
+
+        .gold-box {
+            border-left: 3px solid var(--cor-gold);
+            padding: 10px 15px;
+            margin: 12px 0;
+            background: rgba(212, 175, 55, 0.06);
+        }
+
+        .info-box {
+            border: 1px solid var(--cor-borda);
+            padding: 12px 15px;
+            margin: 12px 0;
+            background: var(--cor-card);
+            border-radius: 4px;
+        }
+
+        /* ═══ TABELAS ═══ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: rgba(139, 0, 0, 0.25);
+            color: var(--cor-gold);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 2px solid var(--cor-sangue-escuro);
+        }
+
+        td {
+            padding: 6px 10px;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.15);
+            color: var(--cor-texto);
+        }
+
+        tr:hover td {
+            background: rgba(139, 0, 0, 0.08);
+        }
+
+        .td-gold { color: var(--cor-gold); font-weight: 700; }
+        .td-red { color: var(--cor-sangue); font-weight: 700; }
+
+        /* ═══ LISTAS ═══ */
+        ul, ol {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+
+        li {
+            margin-bottom: 4px;
+            color: var(--cor-texto-sec);
+        }
+
+        li strong { color: var(--cor-texto); }
+
+        /* ═══ CARDS DE HABILIDADE ═══ */
+        .skill-card {
+            border: 1px solid var(--cor-borda);
+            padding: 10px 14px;
+            margin: 8px 0;
+            background: var(--cor-card);
+            border-radius: 4px;
+        }
+
+        .skill-card .skill-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.05rem;
+            color: var(--cor-gold);
+            letter-spacing: 1px;
+        }
+
+        .skill-card .skill-req {
+            font-size: 0.8rem;
+            color: var(--cor-sangue);
+            margin-bottom: 4px;
+        }
+
+        .skill-card .skill-cost {
+            font-size: 0.8rem;
+            color: var(--cor-texto-sec);
+            font-style: italic;
+        }
+
+        .skill-card p {
+            font-size: 0.9rem;
+            margin: 4px 0;
+        }
+
+        .pm-badge {
+            display: inline-block;
+            background: rgba(139, 0, 0, 0.3);
+            color: var(--cor-sangue);
+            padding: 1px 8px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        /* ═══ ARMA CARD ═══ */
+        .arma-card {
+            border: 1px solid var(--cor-borda);
+            padding: 8px 12px;
+            margin: 6px 0;
+            background: var(--cor-card);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 15px;
+            font-size: 0.85rem;
+        }
+
+        .arma-card .arma-name {
+            grid-column: 1 / -1;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            color: var(--cor-gold);
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--cor-borda);
+            padding-bottom: 4px;
+            margin-bottom: 2px;
+        }
+
+        .arma-card span.label { color: var(--cor-texto-sec); }
+        .arma-card span.value { color: var(--cor-texto); }
+
+        /* ═══ CONTRATO CARD ═══ */
+        .contrato-card {
+            border: 1px solid var(--cor-borda);
+            border-left: 3px solid var(--cor-sangue);
+            padding: 10px 14px;
+            margin: 8px 0;
+            background: var(--cor-card);
+        }
+
+        .contrato-card .contrato-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.05rem;
+            color: var(--cor-sangue);
+            letter-spacing: 1px;
+        }
+
+        .contrato-card .contrato-tier {
+            font-size: 0.75rem;
+            color: var(--cor-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ═══ FICHA ═══ */
+        .ficha-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .ficha-container img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid var(--cor-borda);
+            border-radius: 4px;
+        }
+
+        /* ═══ SEPARADORES ═══ */
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cor-sangue-escuro), transparent);
+            margin: 20px 0;
+        }
+
+        .chapter-divider {
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+
+        .chapter-divider::before {
+            content: '═══════════════════';
+            color: var(--cor-sangue-escuro);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+        }
+
+        /* ═══ COLUNAS ═══ */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* ═══ FOOTER ═══ */
+        .page-footer {
+            position: absolute;
+            bottom: 10mm;
+            left: 20mm;
+            right: 20mm;
+            text-align: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(220, 20, 60, 0.4);
+            letter-spacing: 3px;
+        }
+
+        /* ═══ AFLIÇÃO ENTRY ═══ */
+        .aflic-entry {
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.1);
+            font-size: 0.85rem;
+        }
+
+        .aflic-entry .aflic-num {
+            color: var(--cor-sangue);
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        .aflic-entry .aflic-name {
+            color: var(--cor-gold);
+            font-weight: 600;
+        }
+
+        .aflic-entry .aflic-desc {
+            color: var(--cor-texto-sec);
+            font-style: italic;
+        }
+
+        .aflic-entry .aflic-debuff {
+            color: var(--cor-texto);
+            font-size: 0.8rem;
+        }
+
+        /* ═══ PRINT BUTTON ═══ */
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--cor-sangue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+        }
+
+        .print-btn:hover { background: var(--cor-sangue-escuro); }
+
+        .page-break { page-break-before: always; }
+    </style>
+</head>
+<body>
+
+<!-- BOTÃO IMPRIMIR -->
+<button class="print-btn no-print" onclick="window.print()">GERAR PDF</button>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CAPA -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page cover">
+    <h1>SCAR</h1>
+    <div class="subtitle">Sacrificial Contract & Risk</div>
+    <div class="divider"></div>
+    <p class="tagline">"Todo contrato tem um preço. Você está disposto a pagar?"</p>
+    <div class="divider"></div>
+    <p style="color: var(--cor-texto-sec); font-size: 0.95rem; margin-top: 20px;">
+        Sistema de RPG de mesa ambientado no universo brutal de Chainsaw Man
+    </p>
+    <p class="version">Manual Completo do Sistema — V1.0</p>
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SUMÁRIO -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page">
+    <h1>Sumário</h1>
+    <hr>
+    <div style="margin-top: 20px;">
+        <div class="toc-item"><span class="toc-title">1. O Mundo</span><span class="toc-num">3</span></div>
+        <div class="toc-item sub"><span class="toc-title">Tipos de Seres</span></div>
+        <div class="toc-item sub"><span class="toc-title">Demônios & Contratos</span></div>
+        <div class="toc-item sub"><span class="toc-title">O Inferno</span></div>
+        <div class="toc-item sub"><span class="toc-title">As Facções</span></div>
+        <div class="toc-item"><span class="toc-title">2. Regras do Sistema</span><span class="toc-num">6</span></div>
+        <div class="toc-item sub"><span class="toc-title">Atributos & Testes</span></div>
+        <div class="toc-item sub"><span class="toc-title">Combate & Injúrias</span></div>
+        <div class="toc-item sub"><span class="toc-title">Stress & Colapso</span></div>
+        <div class="toc-item sub"><span class="toc-title">Teste de Medo</span></div>
+        <div class="toc-item sub"><span class="toc-title">Críticos, Falhas & Duelos</span></div>
+        <div class="toc-item"><span class="toc-title">3. Criação de Personagem</span><span class="toc-num">10</span></div>
+        <div class="toc-item sub"><span class="toc-title">Naturezas</span></div>
+        <div class="toc-item sub"><span class="toc-title">Ficha do Personagem</span></div>
+        <div class="toc-item sub"><span class="toc-title">Demônios Puros</span></div>
+        <div class="toc-item"><span class="toc-title">4. Estilos de Luta</span><span class="toc-num">14</span></div>
+        <div class="toc-item"><span class="toc-title">5. Armamento & Equipamento</span><span class="toc-num">16</span></div>
+        <div class="toc-item"><span class="toc-title">6. Pontos de Marca & Habilidades</span><span class="toc-num">18</span></div>
+        <div class="toc-item sub"><span class="toc-title">Custos por Origem</span></div>
+        <div class="toc-item sub"><span class="toc-title">Habilidades de Origem</span></div>
+        <div class="toc-item sub"><span class="toc-title">Contratos Demoníacos</span></div>
+        <div class="toc-item sub"><span class="toc-title">Habilidades Gerais</span></div>
+        <div class="toc-item"><span class="toc-title">7. Sistema de Sonhos</span><span class="toc-num">30</span></div>
+        <div class="toc-item"><span class="toc-title">8. Power Scaling</span><span class="toc-num">32</span></div>
+        <div class="toc-item"><span class="toc-title">9. Aflições Físicas</span><span class="toc-num">35</span></div>
+        <div class="toc-item"><span class="toc-title">10. Aflições Mentais</span><span class="toc-num">38</span></div>
+        <div class="toc-item"><span class="toc-title">Fichas de Personagem</span><span class="toc-num">41</span></div>
+    </div>
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CAPÍTULO 1: O MUNDO -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page">
+    <h1>1. O Mundo</h1>
+    <hr>
+
+    <div class="quote-box">
+        SCAR se passa no mesmo conceito e poderes de Chainsaw Man — um mundo onde <strong>demônios existem</strong> e são uma ameaça constante à humanidade. Esses demônios nascem dos medos humanos — quanto mais as pessoas temem algo, mais poderoso é o demônio relacionado.
+    </div>
+
+    <p>Para combater essa ameaça, governos criaram organizações como a <strong>Segurança Pública</strong>, compostas por caçadores de demônios: humanos, híbridos e até demônios que trabalham para eliminar outros demônios.</p>
+
+    <h2>Tipos de Seres</h2>
+
+    <h3>Humanos</h3>
+    <p>Pessoas comuns que caçam demônios. Usam armas convencionais e podem fazer <strong>contratos</strong> com demônios para ganhar poderes — sempre com um preço.</p>
+
+    <h3>Infernais (Fiends)</h3>
+    <p>Quando um demônio <strong>possui o cadáver de um humano</strong>, nasce um Infernal. Mantêm a aparência humana (com traços demoníacos visíveis, como chifres ou olhos estranhos) e personalidade do demônio, mas são mais fracos que demônios puros.</p>
+    <p><em>Exemplo: Power (Demônio do Sangue em corpo humano)</em></p>
+
+    <h3>Híbridos</h3>
+    <p>A forma mais rara. São humanos que <strong>se fundiram com um demônio</strong> através de um gatilho específico. Podem alternar entre forma humana e demoníaca.</p>
+    <p><em>Exemplo: Denji (coração do Pochita = puxa a corda do peito = vira Chainsaw Man)</em></p>
+
+    <h3>Demônios Puros</h3>
+    <p>Criaturas do Inferno em sua forma verdadeira. São os mais poderosos, mas também os mais instáveis e perigosos. Não possuem empatia natural — precisam aprender.</p>
+
+    <h2>O que são Demônios?</h2>
+    <p>Demônios são <strong>manifestações físicas do medo coletivo humano</strong>. Eles não "nascem" no sentido tradicional — simplesmente existem porque a humanidade teme algo.</p>
+
+    <div class="gold-box">
+        <strong style="color: var(--cor-gold);">A Regra de Ouro do Poder:</strong><br>
+        Quanto mais pessoas temem um conceito, mais poderoso é o demônio.
+    </div>
+
+    <table>
+        <tr><th>Categoria</th><th>Exemplos</th></tr>
+        <tr><td><strong>Demônios fracos</strong></td><td>Medos específicos ou raros (pepino, lesma, tomate)</td></tr>
+        <tr><td><strong>Demônios médios</strong></td><td>Medos comuns (sangue, facas, aranhas, afogamento)</td></tr>
+        <tr><td><strong>Demônios fortes</strong></td><td>Medos universais (escuridão, dor, guerra)</td></tr>
+        <tr><td><strong>Demônios primordiais</strong></td><td>Medos fundamentais (morte, o desconhecido, o fim)</td></tr>
+    </table>
+
+    <h2>Tipos de Demônios</h2>
+    <ul>
+        <li><strong>Demônios:</strong> Raça sobrenatural do Inferno, aparências distintas (macaco, barata, sangue...)</li>
+        <li><strong>Quatro Cavaleiros:</strong> Conquista, Guerra, Fome e Morte</li>
+        <li><strong>Infernais:</strong> Cadáveres humanos tomados por demônios como último recurso</li>
+        <li><strong>Demônios Primordiais:</strong> Medos Primais — imensamente poderosos, nunca estiveram na Terra</li>
+        <li><strong>Híbridos:</strong> Humanos fundidos com demônios, capazes de se transformar</li>
+    </ul>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- O MUNDO (continuação) -->
+<div class="page">
+    <h2>Contratos Demoníacos</h2>
+    <p>A principal forma de humanos ganharem poder sobrenatural. Um contrato é um <strong>pacto vinculante</strong> entre humano e demônio.</p>
+
+    <h4>Estrutura de todo contrato:</h4>
+    <ol>
+        <li><strong>O Poder:</strong> O que o demônio te dá</li>
+        <li><strong>O Preço:</strong> O que você paga em troca</li>
+        <li><strong>A Restrição:</strong> Regras que você deve seguir</li>
+        <li><strong>A Quebra:</strong> O que acontece se você violar</li>
+    </ol>
+
+    <h4>Tipos de preço:</h4>
+    <ul>
+        <li><strong>Físico:</strong> Partes do corpo (olhos, dedos, anos de vida, órgãos)</li>
+        <li><strong>Comportamental:</strong> Coisas que você deve fazer ou nunca pode fazer</li>
+        <li><strong>Sacrificial:</strong> Oferecer algo/alguém ao demônio periodicamente</li>
+        <li><strong>Condicional:</strong> O poder só funciona em certas situações</li>
+    </ul>
+
+    <div class="warning-box">
+        Demônios não são seus amigos. Mesmo contratos "justos" são feitos com criaturas que se alimentam do seu medo e corpo. Eles vão cobrar. Sempre.
+    </div>
+
+    <h2>O Inferno</h2>
+    <p>O Inferno é <strong>real e literal</strong>. Não é metáfora — é um lugar físico onde demônios habitam.</p>
+
+    <div class="gold-box">
+        <strong style="color: var(--cor-gold);">O Ciclo da Morte:</strong><br>
+        Demônio morre na Terra → Renasce no Inferno<br>
+        Demônio morre no Inferno → Renasce na Terra<br>
+        <em>A única exceção: ser devorado pelo Demônio da Motosserra — apaga o conceito da existência.</em>
+    </div>
+
+    <h4>Como é o Inferno:</h4>
+    <ul>
+        <li>Campo florido com portas no céu</li>
+        <li>Cada porta representa um medo e leva a um "território" demoníaco</li>
+        <li>Demônios mais poderosos dominam territórios maiores</li>
+    </ul>
+
+    <h4>As Portas do Inferno:</h4>
+    <p>Passagens que conectam Terra e Inferno. Podem ser abertas por demônios poderosos, híbridos em situações extremas, rituais proibidos ou eventos cataclísmicos.</p>
+
+    <div class="warning-box">Se encontrar uma porta, reze e se afaste. Grandes chances de algo sair.</div>
+
+    <h2>As Facções</h2>
+
+    <div class="quote-box">No mundo de Chainsaw Man, ninguém é inocente. Toda facção tem sangue nas mãos. Não existe lado certo — existe o lado que você escolheu.</div>
+
+    <h3>Governamentais</h3>
+    <ul>
+        <li><strong>Segurança Pública:</strong> Força oficial de caça a demônios do Japão</li>
+        <li><strong>Forças Internacionais:</strong> EUA (armas pesadas), China (experimentos), Rússia (brutalismo), Vaticano (exorcistas)</li>
+        <li><strong>Divisão de Pesquisa:</strong> Cientistas que estudam e capturam demônios vivos</li>
+    </ul>
+
+    <h3>Independentes</h3>
+    <ul>
+        <li><strong>Caçadores Privados:</strong> Freelancers que caçam por dinheiro</li>
+        <li><strong>Guilda dos Contratos:</strong> Intermediários entre humanos e demônios</li>
+        <li><strong>Os Sobreviventes:</strong> Comunidades escondidas que desconfiam de poder demoníaco</li>
+        <li><strong>Sindicato do Mercado Negro:</strong> Criminosos que traficam partes de demônios</li>
+    </ul>
+
+    <h3>Religiosas e Cultos</h3>
+    <ul>
+        <li><strong>Igreja da Vida:</strong> Veem demônios como punição divina. Treinam exorcistas sem contratos</li>
+        <li><strong>Filhos do Medo:</strong> Querem virar demônios. Objetivo: invocar um Primordial</li>
+        <li><strong>Ordem da Vontade:</strong> Acreditam em coexistência humano-demônio</li>
+        <li><strong>Seita da Fome:</strong> Culto que devora humanos e demônios</li>
+    </ul>
+
+    <h3>Demoníacas</h3>
+    <ul>
+        <li><strong>4 Cavaleiros do Apocalipse:</strong> Controle, Morte, Fome, Guerra</li>
+        <li><strong>Corte da Violência:</strong> Demônios que glorificam o combate</li>
+        <li><strong>Pacto dos Famintos:</strong> Demônios fracos unidos para sobreviver</li>
+        <li><strong>Os Errantes:</strong> Demônios solitários que rejeitam todos</li>
+        <li><strong>Servos do Pesadelo:</strong> Objetivo: fazer a humanidade temer TUDO</li>
+    </ul>
+
+    <h3>Híbridas/Especiais</h3>
+    <ul>
+        <li><strong>O Manifesto:</strong> Rede secreta de híbridos que se protegem</li>
+        <li><strong>Projeto Vida:</strong> Programa secreto para criar híbridos artificiais</li>
+        <li><strong>Os Caídos:</strong> Infernais que desenvolveram empatia. Rejeitados por todos</li>
+    </ul>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CAPÍTULO 2: REGRAS -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page">
+    <h1>2. Regras do Sistema</h1>
+    <hr>
+
+    <h2>Atributos</h2>
+    <div class="three-col">
+        <div>
+            <h4>Físicos</h4>
+            <ul>
+                <li><strong>Força:</strong> violência direta, combate corporal</li>
+                <li><strong>Vigor:</strong> resistência, fôlego, esforço prolongado</li>
+                <li><strong>Coordenação:</strong> mira, reflexos, uso de armas</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Táticos / Técnicos</h4>
+            <ul>
+                <li><strong>Malandragem:</strong> furtividade, enganação, lockpick</li>
+                <li><strong>Tecnologia:</strong> tecnologia, veículos, dispositivos</li>
+                <li><strong>Percepção:</strong> observação, rastreio, vigilância</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Mentais / Sociais</h4>
+            <ul>
+                <li><strong>Investigação:</strong> análise, dedução, pistas</li>
+                <li><strong>Negociação:</strong> barganha, persuasão</li>
+                <li><strong>Autoridade:</strong> liderança, intimidação</li>
+                <li><strong>Vínculo:</strong> empatia, vínculos humanos</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Nota:</strong> Atributo 0 não impede ação, mas qualquer falha gera +1 Stress adicional.
+    </div>
+
+    <h2>Testes de Ação</h2>
+    <p>Quando uma ação é arriscada:</p>
+    <ol>
+        <li>Escolha o atributo apropriado</li>
+        <li>Role Xd10 = resultado</li>
+    </ol>
+
+    <h2>Combate & Injúrias</h2>
+    <p>Atacante e defensor escolhem atributos coerentes (ex: Força vs Vigor, Coordenação vs Coordenação). Subtraia: resultado do atacante − resultado do defensor.</p>
+
+    <table>
+        <tr><th>Diferença</th><th>Injúria</th></tr>
+        <tr><td>1-9</td><td>Leve</td></tr>
+        <tr><td>10-19</td><td>Grave</td></tr>
+        <tr><td>20+</td><td>Crítica</td></tr>
+    </table>
+
+    <h4>Cálculo de Injúrias Máximas:</h4>
+    <table>
+        <tr><th>Tipo</th><th>Fórmula</th></tr>
+        <tr><td>Leves</td><td>2 + ⌊Vigor / 2⌋</td></tr>
+        <tr><td>Graves</td><td>1 + ⌊Vigor / 3⌋</td></tr>
+        <tr><td>Críticas</td><td>1 (fixo)</td></tr>
+    </table>
+
+    <h2>Stress</h2>
+    <p><strong>O que é:</strong> Pressão mental, física e emocional. Calculado como <strong>6 + Vigor + Vínculo</strong>.</p>
+
+    <h4>Gasto de Stress:</h4>
+    <ul>
+        <li>Ajudar outro personagem (1d10 por Stress gasto)</li>
+        <li>Forçar dados (2 Stress)</li>
+        <li>Usar poderes e contratos demoníacos</li>
+        <li>+1 ação padrão por 3 Stress (máx 1 por rodada)</li>
+    </ul>
+
+    <h4>Colapso:</h4>
+    <p>Ao atingir limite → sofre 1 Injúria automaticamente. Stress reseta para 0.</p>
+
+    <h4>Recuperação de Stress (1x por luta):</h4>
+    <ul>
+        <li>Descanso → d10 + Vínculo</li>
+        <li>Combate → d10 + Vigor</li>
+        <li>2+ pessoas → d10 + atributo escolhido</li>
+    </ul>
+
+    <h2>Sangue</h2>
+    <p>Diminui 1 grau da maior injúria no momento. Se todas estiverem quase cheias, zera 1 unidade da maior.</p>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- REGRAS (continuação) -->
+<div class="page">
+    <h2>Teste de Medo</h2>
+
+    <table>
+        <tr><th>Nível</th><th>Nome</th><th>DT</th></tr>
+        <tr><td class="td-red">1</td><td>Perturbador</td><td>20-25</td></tr>
+        <tr><td class="td-red">2</td><td>Amedrontador</td><td>25-30</td></tr>
+        <tr><td class="td-red">3</td><td>Horripilante</td><td>30-35</td></tr>
+        <tr><td class="td-red">4</td><td>Aterrorizante</td><td>35-40</td></tr>
+        <tr><td class="td-red">5</td><td>Incompreendido</td><td>40+</td></tr>
+    </table>
+
+    <p>O jogador escolhe qual atributo usa para resistir:</p>
+
+    <table>
+        <tr><th>Atributo</th><th>Sucesso</th><th>Falha</th></tr>
+        <tr><td><strong>Força</strong></td><td>+2 Stress, age normalmente</td><td>-Xd10 em testes físicos (X = grau do Medo)</td></tr>
+        <tr><td><strong>Vigor</strong></td><td>Sem penalidade, ignora pânico</td><td>Não pode fugir, -1 ação de movimento</td></tr>
+        <tr><td><strong>Malandragem</strong></td><td>Ignora medo, sem penalidade</td><td>-Xd10 em testes mentais</td></tr>
+        <tr><td><strong>Tecnologia</strong></td><td>Imune a efeitos psicológicos menores</td><td>-Xd10 mentais + sem poderes complexos</td></tr>
+        <tr><td><strong>Autoridade</strong></td><td>Sem efeito, +1d10 a aliado</td><td>-Xd10 mentais + liderança abalada</td></tr>
+        <tr><td><strong>Vínculo</strong></td><td>+1d30 dividido entre aliados</td><td>-Xd10 em testes mentais</td></tr>
+    </table>
+
+    <h2>Portas para o Inferno</h2>
+    <p>Literalmente portas que ligam o mundo humano ao Inferno. Demônios, Híbridos ou Infernais podem abri-las usando sua mente.</p>
+
+    <h2>Movimento Base</h2>
+    <p><strong>Fórmula:</strong> Coordenação × 2 metros</p>
+    <p><strong>Movimento Extra:</strong> Para cada +2 metros extras, gasta 1 Stress.</p>
+
+    <h2>Crítico Ofensivo</h2>
+    <p>Quando o atacante rola múltiplos dados com valor 10:</p>
+    <table>
+        <tr><th>Dados com 10</th><th>Efeito</th></tr>
+        <tr><td>2x</td><td>+1 nível de Injúria + 1 Aflição</td></tr>
+        <tr><td>3x</td><td>+2 níveis de Injúria + 1 Aflição</td></tr>
+        <tr><td>4x+</td><td>+3 níveis de Injúria OU Aflição permanente</td></tr>
+    </table>
+
+    <h2>Crítico Defensivo</h2>
+    <p>Quando o defensor rola múltiplos dados com valor 10:</p>
+    <table>
+        <tr><th>Dados com 10</th><th>Efeito</th></tr>
+        <tr><td>2x</td><td>Reduz 1 nível de Injúria</td></tr>
+        <tr><td>3x</td><td>Reduz 2 níveis de Injúria</td></tr>
+        <tr><td>4x+</td><td>Reduz 3 níveis de Injúria</td></tr>
+    </table>
+
+    <h2>Falhas (Múltiplos de 1)</h2>
+    <table>
+        <tr><th>Dados com 1</th><th>Penalidade</th></tr>
+        <tr><td>0-1</td><td>Sem penalidade</td></tr>
+        <tr><td>2x</td><td>-5 no total</td></tr>
+        <tr><td>3x</td><td>-10 no total</td></tr>
+        <tr><td>4x+</td><td>-15 no total</td></tr>
+    </table>
+
+    <h2>Duelos</h2>
+    <p><strong>Condições:</strong> Ambos devem aceitar (recusar = -3d10 por 2 rodadas + marca de covarde)</p>
+    <h4>Preparação:</h4>
+    <ol>
+        <li>Cada duelista escolhe 3 atributos (forte, médio, fraco)</li>
+        <li>Rolam os 3 secretamente e anotam</li>
+        <li>Declaram intenção: Matar ou Incapacitar</li>
+    </ol>
+    <h4>Rodadas (melhor de 3):</h4>
+    <ul>
+        <li>Escolhem secretamente qual resultado usar</li>
+        <li>Revelam simultaneamente</li>
+        <li>Maior resultado vence. Empate: +2 Stress, não conta</li>
+        <li>1ª derrota: +3 Stress | 2ª derrota: Injúria Leve</li>
+    </ul>
+    <h4>Resultado Final (3ª rodada):</h4>
+    <table>
+        <tr><th>Diferença</th><th>Perdedor sofre</th></tr>
+        <tr><td>1-9</td><td>Injúria Grave</td></tr>
+        <tr><td>10-19</td><td>Injúria Grave + Aflição</td></tr>
+        <tr><td>20+</td><td>Morte (ou Incapacitado)</td></tr>
+    </table>
+
+    <h2>Grilhões (Híbridos)</h2>
+    <p>Representam o controle do demônio sobre você. Cada uso de poder demoníaco = +1 ponto. Diminui 1 a cada 20 min de descanso.</p>
+    <ul>
+        <li><strong>A cada 5 pontos:</strong> Mestre pode fazer o demônio agir através de você</li>
+        <li><strong>Domínio 10+:</strong> Mestre assume controle por 1 cena (1x por sessão)</li>
+        <li><strong>Domínio 15+:</strong> Teste de Medo DT 40 ou vira Infernal temporariamente</li>
+    </ul>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CAPÍTULO 3: CRIAÇÃO DE PERSONAGEM -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page">
+    <h1>3. Criação de Personagem</h1>
+    <hr>
+
+    <div class="quote-box">Ao criar seu personagem, pense menos em "quem ele é" e mais em <strong>por que ele ainda existe</strong>. O mundo não é justo. Ele é cruel.</div>
+
+    <h2>Passo 1: Escolha sua Natureza</h2>
+
+    <h3>Humano</h3>
+    <div class="quote-box">O mundo não te protege — mas também não te cobra além do que pode pagar.</div>
+    <p>Pessoas comuns arrastadas para o mundo dos demônios. Vivem duas vidas: a pessoal e a profissional.</p>
+    <div class="two-col">
+        <div>
+            <h4>Benefícios:</h4>
+            <ul>
+                <li>+2 Stress Máximo</li>
+                <li>+1 Vínculo inicial</li>
+                <li>Contratos mais fáceis de encerrar</li>
+                <li>Recuperação emocional eficiente</li>
+                <li>Começa com 1 Contrato (opcional)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Malefícios:</h4>
+            <ul>
+                <li>Morte é definitiva</li>
+                <li>Demônios cobram caro</li>
+                <li>Aflições físicas com mais facilidade</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Infernal</h3>
+    <div class="quote-box">Você já foi um demônio. Agora está preso em carne. Faça o que quiser com isso.</div>
+    <p>Demônios em corpos humanos. Não pensam como humanos — funcionam por princípios próprios.</p>
+    <div class="two-col">
+        <div>
+            <h4>Benefícios:</h4>
+            <ul>
+                <li>+1 Poder Demoníaco (geral)</li>
+                <li>+1 Poder Sobrenatural Direto</li>
+                <li>1x por cena: detectar demônios (custa Stress)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Malefícios:</h4>
+            <ul>
+                <li>Não começa com contratos</li>
+                <li>Poderes geram Stress adicional</li>
+                <li>Aflições permanentes ou progressivas</li>
+                <li>Romper contrato exige sacrifício extremo</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Híbrido</h3>
+    <div class="quote-box">Você não é humano. Não é demônio. É uma arma viva. Nada além disso.</div>
+    <p>Dois seres dividindo o mesmo espaço, sem vencedor. Vozes, impulsos, silêncios.</p>
+    <div class="two-col">
+        <div>
+            <h4>Benefícios:</h4>
+            <ul>
+                <li>+1 Poder Demoníaco (transformação)</li>
+                <li>Ignorar 1 consequência física por combate</li>
+                <li>Stress reduzido em combate direto</li>
+                <li>Recusa da Morte</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Malefícios:</h4>
+            <ul>
+                <li>Stress aumentado em cenas psicológicas</li>
+                <li>Recuperação emocional fraca</li>
+                <li>Reação extrema do mundo</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>Passo 2: Ficha do Personagem</h2>
+    <div class="info-box">
+        <p><strong>Nome:</strong> _____ | <strong>Idade:</strong> _____ | <strong>Conceito/Resumo:</strong> _____</p>
+        <p><strong>Ligação com Demônios:</strong> _____ | <strong>Falha Central:</strong> _____</p>
+        <p><strong>PM:</strong> 0</p>
+        <hr>
+        <p><strong>Atributos (16-22 pontos):</strong></p>
+        <p>Força __ | Vigor __ | Coordenação __ | Malandragem __ | Tecnologia __ | Percepção __ | Investigação __ | Negociação __ | Autoridade __ | Vínculo __</p>
+        <hr>
+        <p><strong>Stress:</strong> 6 + Vigor + Vínculo = __ / __</p>
+        <p><strong>Injúrias:</strong> Leve __ / __ | Grave __ / __ | Crítica __ / __</p>
+        <hr>
+        <p><strong>Armamento:</strong> _____ | <strong>Aflições:</strong> 1) _____ 2) _____</p>
+        <p><strong>Talismã:</strong> _____ | <strong>Marca do Demônio:</strong> _____</p>
+    </div>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- CRIAÇÃO: DEMÔNIOS PUROS -->
+<div class="page">
+    <h2>Criação de Demônios Puros</h2>
+    <div class="quote-box">Um Demônio não nasce — ele <strong>condensa</strong>. Surge quando um medo atinge massa crítica.</div>
+
+    <p><strong>Todo Demônio Puro possui:</strong></p>
+    <ul>
+        <li>18 pontos de atributo base (+4 da origem = 22 total)</li>
+        <li>2 Poderes Demoníacos (ligados ao conceito)</li>
+        <li>Medo Nível 1 inicial</li>
+        <li>Uma Falha Central obrigatória</li>
+    </ul>
+
+    <h3>Origens de Medo</h3>
+
+    <h4>Medo Incomum <em style="color: var(--cor-texto-sec);">— Dor, fogo, altura, sangue, lâminas</em></h4>
+    <p>Corpo altamente físico. Combate direto. Regenera 1 Injúria Leve ao final de cada cena. Atributos máx 5 inicial.</p>
+
+    <h4>Medo Social/Sistêmico <em style="color: var(--cor-texto-sec);">— Repressão, vigilância, guerra, fome</em></h4>
+    <p>Manipulador de massas. Autoridade mínima 3. +1d10 com 3+ pessoas presentes. Isolado: -2d10 em tudo.</p>
+
+    <h4>Medo Bíblico/Arquetípico <em style="color: var(--cor-texto-sec);">— Juízo, inferno, pecado, castigo divino</em></h4>
+    <p>Autoridade divina/moral. Usa Autoridade + Vínculo como poder. Quebrar dogma = Injúria Grave automática.</p>
+
+    <h4>Medo Conceitual/Abstrato <em style="color: var(--cor-texto-sec);">— Silêncio, esquecimento, vazio, solidão, tempo</em></h4>
+    <p>Natureza difusa. Manifestações variadas. Reduz Injúrias físicas em 1 grau. Vulnerável ao conceito oposto.</p>
+
+    <h4>Medo Primordial <em style="color: var(--cor-texto-sec);">— Morte, extinção, trevas absolutas, o fim</em></h4>
+    <p>Inevitável. Não pode ser destruído permanentemente. Precisa de avatar/hospedeiro. 1 ação por rodada apenas.</p>
+
+    <h3>Níveis de Medo (Evolução)</h3>
+    <table>
+        <tr><th>Nível</th><th>Nome</th><th>DT</th><th>Buffs</th></tr>
+        <tr><td class="td-red">1</td><td>Perturbador</td><td>20-25</td><td>Ponto de partida</td></tr>
+        <tr><td class="td-red">2</td><td>Amedrontador</td><td>25-30</td><td>+1 buff + 1 ganho único</td></tr>
+        <tr><td class="td-red">3</td><td>Horripilante</td><td>30-35</td><td>+1 buff + 1 ganho único</td></tr>
+        <tr><td class="td-red">4</td><td>Aterrorizante</td><td>35-40</td><td>+2 atributos + ganho maior</td></tr>
+        <tr><td class="td-red">5</td><td>Incompreendido</td><td>40+</td><td>Reservado para Primordiais</td></tr>
+    </table>
+
+    <h2>Ficha do Demônio Puro</h2>
+    <div class="info-box" style="border-left: 3px solid var(--cor-sangue);">
+        <p><strong>Nome:</strong> (raro) _____ | <strong>Idade:</strong> / | <strong>Conceito/Resumo:</strong> _____</p>
+        <p><strong>Ligação com Demônios:</strong> _____ | <strong style="color: var(--cor-sangue);">Falha Central (OBRIGATÓRIO):</strong> _____</p>
+        <hr>
+        <p><strong>Atributos 18 + Origem:</strong></p>
+        <p>Força __ | Vigor __ | Coordenação __ | Malandragem __ | Tecnologia __ | Percepção __ | Investigação __ | Negociação __ | Autoridade __ | Vínculo __</p>
+        <hr>
+        <p><strong>Stress:</strong> 6 + (atributo condizente) + Vigor = __ / __</p>
+        <p><strong>Injúrias:</strong> Leve __ / __ | Grave __ / __ | Crítica __ / __</p>
+        <hr>
+        <p><strong>Armamento:</strong> _____ | <strong>Marca do Demônio:</strong> _____</p>
+    </div>
+
+    <h2>Talismã</h2>
+    <p>Cada personagem possui 1 Talismã — objeto que ancora a humanidade. Tem poder real, mas usá-lo tem consequências.</p>
+    <h4>Ativar Talismã (1x por sessão, 0 Stress):</h4>
+    <ol>
+        <li>Rerolar um teste falho</li>
+        <li>Reduzir 1 nível de Injúria recebida</li>
+        <li>Ignorar 1 Aflição por 1 cena</li>
+        <li>+3d10 em teste relacionado ao significado</li>
+        <li>Resistir automaticamente a 1 Teste de Medo</li>
+        <li>Recupera 1d7 + Vínculo de Stress</li>
+    </ol>
+    <div class="warning-box">Se o Talismã for destruído: +1 Aflição permanente imediata. Novo Talismã só após evento narrativo significativo.</div>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CAPÍTULO 4: ESTILOS DE LUTA -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page">
+    <h1>4. Estilos de Luta</h1>
+    <hr>
+    <div class="quote-box">Onde demônios despedaçam humanos em segundos, seu estilo pode ser a diferença entre voltar para casa ou virar estatística. Todo personagem escolhe <strong>1 Estilo</strong> na criação. Estilos são passivos — sempre ativos, sem custo.</div>
+
+    <div class="skill-card">
+        <div class="skill-name">Boxe</div>
+        <ul>
+            <li>Jab de esquerda: se o alvo falhou, pode repetir o ataque com metade da força</li>
+            <li>Defesa pode usar Percepção ou Vínculo no lugar de Coordenação em curto alcance</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Estilo Livre</div>
+        <ul>
+            <li>Pode usar Malandragem para atacar 1x por rodada ou se defender</li>
+            <li>Injúrias causadas podem gerar efeito (queda, deslocamento, desarme)</li>
+            <li>Se o ambiente ajudar, o defensor rola −1d10</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Espadachim</div>
+        <ul>
+            <li>Se a diferença for 5+, Injúria Leve vira sangramento</li>
+            <li>Pode defender com Percepção ou Tecnologia</li>
+            <li>Em 1x1, ignora armamento de defesa</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Atirador</div>
+        <ul>
+            <li>Ataques criam zona de perigo</li>
+            <li>Alvos na zona: -1d10 em toda ação e diferença 10+ pode aumentar Injúria em 1 grau</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Armas Pesadas</div>
+        <ul>
+            <li>Armaduras não reduzem dano</li>
+            <li>Injúrias Graves criam Aflição física automática</li>
+            <li>Alvos menores testam Medo 1 ao serem atacados</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Caçador</div>
+        <ul>
+            <li>Por cada rodada observando, ignora 1d10 defensivo (sem limite)</li>
+            <li>Ataques armados podem usar Investigação e Negociação</li>
+            <li>Pode trocar dano por condição (marcado, exposto, sangramento)</li>
+            <li>Pode avisar aliados sem gastar ação</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Instintivo</div>
+        <ul>
+            <li>Sempre que causar Injúria → +2 Stress no alvo</li>
+            <li>Pode atacar usando Percepção ou Investigação em vez de Força</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Spetsnaz</div>
+        <ul>
+            <li>Primeiro ataque da cena: se causar Injúria → aumenta 1 grau</li>
+            <li>Pode usar Coordenação ou Autoridade para ataques corpo a corpo armados</li>
+            <li>Contra alvo desatento/imobilizado/ferido: ignora redução de defesa</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Wrestling</div>
+        <ul>
+            <li>Pode usar Força ou Vigor para: agarrar, derrubar ou manter imobilizado</li>
+            <li>Alvos agarrados sofrem −1d10 a −3d10 dependendo da situação</li>
+            <li>Pode drenar +2 Stress ou causar Aflição leve em vez de Injúria</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Judô</div>
+        <ul>
+            <li>Quando inimigo errar ataque corpo a corpo: contra-ataque (1x por rodada)</li>
+            <li>Defesa com Coordenação, Vigor ou Vínculo</li>
+            <li>Vencer por 5+: derrubar ou deslocar o alvo</li>
+            <li>Se atacante tem Força maior: +1d10 defensivo</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Executor</div>
+        <ul>
+            <li>Contra alvos com Autoridade maior: +1d10 geral</li>
+            <li>Se causar Injúria Grave: alvo não pode conceder bônus ou liderar</li>
+            <li>Pode trocar dano por Aflição</li>
+        </ul>
+    </div>
+
+    <div class="skill-card">
+        <div class="skill-name">Mãos da Guerra</div>
+        <ul>
+            <li>Todas armas improvisadas viram armamento leve ou médio (+1d10 ou +2d10)</li>
+            <li>Armamento demoníaco empunhado ganha +10 em dano</li>
+        </ul>
+    </div>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CAPÍTULO 5: ARMAMENTO -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page">
+    <h1>5. Armamento & Equipamento</h1>
+    <hr>
+
+    <h2>Armas de Curto Alcance</h2>
+    <table>
+        <tr><th>Arma</th><th>Dano</th><th>Crítico</th><th>Tipo</th><th>Efeito</th><th>Custo</th></tr>
+        <tr><td>Faca</td><td>+0 | Leve</td><td>Sangramento</td><td>Corte</td><td>Ocultável</td><td>50 ¥</td></tr>
+        <tr><td>Soco Inglês</td><td>+1d10 | Leve</td><td>Atordoar</td><td>Impacto</td><td>Ocultável</td><td>30 ¥</td></tr>
+        <tr><td>Bastão/Taco</td><td>+1d10 | Leve</td><td>Atordoar</td><td>Impacto</td><td>-</td><td>40 ¥</td></tr>
+        <tr><td>Katana</td><td>+1d10 | Grave</td><td>Sangramento</td><td>Corte</td><td>Alcance estendido</td><td>800 ¥</td></tr>
+        <tr><td>Machado</td><td>+2d10 | Grave</td><td>Execução</td><td>Corte</td><td>Pesada</td><td>300 ¥</td></tr>
+        <tr><td>Marreta</td><td>+2d10 | Grave</td><td>Derrubar</td><td>Impacto</td><td>Pesada, Lenta</td><td>250 ¥</td></tr>
+        <tr><td>Motosserra</td><td>+3d10 | Grave</td><td>Brutal</td><td>Corte</td><td>Pesada, Barulhenta</td><td>1.500 ¥</td></tr>
+        <tr><td>Lança</td><td>+1d10 | Grave</td><td>Perfurante</td><td>Perfuração</td><td>Alcance ext., arremesso</td><td>200 ¥</td></tr>
+    </table>
+
+    <h2>Armas de Médio Alcance</h2>
+    <table>
+        <tr><th>Arma</th><th>Dano</th><th>Crítico</th><th>Tipo</th><th>Efeito</th><th>Custo</th></tr>
+        <tr><td>Revólver</td><td>+1d10 | Grave</td><td>+1 Injúria</td><td>Balístico</td><td>Confiável, 6 tiros</td><td>600 ¥</td></tr>
+        <tr><td>Pistola 9mm</td><td>+1d10 | Grave</td><td>+1 Injúria</td><td>Balístico</td><td>Rápida (2x), 3 rajadas</td><td>700 ¥</td></tr>
+        <tr><td>Pistola .45</td><td>+2d10 | Grave</td><td>Perfurante</td><td>Balístico</td><td>Recuo, 4 tiros</td><td>900 ¥</td></tr>
+        <tr><td>Submetralhadora</td><td>+2d10 | Grave</td><td>Supressão</td><td>Balístico</td><td>Área (2 alvos), 2 rajadas</td><td>2.000 ¥</td></tr>
+    </table>
+
+    <h2>Armas de Longo Alcance</h2>
+    <table>
+        <tr><th>Arma</th><th>Dano</th><th>Crítico</th><th>Tipo</th><th>Efeito</th><th>Custo</th></tr>
+        <tr><td>Rifle de Caça</td><td>+2d10 | Crítica</td><td>Execução</td><td>Balístico</td><td>Precisa (+2d10 se preparar), 3 tiros</td><td>2.500 ¥</td></tr>
+        <tr><td>Rifle Tático</td><td>+2d10 | Crítica</td><td>+1 Injúria</td><td>Balístico</td><td>Rápido, 5 tiros</td><td>4.000 ¥</td></tr>
+        <tr><td>Sniper</td><td>+3d10 | Crítica</td><td>Execução</td><td>Balístico</td><td>Requer preparo, silencioso, 1 tiro</td><td>8.000 ¥</td></tr>
+    </table>
+
+    <h2>Armas Especiais</h2>
+    <table>
+        <tr><th>Arma</th><th>Dano</th><th>Tipo</th><th>Efeito</th><th>Custo</th></tr>
+        <tr><td>Granada</td><td>+2d10 | Grave</td><td>Explosivo</td><td>Área grande, 1 uso</td><td>500 ¥</td></tr>
+        <tr><td>Coquetel Molotov</td><td>+1d10 | Grave</td><td>Fogo</td><td>Área, Queimadura, 1 uso</td><td>50 ¥</td></tr>
+        <tr><td>Arco Composto</td><td>+1d10 | Grave</td><td>Perfuração</td><td>Silencioso, flechas recuperáveis</td><td>1.500 ¥</td></tr>
+    </table>
+
+    <h2>Armaduras</h2>
+    <table>
+        <tr><th>Armadura</th><th>Proteção</th><th>Cobertura</th><th>Penalidade</th><th>Custo</th></tr>
+        <tr><td>Roupa Reforçada</td><td>-1 nível (1x/cena)</td><td>Tronco</td><td>-</td><td>200 ¥</td></tr>
+        <tr><td>Colete Oculto</td><td>-1 nível</td><td>Tronco</td><td>-</td><td>800 ¥</td></tr>
+        <tr><td>Colete Tático</td><td>-1 nível</td><td>Tronco</td><td>-1d10 Coord</td><td>1.500 ¥</td></tr>
+        <tr><td>Colete + Placas</td><td>-2 níveis</td><td>Tronco</td><td>-1d10 Coord, -1d10 Mal</td><td>3.000 ¥</td></tr>
+        <tr><td>Capacete Tático</td><td>Crítica→Grave</td><td>Cabeça</td><td>-1d10 Perc</td><td>600 ¥</td></tr>
+        <tr><td>Anti-Motim</td><td>-2 níveis</td><td>Corpo todo</td><td>-2d10 Coord, -2d10 Mal</td><td>5.000 ¥</td></tr>
+        <tr><td>Escudo Balístico</td><td>Bloqueia 1 ataque/rod</td><td>Frontal</td><td>Ocupa 1 mão</td><td>2.000 ¥</td></tr>
+    </table>
+
+    <h2>Tipos de Dano</h2>
+    <ul>
+        <li><strong>Corte:</strong> Pode causar sangramento</li>
+        <li><strong>Perfuração:</strong> Pode ignorar proteção</li>
+        <li><strong>Impacto:</strong> Pode atordoar/derrubar</li>
+        <li><strong>Balístico:</strong> Ignorado por coberturas</li>
+        <li><strong>Explosivo:</strong> Área, ignora cobertura parcial</li>
+        <li><strong>Fogo:</strong> Dano contínuo</li>
+    </ul>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CAPÍTULO 7: SONHOS -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page">
+    <h1>7. Sistema de Sonhos</h1>
+    <hr>
+
+    <div class="quote-box">Sonhos são os <strong>objetivos de vida</strong> do personagem — o motivo pelo qual ele ainda respira num mundo que devora as pessoas. Não são poderes, não são contratos. São o que te mantém <strong>humano</strong>.<br><br>Denji queria pegar num peito. Aki queria vingança. Power queria proteger seu gato. Nesse mundo, até um desejo simples é um ato de resistência.</div>
+
+    <h2>Como Funciona</h2>
+    <ul>
+        <li>Na criação, o jogador define de <strong>1 a 3 Sonhos</strong></li>
+        <li>Novos Sonhos podem surgir durante a campanha</li>
+        <li>O jogador escolhe o Sonho e o <strong>Mestre valida a dificuldade</strong></li>
+        <li>Quando <strong>realizado em jogo</strong>, o jogador ganha PM equivalente</li>
+        <li>O jogador decide livremente onde gastar os PM</li>
+    </ul>
+
+    <h2>Categorias de Sonhos</h2>
+
+    <div class="skill-card" style="border-left: 3px solid #5DADE2;">
+        <div class="skill-name" style="color: #5DADE2;">Sonho Comum — <span style="color: var(--cor-gold);">3 PM</span></div>
+        <p>Coisas que parecem bobas, mas num mundo de demônios, até isso é difícil.</p>
+        <p><em>Comer uma refeição incrível • Beijar alguém • Ter um dia de folga • Assistir um filme • Dormir numa cama de verdade • Pegar num peito</em></p>
+    </div>
+
+    <div class="skill-card" style="border-left: 3px solid #9B59B6;">
+        <div class="skill-name" style="color: #9B59B6;">Sonho Pessoal — <span style="color: var(--cor-gold);">5 PM</span></div>
+        <p>Conexões, pertencimento, identidade. Coisas que definem quem você é.</p>
+        <p><em>Fazer um amigo de verdade • Ter um lar • Ser reconhecido por alguém • Encontrar familiar perdido • Ter alguém que te espera voltar • Conseguir um emprego normal</em></p>
+    </div>
+
+    <div class="skill-card" style="border-left: 3px solid var(--cor-sangue);">
+        <div class="skill-name" style="color: var(--cor-sangue);">Sonho Ambicioso — <span style="color: var(--cor-gold);">8 PM</span></div>
+        <p>Objetivos que exigem anos, sacrifício e sorte pra serem alcançados.</p>
+        <p><em>Viver até os 60 • Proteger alguém até o fim • Se livrar de um contrato • Criar uma família • Sair da Segurança Pública vivo • Fazer um demônio se arrepender</em></p>
+    </div>
+
+    <div class="skill-card" style="border-left: 3px solid var(--cor-gold);">
+        <div class="skill-name" style="color: var(--cor-gold);">Sonho Tolo — <span style="color: var(--cor-gold);">12 PM</span></div>
+        <p>Quase impossível. O tipo de coisa que apenas loucos tentariam.</p>
+        <p><em>Derrotar um Primordial • Destruir uma facção inteira • Mudar o mundo • Acabar com o ciclo Terra-Inferno • Fazer a humanidade parar de temer algo • Trazer paz entre humanos e demônios</em></p>
+    </div>
+
+    <h2>Sonho Quebrado</h2>
+    <div class="warning-box" style="border-color: var(--cor-sangue);">
+        Se o Sonho se torna <strong>permanentemente impossível</strong>, o personagem sofre consequências:
+        <ul style="margin-top: 6px;">
+            <li>Aflição permanente</li>
+            <li>Perda de 1 ponto de Vínculo</li>
+            <li>+Stress equivalente à categoria (3/5/8/12)</li>
+            <li>Mudança narrativa permanente</li>
+        </ul>
+        <p style="margin-top: 8px;"><strong>Um Sonho Quebrado não pode ser repetido.</strong> O que se quebrou, quebrou.</p>
+    </div>
+
+    <h2>Regras Importantes</h2>
+    <ol>
+        <li><strong>Máximo de 3 Sonhos ativos</strong> por personagem</li>
+        <li>Novos Sonhos podem ser adquiridos durante a campanha</li>
+        <li>Sonhos não são missões — são pessoais</li>
+        <li>A realização deve ser em jogo — tem que rolar na mesa</li>
+        <li>O Mestre valida a dificuldade</li>
+        <li><strong>Demônios Puros não sonham</strong> — apenas seres com traço humano podem ter Sonhos</li>
+    </ol>
+
+    <div class="gold-box">
+        <strong style="color: var(--cor-gold);">Dica para o Mestre:</strong> Sonhos são a ferramenta narrativa mais poderosa do sistema. Use-os para criar ganchos e dar peso às escolhas. Sonhos não são recompensas fáceis — são marcas de vitória num mundo que não quer que você vença.
+    </div>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FICHAS -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h1>Fichas de Personagem</h1>
+    <hr>
+    <h2 style="text-align: center;">Ficha Padrão</h2>
+    <p style="text-align: center; color: var(--cor-texto-sec);">Para Humanos, Infernais e Híbridos</p>
+    <div class="ficha-container">
+        <img src="assets/images/ficha padrao.jpeg" alt="Ficha de Investigação Padrão">
+    </div>
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<div class="page" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h2 style="text-align: center;">Registro Demoníaco</h2>
+    <p style="text-align: center; color: var(--cor-texto-sec);">Para Demônios Puros</p>
+    <div class="ficha-container">
+        <img src="assets/images/ficha demonio.jpeg" alt="Registro Demoníaco">
+    </div>
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TOM DA HISTÓRIA -->
+<!-- ═══════════════════════════════════════ -->
+<div class="page">
+    <h1>O Tom da História</h1>
+    <hr>
+
+    <div class="quote-box">
+        Chainsaw Man não é um shounen tradicional de "amizade e esforço vencem tudo".
+    </div>
+
+    <h3>Sobrevivência</h3>
+    <p>Personagens morrem. Muitos. Sem aviso. Sem despedidas épicas.</p>
+
+    <h3>Desejo</h3>
+    <p>Os protagonistas não lutam por ideais grandiosos. Denji quer comer bem, tocar peitos e ter uma vida normal. Isso é tratado com seriedade.</p>
+
+    <h3>Solidão</h3>
+    <p>Quase todo personagem carrega um vazio interno. Conexões são raras e preciosas.</p>
+
+    <h3>Brutalidade</h3>
+    <p>Combates são viscerais. Sangue, membros arrancados, morte gráfica.</p>
+
+    <h3>Humor Negro</h3>
+    <p>Apesar de tudo, há momentos de comédia absurda. A vida continua sendo ridícula mesmo no apocalipse.</p>
+
+    <hr>
+
+    <h2>Dicas para Jogar</h2>
+    <ol>
+        <li><strong>Seu personagem vai sofrer.</strong> Aceite isso. Aflições, marcas e perdas fazem parte.</li>
+        <li><strong>Contratos são tentadores.</strong> Pense bem antes de aceitar — o preço sempre vem.</li>
+        <li><strong>Medo é poder.</strong> Quanto mais temido, mais forte se torna.</li>
+        <li><strong>Vínculos importam.</strong> Relações são sua âncora mental.</li>
+        <li><strong>Ninguém é puramente bom ou mau.</strong> Demônios podem ser aliados. Humanos podem ser monstros.</li>
+    </ol>
+
+    <div class="chapter-divider"></div>
+
+    <p style="text-align: center; font-style: italic; color: var(--cor-texto-sec); margin-top: 40px; font-size: 1.1rem;">
+        "Todo contrato tem um preço. Você está disposto a pagar?"
+    </p>
+
+    <p style="text-align: center; margin-top: 30px;">
+        <strong style="color: var(--cor-gold); font-family: 'Bebas Neue', sans-serif; letter-spacing: 3px;">SCAR — SACRIFICIAL CONTRACT & RISK</strong><br>
+        <span style="color: var(--cor-texto-sec);">Feito por Jonathan Ribeiro</span>
+    </p>
+
+    <div class="page-footer">SCAR — SACRIFICIAL CONTRACT & RISK</div>
+</div>
+
+</body>
+</html>
