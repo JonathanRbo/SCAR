@@ -144,34 +144,6 @@ O website oficial do SCAR oferece:
 
 ---
 
-## 📥 Downloads
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://jonathanrbo.github.io/SCAR">
-        <img src="https://img.shields.io/badge/Website-DC143C?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website">
-      </a>
-      <br>
-      <sub>Acesse o site oficial</sub>
-    </td>
-    <td align="center">
-      <a href="docs/manual-scar.html">
-        <img src="https://img.shields.io/badge/Manual_Completo-333?style=for-the-badge&logo=markdown&logoColor=white" alt="Manual">
-      </a>
-      <br>
-      <sub>Manual completo (15 capítulos)</sub>
-    </td>
-    <td align="center">
-      <a href="dice-roller.html">
-        <img src="https://img.shields.io/badge/Rolador_Online-8B0000?style=for-the-badge&logo=google&logoColor=white" alt="Dados">
-      </a>
-      <br>
-      <sub>Rolador multiplayer</sub>
-    </td>
-  </tr>
-</table>
-
 ### Arquivos de Referência
 
 Todos os arquivos de regras estão em [`documento/`](documento/):
@@ -257,10 +229,6 @@ O projeto usa uma **arquitetura CSS modular**:
 
 
 ### Futuras Melhorias
-- [x] ~~Adicionar sistema de busca nas habilidades~~
-- [x] ~~Árvores de pré-requisito para habilidades gerais~~
-- [x] [ ] Implementar PWA (Progressive Web App)
-- [x] [ ] Criar gerador de fichas PDF
 - [ ] Internacionalização (EN/ES)
 
 ---
