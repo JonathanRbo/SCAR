@@ -255,18 +255,12 @@ O projeto usa uma **arquitetura CSS modular**:
 
 ---
 
-## 🐛 Issues Conhecidos
-
-### Performance
-- **index.html grande** - 4.106 linhas (em otimização)
-- **CSS inline restante** - ~500 ocorrências para migrar para classes
 
 ### Futuras Melhorias
 - [x] ~~Adicionar sistema de busca nas habilidades~~
 - [x] ~~Árvores de pré-requisito para habilidades gerais~~
-- [ ] Dividir index.html em páginas menores
-- [ ] Implementar PWA (Progressive Web App)
-- [ ] Criar gerador de fichas PDF
+- [x] [ ] Implementar PWA (Progressive Web App)
+- [x] [ ] Criar gerador de fichas PDF
 - [ ] Internacionalização (EN/ES)
 
 ---
