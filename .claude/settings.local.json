@@ -5,7 +5,8 @@
       "Bash(where:*)",
       "Bash(cd:*)",
       "Bash(wc:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(del \"c:\\\\Users\\\\Jonathan Ribeiro\\\\Desktop\\\\GITHUB\\\\SCAR\\\\nul\")"
     ]
   }
 }

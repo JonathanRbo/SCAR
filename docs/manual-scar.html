@@ -1014,6 +1014,8 @@
                         <li>Contratos mais faceis de encerrar</li>
                         <li>Recuperacao emocional eficiente</li>
                         <li>Pode comecar com 1 Contrato Demoniaco (opcional)</li>
+                        <li><strong>Adaptabilidade Humana:</strong> 1x por sessao, pode usar qualquer atributo para um teste (justificando narrativamente)</li>
+                        <li><strong>Forca nos Numeros:</strong> +1d10 em testes quando agir em conjunto com 2+ aliados na mesma acao</li>
                     </ul>
                     <h4 class="mini-heading">Maleficios</h4>
                     <ul class="check-list cons">
@@ -1161,6 +1163,7 @@
                         <tr><td>Pode morrer?</td><td>Definitivo</td><td>Sim</td><td>Dificil</td><td>Renasce</td></tr>
                         <tr><td>Contratos?</td><td>Sim</td><td>Nao</td><td>Sim (caro)</td><td>Marca outros</td></tr>
                         <tr><td>Poderes</td><td>Via contrato</td><td>Inatos</td><td>Transformacao</td><td>Inatos</td></tr>
+                        <tr><td>Exclusivo</td><td>Adaptabilidade + Forca nos Numeros</td><td>Deteccao demoniaca</td><td>Grilhoes + Recusa da Morte</td><td>Evolucao por Nivel</td></tr>
                         <tr><td>Aflicoes</td><td>Temporarias</td><td>Permanentes</td><td>Progressivas</td><td>Ligadas ao medo</td></tr>
                         <tr><td>Grilhoes?</td><td>Nao</td><td>Nao</td><td>Sim</td><td>Nao</td></tr>
                     </tbody>
@@ -2162,28 +2165,28 @@
                     <tbody>
                         <tr><td>Golpe Decisivo</td><td>Forca 4 ou Coordenacao 4</td><td>Se vencer confronto por 10+, aumente Injuria em +1 estagio</td><td>2 Stress</td></tr>
                         <tr><td>Pressao Constante</td><td>Forca 3</td><td>Se causar Injuria, alvo sofre +1 Stress adicional</td><td>Passivo</td></tr>
-                        <tr><td>Golpe na Garganta</td><td>Coordenacao 4</td><td>Se vencer por 10+, alvo sofre -2d10 no proximo turno</td><td>2 Stress</td></tr>
+                        <tr><td>Golpe na Garganta</td><td>Coordenacao 4 | <em style="color:var(--gold);">Requer: Golpe Decisivo</em></td><td>Se vencer por 10+, alvo sofre -2d10 no proximo turno</td><td>2 Stress</td></tr>
                         <tr><td>Luta de Rua</td><td>Malandragem 3</td><td>Use objetos do cenario como armas sem penalidade</td><td>Passivo</td></tr>
-                        <tr><td>Combate Sujo</td><td>Malandragem 3</td><td>Pode usar Malandragem no lugar de Forca em ataques improvisados</td><td>Passivo</td></tr>
-                        <tr><td>Pressao Implacavel</td><td>Forca 5</td><td>Sempre que causar Injuria, alvo sofre -1d10 na proxima acao</td><td>Passivo</td></tr>
+                        <tr><td>Combate Sujo</td><td>Malandragem 3 | <em style="color:var(--gold);">Requer: Luta de Rua</em></td><td>Pode usar Malandragem no lugar de Forca em ataques improvisados</td><td>Passivo</td></tr>
+                        <tr><td>Pressao Implacavel</td><td>Forca 5 | <em style="color:var(--gold);">Requer: Pressao Constante</em></td><td>Sempre que causar Injuria, alvo sofre -1d10 na proxima acao</td><td>Passivo</td></tr>
                         <tr><td>Soco Basico <span class="tag tag-red">1 PM</span></td><td>Forca 2</td><td>+5 em testes de soco</td><td>Passivo</td></tr>
-                        <tr><td>Soco Forte</td><td>Forca 4</td><td>+10 em testes de soco</td><td>+1 Stress ao errar ataque fisico</td></tr>
-                        <tr><td>Soco Brutal <span class="tag tag-red">3 PM</span></td><td>Forca 6</td><td>+15 em soco; se vencer por 5+, causa +1 Stress no alvo</td><td>Passivo</td></tr>
-                        <tr><td>Quebra-Ossos</td><td>Forca 5</td><td>Se causar Injuria Grave, alvo sofre -1d10 em testes fisicos ate ser curado</td><td>3 Stress</td></tr>
-                        <tr><td>Contra-Ataque Brutal</td><td>Vigor 4, Forca 3</td><td>Quando aparar ataque corpo a corpo com sucesso, pode revidar imediatamente com +1d10</td><td>2 Stress (1 vez por rodada)</td></tr>
-                        <tr><td>Agarrao Tatico</td><td>Forca 5, Vigor 3</td><td>Prenda 1 alvo. Ambos rolam Forca a cada turno; perdedor fica imobilizado</td><td>2 Stress para iniciar</td></tr>
+                        <tr><td>Soco Forte</td><td>Forca 4 | <em style="color:var(--gold);">Requer: Soco Basico</em></td><td>+10 em testes de soco</td><td>+1 Stress ao errar ataque fisico</td></tr>
+                        <tr><td>Soco Brutal <span class="tag tag-red">3 PM</span></td><td>Forca 6 | <em style="color:var(--gold);">Requer: Soco Forte</em></td><td>+15 em soco; se vencer por 5+, causa +1 Stress no alvo</td><td>Passivo</td></tr>
+                        <tr><td>Quebra-Ossos</td><td>Forca 5 | <em style="color:var(--gold);">Requer: Golpe Decisivo</em></td><td>Se causar Injuria Grave, alvo sofre -1d10 em testes fisicos ate ser curado</td><td>3 Stress</td></tr>
+                        <tr><td>Contra-Ataque Brutal</td><td>Vigor 4, Forca 3 | <em style="color:var(--gold);">Requer: Postura Defensiva</em></td><td>Quando aparar ataque corpo a corpo com sucesso, pode revidar imediatamente com +1d10</td><td>2 Stress (1 vez por rodada)</td></tr>
+                        <tr><td>Agarrao Tatico</td><td>Forca 5, Vigor 3 | <em style="color:var(--gold);">Requer: Pressao Constante</em></td><td>Prenda 1 alvo. Ambos rolam Forca a cada turno; perdedor fica imobilizado</td><td>2 Stress para iniciar</td></tr>
                         <tr><td>Postura Ofensiva</td><td>Forca 3</td><td>+1d10 em ataques corpo a corpo, mas -1d10 em defesas (dura a cena)</td><td>1 Stress</td></tr>
                         <tr><td>Postura Defensiva</td><td>Vigor 4</td><td>+1d10 em defesas, mas -1d10 em ataques (dura a cena)</td><td>1 Stress</td></tr>
-                        <tr><td>Tecnica de Desarme</td><td>Coordenacao 4, Malandragem 3</td><td>Se vencer confronto corpo a corpo por 8+, desarma o oponente</td><td>2 Stress</td></tr>
-                        <tr><td>Golpe Perfurante</td><td>Forca 5, Coordenacao 4</td><td>Ignora armadura leve/media em ataques corpo a corpo</td><td>3 Stress</td></tr>
-                        <tr><td>Maestria em Combate <span class="tag tag-red">3 PM</span></td><td>Forca 6, Coordenacao 5</td><td>+2d10 em todos ataques corpo a corpo</td><td>+1 Stress por ataque (Passivo)</td></tr>
-                        <tr><td>Executor Implacavel <span class="tag tag-red">3 PM</span></td><td>Forca 7, Vigor 5</td><td>Seus ataques corpo a corpo sempre causam no minimo Injuria Leve, mesmo se perder</td><td>Passivo</td></tr>
-                        <tr><td>Tecnica Mortal <span class="tag tag-red">4 PM</span></td><td>Forca 7, Coordenacao 6</td><td>Uma vez por combate, declare "Golpe Mortal": ataque causa +2 estagios de Injuria</td><td>5 Stress (1 vez por combate)</td></tr>
-                        <tr><td>Dominio do Punho</td><td>Forca 5</td><td>Seus socos ignoram resistencia parcial (armadura leve)</td><td>Passivo</td></tr>
-                        <tr><td>Sequencia Devastadora</td><td>Forca 6, Coordenacao 5</td><td>Se acertar 2 ataques seguidos no mesmo alvo, o 3o ganha +2d10</td><td>Passivo</td></tr>
-                        <tr><td>Contra-Ataque Perfeito <span class="tag tag-red">3 PM</span></td><td>Coordenacao 6, Percepcao 5</td><td>Ao defender com sucesso, pode contra-atacar com dano dobrado</td><td>4 Stress (1 vez por cena)</td></tr>
+                        <tr><td>Tecnica de Desarme</td><td>Coordenacao 4, Malandragem 3 | <em style="color:var(--gold);">Requer: Golpe na Garganta</em></td><td>Se vencer confronto corpo a corpo por 8+, desarma o oponente</td><td>2 Stress</td></tr>
+                        <tr><td>Golpe Perfurante</td><td>Forca 5, Coordenacao 4 | <em style="color:var(--gold);">Requer: Golpe Decisivo</em></td><td>Ignora armadura leve/media em ataques corpo a corpo</td><td>3 Stress</td></tr>
+                        <tr><td>Maestria em Combate <span class="tag tag-red">3 PM</span></td><td>Forca 6, Coordenacao 5 | <em style="color:var(--gold);">Requer: Golpe Perfurante</em></td><td>+2d10 em todos ataques corpo a corpo</td><td>+1 Stress por ataque (Passivo)</td></tr>
+                        <tr><td>Executor Implacavel <span class="tag tag-red">3 PM</span></td><td>Forca 7, Vigor 5 | <em style="color:var(--gold);">Requer: Maestria em Combate</em></td><td>Seus ataques corpo a corpo sempre causam no minimo Injuria Leve, mesmo se perder</td><td>Passivo</td></tr>
+                        <tr><td>Tecnica Mortal <span class="tag tag-red">4 PM</span></td><td>Forca 7, Coordenacao 6 | <em style="color:var(--gold);">Requer: Executor Implacavel</em></td><td>Uma vez por combate, declare "Golpe Mortal": ataque causa +2 estagios de Injuria</td><td>5 Stress (1 vez por combate)</td></tr>
+                        <tr><td>Dominio do Punho</td><td>Forca 5 | <em style="color:var(--gold);">Requer: Soco Forte</em></td><td>Seus socos ignoram resistencia parcial (armadura leve)</td><td>Passivo</td></tr>
+                        <tr><td>Sequencia Devastadora</td><td>Forca 6, Coordenacao 5 | <em style="color:var(--gold);">Requer: Dominio do Punho</em></td><td>Se acertar 2 ataques seguidos no mesmo alvo, o 3o ganha +2d10</td><td>Passivo</td></tr>
+                        <tr><td>Contra-Ataque Perfeito <span class="tag tag-red">3 PM</span></td><td>Coordenacao 6, Percepcao 5 | <em style="color:var(--gold);">Requer: Contra-Ataque Brutal</em></td><td>Ao defender com sucesso, pode contra-atacar com dano dobrado</td><td>4 Stress (1 vez por cena)</td></tr>
                         <tr><td>Cabecada Desesperada</td><td>Vigor 3</td><td>Ataque usando Vigor; se acertar, causa +1 Stress no alvo</td><td>Sofre 1 Stress</td></tr>
-                        <tr><td>Punho em Cadeia</td><td>Forca 4</td><td>Ao acertar, pode empurrar alvo e mudar sua posicao</td><td>1 Stress</td></tr>
+                        <tr><td>Punho em Cadeia</td><td>Forca 4 | <em style="color:var(--gold);">Requer: Soco Basico</em></td><td>Ao acertar, pode empurrar alvo e mudar sua posicao</td><td>1 Stress</td></tr>
                     </tbody>
                 </table>
 
@@ -2196,22 +2199,22 @@
                     <thead><tr><th>Habilidade</th><th>Requisito</th><th>Efeito</th><th>Custo</th></tr></thead>
                     <tbody>
                         <tr><td>Atirador Basico <span class="tag tag-red">1 PM</span></td><td>Coordenacao 2</td><td>+5 em ataques a distancia</td><td>Passivo</td></tr>
-                        <tr><td>Atirador Avancado</td><td>Coordenacao 4</td><td>+10 em ataques a distancia</td><td>+1 Stress ao errar</td></tr>
-                        <tr><td>Atirador Letal <span class="tag tag-red">3 PM</span></td><td>Coordenacao 6</td><td>+15 em ataques a distancia; se vencer por 10+, ignora cobertura parcial</td><td>Passivo</td></tr>
-                        <tr><td>Tiro de Supressao</td><td>Coordenacao 4</td><td>Inimigos na area sofrem -1d10 enquanto expostos</td><td>2 Stress</td></tr>
+                        <tr><td>Atirador Avancado</td><td>Coordenacao 4 | <em style="color:var(--gold);">Requer: Atirador Basico</em></td><td>+10 em ataques a distancia</td><td>+1 Stress ao errar</td></tr>
+                        <tr><td>Atirador Letal <span class="tag tag-red">3 PM</span></td><td>Coordenacao 6 | <em style="color:var(--gold);">Requer: Atirador Avancado</em></td><td>+15 em ataques a distancia; se vencer por 10+, ignora cobertura parcial</td><td>Passivo</td></tr>
+                        <tr><td>Tiro de Supressao</td><td>Coordenacao 4 | <em style="color:var(--gold);">Requer: Atirador Basico</em></td><td>Inimigos na area sofrem -1d10 enquanto expostos</td><td>2 Stress</td></tr>
                         <tr><td>Recarga Instintiva</td><td>Coordenacao 3</td><td>Pode recarregar arma enquanto se move sem penalidade</td><td>Passivo</td></tr>
-                        <tr><td>Mira Estabilizada</td><td>Vigor 3, Coordenacao 3</td><td>Se nao se mover no turno, +1d10 em ataque a distancia</td><td>Passivo</td></tr>
-                        <tr><td>Tiro Duplo</td><td>Coordenacao 5</td><td>Ataque 2 alvos adjacentes com -1d10 em cada</td><td>2 Stress</td></tr>
-                        <tr><td>Tiro de Precisao</td><td>Percepcao 4, Coordenacao 5</td><td>Ignore armadura parcial e cobertura leve</td><td>3 Stress</td></tr>
-                        <tr><td>Tiro em Movimento</td><td>Coordenacao 4</td><td>Pode se mover e atirar sem penalidade</td><td>Passivo</td></tr>
+                        <tr><td>Mira Estabilizada</td><td>Vigor 3, Coordenacao 3 | <em style="color:var(--gold);">Requer: Atirador Basico</em></td><td>Se nao se mover no turno, +1d10 em ataque a distancia</td><td>Passivo</td></tr>
+                        <tr><td>Tiro Duplo</td><td>Coordenacao 5 | <em style="color:var(--gold);">Requer: Atirador Avancado</em></td><td>Ataque 2 alvos adjacentes com -1d10 em cada</td><td>2 Stress</td></tr>
+                        <tr><td>Tiro de Precisao</td><td>Percepcao 4, Coordenacao 5 | <em style="color:var(--gold);">Requer: Mira Estabilizada</em></td><td>Ignore armadura parcial e cobertura leve</td><td>3 Stress</td></tr>
+                        <tr><td>Tiro em Movimento</td><td>Coordenacao 4 | <em style="color:var(--gold);">Requer: Recarga Instintiva</em></td><td>Pode se mover e atirar sem penalidade</td><td>Passivo</td></tr>
                         <tr><td>Municao Conservada</td><td>Tecnologia 3</td><td>Municao rende o dobro (aspecto narrativo)</td><td>Passivo</td></tr>
-                        <tr><td>Atirador de Elite Extremo <span class="tag tag-red">4 PM</span></td><td>Coordenacao 7, Percepcao 5</td><td>Uma vez por missao, 1 tiro e automaticamente critico (causa Injuria +1 estagio, ignora tudo)</td><td>4 Stress (1 vez por missao)</td></tr>
-                        <tr><td>Tiro Cegante</td><td>Coordenacao 4</td><td>Se acertar cabeca/olhos, alvo sofre -2d10 por 2 rodadas</td><td>2 Stress</td></tr>
-                        <tr><td>Rajada Controlada</td><td>Coordenacao 5, Vigor 3</td><td>Ataque 1 alvo 3 vezes seguidas com -1d10 cada</td><td>3 Stress (1 vez por cena)</td></tr>
-                        <tr><td>Sniper Profissional</td><td>Coordenacao 5, Percepcao 4</td><td>A distancia longa nao impoe penalidade</td><td>Passivo</td></tr>
-                        <tr><td>Cacador Paciente <span class="tag tag-red">3 PM</span></td><td>Percepcao 6, Coordenacao 5</td><td>Se esperar 2 turnos mirando, proximo tiro ganha +3d10</td><td>2 Stress</td></tr>
-                        <tr><td>Tiro Ricochete</td><td>Coordenacao 6, Percepcao 4</td><td>Pode atingir alvo atras de cobertura com ricochete</td><td>3 Stress (teste de Percepcao necessario)</td></tr>
-                        <tr><td>Maestria em Armas de Fogo <span class="tag tag-red">4 PM</span></td><td>Coordenacao 7, Percepcao 5</td><td>+2d10 em todos ataques a distancia</td><td>Passivo</td></tr>
+                        <tr><td>Atirador de Elite Extremo <span class="tag tag-red">4 PM</span></td><td>Coordenacao 7, Percepcao 5 | <em style="color:var(--gold);">Requer: Atirador Letal + Sniper Profissional</em></td><td>Uma vez por missao, 1 tiro e automaticamente critico (causa Injuria +1 estagio, ignora tudo)</td><td>4 Stress (1 vez por missao)</td></tr>
+                        <tr><td>Tiro Cegante</td><td>Coordenacao 4 | <em style="color:var(--gold);">Requer: Tiro de Supressao</em></td><td>Se acertar cabeca/olhos, alvo sofre -2d10 por 2 rodadas</td><td>2 Stress</td></tr>
+                        <tr><td>Rajada Controlada</td><td>Coordenacao 5, Vigor 3 | <em style="color:var(--gold);">Requer: Tiro Duplo</em></td><td>Ataque 1 alvo 3 vezes seguidas com -1d10 cada</td><td>3 Stress (1 vez por cena)</td></tr>
+                        <tr><td>Sniper Profissional</td><td>Coordenacao 5, Percepcao 4 | <em style="color:var(--gold);">Requer: Mira Estabilizada</em></td><td>A distancia longa nao impoe penalidade</td><td>Passivo</td></tr>
+                        <tr><td>Cacador Paciente <span class="tag tag-red">3 PM</span></td><td>Percepcao 6, Coordenacao 5 | <em style="color:var(--gold);">Requer: Tiro de Precisao</em></td><td>Se esperar 2 turnos mirando, proximo tiro ganha +3d10</td><td>2 Stress</td></tr>
+                        <tr><td>Tiro Ricochete</td><td>Coordenacao 6, Percepcao 4 | <em style="color:var(--gold);">Requer: Sniper Profissional</em></td><td>Pode atingir alvo atras de cobertura com ricochete</td><td>3 Stress (teste de Percepcao necessario)</td></tr>
+                        <tr><td>Maestria em Armas de Fogo <span class="tag tag-red">4 PM</span></td><td>Coordenacao 7, Percepcao 5 | <em style="color:var(--gold);">Requer: Atirador Letal</em></td><td>+2d10 em todos ataques a distancia</td><td>Passivo</td></tr>
                     </tbody>
                 </table>
 
@@ -2225,30 +2228,30 @@
                     <tbody>
                         <tr><td>Movimento Calculado</td><td>Coordenacao 3</td><td>Reposicione-se sem gerar reacao inimiga</td><td>1 Stress</td></tr>
                         <tr><td>Maos Rapidas</td><td>Coordenacao 3</td><td>Ganha +1 acao de aparagem na rodada</td><td>1 Stress (1 vez por rodada)</td></tr>
-                        <tr><td>Passo Veloz</td><td>Coordenacao 3</td><td>Ganha +1 acao de esquiva na rodada</td><td>1 Stress (1 vez por rodada)</td></tr>
+                        <tr><td>Passo Veloz</td><td>Coordenacao 3 | <em style="color:var(--gold);">Requer: Arrancada Relampago</em></td><td>Ganha +1 acao de esquiva na rodada</td><td>1 Stress (1 vez por rodada)</td></tr>
                         <tr><td>Arrancada Relampago</td><td>Coordenacao 2</td><td>Ganhe +1 acao de movimento imediatamente</td><td>1 Stress (1 vez por rodada)</td></tr>
-                        <tr><td>Deslocamento Instintivo</td><td>Percepcao 3, Coordenacao 2</td><td>Ao ser alvo de ataque, mova-se antes da resolucao do golpe</td><td>1 Stress (1 vez por rodada)</td></tr>
-                        <tr><td>Passo Fantasma</td><td>Coordenacao 5, Malandragem 3</td><td>Ao mover, ignore reacoes inimigas completamente</td><td>2 Stress</td></tr>
+                        <tr><td>Deslocamento Instintivo</td><td>Percepcao 3, Coordenacao 2 | <em style="color:var(--gold);">Requer: Arrancada Relampago</em></td><td>Ao ser alvo de ataque, mova-se antes da resolucao do golpe</td><td>1 Stress (1 vez por rodada)</td></tr>
+                        <tr><td>Passo Fantasma</td><td>Coordenacao 5, Malandragem 3 | <em style="color:var(--gold);">Requer: Passo Veloz</em></td><td>Ao mover, ignore reacoes inimigas completamente</td><td>2 Stress</td></tr>
                         <tr><td>Reflexo Antecipado</td><td>Coordenacao 4</td><td>+1d10 em esquivas contra primeiro ataque do turno</td><td>Passivo</td></tr>
-                        <tr><td>Quebra de Ritmo</td><td>Coordenacao 3, Percepcao 2</td><td>Se esquivar com sucesso, proximo ataque contra mesmo alvo ganha +1d10</td><td>Passivo</td></tr>
-                        <tr><td>Sombra em Movimento</td><td>Malandragem 4, Coordenacao 3</td><td>Enquanto se move, inimigos sofrem -1d10 para acertar</td><td>Passivo</td></tr>
-                        <tr><td>Passos Cortantes</td><td>Coordenacao 5</td><td>Ao atravessar espaco inimigo, causa 1 Injuria Leve automatica</td><td>2 Stress (1 vez por rodada)</td></tr>
+                        <tr><td>Quebra de Ritmo</td><td>Coordenacao 3, Percepcao 2 | <em style="color:var(--gold);">Requer: Reflexo Antecipado</em></td><td>Se esquivar com sucesso, proximo ataque contra mesmo alvo ganha +1d10</td><td>Passivo</td></tr>
+                        <tr><td>Sombra em Movimento</td><td>Malandragem 4, Coordenacao 3 | <em style="color:var(--gold);">Requer: Movimento Calculado</em></td><td>Enquanto se move, inimigos sofrem -1d10 para acertar</td><td>Passivo</td></tr>
+                        <tr><td>Passos Cortantes</td><td>Coordenacao 5 | <em style="color:var(--gold);">Requer: Passo Veloz</em></td><td>Ao atravessar espaco inimigo, causa 1 Injuria Leve automatica</td><td>2 Stress (1 vez por rodada)</td></tr>
                         <tr><td>Foco em Alta Velocidade</td><td>Vigor 4, Coordenacao 3</td><td>Ignore -1 penalidade em acoes consecutivas no mesmo turno</td><td>Passivo</td></tr>
-                        <tr><td>Rolamento Instintivo</td><td>Coordenacao 4</td><td>Ao sofrer ataque a distancia, pode rolar para reduzir Injuria em 1 estagio</td><td>2 Stress</td></tr>
-                        <tr><td>Speed Blitz <span class="tag tag-red">4 PM</span></td><td>Coordenacao 7, Vigor 5</td><td>Estado de aceleracao extrema (1 turno): pode atacar multiplos alvos, ignore reacoes inimigas, cada ataque causa +1 Stress no alvo</td><td>4 Stress + sofre +4 Stress ao fim (1 vez por cena)</td></tr>
-                        <tr><td>Evasao Acrobatica</td><td>Coordenacao 5</td><td>+2d10 em esquivas se tiver espaco para se mover</td><td>Passivo</td></tr>
+                        <tr><td>Rolamento Instintivo</td><td>Coordenacao 4 | <em style="color:var(--gold);">Requer: Deslocamento Instintivo</em></td><td>Ao sofrer ataque a distancia, pode rolar para reduzir Injuria em 1 estagio</td><td>2 Stress</td></tr>
+                        <tr><td>Speed Blitz <span class="tag tag-red">4 PM</span></td><td>Coordenacao 7, Vigor 5 | <em style="color:var(--gold);">Requer: Passos Cortantes + Velocidade Cegante</em></td><td>Estado de aceleracao extrema (1 turno): pode atacar multiplos alvos, ignore reacoes inimigas, cada ataque causa +1 Stress no alvo</td><td>4 Stress + sofre +4 Stress ao fim (1 vez por cena)</td></tr>
+                        <tr><td>Evasao Acrobatica</td><td>Coordenacao 5 | <em style="color:var(--gold);">Requer: Reflexo Antecipado</em></td><td>+2d10 em esquivas se tiver espaco para se mover</td><td>Passivo</td></tr>
                         <tr><td>Cobertura Dinamica</td><td>Percepcao 3, Malandragem 2</td><td>Pode usar aliados, inimigos ou objetos como cobertura improvisada sem penalidade</td><td>Passivo</td></tr>
-                        <tr><td>Salto Tatico</td><td>Coordenacao 4, Vigor 3</td><td>Pode saltar verticalmente ou horizontalmente o dobro da distancia normal</td><td>Passivo</td></tr>
-                        <tr><td>Esquiva Perfeita <span class="tag tag-red">3 PM</span></td><td>Coordenacao 6</td><td>Uma vez por cena, esquive automaticamente de 1 ataque (sem rolar dados)</td><td>3 Stress (1 vez por cena)</td></tr>
-                        <tr><td>Reflexos Sobre-Humanos <span class="tag tag-red">4 PM</span></td><td>Coordenacao 6, Percepcao 5</td><td>Sempre age primeiro no turno (iniciativa automatica)</td><td>Passivo</td></tr>
-                        <tr><td>Velocidade Cegante</td><td>Coordenacao 6</td><td>Inimigos com Coordenacao menor que a sua sofrem -1d10 para te acertar</td><td>Passivo</td></tr>
-                        <tr><td>Danca da Morte</td><td>Coordenacao 5, Malandragem 4</td><td>Ao esquivar, pode se mover para posicao vantajosa gratuitamente</td><td>Passivo</td></tr>
-                        <tr><td>Aparagem Mestra</td><td>Coordenacao 5, Forca 3</td><td>+2d10 em testes de aparagem</td><td>Passivo</td></tr>
-                        <tr><td>Bloqueio Perfeito</td><td>Vigor 5, Coordenacao 4</td><td>Ao bloquear com sucesso com +10 nos testes, reduza 1 estagio de Injuria</td><td>2 Stress (1 vez por cena)</td></tr>
+                        <tr><td>Salto Tatico</td><td>Coordenacao 4, Vigor 3 | <em style="color:var(--gold);">Requer: Arrancada Relampago</em></td><td>Pode saltar verticalmente ou horizontalmente o dobro da distancia normal</td><td>Passivo</td></tr>
+                        <tr><td>Esquiva Perfeita <span class="tag tag-red">3 PM</span></td><td>Coordenacao 6 | <em style="color:var(--gold);">Requer: Evasao Acrobatica</em></td><td>Uma vez por cena, esquive automaticamente de 1 ataque (sem rolar dados)</td><td>3 Stress (1 vez por cena)</td></tr>
+                        <tr><td>Reflexos Sobre-Humanos <span class="tag tag-red">4 PM</span></td><td>Coordenacao 6, Percepcao 5 | <em style="color:var(--gold);">Requer: Esquiva Perfeita + Reflexo Antecipado</em></td><td>Sempre age primeiro no turno (iniciativa automatica)</td><td>Passivo</td></tr>
+                        <tr><td>Velocidade Cegante</td><td>Coordenacao 6 | <em style="color:var(--gold);">Requer: Sombra em Movimento</em></td><td>Inimigos com Coordenacao menor que a sua sofrem -1d10 para te acertar</td><td>Passivo</td></tr>
+                        <tr><td>Danca da Morte</td><td>Coordenacao 5, Malandragem 4 | <em style="color:var(--gold);">Requer: Quebra de Ritmo</em></td><td>Ao esquivar, pode se mover para posicao vantajosa gratuitamente</td><td>Passivo</td></tr>
+                        <tr><td>Aparagem Mestra</td><td>Coordenacao 5, Forca 3 | <em style="color:var(--gold);">Requer: Maos Rapidas</em></td><td>+2d10 em testes de aparagem</td><td>Passivo</td></tr>
+                        <tr><td>Bloqueio Perfeito</td><td>Vigor 5, Coordenacao 4 | <em style="color:var(--gold);">Requer: Aparagem Mestra</em></td><td>Ao bloquear com sucesso com +10 nos testes, reduza 1 estagio de Injuria</td><td>2 Stress (1 vez por cena)</td></tr>
                         <tr><td>Defensor Natural</td><td>Vigor 4, Coordenacao 3</td><td>+1d10 em todos testes defensivos (aparagem/esquiva/bloqueio)</td><td>Passivo</td></tr>
-                        <tr><td>Muralha Viva</td><td>Vigor 6, Forca 4</td><td>Pode bloquear ataques destinados a aliados adjacentes</td><td>1 Stress por bloqueio</td></tr>
-                        <tr><td>Esquiva Impossivel <span class="tag tag-red">3 PM</span></td><td>Coordenacao 6, Percepcao 5</td><td>Pode esquivar de ataques em area ou multiplos simultaneamente</td><td>3 Stress</td></tr>
-                        <tr><td>Mobilidade de Combate</td><td>Coordenacao 4</td><td>Pode se mover livremente entre ataques sem provocar reacoes</td><td>2 Stress (dura a rodada)</td></tr>
+                        <tr><td>Muralha Viva</td><td>Vigor 6, Forca 4 | <em style="color:var(--gold);">Requer: Bloqueio Perfeito</em></td><td>Pode bloquear ataques destinados a aliados adjacentes</td><td>1 Stress por bloqueio</td></tr>
+                        <tr><td>Esquiva Impossivel <span class="tag tag-red">3 PM</span></td><td>Coordenacao 6, Percepcao 5 | <em style="color:var(--gold);">Requer: Esquiva Perfeita</em></td><td>Pode esquivar de ataques em area ou multiplos simultaneamente</td><td>3 Stress</td></tr>
+                        <tr><td>Mobilidade de Combate</td><td>Coordenacao 4 | <em style="color:var(--gold);">Requer: Movimento Calculado</em></td><td>Pode se mover livremente entre ataques sem provocar reacoes</td><td>2 Stress (dura a rodada)</td></tr>
                     </tbody>
                 </table>
 
@@ -2262,23 +2265,23 @@
                     <tbody>
                         <tr><td>Postura de Impacto</td><td>Vigor 3</td><td>1 vez por cena, reduza Injuria em 1 estagio (Critica - Grave - Leve)</td><td>2 Stress</td></tr>
                         <tr><td>Corpo Condicionado</td><td>Vigor 4</td><td>Reduz -1 Stress de fontes fisicas (min 1)</td><td>Passivo</td></tr>
-                        <tr><td>Ficar de Pe</td><td>Vigor 4, ter ao menos 1 Injuria Grave</td><td>Age normalmente por 1 rodada mesmo incapacitado</td><td>+2 Stress apos acao</td></tr>
+                        <tr><td>Ficar de Pe</td><td>Vigor 4, ter ao menos 1 Injuria Grave | <em style="color:var(--gold);">Requer: Dor Conhecida</em></td><td>Age normalmente por 1 rodada mesmo incapacitado</td><td>+2 Stress apos acao</td></tr>
                         <tr><td>Dor Conhecida</td><td>Vigor 3</td><td>Ignore penalidades da primeira Injuria da cena</td><td>Passivo</td></tr>
-                        <tr><td>Segurar no Osso</td><td>Vigor 5</td><td>Injurias Leves nao geram penalidade ate fim da cena</td><td>1 Stress por rodada</td></tr>
+                        <tr><td>Segurar no Osso</td><td>Vigor 5 | <em style="color:var(--gold);">Requer: Corpo Condicionado</em></td><td>Injurias Leves nao geram penalidade ate fim da cena</td><td>1 Stress por rodada</td></tr>
                         <tr><td>Pe no Chao</td><td>Vigor 4, Forca 3</td><td>Ignore empurroes, quedas ou deslocamentos forcados</td><td>1 Stress por uso</td></tr>
                         <tr><td>Respiracao Controlada</td><td>Vigor 3</td><td>Reduz -1 Stress ganho no proximo efeito</td><td>1 Stress</td></tr>
-                        <tr><td>Ultimo Folego</td><td>Vigor 5, ja ter sofrido Colapso</td><td>Evite Colapso iminente</td><td>Sofre 1 Injuria Grave automatica (1 vez por missao)</td></tr>
-                        <tr><td>Instinto de Sobrevivencia</td><td>Vinculo 3, Vigor 2</td><td>Ao chegar a 0 Stress, recupere 1d5 imediatamente</td><td>Passivo (1 vez por sessao)</td></tr>
-                        <tr><td>Nada a Perder</td><td>Vigor 4, Stress no maximo</td><td>Converte toda falha em falha simples (nunca critica) enquanto no limite</td><td>Colapso automatico ao fim da cena</td></tr>
+                        <tr><td>Ultimo Folego</td><td>Vigor 5, ja ter sofrido Colapso | <em style="color:var(--gold);">Requer: Ficar de Pe</em></td><td>Evite Colapso iminente</td><td>Sofre 1 Injuria Grave automatica (1 vez por missao)</td></tr>
+                        <tr><td>Instinto de Sobrevivencia</td><td>Vinculo 3, Vigor 2 | <em style="color:var(--gold);">Requer: Respiracao Controlada</em></td><td>Ao chegar a 0 Stress, recupere 1d5 imediatamente</td><td>Passivo (1 vez por sessao)</td></tr>
+                        <tr><td>Nada a Perder</td><td>Vigor 4, Stress no maximo | <em style="color:var(--gold);">Requer: Instinto de Sobrevivencia</em></td><td>Converte toda falha em falha simples (nunca critica) enquanto no limite</td><td>Colapso automatico ao fim da cena</td></tr>
                         <tr><td>Ignorar o Medo</td><td>Autoridade 4, ja ter enfrentado Medo 3+</td><td>Ignore penalidades de Medo por 1 cena</td><td>2 Stress + risco de Aflicao</td></tr>
-                        <tr><td>Pele Dura</td><td>Vigor 4</td><td>Primeira Injuria Leve da cena e reduzida a 0</td><td>Passivo (1 vez por cena)</td></tr>
-                        <tr><td>Adrenalina Pura</td><td>Vigor 4</td><td>Ao sofrer Injuria Grave, ganha +1d10 em testes fisicos por 2 rodadas</td><td>Passivo</td></tr>
+                        <tr><td>Pele Dura</td><td>Vigor 4 | <em style="color:var(--gold);">Requer: Postura de Impacto</em></td><td>Primeira Injuria Leve da cena e reduzida a 0</td><td>Passivo (1 vez por cena)</td></tr>
+                        <tr><td>Adrenalina Pura</td><td>Vigor 4 | <em style="color:var(--gold);">Requer: Dor Conhecida</em></td><td>Ao sofrer Injuria Grave, ganha +1d10 em testes fisicos por 2 rodadas</td><td>Passivo</td></tr>
                         <tr><td>Forca de Vontade</td><td>Vinculo 4, Vigor 3</td><td>Pode usar Vinculo no lugar de Vigor para resistir a dor/fadiga</td><td>Passivo</td></tr>
-                        <tr><td>Recuperacao Acelerada</td><td>Vigor 5</td><td>Ao descansar, recupera +1d5 Stress adicional</td><td>Passivo</td></tr>
-                        <tr><td>Tanque Humano <span class="tag tag-red">3 PM</span></td><td>Vigor 6, Forca 4</td><td>Injurias Graves sao tratadas como Leves para efeito de penalidades</td><td>Passivo</td></tr>
-                        <tr><td>Indestrutivel <span class="tag tag-red">4 PM</span></td><td>Vigor 7</td><td>Primeira Injuria Critica da missao se torna Injuria Grave</td><td>Passivo (1 vez por missao)</td></tr>
-                        <tr><td>Regeneracao Natural</td><td>Vigor 6</td><td>Ao fim de cada combate, recupera 1 Injuria Leve automaticamente</td><td>Passivo</td></tr>
-                        <tr><td>Vontade Inabalavel</td><td>Vigor 5, Vinculo 4</td><td>Nao pode ser forcado a fugir ou desistir por efeitos mentais</td><td>Passivo</td></tr>
+                        <tr><td>Recuperacao Acelerada</td><td>Vigor 5 | <em style="color:var(--gold);">Requer: Corpo Condicionado</em></td><td>Ao descansar, recupera +1d5 Stress adicional</td><td>Passivo</td></tr>
+                        <tr><td>Tanque Humano <span class="tag tag-red">3 PM</span></td><td>Vigor 6, Forca 4 | <em style="color:var(--gold);">Requer: Segurar no Osso</em></td><td>Injurias Graves sao tratadas como Leves para efeito de penalidades</td><td>Passivo</td></tr>
+                        <tr><td>Indestrutivel <span class="tag tag-red">4 PM</span></td><td>Vigor 7 | <em style="color:var(--gold);">Requer: Tanque Humano</em></td><td>Primeira Injuria Critica da missao se torna Injuria Grave</td><td>Passivo (1 vez por missao)</td></tr>
+                        <tr><td>Regeneracao Natural</td><td>Vigor 6 | <em style="color:var(--gold);">Requer: Recuperacao Acelerada</em></td><td>Ao fim de cada combate, recupera 1 Injuria Leve automaticamente</td><td>Passivo</td></tr>
+                        <tr><td>Vontade Inabalavel</td><td>Vigor 5, Vinculo 4 | <em style="color:var(--gold);">Requer: Forca de Vontade</em></td><td>Nao pode ser forcado a fugir ou desistir por efeitos mentais</td><td>Passivo</td></tr>
                     </tbody>
                 </table>
 
@@ -2296,19 +2299,19 @@
                         <tr><td>Leitura de Cena</td><td>Percepcao 4</td><td>Faca 1 pergunta objetiva ao mestre sobre a cena atual</td><td>1 Stress</td></tr>
                         <tr><td>Voz de Comando</td><td>Autoridade 4</td><td>Aliado proximo pode repetir um teste falho imediatamente</td><td>2 Stress</td></tr>
                         <tr><td>Segurar a Linha</td><td>Autoridade 3, Vigor 3</td><td>Aliados adjacentes recebem -1 Stress enquanto voce nao sair da posicao</td><td>1 Stress por rodada</td></tr>
-                        <tr><td>Aproveitar Brecha</td><td>Percepcao 4</td><td>Se aliado esta em confronto, role 1d10 e pode trocar resultado com aliado (1-4 falha e 5-10 consegue)</td><td>2 Stress (1 vez por rodada)</td></tr>
-                        <tr><td>Leitura Corporal</td><td>Percepcao 5</td><td>Descubra se proximo ataque sera fisico, a distancia ou especial</td><td>1 Stress</td></tr>
-                        <tr><td>Plano de Emergencia</td><td>Tecnologia 3, Investigacao 2</td><td>Declare plano; todos que seguirem ganham +1d10</td><td>2 Stress (1 vez por cena)</td></tr>
+                        <tr><td>Aproveitar Brecha</td><td>Percepcao 4 | <em style="color:var(--gold);">Requer: Leitura de Cena</em></td><td>Se aliado esta em confronto, role 1d10 e pode trocar resultado com aliado (1-4 falha e 5-10 consegue)</td><td>2 Stress (1 vez por rodada)</td></tr>
+                        <tr><td>Leitura Corporal</td><td>Percepcao 5 | <em style="color:var(--gold);">Requer: Leitura de Cena</em></td><td>Descubra se proximo ataque sera fisico, a distancia ou especial</td><td>1 Stress</td></tr>
+                        <tr><td>Plano de Emergencia</td><td>Tecnologia 3, Investigacao 2 | <em style="color:var(--gold);">Requer: Plano Rapido</em></td><td>Declare plano; todos que seguirem ganham +1d10</td><td>2 Stress (1 vez por cena)</td></tr>
                         <tr><td>Memoria de Combate</td><td>Investigacao 3</td><td>Apos sofrer ataque, ganha +1d10 para resistir ao mesmo tipo ate fim da cena</td><td>Passivo</td></tr>
                         <tr><td>Arma na Mao Certa</td><td>Percepcao 3</td><td>Sempre sabe qual arma/ferramenta esta mais acessivel</td><td>Passivo</td></tr>
-                        <tr><td>Coordenacao de Equipe</td><td>Autoridade 4</td><td>Aliados que agem apos voce ganham +5 no primeiro teste</td><td>2 Stress (dura a rodada)</td></tr>
-                        <tr><td>Estrategista de Campo <span class="tag tag-red">3 PM</span></td><td>Investigacao 5, Percepcao 4, Autoridade 3</td><td>No inicio do combate, distribua +3d10 entre aliados como quiser</td><td>3 Stress (1 vez por combate)</td></tr>
-                        <tr><td>Flanqueamento</td><td>Coordenacao 3, Percepcao 2</td><td>Se voce e aliado atacarem mesmo alvo de lados opostos, ambos ganham +1d10</td><td>Passivo</td></tr>
-                        <tr><td>Marcacao Tatica</td><td>Percepcao 4</td><td>"Marque" 1 inimigo; todos aliados ganham +5 contra ele ate fim da cena</td><td>1 Stress</td></tr>
-                        <tr><td>Inspirar Aliados</td><td>Vinculo 5, Autoridade 3</td><td>Todos aliados proximos recuperam 1d5 Stress imediatamente</td><td>3 Stress (1 vez por combate)</td></tr>
-                        <tr><td>Mestre Estrategista <span class="tag tag-red">4 PM</span></td><td>Investigacao 6, Autoridade 5, Percepcao 5</td><td>Pode redistribuir iniciativa da equipe e conceder +2d10 a 1 aliado por turno</td><td>2 Stress por turno (Passivo)</td></tr>
-                        <tr><td>Lider Natural</td><td>Autoridade 5, Vinculo 4</td><td>Aliados sob seu comando ignoram primeira falha de teste mental da cena</td><td>Passivo</td></tr>
-                        <tr><td>Comandante de Campo</td><td>Autoridade 6</td><td>Aliados proximos ganham +1d10 em defesas enquanto voce estiver consciente</td><td>Passivo</td></tr>
+                        <tr><td>Coordenacao de Equipe</td><td>Autoridade 4 | <em style="color:var(--gold);">Requer: Voz de Comando</em></td><td>Aliados que agem apos voce ganham +5 no primeiro teste</td><td>2 Stress (dura a rodada)</td></tr>
+                        <tr><td>Estrategista de Campo <span class="tag tag-red">3 PM</span></td><td>Investigacao 5, Percepcao 4, Autoridade 3 | <em style="color:var(--gold);">Requer: Plano de Emergencia + Coordenacao de Equipe</em></td><td>No inicio do combate, distribua +3d10 entre aliados como quiser</td><td>3 Stress (1 vez por combate)</td></tr>
+                        <tr><td>Flanqueamento</td><td>Coordenacao 3, Percepcao 2 | <em style="color:var(--gold);">Requer: Abertura Tatica</em></td><td>Se voce e aliado atacarem mesmo alvo de lados opostos, ambos ganham +1d10</td><td>Passivo</td></tr>
+                        <tr><td>Marcacao Tatica</td><td>Percepcao 4 | <em style="color:var(--gold);">Requer: Abertura Tatica</em></td><td>"Marque" 1 inimigo; todos aliados ganham +5 contra ele ate fim da cena</td><td>1 Stress</td></tr>
+                        <tr><td>Inspirar Aliados</td><td>Vinculo 5, Autoridade 3 | <em style="color:var(--gold);">Requer: Segurar a Linha</em></td><td>Todos aliados proximos recuperam 1d5 Stress imediatamente</td><td>3 Stress (1 vez por combate)</td></tr>
+                        <tr><td>Mestre Estrategista <span class="tag tag-red">4 PM</span></td><td>Investigacao 6, Autoridade 5, Percepcao 5 | <em style="color:var(--gold);">Requer: Estrategista de Campo + Comandante de Campo</em></td><td>Pode redistribuir iniciativa da equipe e conceder +2d10 a 1 aliado por turno</td><td>2 Stress por turno (Passivo)</td></tr>
+                        <tr><td>Lider Natural</td><td>Autoridade 5, Vinculo 4 | <em style="color:var(--gold);">Requer: Inspirar Aliados</em></td><td>Aliados sob seu comando ignoram primeira falha de teste mental da cena</td><td>Passivo</td></tr>
+                        <tr><td>Comandante de Campo</td><td>Autoridade 6 | <em style="color:var(--gold);">Requer: Coordenacao de Equipe</em></td><td>Aliados proximos ganham +1d10 em defesas enquanto voce estiver consciente</td><td>Passivo</td></tr>
                     </tbody>
                 </table>
 
@@ -2321,15 +2324,15 @@
                     <thead><tr><th>Habilidade</th><th>Requisito</th><th>Efeito</th><th>Custo</th></tr></thead>
                     <tbody>
                         <tr><td>Toque do Especialista</td><td>Tecnologia 3</td><td>Ignore penalidades por armas improvisadas ou danificadas</td><td>Passivo</td></tr>
-                        <tr><td>Arma Personalizada</td><td>Tecnologia 4</td><td>Escolha 1 arma: recebe +1d10 em situacao especifica que voce definir</td><td>2 Stress por cena</td></tr>
+                        <tr><td>Arma Personalizada</td><td>Tecnologia 4 | <em style="color:var(--gold);">Requer: Toque do Especialista</em></td><td>Escolha 1 arma: recebe +1d10 em situacao especifica que voce definir</td><td>2 Stress por cena</td></tr>
                         <tr><td>Improviso Bruto</td><td>Tecnologia 3</td><td>Cria solucao temporaria com ambiente. Falha critica gera complicacao</td><td>1 Stress</td></tr>
                         <tr><td>Hoje Nao</td><td>Coordenacao 5, Percepcao 4</td><td>Pode atacar quem te atacou antes do dano ser resolvido (interceptacao)</td><td>2 Stress (1 vez por cena)</td></tr>
-                        <tr><td>Engenheiro de Campo</td><td>Tecnologia 4</td><td>Pode reparar 1 arma quebrada ou criar armadilha simples</td><td>2 Stress + tempo narrativo</td></tr>
-                        <tr><td>Sabotagem Rapida</td><td>Tecnologia 4, Malandragem 3</td><td>Pode desativar dispositivo eletronico/mecanico inimigo</td><td>2 Stress (teste necessario)</td></tr>
-                        <tr><td>Mestre em Explosivos <span class="tag tag-red">3 PM</span></td><td>Tecnologia 5</td><td>Pode criar/desarmar explosivos. Dano aumentado em area (+2d10)</td><td>3 Stress por uso</td></tr>
-                        <tr><td>Armeiro Profissional</td><td>Tecnologia 5</td><td>Pode modificar armas para conceder +1d10 temporario</td><td>Tempo + materiais</td></tr>
-                        <tr><td>Hacker de Campo</td><td>Tecnologia 5</td><td>Pode invadir sistemas eletronicos em combate</td><td>2 Stress (teste necessario)</td></tr>
-                        <tr><td>Mestre Inventor <span class="tag tag-red">4 PM</span></td><td>Tecnologia 7</td><td>Pode criar dispositivos unicos com efeitos especiais (aprovacao do mestre)</td><td>Passivo</td></tr>
+                        <tr><td>Engenheiro de Campo</td><td>Tecnologia 4 | <em style="color:var(--gold);">Requer: Improviso Bruto</em></td><td>Pode reparar 1 arma quebrada ou criar armadilha simples</td><td>2 Stress + tempo narrativo</td></tr>
+                        <tr><td>Sabotagem Rapida</td><td>Tecnologia 4, Malandragem 3 | <em style="color:var(--gold);">Requer: Engenheiro de Campo</em></td><td>Pode desativar dispositivo eletronico/mecanico inimigo</td><td>2 Stress (teste necessario)</td></tr>
+                        <tr><td>Mestre em Explosivos <span class="tag tag-red">3 PM</span></td><td>Tecnologia 5 | <em style="color:var(--gold);">Requer: Engenheiro de Campo</em></td><td>Pode criar/desarmar explosivos. Dano aumentado em area (+2d10)</td><td>3 Stress por uso</td></tr>
+                        <tr><td>Armeiro Profissional</td><td>Tecnologia 5 | <em style="color:var(--gold);">Requer: Arma Personalizada</em></td><td>Pode modificar armas para conceder +1d10 temporario</td><td>Tempo + materiais</td></tr>
+                        <tr><td>Hacker de Campo</td><td>Tecnologia 5 | <em style="color:var(--gold);">Requer: Sabotagem Rapida</em></td><td>Pode invadir sistemas eletronicos em combate</td><td>2 Stress (teste necessario)</td></tr>
+                        <tr><td>Mestre Inventor <span class="tag tag-red">4 PM</span></td><td>Tecnologia 7 | <em style="color:var(--gold);">Requer: Armeiro Profissional + Engenheiro de Campo</em></td><td>Pode criar dispositivos unicos com efeitos especiais (aprovacao do mestre)</td><td>Passivo</td></tr>
                     </tbody>
                 </table>
 
@@ -2343,21 +2346,21 @@
                     <tbody>
                         <tr><td>Frieza Profissional</td><td>Autoridade 4 ou Investigacao 4</td><td>Ignore proximo ganho de Stress psicologico</td><td>2 Stress</td></tr>
                         <tr><td>Bom Homem</td><td>Vinculo 3, seja alguem bom</td><td>+20 em testes sociais se alvo conhece seu passado heroico</td><td>1 Stress</td></tr>
-                        <tr><td>Lacos Inquebraveis</td><td>Vinculo 5</td><td>Quando aliado proximo sofreria Injuria Grave, pode sofrer no lugar dele</td><td>1 Stress</td></tr>
+                        <tr><td>Lacos Inquebraveis</td><td>Vinculo 5 | <em style="color:var(--gold);">Requer: Bom Homem</em></td><td>Quando aliado proximo sofreria Injuria Grave, pode sofrer no lugar dele</td><td>1 Stress</td></tr>
                         <tr><td>Olhar que Quebra</td><td>Autoridade 4</td><td>Inimigo sofre +1 Stress ao encarar voce diretamente</td><td>Passivo</td></tr>
-                        <tr><td>Historia que Assombra</td><td>Autoridade 5, ser temido</td><td>+20 em testes sociais quando alvo sabe do passado violento</td><td>Passivo</td></tr>
+                        <tr><td>Historia que Assombra</td><td>Autoridade 5, ser temido | <em style="color:var(--gold);">Requer: Olhar que Quebra</em></td><td>+20 em testes sociais quando alvo sabe do passado violento</td><td>Passivo</td></tr>
                         <tr><td>Mentira Convincente</td><td>Malandragem 4, Negociacao 2</td><td>Mentira simples e tratada como verdade ate confrontada com evidencia</td><td>2 Stress</td></tr>
                         <tr><td>Ultima Promessa</td><td>Vinculo 4</td><td>Se cair, aliado escolhido ganha +2d10 na proxima acao</td><td>Passivo</td></tr>
                         <tr><td>Furia Contida</td><td>Vigor 3, ja ter sofrido Aflicao</td><td>+1d10 em ataques enquanto com Aflicao ativa</td><td>Passivo</td></tr>
-                        <tr><td>Odio Direcionado</td><td>Investigacao 3</td><td>Escolha 1 grupo (demonios, hibridos, pessoa especifica etc): +1d10 em acoes contra eles</td><td>Passivo</td></tr>
-                        <tr><td>Repulsa</td><td>Investigacao 4, ja ter sofrido Aflicao</td><td>Contra alvo do odio, +10 em testes ofensivos</td><td>+1 Stress sempre que nao atacar esse alvo na rodada</td></tr>
+                        <tr><td>Odio Direcionado</td><td>Investigacao 3 | <em style="color:var(--gold);">Requer: Furia Contida</em></td><td>Escolha 1 grupo (demonios, hibridos, pessoa especifica etc): +1d10 em acoes contra eles</td><td>Passivo</td></tr>
+                        <tr><td>Repulsa</td><td>Investigacao 4, ja ter sofrido Aflicao | <em style="color:var(--gold);">Requer: Odio Direcionado</em></td><td>Contra alvo do odio, +10 em testes ofensivos</td><td>+1 Stress sempre que nao atacar esse alvo na rodada</td></tr>
                         <tr><td>Negociador Experiente</td><td>Negociacao 4</td><td>+1d10 em testes de persuasao/barganha fora de combate</td><td>Passivo</td></tr>
-                        <tr><td>Intimidacao Natural</td><td>Autoridade 5</td><td>Inimigos humanos comuns ou Medo 1 (demonios) podem fugir ao ve-lo</td><td>2 Stress</td></tr>
+                        <tr><td>Intimidacao Natural</td><td>Autoridade 5 | <em style="color:var(--gold);">Requer: Olhar que Quebra</em></td><td>Inimigos humanos comuns ou Medo 1 (demonios) podem fugir ao ve-lo</td><td>2 Stress</td></tr>
                         <tr><td>Leitor de Pessoas</td><td>Percepcao 4, Vinculo 3</td><td>Detecta mentiras obvias automaticamente</td><td>Passivo</td></tr>
-                        <tr><td>Carisma de Lider</td><td>Autoridade 5, Vinculo 4</td><td>Aliados sob comando ignoram primeira penalidade de Stress social/mental da cena</td><td>2 Stress (dura a cena)</td></tr>
-                        <tr><td>Presenca Dominante <span class="tag tag-red">3 PM</span></td><td>Autoridade 6</td><td>Todos inimigos de Nivel de Medo 2 ou menos sofrem -1d10 em sua presenca</td><td>Passivo</td></tr>
-                        <tr><td>Manipulador Mestre</td><td>Malandragem 5, Negociacao 4</td><td>Pode plantar ideia na mente do alvo (teste oposto)</td><td>3 Stress</td></tr>
-                        <tr><td>Aura de Protecao</td><td>Vinculo 6, Autoridade 4</td><td>Aliados proximos recebem -2 Stress de fontes mentais</td><td>Passivo</td></tr>
+                        <tr><td>Carisma de Lider</td><td>Autoridade 5, Vinculo 4 | <em style="color:var(--gold);">Requer: Negociador Experiente</em></td><td>Aliados sob comando ignoram primeira penalidade de Stress social/mental da cena</td><td>2 Stress (dura a cena)</td></tr>
+                        <tr><td>Presenca Dominante <span class="tag tag-red">3 PM</span></td><td>Autoridade 6 | <em style="color:var(--gold);">Requer: Intimidacao Natural</em></td><td>Todos inimigos de Nivel de Medo 2 ou menos sofrem -1d10 em sua presenca</td><td>Passivo</td></tr>
+                        <tr><td>Manipulador Mestre</td><td>Malandragem 5, Negociacao 4 | <em style="color:var(--gold);">Requer: Mentira Convincente</em></td><td>Pode plantar ideia na mente do alvo (teste oposto)</td><td>3 Stress</td></tr>
+                        <tr><td>Aura de Protecao</td><td>Vinculo 6, Autoridade 4 | <em style="color:var(--gold);">Requer: Carisma de Lider + Lacos Inquebraveis</em></td><td>Aliados proximos recebem -2 Stress de fontes mentais</td><td>Passivo</td></tr>
                     </tbody>
                 </table>
 
@@ -2369,14 +2372,14 @@
                 <table class="scar-table">
                     <thead><tr><th>Habilidade</th><th>Requisito</th><th>Efeito</th><th>Custo</th></tr></thead>
                     <tbody>
-                        <tr><td>Reflexo de Batalha</td><td>Coordenacao 7, Percepcao 6</td><td>Pode reagir a qualquer ataque visivel sem custo adicional</td><td>Passivo</td></tr>
-                        <tr><td>Senhor da Guerra</td><td>Autoridade 7, Forca 5, Vigor 5</td><td>Aliados ganham +1d10 em testes enquanto voce estiver de pe e visivel</td><td>Passivo</td></tr>
-                        <tr><td>Presenca Aterrorizante</td><td>Autoridade 7</td><td>Inimigos de Medo 3 (Demonios) ou menos fazem teste de medo (DT 35) ao ve-lo</td><td>3 Stress (1 vez por cena)</td></tr>
-                        <tr><td>Mente de Aco</td><td>Investigacao 5, Autoridade 5</td><td>Imune a efeitos mentais de Nivel de Medo 3 ou menos</td><td>Passivo</td></tr>
-                        <tr><td>Sobrevivente Lendario</td><td>Vigor 7, Vinculo 5</td><td>Pode sobreviver a qualquer ataque sofrendo 0 de injuria</td><td>1 vez por missao</td></tr>
-                        <tr><td>Assassino Silencioso</td><td>Malandragem 7, Coordenacao 6</td><td>Ataques furtivos causam +2 estagios de Injuria automaticamente</td><td>Passivo</td></tr>
-                        <tr><td>Imortal de Combate</td><td>Vigor 7, Forca 6</td><td>Nao pode ser incapacitado por Injurias Graves (apenas Criticas)</td><td>Passivo</td></tr>
-                        <tr><td>Olho do Predador</td><td>Percepcao 7</td><td>Detecta automaticamente pontos fracos: +2d10 contra alvos analisados</td><td>2 Stress por alvo</td></tr>
+                        <tr><td>Reflexo de Batalha</td><td>Coordenacao 7, Percepcao 6 | <em style="color:var(--gold);">Requer: Reflexos Sobre-Humanos</em></td><td>Pode reagir a qualquer ataque visivel sem custo adicional</td><td>Passivo</td></tr>
+                        <tr><td>Senhor da Guerra</td><td>Autoridade 7, Forca 5, Vigor 5 | <em style="color:var(--gold);">Requer: Mestre Estrategista</em></td><td>Aliados ganham +1d10 em testes enquanto voce estiver de pe e visivel</td><td>Passivo</td></tr>
+                        <tr><td>Presenca Aterrorizante</td><td>Autoridade 7 | <em style="color:var(--gold);">Requer: Presenca Dominante</em></td><td>Inimigos de Medo 3 (Demonios) ou menos fazem teste de medo (DT 35) ao ve-lo</td><td>3 Stress (1 vez por cena)</td></tr>
+                        <tr><td>Mente de Aco</td><td>Investigacao 5, Autoridade 5 | <em style="color:var(--gold);">Requer: Frieza Profissional + Ignorar o Medo</em></td><td>Imune a efeitos mentais de Nivel de Medo 3 ou menos</td><td>Passivo</td></tr>
+                        <tr><td>Sobrevivente Lendario</td><td>Vigor 7, Vinculo 5 | <em style="color:var(--gold);">Requer: Indestrutivel</em></td><td>Pode sobreviver a qualquer ataque sofrendo 0 de injuria</td><td>1 vez por missao</td></tr>
+                        <tr><td>Assassino Silencioso</td><td>Malandragem 7, Coordenacao 6 | <em style="color:var(--gold);">Requer: Passo Fantasma + Golpe Perfurante</em></td><td>Ataques furtivos causam +2 estagios de Injuria automaticamente</td><td>Passivo</td></tr>
+                        <tr><td>Imortal de Combate</td><td>Vigor 7, Forca 6 | <em style="color:var(--gold);">Requer: Tanque Humano</em></td><td>Nao pode ser incapacitado por Injurias Graves (apenas Criticas)</td><td>Passivo</td></tr>
+                        <tr><td>Olho do Predador</td><td>Percepcao 7 | <em style="color:var(--gold);">Requer: Leitura Corporal + Cacador Paciente</em></td><td>Detecta automaticamente pontos fracos: +2d10 contra alvos analisados</td><td>2 Stress por alvo</td></tr>
                     </tbody>
                 </table>
 
