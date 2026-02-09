@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armamentos - SCAR RPG</title>
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            animation: pageLoad 0.5s ease-out forwards;
+        }
+
+        body.page-exit {
+            animation: pageLoad 0.3s ease-in reverse forwards;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 120px 20px 60px;
+            background:
+                radial-gradient(ellipse at center top, rgba(139,0,0,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 50%, rgba(220,20,60,0.08) 0%, transparent 50%);
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            color: var(--cor-secundaria);
+            text-shadow: 0 0 40px rgba(220,20,60,0.4);
+        }
+
+        .hero p {
+            color: var(--cor-texto-soft);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+
+        /* Filters */
+        .filters-section {
+            background: var(--cor-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 18px;
+            font-size: 0.95rem;
+        }
+
+        .filter-select {
+            padding: 12px 18px;
+            font-size: 0.9rem;
+            min-width: 160px;
+        }
+
+        /* Category Section */
+        .category-section {
+            margin-bottom: 50px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--cor-borda);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-header:hover {
+            border-bottom-color: var(--cor-principal);
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-blood);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .category-count {
+            margin-left: auto;
+            background: rgba(220,20,60,0.15);
+            color: var(--cor-secundaria);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Arma Card */
+        .arma-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 12px;
+            padding: 22px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .arma-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient-blood);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .arma-card:hover {
+            border-color: var(--cor-principal);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 15px rgba(220,20,60,0.1);
+        }
+
+        .arma-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .arma-nome {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: var(--cor-texto);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .arma-nome .arma-icon {
+            font-size: 1.2rem;
+        }
+
+        .arma-tipo-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .arma-tipo-badge.corte {
+            background: rgba(220,20,60,0.15);
+            color: var(--cor-secundaria);
+            border: 1px solid rgba(220,20,60,0.3);
+        }
+
+        .arma-tipo-badge.impacto {
+            background: rgba(52,152,219,0.15);
+            color: #5DADE2;
+            border: 1px solid rgba(52,152,219,0.3);
+        }
+
+        .arma-tipo-badge.perfuracao {
+            background: rgba(155,89,182,0.15);
+            color: #9B59B6;
+            border: 1px solid rgba(155,89,182,0.3);
+        }
+
+        .arma-tipo-badge.balistico {
+            background: rgba(241,196,15,0.15);
+            color: #F1C40F;
+            border: 1px solid rgba(241,196,15,0.3);
+        }
+
+        .arma-tipo-badge.explosivo {
+            background: rgba(230,126,34,0.15);
+            color: #E67E22;
+            border: 1px solid rgba(230,126,34,0.3);
+        }
+
+        .arma-tipo-badge.fogo {
+            background: rgba(231,76,60,0.15);
+            color: #E74C3C;
+            border: 1px solid rgba(231,76,60,0.3);
+        }
+
+        .arma-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .arma-stat {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .arma-stat:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .arma-stat span {
+            color: var(--cor-accent);
+            font-weight: 600;
+        }
+
+        .arma-critico {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: rgba(220,20,60,0.08);
+            border-left: 2px solid var(--cor-secundaria);
+            border-radius: 0 6px 6px 0;
+            font-size: 0.85rem;
+            color: var(--cor-texto-secundario);
+        }
+
+        .arma-critico strong {
+            color: var(--cor-secundaria);
+        }
+
+        .arma-efeito {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--cor-texto-secundario);
+            font-style: italic;
+        }
+
+        .arma-custo {
+            margin-top: 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--cor-gold);
+            letter-spacing: 1px;
+        }
+
+        /* Armadura Card */
+        .armadura-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 12px;
+            padding: 22px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .armadura-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #5DADE2 0%, #3498db 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .armadura-card:hover {
+            border-color: #3498db;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 15px rgba(52,152,219,0.1);
+        }
+
+        .armadura-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .armadura-nome {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: var(--cor-texto);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .armadura-protecao {
+            display: inline-block;
+            background: rgba(52,152,219,0.15);
+            color: #5DADE2;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            border: 1px solid rgba(52,152,219,0.3);
+        }
+
+        .armadura-info {
+            font-size: 0.85rem;
+            color: var(--cor-texto-secundario);
+            margin-bottom: 6px;
+        }
+
+        .armadura-info strong {
+            color: var(--cor-texto);
+        }
+
+        .armadura-penalidade {
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: rgba(231,76,60,0.08);
+            border-left: 2px solid #E74C3C;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.8rem;
+            color: #E74C3C;
+        }
+
+        .armadura-custo {
+            margin-top: 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--cor-gold);
+            letter-spacing: 1px;
+        }
+
+        /* Tipo de Dano */
+        .tipo-dano-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tipo-dano-card:hover {
+            border-color: var(--cor-principal);
+            transform: translateY(-3px);
+        }
+
+        .tipo-dano-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .tipo-dano-nome {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--cor-secundaria);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .tipo-dano-desc {
+            font-size: 0.8rem;
+            color: var(--cor-texto-secundario);
+        }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--cor-texto-secundario);
+            display: none;
+        }
+
+        .no-results .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--cor-texto-secundario);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            color: var(--cor-accent);
+        }
+
+        /* Stats summary */
+        .stats-summary {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .stat-box {
+            flex: 1;
+            min-width: 120px;
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            border-color: var(--cor-principal);
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--cor-secundaria);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--cor-texto-secundario);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 640px) {
+            .search-row {
+                flex-direction: column;
+            }
+
+            .filter-select {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header p-15-tb">
+        <div class="container">
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+
+                <nav class="nav-desktop d-flex f-items-center f-gap-10">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="index.html#seres" class="nav-link">Seres</a>
+                    <a href="index.html#contratos" class="nav-link">Contratos</a>
+                    <a href="index.html#combate" class="nav-link">Combate</a>
+                    <a href="habilidades.html" class="nav-link">Habilidades</a>
+                    <a href="armamentos.html" class="nav-link active">Armamentos</a>
+                    <a href="aflicoes.html" class="nav-link">Aflicoes</a>
+                </nav>
+
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu">
+                    <span>☰</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
+                <button class="mobile-menu-close" data-modal-hide>&#10005;</button>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <nav class="mobile-menu-nav">
+                        <a href="index.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">&#127968;</span>
+                            <span class="link-text">Inicio</span>
+                        </a>
+                        <a href="index.html#seres" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">&#128121;</span>
+                            <span class="link-text">Seres</span>
+                        </a>
+                        <a href="index.html#contratos" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">&#128221;</span>
+                            <span class="link-text">Contratos</span>
+                        </a>
+                        <a href="index.html#combate" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">&#128128;</span>
+                            <span class="link-text">Combate</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-section-divider"></div>
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="habilidades.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Habilidades</span>
+                        </a>
+                        <a href="armamentos.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Armamentos</span>
+                        </a>
+                        <a href="aflicoes.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Aflicoes</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-footer">
+                        <p>"Todo contrato tem um preco"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <a href="index.html" class="back-link wow fadeIn">&larr; Voltar ao inicio</a>
+                <h1 class="wow fadeInUp">ARMAMENTOS</h1>
+                <p class="wow fadeInUp" data-wow-delay="0.1s">Arsenal completo de armas, armaduras e equipamentos disponiveis no mundo de SCAR.</p>
+            </div>
+        </section>
+
+        <!-- Stats Summary -->
+        <section class="p-0-tb">
+            <div class="container p-40-tb xs-p-20-tb">
+                <div class="stats-summary wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="stat-box">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Corpo a Corpo</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Medio Alcance</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Longo Alcance</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Especiais</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Armaduras</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters -->
+        <section class="p-0-tb">
+            <div class="container">
+                <div class="filters-section wow fadeInUp">
+                    <div class="search-row">
+                        <input type="text" class="search-input" id="searchArma" placeholder="Buscar armamento..." oninput="filterArmas()">
+                        <select class="filter-select" id="filterTipo" onchange="filterArmas()">
+                            <option value="">Todos os Tipos</option>
+                            <option value="corte">Corte</option>
+                            <option value="impacto">Impacto</option>
+                            <option value="perfuracao">Perfuracao</option>
+                            <option value="balistico">Balistico</option>
+                            <option value="explosivo">Explosivo</option>
+                            <option value="fogo">Fogo</option>
+                        </select>
+                        <select class="filter-select" id="filterAlcance" onchange="filterArmas()">
+                            <option value="">Todos os Alcances</option>
+                            <option value="curto">Curto</option>
+                            <option value="medio">Medio</option>
+                            <option value="longo">Longo</option>
+                            <option value="especial">Especial</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tipos de Dano -->
+        <section class="p-40-tb xs-p-20-tb">
+            <div class="container">
+                <h2 class="section-title centered m-30-b text-center wow fadeInUp" style="display: block;">TIPOS DE DANO</h2>
+                <div class="row gap-10">
+                    <div class="c-xs-6 c-sm-4 c-md-2 wow fadeInUp">
+                        <div class="tipo-dano-card">
+                            <div class="tipo-dano-icon">&#9876;</div>
+                            <div class="tipo-dano-nome">Corte</div>
+                            <div class="tipo-dano-desc">Pode causar sangramento</div>
+                        </div>
+                    </div>
+                    <div class="c-xs-6 c-sm-4 c-md-2 wow fadeInUp" data-wow-delay="0.05s">
+                        <div class="tipo-dano-card">
+                            <div class="tipo-dano-icon">&#128296;</div>
+                            <div class="tipo-dano-nome">Perfuracao</div>
+                            <div class="tipo-dano-desc">Pode ignorar protecao</div>
+                        </div>
+                    </div>
+                    <div class="c-xs-6 c-sm-4 c-md-2 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="tipo-dano-card">
+                            <div class="tipo-dano-icon">&#128074;</div>
+                            <div class="tipo-dano-nome">Impacto</div>
+                            <div class="tipo-dano-desc">Pode atordoar/derrubar</div>
+                        </div>
+                    </div>
+                    <div class="c-xs-6 c-sm-4 c-md-2 wow fadeInUp" data-wow-delay="0.15s">
+                        <div class="tipo-dano-card">
+                            <div class="tipo-dano-icon">&#128299;</div>
+                            <div class="tipo-dano-nome">Balistico</div>
+                            <div class="tipo-dano-desc">Ignorado por coberturas</div>
+                        </div>
+                    </div>
+                    <div class="c-xs-6 c-sm-4 c-md-2 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="tipo-dano-card">
+                            <div class="tipo-dano-icon">&#128163;</div>
+                            <div class="tipo-dano-nome">Explosivo</div>
+                            <div class="tipo-dano-desc">Area, ignora cobertura</div>
+                        </div>
+                    </div>
+                    <div class="c-xs-6 c-sm-4 c-md-2 wow fadeInUp" data-wow-delay="0.25s">
+                        <div class="tipo-dano-card">
+                            <div class="tipo-dano-icon">&#128293;</div>
+                            <div class="tipo-dano-nome">Fogo</div>
+                            <div class="tipo-dano-desc">Dano continuo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- ARMAS DE CURTO ALCANCE -->
+        <section class="p-60-tb xs-p-30-tb" id="armas-content">
+            <div class="container">
+
+                <div class="category-section" data-alcance="curto">
+                    <div class="category-header wow fadeInUp" onclick="toggleCategory('cat-curto')">
+                        <div class="category-icon">&#9876;</div>
+                        <div>
+                            <h3 class="fs-12 m-0-b" style="color: var(--cor-secundaria);">ARMAS DE CURTO ALCANCE</h3>
+                            <p class="fs-7 m-0-b" style="color: var(--cor-texto-secundario);">Corpo a corpo e armas brancas</p>
+                        </div>
+                        <span class="category-count">8 armas</span>
+                    </div>
+
+                    <div id="cat-curto" class="open">
+                        <div class="row gap-15">
+                            <!-- Faca -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="faca" data-tipo="corte" data-alcance="curto">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128298;</span> Faca</div>
+                                    <span class="arma-tipo-badge corte">Corte</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+0 | Leve</span></div>
+                                        <div class="arma-stat">Alcance: <span>Curto</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Sangramento (+2 Stress/rodada)</div>
+                                    <div class="arma-efeito">Ocultavel</div>
+                                    <div class="arma-custo">50 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Soco Ingles -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="soco ingles" data-tipo="impacto" data-alcance="curto" data-wow-delay="0.05s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#129354;</span> Soco Ingles</div>
+                                    <span class="arma-tipo-badge impacto">Impacto</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+1d10 | Leve</span></div>
+                                        <div class="arma-stat">Alcance: <span>Curto</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Atordoar (alvo -1 acao)</div>
+                                    <div class="arma-efeito">Ocultavel</div>
+                                    <div class="arma-custo">30 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Bastao/Taco -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="bastao taco" data-tipo="impacto" data-alcance="curto" data-wow-delay="0.1s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#129359;</span> Bastao / Taco</div>
+                                    <span class="arma-tipo-badge impacto">Impacto</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+1d10 | Leve</span></div>
+                                        <div class="arma-stat">Alcance: <span>Curto</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Atordoar (alvo -1 acao)</div>
+                                    <div class="arma-custo">40 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Katana -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="katana" data-tipo="corte" data-alcance="curto">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#9876;</span> Katana</div>
+                                    <span class="arma-tipo-badge corte">Corte</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+1d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Curto</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Sangramento (+3 Stress/rodada)</div>
+                                    <div class="arma-efeito">Alcance estendido</div>
+                                    <div class="arma-custo">800 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Machado -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="machado" data-tipo="corte" data-alcance="curto" data-wow-delay="0.05s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#129683;</span> Machado</div>
+                                    <span class="arma-tipo-badge corte">Corte</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+2d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Curto</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Execucao (morte em indefeso)</div>
+                                    <div class="arma-efeito">Pesada (-1d10 esquiva)</div>
+                                    <div class="arma-custo">300 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Marreta -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="marreta" data-tipo="impacto" data-alcance="curto" data-wow-delay="0.1s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128296;</span> Marreta</div>
+                                    <span class="arma-tipo-badge impacto">Impacto</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+2d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Curto</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Derrubar (alvo no chao)</div>
+                                    <div class="arma-efeito">Pesada (-1d10 esquiva), Lenta</div>
+                                    <div class="arma-custo">250 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Motosserra -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="motosserra" data-tipo="corte" data-alcance="curto">
+                                <div class="arma-card" style="border-color: rgba(220,20,60,0.3);">
+                                    <div class="arma-nome" style="color: var(--cor-secundaria);"><span class="arma-icon">&#9935;</span> Motosserra</div>
+                                    <span class="arma-tipo-badge corte">Corte</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+3d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Curto</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Brutal (+1 nivel de Injuria)</div>
+                                    <div class="arma-efeito">Pesada, Barulhenta, requer combustivel</div>
+                                    <div class="arma-custo">1.500 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Lanca -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="lanca" data-tipo="perfuracao" data-alcance="curto" data-wow-delay="0.05s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128737;</span> Lanca</div>
+                                    <span class="arma-tipo-badge perfuracao">Perfuracao</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+1d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Curto (estendido)</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Perfurante (ignora 1 nivel protecao)</div>
+                                    <div class="arma-efeito">Alcance estendido, pode arremessar (1x)</div>
+                                    <div class="arma-custo">200 &#165;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider m-40-b"></div>
+
+                <!-- ARMAS DE MEDIO ALCANCE -->
+                <div class="category-section" data-alcance="medio">
+                    <div class="category-header wow fadeInUp" onclick="toggleCategory('cat-medio')">
+                        <div class="category-icon">&#128299;</div>
+                        <div>
+                            <h3 class="fs-12 m-0-b" style="color: var(--cor-secundaria);">ARMAS DE MEDIO ALCANCE</h3>
+                            <p class="fs-7 m-0-b" style="color: var(--cor-texto-secundario);">Pistolas e submetralhadoras</p>
+                        </div>
+                        <span class="category-count">4 armas</span>
+                    </div>
+
+                    <div id="cat-medio" class="open">
+                        <div class="row gap-15">
+                            <!-- Revolver -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="revolver" data-tipo="balistico" data-alcance="medio">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128299;</span> Revolver</div>
+                                    <span class="arma-tipo-badge balistico">Balistico</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+1d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Medio</span></div>
+                                        <div class="arma-stat">Municao: <span>6 tiros</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> +1 nivel de Injuria</div>
+                                    <div class="arma-efeito">Confiavel (nunca falha)</div>
+                                    <div class="arma-custo">600 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Pistola 9mm -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="pistola 9mm" data-tipo="balistico" data-alcance="medio" data-wow-delay="0.05s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128299;</span> Pistola 9mm</div>
+                                    <span class="arma-tipo-badge balistico">Balistico</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+1d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Medio</span></div>
+                                        <div class="arma-stat">Municao: <span>3 rajadas</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> +1 nivel de Injuria</div>
+                                    <div class="arma-efeito">Rapida (pode atirar 2x)</div>
+                                    <div class="arma-custo">700 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Pistola .45 -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="pistola 45" data-tipo="balistico" data-alcance="medio" data-wow-delay="0.1s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128299;</span> Pistola .45</div>
+                                    <span class="arma-tipo-badge balistico">Balistico</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+2d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Medio</span></div>
+                                        <div class="arma-stat">Municao: <span>4 tiros</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Perfurante</div>
+                                    <div class="arma-efeito">Recuo (-1d10 no 2o tiro seguido)</div>
+                                    <div class="arma-custo">900 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Submetralhadora -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="submetralhadora smg" data-tipo="balistico" data-alcance="medio">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128299;</span> Submetralhadora</div>
+                                    <span class="arma-tipo-badge balistico">Balistico</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+2d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Medio</span></div>
+                                        <div class="arma-stat">Municao: <span>2 rajadas</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Supressao (alvo nao avanca)</div>
+                                    <div class="arma-efeito">Area (ate 2 alvos)</div>
+                                    <div class="arma-custo">2.000 &#165;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider m-40-b"></div>
+
+                <!-- ARMAS DE LONGO ALCANCE -->
+                <div class="category-section" data-alcance="longo">
+                    <div class="category-header wow fadeInUp" onclick="toggleCategory('cat-longo')">
+                        <div class="category-icon">&#127993;</div>
+                        <div>
+                            <h3 class="fs-12 m-0-b" style="color: var(--cor-secundaria);">ARMAS DE LONGO ALCANCE</h3>
+                            <p class="fs-7 m-0-b" style="color: var(--cor-texto-secundario);">Rifles e armas de precisao</p>
+                        </div>
+                        <span class="category-count">3 armas</span>
+                    </div>
+
+                    <div id="cat-longo" class="open">
+                        <div class="row gap-15">
+                            <!-- Rifle de Caca -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="rifle de caca" data-tipo="balistico" data-alcance="longo">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#127993;</span> Rifle de Caca</div>
+                                    <span class="arma-tipo-badge balistico">Balistico</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+2d10 | Critica</span></div>
+                                        <div class="arma-stat">Alcance: <span>Longo</span></div>
+                                        <div class="arma-stat">Municao: <span>3 tiros</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Execucao</div>
+                                    <div class="arma-efeito">Precisa (+2d10 se preparar)</div>
+                                    <div class="arma-custo">2.500 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Rifle Tatico -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="rifle tatico" data-tipo="balistico" data-alcance="longo" data-wow-delay="0.05s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#127993;</span> Rifle Tatico</div>
+                                    <span class="arma-tipo-badge balistico">Balistico</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+2d10 | Critica</span></div>
+                                        <div class="arma-stat">Alcance: <span>Longo</span></div>
+                                        <div class="arma-stat">Municao: <span>5 tiros</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> +1 nivel de Injuria</div>
+                                    <div class="arma-efeito">Rapido (nao precisa preparar)</div>
+                                    <div class="arma-custo">4.000 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Sniper -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="sniper" data-tipo="balistico" data-alcance="longo" data-wow-delay="0.1s">
+                                <div class="arma-card" style="border-color: rgba(212,175,55,0.3);">
+                                    <div class="arma-nome" style="color: var(--cor-gold);"><span class="arma-icon">&#127993;</span> Sniper</div>
+                                    <span class="arma-tipo-badge balistico">Balistico</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+3d10 | Critica</span></div>
+                                        <div class="arma-stat">Alcance: <span>Longo</span></div>
+                                        <div class="arma-stat">Municao: <span>1 tiro</span></div>
+                                    </div>
+                                    <div class="arma-critico"><strong>Critico:</strong> Execucao (morte se alvo nao souber)</div>
+                                    <div class="arma-efeito">Requer preparo (1 acao), Silencioso (1o tiro)</div>
+                                    <div class="arma-custo">8.000 &#165;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider m-40-b"></div>
+
+                <!-- ARMAS ESPECIAIS -->
+                <div class="category-section" data-alcance="especial">
+                    <div class="category-header wow fadeInUp" onclick="toggleCategory('cat-especial')">
+                        <div class="category-icon">&#128163;</div>
+                        <div>
+                            <h3 class="fs-12 m-0-b" style="color: var(--cor-secundaria);">ARMAS ESPECIAIS / ITENS</h3>
+                            <p class="fs-7 m-0-b" style="color: var(--cor-texto-secundario);">Granadas, explosivos e itens taticos</p>
+                        </div>
+                        <span class="category-count">3 itens</span>
+                    </div>
+
+                    <div id="cat-especial" class="open">
+                        <div class="row gap-15">
+                            <!-- Granada -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="granada" data-tipo="explosivo" data-alcance="especial">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128163;</span> Granada</div>
+                                    <span class="arma-tipo-badge explosivo">Explosivo</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+2d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Medio (arremesso)</span></div>
+                                    </div>
+                                    <div class="arma-efeito">Area grande, 1 uso</div>
+                                    <div class="arma-custo">500 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Coquetel Molotov -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="coquetel molotov" data-tipo="fogo" data-alcance="especial" data-wow-delay="0.05s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#128293;</span> Coquetel Molotov</div>
+                                    <span class="arma-tipo-badge fogo">Fogo</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+1d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Medio (arremesso)</span></div>
+                                    </div>
+                                    <div class="arma-efeito">Area media, Queimadura (+3 Stress/rodada), 1 uso</div>
+                                    <div class="arma-custo">50 &#165; (improvisado)</div>
+                                </div>
+                            </div>
+
+                            <!-- Arco Composto -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="arco composto" data-tipo="perfuracao" data-alcance="especial" data-wow-delay="0.1s">
+                                <div class="arma-card">
+                                    <div class="arma-nome"><span class="arma-icon">&#127993;</span> Arco Composto</div>
+                                    <span class="arma-tipo-badge perfuracao">Perfuracao</span>
+                                    <div class="arma-stats">
+                                        <div class="arma-stat">Dano: <span>+1d10 | Grave</span></div>
+                                        <div class="arma-stat">Alcance: <span>Longo</span></div>
+                                    </div>
+                                    <div class="arma-efeito">Silencioso, municao ilimitada (flechas recuperaveis)</div>
+                                    <div class="arma-custo">1.500 &#165;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider m-40-b"></div>
+
+                <!-- ARMADURAS -->
+                <div class="category-section" data-alcance="armadura">
+                    <div class="category-header wow fadeInUp" onclick="toggleCategory('cat-armadura')">
+                        <div class="category-icon" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">&#128737;</div>
+                        <div>
+                            <h3 class="fs-12 m-0-b" style="color: #5DADE2;">ARMADURAS</h3>
+                            <p class="fs-7 m-0-b" style="color: var(--cor-texto-secundario);">Protecao corporal e equipamentos defensivos</p>
+                        </div>
+                        <span class="category-count" style="background: rgba(52,152,219,0.15); color: #5DADE2;">7 itens</span>
+                    </div>
+
+                    <div id="cat-armadura" class="open">
+                        <div class="row gap-15">
+                            <!-- Roupa Reforcada -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="roupa reforcada" data-tipo="armadura" data-alcance="armadura">
+                                <div class="armadura-card">
+                                    <div class="armadura-nome"><span>&#128085;</span> Roupa Reforcada</div>
+                                    <div class="armadura-protecao">-1 nivel (1x por cena)</div>
+                                    <div class="armadura-info"><strong>Cobertura:</strong> Tronco</div>
+                                    <div class="arma-efeito">Ocultavel, descartavel apos uso</div>
+                                    <div class="armadura-custo">200 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Colete Oculto -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="colete oculto" data-tipo="armadura" data-alcance="armadura" data-wow-delay="0.05s">
+                                <div class="armadura-card">
+                                    <div class="armadura-nome"><span>&#129518;</span> Colete Oculto</div>
+                                    <div class="armadura-protecao">-1 nivel</div>
+                                    <div class="armadura-info"><strong>Cobertura:</strong> Tronco</div>
+                                    <div class="arma-efeito">Ocultavel</div>
+                                    <div class="armadura-custo">800 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Colete Tatico -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="colete tatico" data-tipo="armadura" data-alcance="armadura" data-wow-delay="0.1s">
+                                <div class="armadura-card">
+                                    <div class="armadura-nome"><span>&#129518;</span> Colete Tatico</div>
+                                    <div class="armadura-protecao">-1 nivel</div>
+                                    <div class="armadura-info"><strong>Cobertura:</strong> Tronco</div>
+                                    <div class="armadura-penalidade">-1d10 Coordenacao</div>
+                                    <div class="arma-efeito">Pode adicionar placas</div>
+                                    <div class="armadura-custo">1.500 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Colete + Placas -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="colete placas" data-tipo="armadura" data-alcance="armadura">
+                                <div class="armadura-card">
+                                    <div class="armadura-nome"><span>&#129518;</span> Colete + Placas</div>
+                                    <div class="armadura-protecao">-2 niveis</div>
+                                    <div class="armadura-info"><strong>Cobertura:</strong> Tronco</div>
+                                    <div class="armadura-penalidade">-1d10 Coord, -1d10 Malandragem</div>
+                                    <div class="arma-efeito">Pesado</div>
+                                    <div class="armadura-custo">3.000 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Capacete Tatico -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="capacete tatico" data-tipo="armadura" data-alcance="armadura" data-wow-delay="0.05s">
+                                <div class="armadura-card">
+                                    <div class="armadura-nome"><span>&#9937;</span> Capacete Tatico</div>
+                                    <div class="armadura-protecao">Critica &rarr; Grave (cabeca)</div>
+                                    <div class="armadura-info"><strong>Cobertura:</strong> Cabeca</div>
+                                    <div class="armadura-penalidade">-1d10 Percepcao</div>
+                                    <div class="armadura-custo">600 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Armadura Anti-Motim -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="armadura anti-motim" data-tipo="armadura" data-alcance="armadura" data-wow-delay="0.1s">
+                                <div class="armadura-card" style="border-color: rgba(52,152,219,0.3);">
+                                    <div class="armadura-nome" style="color: #5DADE2;"><span>&#128737;</span> Armadura Anti-Motim</div>
+                                    <div class="armadura-protecao">-2 niveis</div>
+                                    <div class="armadura-info"><strong>Cobertura:</strong> Corpo todo</div>
+                                    <div class="armadura-penalidade">-2d10 Coord, -2d10 Malandragem</div>
+                                    <div class="arma-efeito">Pesada, Obvia</div>
+                                    <div class="armadura-custo">5.000 &#165;</div>
+                                </div>
+                            </div>
+
+                            <!-- Escudo Balistico -->
+                            <div class="c-xs-12 c-sm-6 c-md-4 arma-item wow fadeInUp" data-nome="escudo balistico" data-tipo="armadura" data-alcance="armadura">
+                                <div class="armadura-card">
+                                    <div class="armadura-nome"><span>&#128737;</span> Escudo Balistico</div>
+                                    <div class="armadura-protecao">Bloqueia 1 ataque frontal/rodada</div>
+                                    <div class="armadura-info"><strong>Cobertura:</strong> Frontal</div>
+                                    <div class="armadura-penalidade">Ocupa 1 mao</div>
+                                    <div class="arma-efeito">Pode usar como cobertura movel</div>
+                                    <div class="armadura-custo">2.000 &#165;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No results message -->
+                <div class="no-results" id="noResults">
+                    <div class="icon">&#128269;</div>
+                    <h3 class="fs-11" style="color: var(--cor-texto-secundario);">Nenhum armamento encontrado</h3>
+                    <p>Tente alterar os filtros de busca.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a href="index.html">SCAR</a>
+            <span>Sacrificial Contract & Risk</span>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html#sobre">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                Sobre
+            </a>
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="https://www.instagram.com/jonathan.rbo/" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Instagram
+            </a>
+        </div>
+
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">&copy; 2026 SCAR RPG &bull; Feito com &#129656; por fas, para fas</p>
+    </footer>
+
+    <!-- Squeleton JS -->
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+
+    <!-- SCAR JS -->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Toggle category sections
+        function toggleCategory(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('open');
+            }
+        }
+
+        // Category open/close CSS
+        (function() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .category-section > div:not(.category-header) {
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.5s ease;
+                }
+                .category-section > div:not(.category-header).open {
+                    max-height: 5000px;
+                }
+            `;
+            document.head.appendChild(style);
+        })();
+
+        // Filter function
+        function filterArmas() {
+            const search = document.getElementById('searchArma').value.toLowerCase();
+            const tipo = document.getElementById('filterTipo').value;
+            const alcance = document.getElementById('filterAlcance').value;
+            const items = document.querySelectorAll('.arma-item');
+            const categories = document.querySelectorAll('.category-section');
+            let totalVisible = 0;
+
+            items.forEach(item => {
+                const nome = item.dataset.nome || '';
+                const itemTipo = item.dataset.tipo || '';
+                const itemAlcance = item.dataset.alcance || '';
+
+                const matchSearch = nome.includes(search);
+                const matchTipo = !tipo || itemTipo === tipo;
+                const matchAlcance = !alcance || itemAlcance === alcance;
+
+                if (matchSearch && matchTipo && matchAlcance) {
+                    item.style.display = '';
+                    totalVisible++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Hide empty categories
+            categories.forEach(cat => {
+                const visibleItems = cat.querySelectorAll('.arma-item:not([style*="display: none"])');
+                cat.style.display = visibleItems.length > 0 ? '' : 'none';
+            });
+
+            // Hide/show dividers
+            const dividers = document.querySelectorAll('#armas-content > .container > .section-divider');
+            dividers.forEach(d => {
+                const prev = d.previousElementSibling;
+                if (prev && prev.style.display === 'none') {
+                    d.style.display = 'none';
+                } else {
+                    d.style.display = '';
+                }
+            });
+
+            // No results message
+            document.getElementById('noResults').style.display = totalVisible === 0 ? 'block' : 'none';
+        }
+    </script>
+
+    <!-- Dice FAB -->
+    <a href="dice-roller.html" class="dice-fab" title="Rolador de Dados" aria-label="Abrir Rolador de Dados">
+        <span class="dice-fab-icon">&#127922;</span>
+        <span class="dice-fab-text">DADOS</span>
+    </a>
+
+</body>
+</html>

@@ -633,14 +633,63 @@
         <div class="container">
             <div class="d-flex f-items-center f-justify-between">
                 <a href="index.html" class="logo-text">SCAR</a>
-                <nav class="d-flex f-items-center f-gap-10">
-                    <a href="index.html" class="nav-link">Início</a>
+                <nav class="nav-desktop d-flex f-items-center f-gap-10">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="index.html#combate" class="nav-link">Combate</a>
                     <a href="habilidades.html" class="nav-link active">Habilidades</a>
+                    <a href="armamentos.html" class="nav-link">Armamentos</a>
                     <a href="aflicoes.html" class="nav-link">Aflições</a>
                 </nav>
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu">
+                    <span>☰</span>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
+                <button class="mobile-menu-close" data-modal-hide>&#10005;</button>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <nav class="mobile-menu-nav">
+                        <a href="index.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">&#127968;</span>
+                            <span class="link-text">Inicio</span>
+                        </a>
+                        <a href="index.html#combate" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">&#128128;</span>
+                            <span class="link-text">Combate</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-section-divider"></div>
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="habilidades.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Habilidades</span>
+                        </a>
+                        <a href="armamentos.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Armamentos</span>
+                        </a>
+                        <a href="aflicoes.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Aflicoes</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-footer">
+                        <p>"Todo contrato tem um preco"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main>
         <section class="hero">
