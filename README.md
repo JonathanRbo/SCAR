@@ -183,11 +183,8 @@ SCAR/
 │   │   └── main.js            # JavaScript funcional
 │   └── images/
 ├── docs/
-│   ├── manual-scar.html       # Manual completo navegável (15 capítulos)
 │   ├── ficha-padrao.html      # Ficha de personagem padrão
-│   ├── ficha-demonio.html     # Ficha de Demônio Puro
-│   ├── MANUAL_SCAR.md         # Manual em Markdown
-│   └── MANUAL_SCAR.pdf        # Manual em PDF
+│   └── ficha-demonio.html     # Ficha de Demônio Puro
 └── documento/              # Arquivos de referência (.txt)
 ```
 
