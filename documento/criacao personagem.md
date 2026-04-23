@@ -1,0 +1,549 @@
+# __**CRIAÇÃO DE PERSONAGEM**__
+> Ao criar seu personagem, pense menos em "quem ele é" e mais em **por que ele ainda existe**. O mundo não é justo. Ele é cruel.
+
+## __**PASSO 1:**__
+> Sua natureza define como você existe, como sofre e como o mundo reage a você.
+
+### **HUMANO**
+> O mundo não te protege — mas também não te cobra além do que pode pagar.
+
+**O que são:** Pessoas comuns arrastadas para o mundo dos demônios. Contratados, agentes, civis úteis ou descartáveis. Vivem duas vidas: a pessoal e a profissional.
+
+**Podem:** Acreditar no sistema, odiá-lo ou apenas sobreviver dentro dele. Nada disso os protege.
+
+**Benefícios:**
+- +2 Stress Máximo
+- +1 Vínculo inicial
+- Contratos mais fáceis de encerrar
+- Recuperação emocional eficiente
+- Começa com 1 Contrato Demoníaco (opcional, depende da lore)
+
+**Malefícios:**
+- Morte é definitiva
+- Demônios cobram caro de humanos
+- Sofrem Aflições físicas com mais facilidade
+
+**Perguntas de Lore:**
+1. Quem você era antes de ser arrastado para isso?
+2. O que você perderia se desaparecesse amanhã?
+3. Qual mentira você conta para si mesmo?
+
+---
+
+### **INFERNAL**
+> Você já foi um demônio. Agora está preso em carne. Faça o que quiser com isso.
+
+**O que são:** Demônios em corpos humanos. Capturados, entregues ou simplesmente cansados de fugir. Não pensam como humanos — funcionam por princípios próprios.
+
+**Princípio:** Infernais não querem liberdade. Querem coerência.
+
+**Benefícios:**
+- +1 Poder Demoníaco (geral)
+- +1 Poder Sobrenatural Direto (algo impossível para um corpo comum)
+- 1x por cena: detectar demônios ou seus poderes (custa 1 Stress)
+- **Memória do Inferno:** Conhece demônios instintivamente. +1d10 em testes contra demônios que já enfrentou ou do mesmo tipo que ele era. Identifica origem/conceito de demônios sem teste (simplesmente sabe)
+- **Corpo Emprestado:** O corpo não é dele — ele só usa. Ignora dor: Injúrias Leves nunca geram penalidade (o corpo dói, mas o demônio não liga)
+
+**Malefícios:**
+- Não começa com contratos (demônios não negociam com infernais)
+- Poderes demoníacos geram +1 Stress adicional (o corpo resiste ao uso)
+- Aflições são permanentes ou progressivas (o corpo se deteriora, não regenera como demônio)
+- Romper contrato exige sacrifício extremo
+- **Corpo em Decomposição:** A cada 3 sessões de jogo, o Mestre rola 1d10. Resultado 1-2: o corpo sofre 1 Aflição Física menor (algo apodrece, endurece ou falha). É um cadáver — não dura pra sempre
+
+**Perguntas de Lore:**
+1. Você foi capturado ou se entregou?
+2. O que você perdeu ao ganhar um corpo?
+3. Qual regra humana você acha absurda?
+4. Qual é seu princípio inegociável?
+
+---
+
+
+### **HÍBRIDO**
+> Você não é humano. Não é demônio. É uma arma viva. Nada além disso.
+
+**O que são:** Foram humanos até um demônio entrar — mas não tomou o controle total. Dois seres dividindo o mesmo espaço, sem vencedor. Vozes, impulsos, silêncios. Não são aceitos por ninguém.
+
+**Princípio:** Cada uso de poder aproxima a ruptura.
+
+**Benefícios:**
+- +1 Poder Demoníaco (transformação com gatilho)
+- Ignorar 1 consequência física por combate
+- -1 Stress em cada ação de combate direto (mín 1)
+- Recusa da Morte (pode voltar... mas algo fica para trás)
+
+**Malefícios:**
+- +1 Stress adicional em cenas psicológicas/sociais (interrogatório, negociação, medo)
+- Recuperação emocional fraca: recuperação de Stress por Vínculo usa metade do resultado (arredondado pra baixo)
+- Reação extrema do mundo (você não passa despercebido)
+
+**Perguntas de Lore:**
+1. Como aconteceu a fusão?
+2. O demônio quer algo de você?
+3. O que você ainda tenta proteger?
+4. O que acontece se perder o controle?
+
+---
+
+
+## __**PASSO 2:**__
+
+
+════════════════════════
+FICHA DO CONCEITO DO PERSONAGEM
+════════════════════════
+# ___***FICHA FODA***___
+> __**NOME:  **__ 
+> __**FAMÍLIA:**__ 
+> __**IDADE:  **__ 
+> __**APARÊNCIA:  **__ 
+> __**CONCEITO/HISTORIA:**__  
+> __**MEDOS/TRAUMAS/FALHAS: **__
+
+════════════════════════
+FICHA DE PERSONAGEM
+════════════════════════
+
+NOME:
+IDADE:
+CONCEITO/RESUMO:
+LIGAÇÃO COM DEMONIOS:
+FALHA CENTRAL:
+PM: 0
+
+ATRIBUTOS (16-22 PONTOS)
+
+### __Físicos__
+> __Força__ 
+> __Vigor__ 
+> __Coordenação__ 
+
+### __Táticos / Técnicos__
+> __Malandragem__ 
+> __Tecnologia__ 
+> __Percepção__ 
+
+### __Mentais / Sociais__
+> __Investigação__ 
+> __Negociação__ 
+> __Autoridade__
+> __Vínculo__
+
+STRESS: 6 + vigor + Vinculo
+
+INJÚRIAS
+Leve:     
+Grave: 
+Crítica:
+
+ARMAMENTO
+
+AFLIÇÕES
+1) 
+2) 
+
+TALISMÃ
+
+MARCA DO DEMONIOS
+
+
+
+
+
+
+#  **CRIAÇÃO DEMONIOS PUROS**
+
+> Um Demônio não nasce — ele **condensa**. Surge quando um medo atinge massa crítica: repetição, silêncio, crença ou trauma coletivo.
+
+---
+
+## **PASSO 1:**
+
+Demônios não escolhem existir. Eles simplesmente **são**. Sua natureza é definida pelo medo que os criou — e esse medo molda tudo: poder, fraqueza, forma e destino.
+
+**Todo Demônio Puro possui:**
+- 18 pontos de atributo base (+4 da origem = 22 total)
+- 2 Poderes Demoníacos (ligados ao conceito)
+- Escala de Medo inicial: 0 (Neutro)
+- Pontos de Idade (conforme a idade do demônio)
+- Stress calculado pela origem (ver tabela abaixo)
+- Uma Falha Central obrigatória
+- Atributos não podem passar de 5 na criação (todas as origens)
+
+### **STRESS MÁXIMO POR ORIGEM**
+
+| Origem | Fórmula |
+|--------|---------|
+| Medo Incomum | 4 + Vigor + Força |
+| Medo Social/Sistêmico | 4 + Vigor + Autoridade |
+| Medo Bíblico/Arquetípico | 4 + Vigor + Autoridade |
+| Medo Conceitual/Abstrato | 4 + Vigor + Percepção |
+| Medo Primordial | 6 + Vigor + Força |
+
+> Base menor que humanos (4 vs 6). Demônios compensam com regeneração, poderes e escala de medo. Primordiais têm base 6 pela natureza inevitável.
+
+**Regras:**
+- Demônios podem pertencer a múltiplas categorias
+- Forma física varia: humanóide, monstruosa ou abstrata
+- Progressão permanente acontece pela Idade (Força, Resistência, Sabedoria)
+- Buffs/debuffs dinâmicos acontecem pela Escala de Medo (-5 a +5)
+
+
+## **PASSO 2:**
+
+> A origem define de qual tipo de medo você nasceu. Isso determina seus bônus, limites e como você funciona.
+
+### **MEDO INCOMUM**
+> *Dor, fogo, altura, sangue, lâminas, afogamento*
+
+Medos físicos, diretos, viscerais. Você é uma máquina de combate.
+
+**Você é:** Corpo altamente físico. Combate direto. Regeneração rápida. Conceito simples, mas letal.
+
+**Bônus:**
+- +4 atributos (total 22)
+- Regenera 1 Injúria Leve ao final de cada cena
+
+**Limites:**
+- Precisa de presença física para agir
+
+**Fraquezas:**
+- Injúrias acumulam rápido em combate prolongado
+- Vulnerável a táticas e estratégias
+
+---
+
+### **MEDO SOCIAL / SISTÊMICO**
+> *Repressão, vigilância, guerra, fome coletiva, autoridade*
+
+Medos que vêm de sistemas, grupos, sociedades. Você cresce com multidões.
+
+**Você é:** Manipulador de massas. Seu poder aumenta com pessoas ao redor. Conceito que se espalha como vírus.
+
+**Bônus:**
+- +4 atributos (total 22)
+- Autoridade mínima 3
+- +1d10 em testes quando há 3+ pessoas presentes
+
+**Limites:**
+- Depende de contexto social para poder pleno
+- Isolado, perde bônus
+
+**Fraquezas:**
+- Isolado completamente: -2d10 em todos os testes
+- Injúria Grave afeta capacidade de influenciar grupos
+
+---
+
+### **MEDO BÍBLICO / ARQUETÍPICO**
+> *Juízo, inferno, pecado, castigo divino, apocalipse*
+
+Medos ligados a crenças antigas, símbolos e fé. Você é dogma encarnado.
+
+**Você é:** Autoridade divina/moral. Alimentado por culpa e fé. Impõe medo através de símbolos e rituais.
+
+**Bônus:**
+- +4 atributos (total 22)
+- Pode usar Autoridade + Vínculo como fonte de poder
+- Ignora 1 Injúria Leve quando age conforme seu dogma
+
+**Limites:**
+- Preso a símbolos, rituais e dogmas pessoais
+- Deve agir de forma coerente com seu conceito
+
+**Fraquezas:**
+- Quebrar próprio dogma = 1 Injúria Grave automática
+- Não pode agir contra sua natureza sem sofrer
+
+---
+
+
+### **MEDO CONCEITUAL / ABSTRATO**
+> *Silêncio, esquecimento, vazio, solidão, tempo, inexistência*
+
+Medos que não têm forma. Você é uma ideia que machuca.
+
+**Você é:** Natureza difusa, não-física. Difícil de combater ou entender. Afeta mente tanto quanto corpo.
+
+**Bônus:**
+- +4 atributos (total 22)
+- Pode manifestar-se de formas variadas
+- Reduz Injúrias físicas em 1 grau
+
+**Limites:**
+- Falha Central extremamente específica (definida na criação)
+- Depende de interpretação do conceito
+
+**Fraquezas:**
+- Quanto mais poderoso, mais vulnerável ao conceito oposto
+- Fratura Crítica pode desestabilizar completamente
+
+---
+
+
+### **MEDO PRIMORDIAL**
+> *Morte, extinção, trevas absolutas, o fim*
+
+Os medos mais antigos. Você é inevitável.
+
+**Você é:** Medo inato à existência humana. Não pode ser eliminado, apenas selado. Transcende compreensão.
+
+**Bônus:**
+- +4 atributos (total 22)
+- Não pode ser permanentemente destruído
+- Regenera de qualquer ferimento (leva tempo)
+
+**Limites:**
+- **Não pode existir livremente na Terra** (precisa de avatar, hospedeiro ou invocação)
+- Cada manifestação requer justificativa narrativa
+
+**Fraquezas:**
+- **1 ação por rodada apenas** (não importa o tipo)
+- Extremamente lento para agir
+- Presença causa distorções na realidade
+
+---
+
+
+## **PASSO 2.5: PODERES DEMONÍACOS**
+
+> Todo Demônio Puro começa com 2 Poderes Demoníacos ligados ao seu conceito. O jogador escolhe da lista abaixo ou cria com aprovação do Mestre. Poderes devem fazer sentido com o medo que o demônio representa.
+
+### **PODERES DE COMBATE**
+
+**Garras/Lâminas Corporais**
+Atributo: Força
+Efeito: Corpo gera armas naturais. Ataques corpo a corpo ganham +1d10 e causam sangramento (+2 Stress/rodada no alvo)
+Custo: 1 Stress por cena
+
+**Projétil Demoníaco**
+Atributo: Coordenação
+Efeito: Dispara fragmentos do próprio corpo, energia ou matéria do conceito (espinhos de gelo, bolas de fogo, etc). Funciona como ataque à distância com +1d10
+Custo: 2 Stress por disparo
+
+**Explosão de Área**
+Atributo: Força
+Efeito: Libera onda destrutiva ao redor. Todos inimigos a curta distância sofrem ataque (Força vs Vigor). Aliados na área também são atingidos
+Custo: 4 Stress + 1 Injúria Leve em si mesmo
+Limite: 1 vez por combate
+
+**Forma de Combate**
+Atributo: Vigor
+Efeito: Corpo se transforma pra combate (fica maior, cresce armadura, membros extras). +2d10 em testes físicos por 3 rodadas
+Custo: 3 Stress + 1 Injúria Leve ao fim da transformação
+
+**Devorar**
+Atributo: Força
+Efeito: Ao causar Injúria Grave+ em corpo a corpo, pode devorar parte do alvo. Recupera 1 Injúria Leve própria
+Custo: 2 Stress
+
+**Toxina Conceitual**
+Atributo: Vigor
+Efeito: Seus ataques envenenam com a essência do seu medo. Alvo sofre +2 Stress por turno durante 2 turnos e -1d10 no atributo mais ligado ao seu conceito
+Custo: 2 Stress por aplicação
+
+### **PODERES DE UTILIDADE**
+
+**Aura de Medo**
+Atributo: Autoridade
+Efeito: Inimigos que entram a curta distância fazem Teste de Medo imediato (DT = seu nível de Medo). Funciona 1x por inimigo por cena
+Custo: 2 Stress por cena ativa
+
+**Percepção do Medo**
+Atributo: Percepção
+Efeito: Sente medo de qualquer ser vivo a até 100m. Sabe a direção, intensidade e tipo de medo. Identifica quem tem mais medo de você
+Custo: 1 Stress por cena
+
+**Manipulação Conceitual**
+Atributo: Autoridade
+Efeito: Distorce o ambiente ao redor conforme seu conceito (Demônio do Fogo esquenta a sala, Demônio do Silêncio abafa sons). Afeta área média por 1 cena. Efeito narrativo + -1d10 pra inimigos em ações afetadas pelo conceito
+Custo: 3 Stress
+
+**Regeneração Ativa**
+Atributo: Vigor
+Efeito: Recupera 1 Injúria (qualquer nível) imediatamente
+Custo: 4 Stress (Leve), 6 Stress (Grave), 8 Stress + 1 Aflição (Crítica)
+
+**Ilusão do Medo**
+Atributo: Malandragem
+Efeito: Cria ilusão do conceito do seu medo (o alvo vê fogo, escuridão, insetos, etc). Alvo faz teste de Percepção DT 20 ou acredita por 1 rodada. Enquanto acredita, sofre -2d10 em tudo
+Custo: 3 Stress
+
+**Marca Territorial**
+Atributo: Percepção
+Efeito: Marca uma área (sala, prédio, quarteirão). Enquanto estiver na área marcada, +1d10 em todos os testes e sabe a posição exata de todos dentro dela
+Custo: 2 Stress + 1 ação pra marcar
+
+**Forma Etérea**
+Atributo: Malandragem
+Efeito: Fica intangível por 1 rodada. Não pode ser atingido fisicamente, mas também não pode atacar. Pode atravessar paredes e obstáculos
+Custo: 4 Stress
+Limite: 1 vez por cena
+
+**Sussurro Demoníaco**
+Atributo: Negociação
+Efeito: Planta uma ideia na mente do alvo (sem ele saber a origem). Teste de Negociação vs Vínculo. Se vencer, o alvo age conforme a sugestão por 1 rodada
+Custo: 3 Stress
+
+> **Nota:** O jogador pode propor poderes personalizados ao Mestre. A regra é: o poder deve ser tematicamente ligado ao conceito do medo, ter custo proporcional ao efeito, e não replicar exatamente um contrato existente. O Mestre tem palavra final.
+
+---
+
+## **PASSO 3: IDADE (PROGRESSÃO PERMANENTE)**
+
+> A idade de um demônio representa quanto tempo ele existe e o quanto acumulou de experiência. Quanto mais velho, mais poderoso — mas a distribuição deve fazer sentido com a história do demônio.
+
+### **FAIXAS DE IDADE**
+
+| Idade | Categoria | Pontos de Idade |
+|-------|-----------|-----------------|
+| 0–10 anos | Recém-Nascido | 0 |
+| 11–50 anos | Jovem | 2 |
+| 51–200 anos | Maduro | 3 |
+| 201–500 anos | Veterano | 4 |
+| 501–1000 anos | Ancião | 5 |
+| 1000+ anos | Primevo | 6 |
+
+Os Pontos de Idade são distribuídos entre três categorias: **Força**, **Resistência** e **Sabedoria**.
+
+> **Regra do Mestre:** A distribuição deve ser coerente com a lore do demônio. Um demônio que ficou séculos observando em silêncio não deveria ter tudo em Força. Um demônio preguiçoso que dormiu por 500 anos deveria ter mais Resistência ou Sabedoria. O Mestre tem palavra final.
+
+---
+
+### **FORÇA** (combate, poder bruto)
+Cada ponto gasto em Força concede 1 das opções:
+- +1 em Força ou Vigor (atributo)
+- +1 injuria Leve máximo
+- 2 pontos: +1 Poder Demoníaco de combate
+
+### **RESISTÊNCIA** (sobrevivência, durabilidade)
+Cada ponto gasto em Resistência concede 1 das opções:
+- +2 Stress máximo
+- +1 injuria Leve máximo
+- 2 pontos: +1 injuria Grave máximo
+- 2 pontos: Regeneração passiva (1 Leve por cena)
+
+### **SABEDORIA** (conhecimento, controle, manipulação)
+Cada ponto gasto em Sabedoria concede 1 das opções:
+- +1 em Malandragem, Tecnologia ou Autoridade (atributo)
+- -1 custo de Stress em 1 poder
+- 2 pontos: +1 Poder Demoníaco de utilidade
+- 2 pontos: +1 Habilidade Geral
+
+---
+
+## **PASSO 4: ESCALA DE MEDO (BUFF/DEBUFF DINÂMICO)**
+
+> A Escala de Medo representa o quanto o demônio é temido AGORA. Vai de -5 a +5. Todo demônio começa em 0 (Neutro). Sobe quando espalha terror, desce quando é humilhado ou ignorado.
+
+### **Como Subir na Escala:**
+- Causa Injúria Grave ou Crítica
+- Provoca falhas em Testes de Medo
+- Mata alguém importante
+- Age de forma coerente e cruel com seu conceito
+- É temido, cultuado ou comentado publicamente
+
+### **Como Descer na Escala:**
+- Protege humanos contra seu próprio conceito
+- Age com empatia contrária à sua natureza
+- É ridicularizado ou ignorado
+- Tem seu conceito superado (ex: fogo controlado, vigilância quebrada)
+- Sofre derrota pública humilhante
+
+### **TABELA DE ESCALA DE MEDO**
+
+| Medo | Nome | Efeito no Demônio | Modificador no DT |
+|------|------|-------------------|-------------------|
+| -5 | Esquecido | -2d10 em todos os testes, poderes custam +2 Stress | -5 |
+| -4 | Patético | -2d10 em testes de Autoridade/Vínculo | -4 |
+| -3 | Ridicularizado | -1d10 em todos os testes | -3 |
+| -2 | Ignorado | -1d10 em testes de Autoridade/Vínculo | -2 |
+| -1 | Diminuído | -1d10 em testes de medo que o demônio impõe | -1 |
+| 0 | Neutro | Sem modificador | 0 |
+| +1 | Inquietante | +1d10 em testes de medo que o demônio impõe | +1 |
+| +2 | Temido | +1d10 em testes de Autoridade/Vínculo | +2 |
+| +3 | Assombroso | +1d10 em todos os testes | +3 |
+| +4 | Aterrorizante | +2d10 em testes de Autoridade/Vínculo | +4 |
+| +5 | Incompreensível | +2d10 em todos os testes, poderes custam -2 Stress | +5 |
+
+### **DT DO TESTE DE MEDO**
+
+O DT que os inimigos precisam superar para resistir ao medo do demônio é determinado pela Idade + Escala de Medo:
+
+| Idade | DT Base |
+|-------|---------|
+| Recém-Nascido | 15 |
+| Jovem | 20 |
+| Maduro | 25 |
+| Veterano | 30 |
+| Ancião | 35 |
+| Primevo | 40 |
+
+**DT Final = DT Base + Modificador da Escala de Medo**
+
+> Exemplo: Um demônio Veterano (DT 30) com Escala de Medo +3 (Assombroso) tem DT 33. Se cair para Medo -2 (Ignorado), o DT vira 28.
+
+---
+
+
+## **PASSO 5: **
+
+════════════════════════
+FICHA DO CONCEITO DO DEMÔNIO PURO
+════════════════════════
+
+# ___***FICHA FODA***___
+> __**NOME: (Não obrigatorio) **__
+> __**IDADE: (Obrigatório — define os Pontos de Idade) **__
+> __**APARÊNCIA:  **__
+> __**CONCEITO(TIPO DO DEMONIO) E HISTORIA:**__
+> __**FALHA(DEFICIENCIA E ETC): **__
+
+
+════════════════════════
+FICHA DO DEMÔNIO PURO
+════════════════════════
+
+NOME: (raro)
+IDADE: /
+CATEGORIA DE IDADE: (Recém-Nascido / Jovem / Maduro / Veterano / Ancião / Primevo)
+CONCEITO/RESUMO:
+LIGAÇÃO COM DEMONIOS:
+FALHA CENTRAL: (OBRIGATORIO)
+
+ATRIBUTOS 18 + ORIGEM
+
+### __Físicos__
+> __Força__
+> __Vigor__
+> __Coordenação__
+
+### __Táticos / Técnicos__
+> __Malandragem__
+> __Tecnologia__
+> __Percepção__
+
+### __Mentais / Sociais__
+> __Investigação__
+> __Negociação__
+> __Autoridade__
+> __Vínculo__
+
+PONTOS DE IDADE: ( /  )
+> __Força:__
+> __Resistência:__
+> __Sabedoria:__
+
+ESCALA DE MEDO: 0 (Neutro)
+
+STRESS: 6 + (1 atributo aleatório(roll 1d10)/condizente) + vigor
+
+INJÚRIAS
+Leve:
+Grave:
+Crítica:
+
+ARMAMENTO
+
+MARCA DO DEMONIOS
