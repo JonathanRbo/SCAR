@@ -48,7 +48,7 @@ Inspirado no universo sombrio de **Chainsaw Man**, o jogo coloca os jogadores em
 | **Stress & Injúrias** | Sistema de dano que afeta corpo e mente |
 | **4 Naturezas Jogáveis** | Humanos, Infernais, Híbridos e Demônios — cada um com mecânicas exclusivas |
 | **12 Estilos de Luta** | Combate personalizado para cada jogador |
-| **Árvores de Pré-requisito** | 97 habilidades gerais organizadas em cadeias de progressão — escolhas com peso real |
+| **Árvores de Pré-requisito** | 109 habilidades em 3 categorias (Físico/Mental/Social) com cadeias de progressão — escolhas com peso real |
 | **Aflições** | 100 físicas + 100 mentais que marcam permanentemente os personagens |
 | **Sistema de Sonhos** | Objetivos de vida que recompensam PM ao serem realizados (4 tiers) |
 | **Rolador de Dados Multiplayer** | Sistema de dados online com sincronização em tempo real |
@@ -118,15 +118,16 @@ Atributo + Habilidade + Xd10 vs Dificuldade
 O website oficial do SCAR oferece:
 
 #### 📜 Páginas Principais
-- **Home** - Apresentação completa do sistema com modais interativos
-- **Manual Completo** - Manual navegável com visual de livro antigo (15 capítulos)
-- **Habilidades** - 97 habilidades gerais com árvores de pré-requisito + 12 estilos de luta
-- **Aflições** - 100 aflições físicas + 100 mentais com busca e filtros
-- **Ficha Padrão** - Ficha de personagem interativa (Humano/Infernal/Híbrido)
-- **Ficha Demônio** - Ficha específica para Demônios Puros
+- **Home** ([`index.html`](index.html)) - Apresentação do sistema, princípios, modais interativos das 4 Naturezas
+- **Sumário** ([`sumario.html`](sumario.html)) - Sistema completo em uma página (10 seções com índice navegável) + Modelos de Ficha copia-e-cola
+- **Habilidades** ([`habilidades.html`](habilidades.html)) - 109 habilidades em 3 categorias (Físico/Mental/Social) com filtros e accordion por subcategoria
+- **Vendinha** ([`vendinha.html`](vendinha.html)) - Catálogo único: armas, armaduras, veículos, 12 Estilos de Luta, Contratos, Encomendas
+- **Aflições** ([`aflicoes.html`](aflicoes.html)) - 100 aflições físicas + 100 mentais com busca e filtros
+- **História** ([`historia.html`](historia.html)) - Linha do tempo canônica (1908-2011), apagamentos, eras
+- **Aparências** ([`aparencias.html`](aparencias.html)) - Referências visuais por natureza (Humano/Infernal/Híbrido/Demônio)
 
 #### 🎲 Ferramentas
-- **Rolador de Dados Multiplayer** - Sistema de dados online com:
+- **Rolador de Dados Multiplayer** ([`dice-roller.html`](dice-roller.html)) - Sistema de dados online com:
   - Sincronização em tempo real via PeerJS
   - Sala com código de 6 dígitos
   - Histórico de rolagens
@@ -134,7 +135,8 @@ O website oficial do SCAR oferece:
   - Interface dark theme
 
 #### 📋 Recursos Interativos
-- **Modal de Criar Contrato** - Formulário completo para criar contratos demoníacos
+- **Modais das 4 Naturezas** - Cards na home abrem modais com bônus, malefícios, PM Inicial pelo Passado e detalhes de criação
+- **Modelos de Ficha** - Templates de Ficha Padrão e Ficha Demônio Puro com botão "copiar" direto pro app de notas
 - **Tabelas Responsivas** - Todas as mecânicas em formato mobile-friendly
 - **Animações WOW** - Interface animada e imersiva
 - **Design Dark** - Visual sangue e trevas inspirado em Chainsaw Man
@@ -143,13 +145,34 @@ O website oficial do SCAR oferece:
 
 ### Arquivos de Referência
 
-Todos os arquivos de regras estão em [`documento/`](documento/):
-- `regras.txt` - Regras base do sistema
-- `pontos de marca.txt` - Sistema de PM
-- `sistema de sonhos.txt` - Sistema de Sonhos (objetivos de vida)
-- `aflições físicas.txt` - Aflições corporais
-- `aflições mentais.txt` - Aflições psicológicas
-- E mais 7 arquivos de referência
+Os arquivos em [`documento/`](documento/) estão organizados por **ordem de leitura**:
+
+**[`01-leia-primeiro/`](documento/01-leia-primeiro/) — fundamentos do sistema**
+- `historia.md` - Linha do tempo canônica do mundo SCAR (1908-2011), apagamentos, eras
+
+**[`02-criacao-e-preparo/`](documento/02-criacao-e-preparo/) — antes de jogar**
+- `criacao-personagem.md` - Guia passo a passo de criação + modelos de ficha
+
+**[`03-consulta-rapida/`](documento/03-consulta-rapida/) — referência rápida durante a sessão**
+- `sumario.md` - Sistema inteiro em uma página (10 seções: Personagem, Testes, Combate, Duelo, Stress, Aflições, Demônios Puros, Descanso, Economia, Criação)
+- `habilidades.md` - 109 habilidades em 3 categorias (Físico/Mental/Social) + pré-requisitos
+- `vendinha-do-seu-bento.md` - Armas, armaduras, veículos, 12 Estilos de Luta, Contratos, Encomendas
+
+**[`04-mecanicas-em-jogo/`](documento/04-mecanicas-em-jogo/) — mecânicas detalhadas**
+- `aflicoes.md` - 100 aflições físicas + 100 mentais
+- `contratos-demoniacos.md` - Catálogo completo de contratos (Menor → Restrição)
+- `escala-de-poder.md` - Tiers de poder (1-10) com feitos mensuráveis
+- `sistemas-narrativos.md` - Sistema de Sonhos e outras mecânicas narrativas
+
+**[`05-meta/`](documento/05-meta/) — fora do fluxo de jogo**
+- `changelog.md` - Histórico de mudanças
+- `roadmap.md` - Próximas atualizações planejadas
+- `migracao-site.md` - Documento da reformulação do site v2.0
+
+**[`06-loucuras-do-mestre/`](documento/06-loucuras-do-mestre/) — spinoffs experimentais (fora do canon)**
+- `STAGE.md` - Indústria musical / idols (Perfect Blue + Idolish7 + Mob Psycho)
+- `MITO.md` - Anjos, santos, espíritos, folclóricos, eldritch (DLC aditiva)
+- `MUSUME.md` - Humanas com sangue de cavalo, corrida como sentido (Uma Musume vibe)
 
 ---
 
@@ -170,22 +193,30 @@ Todos os arquivos de regras estão em [`documento/`](documento/):
 
 ```
 SCAR/
-├── index.html              # Página principal
-├── aflicoes.html           # Página de aflições (100 físicas + 100 mentais)
-├── habilidades.html        # Página de habilidades (97 habilidades com pré-requisitos)
+├── index.html              # Home com modais das 4 Naturezas
+├── sumario.html            # Sistema completo (10 seções) + modelos de ficha
+├── habilidades.html        # 109 habilidades (Físico/Mental/Social)
+├── vendinha.html           # Armas, armaduras, estilos, contratos
+├── aflicoes.html           # 100 físicas + 100 mentais
+├── historia.html           # Linha do tempo canônica
+├── aparencias.html         # Referências visuais por natureza
 ├── dice-roller.html        # Rolador multiplayer (PeerJS)
 ├── assets/
 │   ├── css/
-│   │   ├── main.css           # Estilos compartilhados
-│   │   ├── contratos.css      # Estilos de contratos
+│   │   ├── main.css           # Estilos compartilhados + mobile menu
+│   │   ├── components.css     # Componentes padrão (cards, tabelas, etc)
+│   │   ├── contratos.css      # Sistema de contratos
 │   │   └── page-styles.css    # Estilos específicos index
 │   ├── js/
 │   │   └── main.js            # JavaScript funcional
-│   └── images/
-├── docs/
-│   ├── ficha-padrao.html      # Ficha de personagem padrão
-│   └── ficha-demonio.html     # Ficha de Demônio Puro
-└── documento/              # Arquivos de referência (.txt)
+│   └── images/                # Logos, banners, exemplos por natureza
+└── documento/                 # Conteúdo canônico em .md
+    ├── 01-leia-primeiro/      # Lore e história
+    ├── 02-criacao-e-preparo/  # Criação de personagem
+    ├── 03-consulta-rapida/    # Sumário, habilidades, vendinha
+    ├── 04-mecanicas-em-jogo/  # Aflições, contratos, escala, narrativas
+    ├── 05-meta/               # Changelog, roadmap, migração
+    └── 06-loucuras-do-mestre/ # Spinoffs experimentais (STAGE/MITO/MUSUME)
 ```
 
 ### Arquitetura CSS
