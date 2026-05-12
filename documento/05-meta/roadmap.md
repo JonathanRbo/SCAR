@@ -3,91 +3,6 @@
 > *Caderno de ideias pra futuras atualizações. Cada item tem o que é, como atacar, e o output esperado.*
 
 ---
-
-## 🔧 1. Reescrever & Simplificar Sistema Core
-**O que é:** Revisão completa das regras pra reduzir complexidade. Sistema acumulou camadas (combate, aflições, PM, contratos, marcos, stress) e precisa de poda antes de adicionar mais coisa em cima.
-
-**Ideia de execução:**
-- **Auditoria primeiro:** ler `02-criacao-e-preparo/` e `03-consulta-em-jogo/` e marcar tudo que (a) nunca foi usado em mesa, (b) repete outra mecânica, (c) precisa de tabela pra entender
-- **Definir "simples":** critério objetivo — jogador novo entende combate em 1 sessão? teste resolve em 3 minutos? ficha cabe em 1 página?
-- **Cortar antes de escrever:** lista do que vai embora primeiro, depois o que reescreve
-- **Unificar redundâncias:** se aflições e injúrias têm regra parecida, fundir
-- **Tom intacto:** simplificar mecânica, NÃO o sangue narrativo. SCAR continua sendo SCAR
-- **Versionar:** marcar como `v2.0` pra não confundir mesas que rodam o atual
-
-**Como começar:** sessão única de auditoria — só ler e anotar, nada de escrever. Sair com lista de "cortar / reescrever / manter".
-
-**Output:** revisão de `02-criacao-e-preparo/` e `03-consulta-em-jogo/` + changelog em `04-meta/`
-
----
-
-## 🎨 2. Redesenhar Vanguarda Escarlate
-**O que é:** Refazer visual e lore dos personagens da Vanguarda Escarlate (NPCs principais do setting).
-
-**Ideia de execução:**
-- Inventário: listar quem existe hoje, decidir quem sobrevive ao redesign
-- Cada personagem ganha estrutura padrão: visual (descrição + referência de arte), background curto (3-5 linhas), gancho narrativo (pra mestre puxar fio), ficha resumida (atributos-chave + 1-2 poderes assinatura)
-- Consistência: todos seguem mesmo formato de ficha
-- Pode rodar em paralelo com a simplificação do sistema (é trabalho de lore, não de regra)
-
-**Como começar:** lista do que existe → decidir corte → redesign 1 personagem como template, depois replicar
-
-**Output:** `lore/vanguarda-escarlate.md` ou expansão de doc existente
-
----
-
-## 🌍 3. Lore & Setting Expandido *(continuação)*
-**O que é:** Já tem base feita. Expandir mais: novos incidentes-âncora, facções secundárias, regiões fora de Tokyo, detalhamento de cosmologia.
-
-**Ideia de execução:**
-- Linha do tempo: adicionar 3-5 incidentes novos entre os já documentados
-- Facções secundárias: cultos, máfias, ordens religiosas que não são SP nem Vanguarda
-- Mapa do Inferno: detalhar 1-2 camadas que ainda estão genéricas
-- Roda em paralelo — escrita pura, não bloqueia nada
-
-**Como começar:** escolher 1 dos 3 vetores acima (incidentes / facções / cosmologia) e fechar antes de pular pro próximo
-
-**Output:** expansão em `lore/`
-
----
-
-## 🏍️ 4. Sistema de Veículos & Perseguições
-**O que é:** Regras pra moto, carro, helicóptero, perseguição cinematográfica. Hoje SCAR não cobre.
-
-**Ideia de execução:**
-- **Veículos** têm Stress próprio (durabilidade) + 3 atributos: Velocidade · Manobra · Resistência
-- **Perseguição** = mini-jogo de 3-5 rounds, atacante vs perseguido em testes contestados. Vencedor de cada round ganha/perde "distância" (escala narrativa: cola → mantém → escapa)
-- **Falha crítica em perseguição** = colisão (Injúria automática + dano no veículo)
-- **Atributos do piloto que se aplicam:** Coordenação (sempre), Tecnologia (carros modernos/hack), Malandragem (furar bloqueio), Vigor (perseguição longa)
-- **5-8 veículos prontos** com stats: moto naked (Honda CBR), fusca, Land Rover blindado da SP, helicóptero da SP, trem-bala, carrinho de sorvete e cadeira de rodas (zoeira), van.
-- **Construir DEPOIS da simplificação** pra usar a escala de Stress/atributos da v2.0
-
-**Como começar:** seção nova em `04-mecanicas-em-jogo/sistemas-narrativos.md` ou arquivo próprio `veiculos.md`. Modelo: 4 passos de procedimento + tabela de veículos.
-
-**Output:** adição em `04-mecanicas-em-jogo/`
-
----
-
-## 🐺 5. Sistema de Animais
-**O que é:** Regras pra montaria, animal companion, fauna comum e criaturas infernais menores. Hoje SCAR não cobre.
-
-**Ideia de execução:**
-- Animais como NPCs simplificados (Stress reduzido, 2-3 atributos só — Vigor · Instinto · Ferocidade)
-- **Categorias:**
-  - Doméstico (cão, gato, papagaio) — vínculo afetivo, baixo combate
-  - Selvagem (urso, lobo, jacaré) — perigosos, mas ainda terrenos
-  - Montaria (cavalo, moto-besta, alguma aberração andante) — interage com sistema de veículos
-  - Infernal (criaturas-eco do Inferno, sub-Diabos) — usam regras de demônio, não de animal
-- **Vínculo jogador-animal:** regra simples de Loyalty/treinamento (1-3 níveis), gasto de PM pra comandar em situação de stress
-- Lista de 8-12 animais prontos com stats
-- **Depende da simplificação** (mesma escala de stats)
-
-**Como começar:** definir as 4 categorias e 1 animal-template por categoria antes de listar todos
-
-**Output:** seção em `04-mecanicas-em-jogo/` ou arquivo `animais.md`
-
----
-
 ## 📱 6. App de Ficha PWA *(mobile)*
 **O que é:** Progressive Web App de ficha de personagem com tracking em tempo real. Instala no celular, funciona offline.
 
@@ -99,10 +14,11 @@
   - Lista de Aflições ativas com toggle
   - Lista de poderes/contratos
   - Log de PM gasto (pra triggerar Marcos de Cicatriz)
+  - habilidades gerais e de origens
 - **Persistência:** LocalStorage + export/import JSON pra backup
 - **Visual:** dark sangue, consistente com site SCAR
 - **Princípio:** começar simples (atributos + Stress tracker primeiro), expandir aos poucos. Não tentar fazer tudo de uma vez.
-- **Esperar a v2.0:** se construir antes da simplificação, retrabalho garantido
+
 
 **Como começar:** protótipo bem mínimo — só uma página com atributos editáveis e tracker de Stress. Depois adicionar uma feature por sessão de trabalho.
 
