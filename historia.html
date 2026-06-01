@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História - SCAR RPG</title>
+
+    <!-- Squeleton CSS -->
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+
+    <!-- SCAR CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/contratos.css">
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <!-- Squeleton JS -->
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        .era-header {
+            text-align: center;
+            margin: 80px 0 40px;
+            position: relative;
+        }
+        .era-header::before,
+        .era-header::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cor-principal), transparent);
+        }
+        .era-header::before { left: 0; }
+        .era-header::after { right: 0; }
+        .era-title {
+            display: inline-block;
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 4px;
+            padding: 0 30px;
+        }
+        .era-subtitle {
+            display: block;
+            color: var(--cor-texto-secundario);
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-top: 10px;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: normal;
+        }
+        .evento {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-left: 4px solid var(--cor-principal);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        .evento:hover {
+            border-color: var(--cor-secundaria);
+            border-left-color: var(--cor-secundaria);
+            transform: translateX(5px);
+        }
+        .evento-ano {
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+        .evento-titulo {
+            color: var(--cor-texto);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .evento-local {
+            color: var(--cor-texto-secundario);
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .apagamento {
+            background: linear-gradient(135deg, rgba(155,89,182,0.1) 0%, transparent 100%);
+            border: 1px dashed var(--cor-mental);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .apagamento-nome {
+            color: var(--cor-mental);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+        }
+        .org-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            padding: 25px;
+            height: 100%;
+            transition: all 0.3s;
+        }
+        .org-card:hover {
+            border-color: var(--cor-secundaria);
+        }
+        .org-card h4 {
+            color: var(--cor-secundaria);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        .org-card p {
+            color: var(--cor-texto-secundario);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .org-section-title {
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 3px;
+            margin: 50px 0 25px;
+            border-bottom: 2px solid var(--cor-principal);
+            padding-bottom: 12px;
+        }
+        .lore-quote {
+            font-style: italic;
+            color: var(--cor-texto-secundario);
+            text-align: center;
+            font-size: 1.1rem;
+            margin: 40px auto;
+            max-width: 700px;
+            padding: 20px;
+            border-top: 1px solid var(--cor-borda);
+            border-bottom: 1px solid var(--cor-borda);
+        }
+        .natureza-narrativa {
+            background: var(--cor-fundo-card);
+            border-left: 4px solid var(--cor-secundaria);
+            padding: 25px 30px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .natureza-narrativa h4 {
+            color: var(--cor-secundaria);
+            margin-top: 0;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 3px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header p-15-tb">
+        <div class="container">
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+                <nav class="nav-desktop d-flex f-items-center f-gap-10">
+                    <a href="sumario.html" class="nav-link">Sumário</a>
+                    <a href="habilidades.html" class="nav-link">Habilidades</a>
+                    <a href="vendinha.html" class="nav-link">Vendinha</a>
+                    <a href="aflicoes.html" class="nav-link">Aflições</a>
+                    <a href="historia.html" class="nav-link">História</a>
+                    <a href="aparencias.html" class="nav-link">Aparências</a>
+                </nav>
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu">
+                    <span>☰</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Modal -->
+    <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
+                <button class="mobile-menu-close" data-modal-hide>✕</button>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <nav class="mobile-menu-nav">
+                        <a href="sumario.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">📚</span><span class="link-text">Sumário</span>
+                        </a>
+                        <a href="habilidades.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🎯</span><span class="link-text">Habilidades</span>
+                        </a>
+                        <a href="vendinha.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🏪</span><span class="link-text">Vendinha</span>
+                        </a>
+                        <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">💀</span><span class="link-text">Aflições</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-section-divider"></div>
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">História</span>
+                        </a>
+                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Aparências</span>
+                        </a>
+                        <a href="index.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Home</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-footer">
+                        <p>"A história foi alterada"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="p-100-t xs-p-80-t">
+
+        <!-- Hero -->
+        <section class="container p-60-tb text-center">
+            <h1 class="fs-16 fw-700 wow fadeInUp" style="color: var(--cor-secundaria);">HISTÓRIA</h1>
+            <p class="fs-10 m-20-t opacity-7 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+                A linha do tempo canônica do mundo SCAR. Segue fielmente os acontecimentos do mundo real e fatos de <em>Chainsaw Man</em>, mas com datas alteradas pra dar espaço à lore e ao desenvolvimento do RPG.
+            </p>
+        </section>
+
+        <!-- Apagamentos -->
+        <section class="container p-60-tb">
+            <h2 class="fs-13 text-center m-30-b" style="color: var(--cor-mental);">APAGAMENTOS</h2>
+            <p class="text-center m-30-b" style="max-width: 800px; margin-left: auto; margin-right: auto; color: var(--cor-texto-secundario);">
+                Antes da linha do tempo, é importante saber: <strong style="color: var(--cor-texto);">a história foi alterada</strong>. Há registros de coisas que existiram e depois deixaram de existir, porque alguém pagou um demônio pra apagar o conceito da realidade.
+            </p>
+
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6">
+                    <div class="apagamento">
+                        <div class="apagamento-nome">AIDS</div>
+                        <p class="m-10-t" style="color: var(--cor-texto-secundario);">Apagado nos anos 80. Antes, era pandemia que se anunciava devastadora. Hoje quase ninguém lembra que existiu.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6">
+                    <div class="apagamento">
+                        <div class="apagamento-nome">Pólio</div>
+                        <p class="m-10-t" style="color: var(--cor-texto-secundario);">Apagado em algum ponto do século XX. Vacinas existem, mas pra quê, ninguém sabe explicar exatamente.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center m-30-t opacity-6"><em>(Mais apagamentos canônicos virão.)</em></p>
+        </section>
+
+        <!-- LINHA DO TEMPO -->
+        <section class="container p-30-tb">
+            <h2 class="fs-14 text-center m-40-b" style="color: var(--cor-secundaria);">LINHA DO TEMPO</h2>
+
+            <!-- ERA 1: PRÉ-GUERRA -->
+            <div class="era-header">
+                <span class="era-title">PRÉ-GUERRA · 1908-1937
+                    <span class="era-subtitle">A era da negação organizada. Demônios eram tabu, mito ou doença psiquiátrica — e os governos anotavam em segredo enquanto a população fingia que não via.</span>
+                </span>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1908</div>
+                <div class="evento-titulo">Tunguska</div>
+                <div class="evento-local">Sibéria</div>
+                <p>A "explosão de meteoro" foi um Demônio atravessando uma Porta colapsada. 2.000 km² de floresta apagados. Império Russo classifica como acidente e grande infortúnio. Os corpos foram recuperados em segredo, viraram base do projeto soviético décadas depois.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1918</div>
+                <div class="evento-titulo">Gripe Espanhola</div>
+                <div class="evento-local">Global</div>
+                <p>A pandemia que matou 50 milhões não foi viral pura. <strong>Demônio da Gripe</strong> se alimentou em paralelo, escondido na onda biológica. OMS moderna ainda nega. Cientistas que descobriram a verdade sumiram.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1937</div>
+                <div class="evento-titulo">Os Documentos Apagados</div>
+                <div class="evento-local">Europa</div>
+                <p>Aqui acontece um paradoxo. Existem documentos científicos de um regime europeu fascista que tentou criar híbridos arianos pra guerra. O regime falhou brutalmente, cobaias mutiladas, sem controle. <strong>Mas o regime em si foi apagado da história.</strong></p>
+                <p>Os documentos sobreviveram porque foram tirados do contexto histórico antes do apagamento. Existem, mas não lembram a quem pertenceram. Foram parar nas mãos da URSS pós-guerra e viraram a base do <strong>Projeto Filha</strong> quatro décadas depois.</p>
+            </div>
+
+            <!-- ERA 2: GUERRA FRIA -->
+            <div class="era-header">
+                <span class="era-title">GUERRA FRIA · 1945-1979
+                    <span class="era-subtitle">A era da burocratização. Pós-Hiroshima, cada potência montou sua estrutura demoníaca oficial — o segredo virou política externa e o Sul Global virou laboratório informal.</span>
+                </span>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1945</div>
+                <div class="evento-titulo">Floração de Hiroshima</div>
+                <div class="evento-local">Japão</div>
+                <p>A bomba atômica desperta o <strong>Demônio Solar</strong>. EUA suprime os registros. O que ninguém fala:</p>
+                <ul style="color: var(--cor-texto-secundario);">
+                    <li>Sobreviventes desenvolveram doença crônica que passou hereditariamente</li>
+                    <li>Existe uma cidade-fantasma subterrânea sob Hiroshima onde Infernais sobreviventes vivem desde então</li>
+                    <li>O Demônio Solar ainda está vivo e adormecido sob o Japão. A Segurança Pública existe em parte pra mantê-lo dormindo — e recebendo por isso</li>
+                </ul>
+                <p>A <strong>Divisão 4 da Segurança Pública</strong> foi fundada poucos anos depois com uma única missão secreta: manter o Demônio Solar adormecido. Foi assumida por uma divisão desconhecida. Quem assumiu o comando (e nunca largou desde então) é uma figura conhecida apenas como <strong>Makima</strong>.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1947</div>
+                <div class="evento-titulo">Roswell</div>
+                <div class="evento-local">EUA</div>
+                <p>Não foi alienígena. Foi uma Porta do Inferno colapsando sobre o Novo México. EUA classifica como OVNI pra desviar atenção. A área é zona militar até hoje.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1953</div>
+                <div class="evento-titulo">Morte de Stalin</div>
+                <div class="evento-local">URSS</div>
+                <p>Versão oficial: derrame.<br>Versão real: fanáticos invadiram sua residência e Stalin foi morto. "Sucessores" (fanáticos) tentam exorcizar demônios em Kremlin na mesma época. Conseguem em parte, diziam as notícias.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1962</div>
+                <div class="evento-titulo">Crise dos Mísseis Demoníacos</div>
+                <div class="evento-local">Cuba</div>
+                <p>A crise dos mísseis foi cobertura para a crise demoníaca real. CIA e KGB descobrem ao mesmo tempo que Cuba estava cultivando demônios e capturando. Em vez de guerra nuclear, fecham <strong>Acordo de Não-Proliferação Demoníaca</strong>. O acordo segue valendo. Quem viola some dos dois lados.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1973</div>
+                <div class="evento-titulo">Sinfonia de Santiago</div>
+                <div class="evento-local">Chile</div>
+                <p>Pinochet executa 30.000 dissidentes como sacrifício ao <strong>Demônio da Penitência</strong>. Funciona. Chile fica oficialmente "estável" por 17 anos. O preço:</p>
+                <ul style="color: var(--cor-texto-secundario);">
+                    <li>Existe uma Zona do Silêncio em Santiago como forma de tributo aos que foram oferecidos</li>
+                    <li>Os 30.000 desaparecidos foram homenageados em uma enorme estátua no centro da cidade</li>
+                    <li>O Demônio da Penitência ainda está ativo, agora protegido pelas forças armadas chilenas como recurso nacional</li>
+                </ul>
+                <p>Um exorcista vaticano abençoou o ritual sem saber o que era. Quando descobriu, desapareceu da Igreja oficial e nunca mais foi visto em batina. Hoje é conhecido como <strong>Padre Esteban</strong>, opera clandestinamente em Santiago libertando os Estigmas dos 30.000 um a um. A Igreja o chama de herege. O Estado, de terrorista.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1976</div>
+                <div class="evento-titulo">Operação Bandeirante</div>
+                <div class="evento-local">Brasil</div>
+                <p>Ditadura militar tenta replicar o modelo soviético. Importa cientistas alemães e técnicos da KGB. Falha em 8 meses. O que aconteceu nas florestas do interior nunca foi registrado oficialmente — sobreviventes voltaram com Aflições Mentais permanentes e nunca mais falaram do assunto. Brasil oficialmente abandona o projeto e adota política de não-intervenção em zonas rurais, que vale até hoje.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1979</div>
+                <div class="evento-titulo">Invasão Soviética do Afeganistão</div>
+                <div class="evento-local">Afeganistão</div>
+                <p>KGB-Demônica estreia híbridos em combate aberto. Mujahideen respondem com contratos jihad com demônios locais. <strong>Primeira guerra demoníaca documentada.</strong> EUA aprende com os dois lados.</p>
+            </div>
+
+            <!-- ERA 3: CRISE SOVIÉTICA -->
+            <div class="era-header">
+                <span class="era-title">CRISE SOVIÉTICA · 1986-1996
+                    <span class="era-subtitle">A era em que o sistema rachou. O Projeto Filha rompeu a contenção, Chernobyl gastou o último fôlego do regime e o Leste Europeu virou terra de ninguém demoníaca.</span>
+                </span>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1986</div>
+                <div class="evento-titulo">Chernobyl</div>
+                <div class="evento-local">Ucrânia</div>
+                <p>Não foi acidente nuclear. Foi a tentativa final do projeto soviético de conter o <strong>Demônio da Radiação</strong>. URSS sacrifica Pripyat inteira. Funciona, mas a URSS sai abalada e nunca mais opera com o mesmo controle absoluto de antes.</p>
+                <p><strong>Pripyat hoje:</strong> Zona-Inferno permanente. Caçadores que entram pegam doença demoníaca crônica. Alguns dizem que a cidade ainda está habitada por Infernais e demônios.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1989-91</div>
+                <div class="evento-titulo">Cascata da Cortina</div>
+                <div class="evento-local">Leste Europeu</div>
+                <p>A URSS aguenta de pé, mas perde controle de boa parte do Leste Europeu. Portas do Inferno se abrem em massa, o sistema de contenção soviético escondido que segurava milhares de demônios entrou em pane por um ataque de dentro — e vários demônios escaparam no caos, incluindo o <strong>Demônio das Armas</strong>. Alguns híbridos do projeto soviético tentam desertar enquanto outros tentam caçar os fugitivos.</p>
+                <p>Em 1990, no auge do caos, uma caçadora russa chamada <strong>Olga</strong> entrou em Pripyat sozinha pra recuperar arquivos do projeto soviético. Saiu sem os olhos.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1991</div>
+                <div class="evento-titulo">Guerra do Golfo</div>
+                <div class="evento-local">Iraque</div>
+                <p>EUA estreia demônios militarizados em combate aberto. Saddam tinha um <strong>Demônio do Petróleo</strong> sob contrato. Os dois se anularam. Civis pagaram a conta.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1994</div>
+                <div class="evento-titulo">Genocídio de Ruanda</div>
+                <div class="evento-local">Ruanda</div>
+                <p>800 mil mortos em 100 dias. <strong>Demônio do Combate</strong> se alimenta em sua plenitude pela primeira vez no século. Ainda sente fome.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">~1996</div>
+                <div class="evento-titulo">O NASCIMENTO IMPEDIDO</div>
+                <div class="evento-local">URSS — Instalação Secreta</div>
+                <p>A URSS, mesmo abalada pela Cascata, ainda mantinha o <strong>Projeto Filha</strong> em segredo nas instalações que sobraram. Em 1996, decidiu acelerar tudo: criar uma anomalia viva, um ser além de humano, híbrido ou demônio, usando o <strong>Demônio da Fertilidade</strong> como matriz e a esposa de um agente como âncora humana. Era a última opção deles — o Demônio das Armas tinha voltado e o Partido precisava recuperar a era de ouro.</p>
+                <p>Caçadores ainda não descobertos invadiram a instalação central no momento do ritual. <strong>Eles impediram o nascimento.</strong> Mas pagaram caro — ninguém sabe o que aconteceu com eles.</p>
+                <h4 style="color: var(--cor-secundaria); margin-top: 20px;">O que vazou</h4>
+                <ul style="color: var(--cor-texto-secundario);">
+                    <li>Uma híbrida estável sobreviveu. É a única criança que veio de uma matriz demoníaca direta. Onde ela está hoje, ninguém sabe. É mistério canônico em aberto, conhecida apenas como <strong>A Filha</strong></li>
+                    <li>O Demônio da Fertilidade foi destruído. E ainda não renasceu</li>
+                    <li>O Demônio das Armas voltou a se mover livre sem o ressentimento, e em alguns meses estaria pronto pra cobrar (ver 1997)</li>
+                    <li>A URSS ainda persiste mas as forças são muito menores que antes. Talvez algo surja no futuro</li>
+                    <li>Os relatórios da Divisão 4 chegaram em Tóquio dentro de 24 horas. Makima leu pessoalmente. Ninguém sabe o que ela fez com a informação</li>
+                </ul>
+            </div>
+
+            <!-- ERA 4: PÓS-ARMAS -->
+            <div class="era-header">
+                <span class="era-title">PÓS-ARMAS · 1997-2011
+                    <span class="era-subtitle">A era da ferida aberta. O Demônio das Armas matou 1.2 milhão em 1997. EUA virou potência demoníaca declarada.</span>
+                </span>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1997</div>
+                <div class="evento-titulo">O Contrato da Casa Branca</div>
+                <div class="evento-local">EUA</div>
+                <p>O Presidente dos EUA, em pânico com Demônio da Guerra, faz um contrato. Sacrifica <strong>1 ano de vida de cada cidadão americano</strong> em troca do uso do Demônio das Guerra. Funciona, em parte. O Pentágono opera o demônio desde então.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1997</div>
+                <div class="evento-titulo">Ataque do Demônio das Armas</div>
+                <div class="evento-local">Global</div>
+                <p>O Demônio das Armas, solto desde a Cascata e enfurecido, finalmente cobra preço. <strong>1.2 milhão de pessoas mortas em 1 dia.</strong> EUA, Europa Ocidental e Rússia perdem a maior parte. Japão sobrevive, de alguma forma.</p>
+                <p>Na Costa Leste americana, um menino de 8 anos viu a família virar pó na rua. Sobrou ele, e o ódio. Hoje é conhecido como <strong>Veredito</strong>, o melhor caçador autônomo dos EUA, e nunca aceitou contrato com o governo que escolheu não protegê-los.</p>
+                <p>Em Tóquio, Makima cancelou férias da Divisão 4 por 2 anos. Ninguém ousou perguntar por quê.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">2001</div>
+                <div class="evento-titulo">Ataque do Pavor</div>
+                <div class="evento-local">Global</div>
+                <p>Manhã de setembro. Um demônio atacou um símbolo ocidental que ninguém quer mais lembrar exatamente. O <strong>Demônio do Pavor</strong> se alimentou globalmente do terror televisionado por semanas. Caçadores chegaram tarde. Quem viveu jura ter visto algo, mas a versão oficial mudou várias vezes.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">2008</div>
+                <div class="evento-titulo">Crise Financeira</div>
+                <div class="evento-local">Global</div>
+                <p>Aqui foi realmente problema humano. Sem demônio, <strong>a humanidade quebrou sozinha</strong>.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">2011</div>
+                <div class="evento-titulo">Fukushima</div>
+                <div class="evento-local">Japão</div>
+                <p>Segundo Chernobyl evitado. Segurança Pública despachou 18 caçadores veteranos pra conter o Demônio da Radiação antes que se manifestasse plenamente. <strong>14 morreram.</strong> Tóquio sobreviveu por sorte e burocracia.</p>
+                <p>Os 18 caçadores foram escolhidos por Makima pessoalmente dos alunos de Kishibe. Ela não compareceu ao funeral de nenhum dos 14 mortos.</p>
+            </div>
+        </section>
+
+        <hr style="border: none; height: 2px; background: linear-gradient(90deg, transparent, var(--cor-principal), transparent); margin: 80px 0 40px;">
+
+        <!-- SCAR: O MUNDO -->
+        <section class="container p-60-tb">
+            <h2 class="fs-14 text-center m-40-b" style="color: var(--cor-secundaria);">SCAR: O MUNDO</h2>
+            <p class="text-center m-30-b" style="max-width: 800px; margin-left: auto; margin-right: auto; color: var(--cor-texto-secundario);">
+                Visão geral do sistema, dos seres que o habitam e das forças que disputam ele.
+            </p>
+
+            <p>SCAR se passa no mesmo conceito e poderes de <em>Chainsaw Man</em>: um mundo onde <strong>demônios existem e são uma ameaça constante à humanidade</strong>. Esses demônios nascem dos medos humanos. Quanto mais as pessoas temem algo, mais poderoso é o demônio relacionado.</p>
+            <p>Pra combater essa ameaça, governos criaram organizações como a <strong>Segurança Pública</strong>, compostas por caçadores de demônios: humanos, híbridos e até demônios que trabalham pra eliminar outros demônios.</p>
+        </section>
+
+        <!-- O INFERNO -->
+        <section class="container p-30-tb">
+            <h3 class="org-section-title">O INFERNO</h3>
+            <p>O Inferno é real e literal no universo de SCAR. <strong>Não é metáfora, não é dimensão espiritual: é um lugar físico</strong> onde demônios habitam quando não estão na Terra.</p>
+
+            <h4 style="color: var(--cor-secundaria);">O Ciclo da Morte</h4>
+            <ul>
+                <li>Demônio morre na Terra → renasce no Inferno</li>
+                <li>Demônio morre no Inferno → renasce na Terra</li>
+            </ul>
+            <p>Isso significa que demônios são <strong>efetivamente imortais</strong>. Você pode matar um demônio, mas ele vai voltar. A única exceção conhecida é ser devorado pelo <strong>Demônio da Motosserra</strong>, o que apaga o conceito da existência.</p>
+
+            <h4 style="color: var(--cor-secundaria);">Como é o Inferno</h4>
+            <ul>
+                <li>O território completo não está disponível no momento. Aparece como um campo florido com portas no céu</li>
+                <li>Cada porta representa um medo e leva a um "território" demoníaco</li>
+                <li>Demônios mais poderosos dominam territórios maiores</li>
+                <li>O Inferno tem seus próprios demônios que nunca vieram à Terra</li>
+            </ul>
+
+            <h4 style="color: var(--cor-secundaria);">As Portas do Inferno</h4>
+            <p>Passagens que conectam Terra e Inferno. Podem ser abertas por:</p>
+            <ul>
+                <li>Demônios poderosos</li>
+                <li>Híbridos em situações extremas</li>
+                <li>Rituais proibidos</li>
+                <li>Eventos cataclísmicos</li>
+            </ul>
+        </section>
+
+        <!-- NATUREZAS -->
+        <section class="container p-30-tb">
+            <h3 class="org-section-title">OS QUE HABITAM</h3>
+
+            <div class="natureza-narrativa">
+                <h4 style="color: #5DADE2;">Humanos</h4>
+                <p>Pessoas comuns que caçam demônios. Usam armas convencionais e podem fazer contratos com demônios pra ganhar poderes, sempre com um preço.</p>
+            </div>
+
+            <div class="natureza-narrativa">
+                <h4 style="color: #E74C3C;">Infernais (Fiends)</h4>
+                <p>Quando um demônio possui o cadáver de um humano, nasce um Infernal. Mantêm a aparência humana (com traços demoníacos visíveis, como chifres ou olhos estranhos) e personalidade do demônio, mas são <strong>mais fracos que demônios puros</strong>.</p>
+            </div>
+
+            <div class="natureza-narrativa">
+                <h4 style="color: #9B59B6;">Híbridos</h4>
+                <p>A forma mais rara. São humanos que se fundiram com um demônio através de um gatilho específico (geralmente um objeto ou ação). Podem alternar entre forma humana e demoníaca. <strong>Híbridos são praticamente imortais na prática enquanto tiverem sangue pra se regenerar.</strong></p>
+            </div>
+
+            <div class="natureza-narrativa">
+                <h4 style="color: #666;">Demônios Puros</h4>
+                <p>Demônios são manifestações físicas do medo coletivo humano. Eles <strong>não "nascem" no sentido tradicional</strong> — simplesmente existem porque a humanidade teme algo.</p>
+                <p>Demônios podem variar/mudar a depender de circunstâncias (morte deles, situações particulares), tendo títulos ou origens redefinidas.</p>
+            </div>
+
+            <div class="lore-quote">
+                "As organizações governamentais tratam caçadores como peças descartáveis: mandam jovens pra morrer e chamam de 'serviço público'. Os cultos sacrificam inocentes achando que estão alcançando algo maior. Até grupos que parecem 'do bem' têm agendas ocultas, segredos sujos e linhas que cruzaram. <strong>Não existe lado certo. Existe o lado que você escolheu, e as consequências que vêm com ele.</strong>"
+            </div>
+        </section>
+
+        <!-- ORGANIZAÇÕES -->
+        <section class="container p-60-tb">
+            <h2 class="fs-13 text-center m-40-b" style="color: var(--cor-secundaria);">FACÇÕES & ORGANIZAÇÕES</h2>
+
+            <h3 class="org-section-title">Governamentais</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-md-4">
+                    <div class="org-card">
+                        <h4>Segurança Pública</h4>
+                        <p>Força oficial de caça a demônios do Japão. Trabalho burocrático, salário fixo, alta mortalidade. Usa humanos, infernais e híbridos.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="org-card">
+                        <h4>Forças Internacionais</h4>
+                        <p>Cada país tem sua organização. EUA (armas pesadas), China (experimentos), Rússia (brutalismo), Vaticano (exorcistas).</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="org-card">
+                        <h4>Divisão de Pesquisa</h4>
+                        <p>Cientistas que estudam e capturam demônios vivos. Cruzam linhas éticas frequentemente.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="org-section-title">Independentes</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="org-card">
+                        <h4>Caçadores Privados</h4>
+                        <p>Freelancers que caçam por dinheiro. Sem regras, sem backup, muita liberdade.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="org-card">
+                        <h4>Guilda dos Contratos</h4>
+                        <p>Intermediários clandestinos entre humanos e demônios. Facilitam contratos por comissão.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="org-card">
+                        <h4>Os Sobreviventes</h4>
+                        <p>Comunidades escondidas de pessoas que perderam tudo. Desconfiam de qualquer poder demoníaco.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="org-card">
+                        <h4>Sindicato do Mercado Negro</h4>
+                        <p>Criminosos que traficam partes de demônios, contratos e artefatos. Oferecem "serviços" ilegais.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="org-section-title">Religiosas & Cultos</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="org-card">
+                        <h4>Igreja da Vida</h4>
+                        <p>Veem demônios como punição divina. Treinam exorcistas que lutam <strong>sem contratos</strong>.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="org-card">
+                        <h4>Filhos do Medo</h4>
+                        <p>Querem virar demônios. Fazem rituais de possessão e sacrifícios. Objetivo: invocar um Primordial.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="org-card">
+                        <h4>Ordem da Vontade</h4>
+                        <p>Acreditam em coexistência humano-demônio. Protegem demônios "pacíficos".</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="org-card">
+                        <h4>Seita da Fome</h4>
+                        <p>Culto que caiu na desgraça da própria vida, restando apenas o gosto do prazer com estômago cheio. Devoram humanos e demônios.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="org-section-title">Demoníacas</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="org-card">
+                        <h4>4 Cavaleiros do Apocalipse</h4>
+                        <p>Aliança entre os demônios <strong>Controle, Morte, Fome e Guerra</strong>.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="org-card">
+                        <h4>Corte da Violência</h4>
+                        <p>Demônios que glorificam o combate. Respeitam apenas força bruta.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="org-card">
+                        <h4>Pacto dos Famintos</h4>
+                        <p>Demônios fracos unidos pra sobreviver. Caçam em grupo.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="org-card">
+                        <h4>Os Errantes</h4>
+                        <p>Demônios solitários que rejeitam todos. Alguns são antigos e cansados.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="org-card">
+                        <h4>Servos do Pesadelo</h4>
+                        <p>Querem destruir toda ordem. Atacam tudo. <strong>Objetivo: fazer a humanidade temer TUDO.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="org-section-title">Híbridas / Especiais</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-4">
+                    <div class="org-card">
+                        <h4>O Manifesto</h4>
+                        <p>Rede secreta de híbridos que se protegem.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-4">
+                    <div class="org-card">
+                        <h4>Projeto Vida</h4>
+                        <p>Programa secreto pra criar híbridos artificiais.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-4">
+                    <div class="org-card">
+                        <h4>Os Caídos</h4>
+                        <p>Infernais que desenvolveram empatia. Rejeitados por humanos e demônios. Vivem escondidos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CTA -->
+    <section class="cta-section p-100-tb xs-p-60-tb">
+        <div class="container">
+            <div class="cta-content text-center">
+                <h2 class="cta-title wow fadeInUp">Pronto para entrar nesse <span>mundo</span>?</h2>
+                <p class="fs-9 m-20-t wow fadeInUp" data-wow-delay="0.1s" style="color: var(--cor-texto-secundario); max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Aprenda o sistema completo e crie seu caçador.
+                </p>
+                <div class="m-40-t d-flex f-justify-center f-wrap f-gap-15 wow fadeInUp" data-wow-delay="0.2s">
+                    <a href="sumario.html" class="btn btn-primary">Ver Sumário</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a href="index.html">SCAR</a>
+            <span>Sacrificial Contract & Risk</span>
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="agradecimentos.html">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                Agradecimentos
+            </a>
+        </div>
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">© 2026 SCAR RPG • Feito com 🩸 por fãs, para fãs</p>
+    </footer>
+
+    <!-- Squeleton JS Footer -->
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+    </script>
+
+    <!-- Botão Flutuante - Rolador -->
+    <a href="dice-roller.html" class="dice-fab" title="Rolador de Dados" aria-label="Abrir Rolador de Dados">
+        <span class="dice-fab-icon">🎲</span>
+        <span class="dice-fab-text">DADOS</span>
+    </a>
+
+</body>
+</html>

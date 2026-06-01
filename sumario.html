@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumário - SCAR RPG</title>
+
+    <!-- Squeleton CSS -->
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+
+    <!-- SCAR CSS Compartilhado -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/contratos.css">
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <!-- Squeleton JS (Head) -->
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilos específicos do Sumário */
+        .toc-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            padding: 25px;
+            height: 100%;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        .toc-card:hover {
+            border-color: var(--cor-secundaria);
+            background: var(--cor-fundo-card-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-card);
+        }
+        .toc-card h3 {
+            color: var(--cor-secundaria);
+            margin-bottom: 8px;
+            font-size: 1.4rem;
+        }
+        .toc-card p {
+            color: var(--cor-texto-secundario);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .sumario-section {
+            scroll-margin-top: 90px;
+        }
+        .sumario-section h2 {
+            color: var(--cor-secundaria);
+            border-bottom: 2px solid var(--cor-principal);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* H3 = subseções (Teste de Ação, Iniciativa, etc) */
+        .sumario-section h3 {
+            color: var(--cor-texto);
+            margin-top: 30px;
+            margin-bottom: 14px;
+            font-size: 1.35rem;
+            padding: 10px 18px;
+            background: linear-gradient(90deg,
+                rgba(220,20,60,0.12) 0%,
+                rgba(220,20,60,0.04) 40%,
+                transparent 100%);
+            border-left: 4px solid var(--cor-secundaria);
+            border-radius: 0 4px 4px 0;
+            position: relative;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 3px;
+        }
+        .sumario-section h3::before {
+            content: '▸';
+            color: var(--cor-secundaria);
+            margin-right: 10px;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        /* H4 = sub-tópicos (PM Inicial, Ganho de PM, etc) */
+        .sumario-section h4 {
+            color: var(--cor-secundaria);
+            margin-top: 22px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2.5px;
+            padding-left: 14px;
+            position: relative;
+        }
+        .sumario-section h4::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--cor-secundaria);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--cor-secundaria);
+        }
+
+        /* Parágrafos — leitura confortável */
+        .sumario-section p {
+            line-height: 1.75;
+            margin: 10px 0 16px;
+            max-width: 900px;
+            color: rgba(245, 245, 245, 0.88);
+        }
+
+        /* Listas com bullets decorativos */
+        .sumario-section ul:not(.no-style) {
+            list-style: none;
+            padding-left: 0;
+            max-width: 900px;
+        }
+        .sumario-section ul:not(.no-style) > li {
+            position: relative;
+            padding-left: 22px;
+            margin: 8px 0;
+            line-height: 1.65;
+            color: rgba(245, 245, 245, 0.88);
+        }
+        .sumario-section ul:not(.no-style) > li::before {
+            content: '▪';
+            position: absolute;
+            left: 4px;
+            top: 0;
+            color: var(--cor-secundaria);
+            font-size: 1.1rem;
+            line-height: 1.65;
+        }
+
+        /* Strong com leve glow */
+        .sumario-section strong {
+            color: var(--cor-texto);
+            font-weight: 600;
+        }
+        .stat-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .stat-table th,
+        .stat-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--cor-borda);
+        }
+        .stat-table th {
+            background: var(--cor-fundo-card);
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .stat-table tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+        .info-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            padding: 25px;
+            height: 100%;
+            transition: border-color 0.3s;
+        }
+        .info-card:hover {
+            border-color: var(--cor-secundaria);
+        }
+        .info-card h4 {
+            margin-top: 0;
+        }
+        .quote-block {
+            border-left: 3px solid var(--cor-secundaria);
+            padding: 15px 20px;
+            margin: 20px 0;
+            background: rgba(220,20,60,0.05);
+            font-style: italic;
+            color: var(--cor-texto-secundario);
+        }
+        .secao-divider {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cor-principal), transparent);
+            margin: 80px 0 40px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            background: var(--cor-principal);
+            color: var(--cor-texto);
+            font-size: 0.75rem;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 100px;
+            background: var(--cor-principal);
+            color: var(--cor-texto);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 99;
+            text-decoration: none;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--cor-secundaria);
+        }
+        @media (max-width: 991px) {
+            .back-to-top {
+                right: 20px;
+                bottom: 100px;
+            }
+            .stat-table {
+                font-size: 0.85rem;
+            }
+            .stat-table th,
+            .stat-table td {
+                padding: 8px 10px;
+            }
+        }
+        .nature-color-humano { color: #5DADE2; }
+        .nature-color-infernal { color: #E74C3C; }
+        .nature-color-hibrido { color: #9B59B6; }
+        .nature-color-demonio { color: #666; }
+
+        /* ============================================
+           TABS sticky (navegação por seção)
+           ============================================ */
+        .sumario-tabs {
+            position: sticky;
+            top: 70px;
+            background: rgba(10,10,10,0.96);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--cor-borda);
+            border-bottom: 2px solid var(--cor-principal);
+            padding: 14px 0;
+            z-index: 50;
+            margin: 20px 0 40px;
+        }
+        .sumario-tabs-inner {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .sumario-tab {
+            background: transparent;
+            color: var(--cor-texto-secundario);
+            border: 1px solid var(--cor-borda);
+            padding: 9px 16px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        .sumario-tab:hover {
+            border-color: var(--cor-secundaria);
+            color: var(--cor-secundaria);
+            transform: translateY(-2px);
+        }
+        .sumario-tab.active {
+            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-fundo-card) 100%);
+            border-color: var(--cor-secundaria);
+            color: var(--cor-texto);
+            box-shadow: 0 0 18px rgba(220,20,60,0.35);
+        }
+        .sumario-tab .tab-icon {
+            margin-right: 6px;
+            font-size: 1em;
+            vertical-align: middle;
+        }
+        /* Esconde sections inativas */
+        .sumario-section:not(.tab-active) {
+            display: none;
+        }
+
+        /* ============================================
+           GLYPHS — ícone temático em cada seção
+           ============================================ */
+        #sec-1 h2::before  { content: '👤'; }
+        #sec-2 h2::before  { content: '🎲'; }
+        #sec-3 h2::before  { content: '⚔️'; }
+        #sec-4 h2::before  { content: '🤺'; }
+        #sec-5 h2::before  { content: '💀'; }
+        #sec-6 h2::before  { content: '🩸'; }
+        #sec-7 h2::before  { content: '👹'; }
+        #sec-8 h2::before  { content: '🛏️'; }
+        #sec-9 h2::before  { content: '💴'; }
+        #sec-10 h2::before { content: '✍️'; }
+        .sumario-section h2::before {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 0.85em;
+            filter: drop-shadow(0 0 8px rgba(220,20,60,0.5));
+            vertical-align: middle;
+        }
+
+        /* ============================================
+           DROPCAP — primeira letra grande
+           ============================================ */
+        .section-content > p:first-of-type::first-letter,
+        .section-content > h3:first-of-type + p::first-letter {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: var(--cor-secundaria);
+            float: left;
+            line-height: 0.9;
+            margin: 6px 12px 0 0;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, rgba(220,20,60,0.15) 0%, transparent 100%);
+            border-left: 3px solid var(--cor-secundaria);
+            text-shadow: 0 0 15px rgba(220,20,60,0.4);
+        }
+
+        /* ============================================
+           CALLOUTS coloridos
+           ============================================ */
+        .callout {
+            border-left: 4px solid;
+            padding: 16px 20px 16px 50px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            line-height: 1.6;
+        }
+        .callout::before {
+            position: absolute;
+            left: 14px;
+            top: 16px;
+            font-size: 1.4rem;
+        }
+        .callout strong { color: var(--cor-texto); }
+        .callout.warning {
+            background: linear-gradient(90deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.03) 100%);
+            border-color: #D4AF37;
+            color: #d8c989;
+        }
+        .callout.warning::before { content: '⚠️'; }
+        .callout.info {
+            background: linear-gradient(90deg, rgba(93,173,226,0.12) 0%, rgba(93,173,226,0.03) 100%);
+            border-color: #5DADE2;
+            color: #a8d2ea;
+        }
+        .callout.info::before { content: 'ℹ️'; }
+        .callout.danger {
+            background: linear-gradient(90deg, rgba(220,20,60,0.15) 0%, rgba(220,20,60,0.03) 100%);
+            border-color: var(--cor-secundaria);
+            color: #e0a5b3;
+        }
+        .callout.danger::before { content: '💀'; }
+        .callout.tip {
+            background: linear-gradient(90deg, rgba(155,89,182,0.12) 0%, rgba(155,89,182,0.03) 100%);
+            border-color: #9B59B6;
+            color: #c5a4d1;
+        }
+        .callout.tip::before { content: '✦'; color: #9B59B6; }
+
+        /* ============ FICHAS COPIA-E-COLA ============ */
+        .ficha-template {
+            background: linear-gradient(180deg, rgba(139,0,0,0.06) 0%, transparent 100%);
+            border: 1px solid var(--cor-borda);
+            border-left: 3px solid var(--cor-secundaria);
+            border-radius: 8px;
+            padding: 14px 16px 12px;
+            margin: 0;
+            transition: all 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .ficha-template:hover {
+            border-color: var(--cor-secundaria);
+            box-shadow: 0 6px 20px rgba(220,20,60,0.1);
+        }
+        .ficha-template-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--cor-principal);
+        }
+        .ficha-template-title {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--cor-secundaria);
+            font-size: 1.05rem;
+            letter-spacing: 2px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ficha-template-title::before {
+            content: '◆';
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        .ficha-template-subtitle {
+            color: var(--cor-texto-secundario);
+            font-size: 0.72rem;
+            font-style: italic;
+            margin: 2px 0 0;
+        }
+        .ficha-copy-btn {
+            background: transparent;
+            color: var(--cor-secundaria);
+            border: 1.5px solid var(--cor-secundaria);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1.5px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            white-space: nowrap;
+        }
+        .ficha-copy-btn:hover {
+            background: var(--cor-secundaria);
+            color: var(--cor-fundo);
+            box-shadow: 0 0 14px rgba(220,20,60,0.4);
+        }
+        .ficha-copy-btn.copied {
+            background: #27ae60;
+            border-color: #27ae60;
+            color: #fff;
+            box-shadow: 0 0 14px rgba(39,174,96,0.4);
+        }
+        .ficha-pre {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--cor-borda);
+            border-radius: 4px;
+            padding: 10px 12px;
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 0.68rem;
+            line-height: 1.35;
+            color: var(--cor-texto);
+            white-space: pre;
+            overflow: auto;
+            margin: 0;
+            flex: 1;
+            max-height: 360px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--cor-principal) transparent;
+        }
+        .ficha-pre::-webkit-scrollbar { width: 6px; height: 6px; }
+        .ficha-pre::-webkit-scrollbar-thumb { background: var(--cor-principal); border-radius: 3px; }
+        .ficha-pre::-webkit-scrollbar-thumb:hover { background: var(--cor-secundaria); }
+        @media (max-width: 768px) {
+            .ficha-pre { font-size: 0.62rem; max-height: 300px; padding: 8px 10px; }
+            .ficha-template-title { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header p-15-tb">
+        <div class="container">
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+
+                <nav class="nav-desktop d-flex f-items-center f-gap-10">
+                    <a href="sumario.html" class="nav-link">Sumário</a>
+                    <a href="habilidades.html" class="nav-link">Habilidades</a>
+                    <a href="vendinha.html" class="nav-link">Vendinha</a>
+                    <a href="aflicoes.html" class="nav-link">Aflições</a>
+                    <a href="historia.html" class="nav-link">História</a>
+                    <a href="aparencias.html" class="nav-link">Aparências</a>
+                </nav>
+
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu">
+                    <span>☰</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Modal -->
+    <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
+                <button class="mobile-menu-close" data-modal-hide>✕</button>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <nav class="mobile-menu-nav">
+                        <a href="sumario.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">📚</span>
+                            <span class="link-text">Sumário</span>
+                        </a>
+                        <a href="habilidades.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🎯</span>
+                            <span class="link-text">Habilidades</span>
+                        </a>
+                        <a href="vendinha.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🏪</span>
+                            <span class="link-text">Vendinha</span>
+                        </a>
+                        <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">💀</span>
+                            <span class="link-text">Aflições</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-section-divider"></div>
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">História</span>
+                        </a>
+                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Aparências</span>
+                        </a>
+                        <a href="index.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Home</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-footer">
+                        <p>"Leia isso antes de qualquer coisa"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="p-100-t xs-p-80-t">
+
+        <!-- Hero -->
+        <section class="container p-60-tb text-center">
+            <h1 class="fs-16 fw-700 wow fadeInUp" style="color: var(--cor-secundaria);">SUMÁRIO</h1>
+            <p class="fs-10 m-20-t opacity-7 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+                Leia isso antes de qualquer coisa. Tudo o que o sistema faz.
+            </p>
+        </section>
+
+        <!-- Tabs sticky -->
+        <div class="sumario-tabs">
+            <div class="sumario-tabs-inner">
+                <button class="sumario-tab" data-tab="sec-1"><span class="tab-icon">👤</span>1. Personagem</button>
+                <button class="sumario-tab" data-tab="sec-2"><span class="tab-icon">🎲</span>2. Testes</button>
+                <button class="sumario-tab" data-tab="sec-3"><span class="tab-icon">⚔️</span>3. Combate</button>
+                <button class="sumario-tab" data-tab="sec-4"><span class="tab-icon">🤺</span>4. Duelo</button>
+                <button class="sumario-tab" data-tab="sec-5"><span class="tab-icon">💀</span>5. Stress</button>
+                <button class="sumario-tab" data-tab="sec-6"><span class="tab-icon">🩸</span>6. Aflições</button>
+                <button class="sumario-tab" data-tab="sec-7"><span class="tab-icon">👹</span>7. Demônios Puros</button>
+                <button class="sumario-tab" data-tab="sec-8"><span class="tab-icon">🛏️</span>8. Descanso</button>
+                <button class="sumario-tab" data-tab="sec-9"><span class="tab-icon">💴</span>9. Economia</button>
+                <button class="sumario-tab" data-tab="sec-10"><span class="tab-icon">✍️</span>10. Criação</button>
+            </div>
+        </div>
+
+
+        <!-- SEÇÃO 1 — PERSONAGEM & NATUREZA -->
+        <section id="sec-1" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">1. Personagem & Natureza</h2>
+
+            <h3>Natureza</h3>
+            <p>A primeira escolha é o que você é. Quatro caminhos, cada um com bônus e preço:</p>
+
+            <div class="row gap-20 m-30-t">
+                <div class="c-xs-12 c-sm-6">
+                    <div class="info-card">
+                        <h4 class="nature-color-humano">Humano</h4>
+                        <p>Fraco no papel, mas é a base do mundo. +2 Stress máx, +1 Vínculo, Talismã que segura no chão, Contratos mais fáceis de encerrar, recuperação emocional eficiente.</p>
+                        <p><strong>Currículo:</strong> começa com 2 Habilidades Gerais + 1 Habilidade de Origem grátis. Sem poder sobrenatural a não ser que negocie Contrato.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6">
+                    <div class="info-card">
+                        <h4 class="nature-color-infernal">Infernal</h4>
+                        <p>Demônio que parece gente. +1 Poder Demoníaco, +1 Sentido Sobrenatural, detecção 1x/cena, <strong>Memória do Inferno</strong> (+1d10 vs demônios conhecidos), Injúrias Leves não pesam.</p>
+                        <p><em>Malefício:</em> poderes custam +1 Stress, aflições viram permanentes mais fácil, corpo deteriora (1d10 a cada 3 sessões, 1-2 = Aflição Física).</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6">
+                    <div class="info-card">
+                        <h4 class="nature-color-hibrido">Híbrido</h4>
+                        <p>Humano com demônio dormindo dentro. +1 Poder de transformação, ignora 1 consequência por combate, -1 Stress em combate (mín 1), Recusa da Morte.</p>
+                        <p><em>Malefício:</em> <strong>Grilhões</strong> — usar poder demoníaco vai dando controle ao demônio interno.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6">
+                    <div class="info-card">
+                        <h4 class="nature-color-demonio">Demônio Puro</h4>
+                        <p>Medo encarnado. Funciona muito diferente das outras três. Sem Talismã, sem Sonhos, sem rede.</p>
+                        <p><strong>Tudo sobre Demônio Puro está na seção 7.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Grilhões <span class="badge">Híbrido</span></h3>
+            <div class="quote-block">
+                Todo Híbrido carrega o malefício <strong>Grilhões</strong>: o quanto o demônio interno tem de controle sobre você. Cada uso de poder demoníaco soma 1 ponto, e cada 20 minutos de descanso reduz 1.
+            </div>
+
+            <p><strong>A cada 5 Grilhões acumulados</strong> o Mestre pode fazer o demônio agir através de você uma vez (escolhe 1 efeito):</p>
+            <ul>
+                <li>Sussurrar uma ordem (Teste de Medo DT 25 pra ignorar)</li>
+                <li>Forçar uma ação violenta em momento de raiva</li>
+                <li>Tomar controle por 1 rodada em combate</li>
+                <li>Fazer você falar algo que não queria</li>
+                <li>Sabotar uma interação social</li>
+            </ul>
+
+            <table class="stat-table">
+                <thead><tr><th>Grilhões</th><th>Efeito</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>10+</strong></td><td>Mestre assume controle do personagem por 1 cena inteira (1x por sessão)</td></tr>
+                    <tr><td><strong>15+</strong></td><td>Demônio tenta possessão total. Teste de Medo DT 40 ou vira Infernal temporariamente</td></tr>
+                </tbody>
+            </table>
+            <p><em>Híbrido não é equilíbrio, é dívida que cresce.</em></p>
+
+            <h3>Atributos</h3>
+            <p>São <strong>10 eixos</strong> que medem do que seu personagem é capaz. Cada teste é "rola Xd10 onde X = atributo certo".</p>
+
+            <h4>Físicos <span style="font-weight: normal; opacity: 0.7;">(corpo bruto)</span></h4>
+            <ul>
+                <li><strong>Força:</strong> músculo. Dano corpo a corpo, levantar/arrombar, intimidar fisicamente</li>
+                <li><strong>Vigor:</strong> fôlego e durabilidade. Slots de Injúria, Stress máximo, recuperação</li>
+                <li><strong>Coordenação:</strong> agilidade e precisão. <strong>Inicia o turno</strong> (1d10 + Coord), movimento base (Coord × 2m)</li>
+            </ul>
+
+            <h4>Táticos / Técnicos <span style="font-weight: normal; opacity: 0.7;">(cabeça aplicada)</span></h4>
+            <ul>
+                <li><strong>Malandragem:</strong> astúcia de rua. Furtividade, golpe sujo, fuga, mentira. Estilo Livre rola aqui</li>
+                <li><strong>Tecnologia:</strong> máquina e aparato. Hack, dirigir, eletrônico, consertar</li>
+                <li><strong>Percepção:</strong> sentidos físicos. Notar, escutar, mirar de longe, sentir emboscada</li>
+            </ul>
+
+            <h4>Mentais / Sociais <span style="font-weight: normal; opacity: 0.7;">(cabeça e gente)</span></h4>
+            <ul>
+                <li><strong>Investigação:</strong> raciocínio dedutivo. Padrões, mistério</li>
+                <li><strong>Negociação:</strong> persuadir, blefar, intimidar com palavra, vender ideia</li>
+                <li><strong>Autoridade:</strong> peso de presença, comando, fé em si próprio. <strong>Demônios sociais e bíblicos vivem disso.</strong></li>
+                <li><strong>Vínculo:</strong> laços com gente. <strong>Soma no Stress máximo</strong>, recupera Stress no descanso</li>
+            </ul>
+
+            <h3>Distribuição de Pontos</h3>
+            <p>Humano e parentes ganham <strong>16-22 pontos</strong> pra distribuir entre os 10 atributos. Demônio Puro ganha <strong>22 pontos livres</strong> com <strong>teto de 10 por atributo</strong> (ver seção DEMÔNIOS PUROS). Atributo 0 = <strong>falha automática + 1 Stress</strong> em qualquer teste relacionado.</p>
+
+            <h3>Talismã</h3>
+            <p>Objeto físico que segura sua sanidade: corrente, foto, isqueiro do pai morto. Ancora a humanidade. <strong>Só Humano, Infernal e Híbrido têm Talismã.</strong> Demônio Puro não tem âncora, é o próprio abismo.</p>
+
+            <p><strong>Defina na criação:</strong> (1) O que é · (2) De onde veio · (3) O que representa.</p>
+
+            <h4>Ativar Talismã <span style="font-weight: normal; opacity: 0.7;">(1x por sessão, 0 Stress) — escolha 1 efeito:</span></h4>
+            <ol>
+                <li>Rerolar um teste falho</li>
+                <li>Reduzir 1 nível de Injúria recebida</li>
+                <li>Ignorar 1 Aflição por 1 cena</li>
+                <li>+3d10 em teste relacionado ao significado do Talismã</li>
+                <li>Resistir automaticamente a 1 Teste de Medo</li>
+                <li>Recupera 1d7 + Vínculo de Stress</li>
+            </ol>
+
+            <h4>Risco (Talismã destruído ou perdido):</h4>
+            <ul>
+                <li>+1 Aflição permanente imediata</li>
+                <li>Não pode usar nenhum efeito de Talismã até conseguir novo</li>
+                <li>Novo Talismã só após evento narrativo significativo</li>
+            </ul>
+
+            <h3>Sonhos</h3>
+            <p>1 a 3 desejos que seu personagem persegue. Sonho realizado = PM. Sonho quebrado = aflição permanente, perde Vínculo, marca pro resto do jogo. <strong>Demônio Puro não sonha.</strong></p>
+
+            <table class="stat-table">
+                <thead><tr><th>Tipo</th><th>Descrição</th><th>PM ao realizar</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Comum</strong></td><td>Coisas que parecem bobas, mas num mundo de demônios são difíceis</td><td>4 PM</td></tr>
+                    <tr><td><strong>Pessoal</strong></td><td>Conexões, pertencimento, identidade</td><td>6 PM</td></tr>
+                    <tr><td><strong>Ambicioso</strong></td><td>Objetivos que exigem anos, sacrifício e sorte</td><td>10 PM</td></tr>
+                    <tr><td><strong>Tolo</strong></td><td>Quase impossível. O tipo de coisa que apenas loucos tentariam</td><td>15 PM</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Sonho Quebrado</h4>
+            <p>Se o Sonho se torna <strong>permanentemente impossível</strong>, o personagem sofre (Mestre escolhe 1 ou mais):</p>
+            <ul>
+                <li>Aflição permanente</li>
+                <li>Perda de 1 ponto de atributo</li>
+                <li>+Stress equivalente à categoria (3/5/8/12)</li>
+                <li>Mudança narrativa permanente</li>
+            </ul>
+
+            <h3>Estilo de Luta</h3>
+            <p>Como você briga. Passivo sempre ativo (sem custo, sem dado extra). <strong>12 estilos disponíveis</strong>: Boxe, Estilo Livre, Espadachim, Atirador, Armas Pesadas, Caçador, Instintivo, Spetsnaz, Wrestling, Judô, Executor, Mãos da Guerra.</p>
+            <div class="quote-block">Detalhes mecânicos de cada um → <a href="vendinha.html" style="color: var(--cor-secundaria);">vendinha</a></div>
+
+            <h3>Poderes & Contratos</h3>
+            <p>Habilidade sobrenatural. Demônios e Infernais têm de berço. Humanos pegam fazendo <strong>Contrato</strong>: troca poder por preço. Preço pode ser físico (olho, dedo, anos de vida), comportamental ("nunca diga não"), sacrificial (oferenda regular) ou condicional (só funciona em situação X). Quebrou contrato? Demônio cobra.</p>
+
+            <h3>Habilidades de Origem & Gerais</h3>
+            <p>Conjunto adicional fora dos atributos: o que seu personagem <strong>sabe fazer</strong> por background ou aprendeu rodando o mundo.</p>
+            <div class="quote-block">Detalhamento completo em <a href="habilidades.html" style="color: var(--cor-secundaria);">habilidades</a> · <strong>109 habilidades em 3 categorias</strong>: Físico, Mental, Social</div>
+
+            <h3>Pontos de Marca (PM)</h3>
+            <p>Você ganha PM matando inimigo forte, fechando missão, treinando, sobrevivendo a coisa que não devia. Gasta PM pra <strong>comprar habilidade, evoluir poder, subir atributo, expandir slots de Injúria, fechar Contrato</strong>.</p>
+
+            <h4>PM Inicial <span style="font-weight: normal; opacity: 0.7;">(história do personagem)</span></h4>
+            <table class="stat-table">
+                <thead><tr><th>Background</th><th>PM</th></tr></thead>
+                <tbody>
+                    <tr><td>Vida comum, sem eventos extremos</td><td>3</td></tr>
+                    <tr><td>Já enfrentou mortes, violência ou caos</td><td>5</td></tr>
+                    <tr><td>Sobreviveu a eventos traumáticos graves</td><td>7</td></tr>
+                    <tr><td>Passado extremo (massacre, contrato antigo, quase-morte)</td><td>9</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Experiência prévia:</strong> rola 1d10, soma +1 a cada 3 anos de experiência.</p>
+
+            <h4>Ganho de PM em Missões</h4>
+            <table class="stat-table">
+                <thead><tr><th>Situação</th><th>Ganho</th></tr></thead>
+                <tbody>
+                    <tr><td>Missão simples concluída</td><td>+3 PM</td></tr>
+                    <tr><td>Missão com risco real / trauma</td><td>+5 PM</td></tr>
+                    <tr><td>Evento que muda o personagem</td><td>+8 PM</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Ganho de PM em Combate / Feitos</h4>
+            <table class="stat-table">
+                <thead><tr><th>Situação</th><th>Ganho</th></tr></thead>
+                <tbody>
+                    <tr><td>Derrotar inimigo mais forte que você</td><td>+3 PM</td></tr>
+                    <tr><td>Derrotar inimigo muito acima do seu nível</td><td>+5 PM</td></tr>
+                    <tr><td>Sobreviver a grupo grande sozinho ou em desvantagem</td><td>+4 PM</td></tr>
+                    <tr><td>Derrotar/destruir grupo inteiro</td><td>+6 PM</td></tr>
+                    <tr><td>Derrotar Demônio de Medo 3+</td><td>+5 PM</td></tr>
+                    <tr><td>Derrotar Demônio de Medo 5 / Cavaleiro</td><td>+10 PM</td></tr>
+                    <tr><td>Vencer Duelo contra oponente superior</td><td>+4 PM</td></tr>
+                    <tr><td>Sobreviver a situação de morte certa</td><td>+3 PM</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Ganho de PM por Sonhos Realizados</h4>
+            <table class="stat-table">
+                <thead><tr><th>Tipo</th><th>Exemplo</th><th>Ganho</th></tr></thead>
+                <tbody>
+                    <tr><td>Comum</td><td>comer uma refeição incrível, beijar alguém</td><td>+4 PM</td></tr>
+                    <tr><td>Pessoal</td><td>fazer um amigo de verdade, ter um lar</td><td>+6 PM</td></tr>
+                    <tr><td>Ambicioso</td><td>viver até os 60, proteger alguém até o fim</td><td>+10 PM</td></tr>
+                    <tr><td>Tolo</td><td>derrotar um Primordial, mudar o mundo</td><td>+15 PM</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Custos de PM por Natureza</h4>
+            <p>Pra evoluir poder, atributo, slot de Injúria ou fechar Contrato. Custo varia por natureza.</p>
+
+            <div class="row gap-20 m-20-t">
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4 class="nature-color-humano">Humano</h4>
+                        <ul style="padding-left: 18px;">
+                            <li>Habilidade Geral: <strong>2 PM</strong></li>
+                            <li>Habilidade de Origem: <strong>2 PM</strong></li>
+                            <li>Novo Contrato Menor: <strong>2 PM</strong></li>
+                            <li>Contrato Médio: <strong>3 PM</strong></li>
+                            <li>Contrato Maior: <strong>4 PM</strong></li>
+                            <li>Evolução de Contrato: <strong>2 PM</strong></li>
+                            <li>+1 Injúria Leve Máx: <strong>2 PM</strong></li>
+                            <li>+1 Injúria Grave Máx: <strong>3 PM</strong></li>
+                            <li>+1 atributo: <strong>4 PM</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4 class="nature-color-infernal">Infernal</h4>
+                        <ul style="padding-left: 18px;">
+                            <li>Novo Poder Demoníaco: <strong>3 PM</strong></li>
+                            <li>Habilidade Geral: <strong>2 PM</strong></li>
+                            <li>Habilidade de Origem: <strong>2 PM</strong></li>
+                            <li>Evolução de Poder: <strong>3 PM</strong></li>
+                            <li>Transformação Parcial: <strong>4 PM</strong></li>
+                            <li>Transformação Completa: <strong>6 PM</strong></li>
+                            <li>+1 Injúria Leve Máx: <strong>3 PM</strong></li>
+                            <li>+1 Injúria Grave Máx: <strong>4 PM</strong></li>
+                            <li>+1 atributo: <strong>4 PM</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4 class="nature-color-hibrido">Híbrido</h4>
+                        <ul style="padding-left: 18px;">
+                            <li>Novo Poder Demoníaco: <strong>3 PM</strong></li>
+                            <li>Habilidade Geral: <strong>2 PM</strong></li>
+                            <li>Habilidade de Origem: <strong>2 PM</strong></li>
+                            <li>Evolução de Poder: <strong>2 PM</strong></li>
+                            <li>Contrato Menor: <strong>3 PM</strong></li>
+                            <li>Contrato Médio: <strong>4 PM</strong></li>
+                            <li>Contrato Maior: <strong>5 PM</strong></li>
+                            <li>Transformação Completa: <strong>6 PM</strong></li>
+                            <li>+1 atributo: <strong>5 PM</strong></li>
+                            <li>+1 Injúria Leve Máx: <strong>3 PM</strong></li>
+                            <li>+1 Injúria Grave Máx: <strong>4 PM</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Marcos de Cicatriz</h3>
+            <p>A cada <strong>10, 20, 30 PM gastos</strong>, o jogo te cobra: marca visível no corpo, perda de aliado, mudança de comportamento, contrato forçado, dívida com criatura, transformação parcial. <strong>Quanto mais você cresce, mais você muda</strong> — e nem sempre pra coisa boa. Veterano de SCAR não é heroico.</p>
+            <div class="quote-block">
+                O Mestre escolhe a consequência coerente com a história do personagem. Jogador pode propor, Mestre aprova.
+            </div>
+
+            <h3>Marca do Demônio</h3>
+            <p>Campo da ficha que começa <strong>vazio</strong> (só Humanos). Você ganha Marca do Demônio quando:</p>
+            <ul>
+                <li><strong>Recusa a morte</strong> (sobrevive a algo que devia te matar)</li>
+                <li><strong>Sobrevive a um evento irreversível</strong></li>
+                <li><strong>Fecha um Contrato</strong></li>
+                <li><strong>Vira Infernal</strong></li>
+            </ul>
+            <p>Marca altera o personagem de forma permanente: pode gerar novos poderes, Aflições, mudanças físicas ou narrativas. Diferente de Cicatriz (que vem de PM gasto), Marca vem do mundo sem você pedir.</p>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 2 — TESTES & AÇÕES -->
+        <section id="sec-2" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">2. Testes & Ações</h2>
+
+            <h3>Teste de Ação</h3>
+            <p>Roleta básica. Você rola <strong>Xd10</strong> (X = atributo) contra <strong>DT</strong> ou contra outra pessoa. Conta os dados que passaram. Mais sucessos = melhor resultado. É o teste único que resolve quase tudo: trepar muro, hackear celular, mentir pra policial, atirar no demônio.</p>
+
+            <h3>Teste de Medo</h3>
+            <p>Quando você encara algo que sua cabeça não tava pronta. Rola <strong>Xd10 contra DT</strong> baseada na idade do demônio + Escala de Medo (Recém-Nascido 15 → Primevo 40). Você escolhe <strong>com qual atributo enfrenta</strong>:</p>
+
+            <table class="stat-table">
+                <thead><tr><th>Atributo</th><th>Sucesso</th><th>Falha</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Força</strong> (peita pelo músculo)</td><td>+2 Stress (queima em adrenalina)</td><td>-Xd10 em testes físicos por 1 rodada</td></tr>
+                    <tr><td><strong>Vigor</strong> (engole no fôlego)</td><td>não entra em pânico</td><td>-1 movimento, não consegue fugir</td></tr>
+                    <tr><td><strong>Malandragem</strong> (escapa pela margem)</td><td>ignora o medo</td><td>-Xd10 em testes mentais por 1 rodada</td></tr>
+                    <tr><td><strong>Tecnologia</strong> (analisa friamente)</td><td>imune a efeito psicológico</td><td>-Xd10 mentais e não consegue usar poderes</td></tr>
+                    <tr><td><strong>Autoridade</strong> (comanda)</td><td>+1d10 num aliado escolhido</td><td>-Xd10 mentais, -10 em testes de comandar</td></tr>
+                    <tr><td><strong>Vínculo</strong> (encara pelos seus)</td><td>+1d30 dividido entre aliados</td><td>-Xd10 mentais</td></tr>
+                </tbody>
+            </table>
+            <p>Coordenação, Percepção, Investigação e Negociação <strong>não rolam Teste de Medo</strong> — não dá pra contornar pavor com mira fina, observação, dedução ou conversa.</p>
+
+            <h3>Forçar o Dado</h3>
+            <p>Não gostou do resultado? Paga <strong>2 Stress</strong> e <strong>rerola</strong>: fica obrigatoriamente com o novo resultado, mesmo se vier pior. Sem limite por cena, só seu Stress disponível segura quantas vezes você força. Cada uso te leva mais perto do <strong>Colapso</strong>.</p>
+
+            <h3>Atributo 0</h3>
+            <p>Quem deixa atributo zerado <strong>falha automático</strong> em qualquer teste relacionado <strong>e leva +1 Stress</strong>. Tentou ser esperto colocando tudo em Força e zero em Vínculo? Toda interação social vira humilhação ambulante.</p>
+
+            <h3>Críticos & Falhas</h3>
+            <p><strong>Múltiplos 10</strong> num teste = <strong>crítico</strong> (efeito extra). <strong>Múltiplos 1</strong> = <strong>falha catastrófica</strong> (penalidade no total).</p>
+
+            <table class="stat-table">
+                <thead><tr><th>Tipo</th><th>2× (10 ou 1)</th><th>3×</th><th>4×+</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Crítico Ofensivo</strong> (no ataque)</td><td>+1 Leve extra + Aflição</td><td>+1 Grave extra + Aflição</td><td>+1 Crítica extra OU Aflição permanente</td></tr>
+                    <tr><td><strong>Crítico Defensivo</strong> (na defesa)</td><td>-1 nível de Injúria</td><td>-2 níveis</td><td>-3 níveis (mín Leve)</td></tr>
+                    <tr><td><strong>Falha Catastrófica</strong> (qualquer teste)</td><td>-5 no total</td><td>-10</td><td>-15</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Companheiros</h3>
+            <div class="quote-block">Quem te segue quando você encara o Inferno. Bicho, gente ou demônio.</div>
+            <p>NPC simplificado com ficha de <strong>3 atributos + Stress 3-5</strong>:</p>
+
+            <table class="stat-table">
+                <thead><tr><th>Tipo</th><th>Atributos</th><th>Stress</th><th>Função</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Doméstico</strong></td><td>Vigor · Instinto · Vínculo</td><td>3</td><td>apoio, recupera Stress</td></tr>
+                    <tr><td><strong>Combate</strong></td><td>Força · Vigor · Ferocidade</td><td>5</td><td>distrai ou ataca</td></tr>
+                    <tr><td><strong>Utilitário</strong></td><td>Percepção · Tecnologia · Malandragem</td><td>4</td><td>rastreia, espia, abre porta</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Loyalty (1-3)</h4>
+            <ul>
+                <li><strong>1:</strong> segue se for fácil. Foge no perigo</li>
+                <li><strong>2:</strong> segue com risco. Trava no extremo (teste pra agir)</li>
+                <li><strong>3:</strong> te segue ao Inferno. Não trava</li>
+            </ul>
+            <p><strong>Perda:</strong> morte = consequência narrativa pesada. <strong>Loyalty 3 = Sonho Quebrado</strong>.</p>
+
+            <h4>Familiar (animal ou demoníaco)</h4>
+            <ul>
+                <li><strong>Animal:</strong> 2 Injúrias Leves. Morre → substituído após 1 arco (do zero)</li>
+                <li><strong>Demoníaco</strong> (Filho do Inferno): morre → retorna em 1d3 sessões, pode voltar diferente</li>
+                <li><strong>Destruído permanente:</strong> sem substituição. Novo demoníaco custa 3 PM</li>
+                <li><strong>Animal + demoníaco simultâneos?</strong> Não. Apenas 1 ativo</li>
+            </ul>
+
+            <h3>Júnior / Escudeiro</h3>
+            <div class="quote-block">Aprendiz humano que pode crescer até virar parceiro pleno ou PC.</div>
+
+            <h4>Ficha</h4>
+            <ul>
+                <li>Natureza: Humano, Infernal ou Híbrido</li>
+                <li><strong>10 atributos</strong> (12 pts, máx 4 na criação)</li>
+                <li>Injúrias: Leves = 2 + ⌊Vigor/2⌋ · Graves = 1 · Críticas = 1</li>
+                <li>Stress: 4 + Vigor + Vínculo</li>
+                <li>Sem Estilo de Luta · Sem poderes (exceto Infernal: 1 menor) · Sem Talismã</li>
+            </ul>
+
+            <h4>Adquirir/Evoluir</h4>
+            <p>Habilidade <strong>Adotado</strong> (Aut 2, Vín 2) → <strong>Forjado na Guerra</strong> (4 PM, após 1 arco de treino) → <strong>Voa, Pivete</strong> (libera +6 PM).</p>
+
+            <h4>Morte do Mentor</h4>
+            <ul>
+                <li><strong>Vínculo forte:</strong> Aflição Mental + Sonho Quebrado. Outro PC pode adotar (Vín DT 20). Senão vira NPC</li>
+                <li><strong>Vínculo fraco:</strong> Júnior abandona. Pode voltar hostil ou neutro</li>
+                <li><strong>Tinha Forjado na Guerra:</strong> pode virar PC jogável pra outro jogador</li>
+            </ul>
+
+            <h3>Troca Equivalente — Limite do Dobro</h3>
+            <div class="quote-block">
+                <em>Habilidades podem se combinar livremente, dando poder avassalador. <strong style="color: var(--cor-texto);">O corpo é que tem limite, não a ficha.</strong></em>
+            </div>
+            <ul>
+                <li><strong>Combinação livre:</strong> habilidades stackam de formas variadas, <strong>dano fixo (+X) não tem teto</strong></li>
+                <li><strong>Teto do corpo:</strong> bônus em d10 somados num teste ≤ <strong>2× atributo base</strong></li>
+                <li><strong>Excedente:</strong> para cada d10 que passar do teto, sofre <strong>+2 Stress · +5 fixo no resultado · estado Sobrecarregado</strong></li>
+            </ul>
+
+            <h4>🩸 Estado: Sobrecarregado</h4>
+            <p style="color: var(--cor-texto-secundario); font-style: italic;">Seu corpo não tá suportando tanto poder. A carne range, a respiração falha, a vista escurece.</p>
+            <ul>
+                <li>Sobrecarregado por <strong>3 rodadas seguidas</strong> → <strong>desmaia</strong> ao fim da 3ª</li>
+                <li><strong>Descansar 1 rodada</strong> (sem ativar Troca Equivalente) → efeito desaparece</li>
+                <li>Stress de Sobrecarregado <strong>não pode ser mitigado</strong> por habilidades de redução</li>
+            </ul>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 3 — COMBATE -->
+        <section id="sec-3" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">3. Combate</h2>
+
+            <h3>Iniciativa</h3>
+            <p><strong>1d10 + Coordenação.</strong> Maior age primeiro. Empate no dado, ganha quem tem mais Coordenação base. Em emboscada o atacante age primeiro de graça na primeira rodada. <strong>Primordial sempre age por último</strong> — ele tem todo o tempo do mundo.</p>
+
+            <h3>Economia de Ação</h3>
+            <p>Por turno:</p>
+            <ul>
+                <li><strong>1 Ação Principal</strong> (atacar/poder/item)</li>
+                <li><strong>1 Movimento</strong> (Coord × 2 metros, grátis)</li>
+                <li><strong>1 Reação</strong> (defesa fora do seu turno)</li>
+            </ul>
+            <p>Pode trocar ação por movimento extra. Pode pagar <strong>3 Stress por +1 ação extra</strong> (1x por rodada). Falar e largar item são livres.</p>
+
+            <h3>Ataque & Defesa</h3>
+            <p><strong>Atacante rola Xd10 contra defensor que rola Xd10.</strong> Diferença positiva é injúria:</p>
+            <table class="stat-table">
+                <thead><tr><th>Diferença</th><th>Resultado</th></tr></thead>
+                <tbody>
+                    <tr><td>1-9</td><td>Injúria Leve</td></tr>
+                    <tr><td>10-19</td><td>Injúria Grave</td></tr>
+                    <tr><td>20-39</td><td>Injúria Crítica</td></tr>
+                    <tr><td>40+</td><td>Morte Instantânea</td></tr>
+                </tbody>
+            </table>
+            <p>Não tem "vida" tipo HP, tem <strong>slots de injúria</strong>. Você aguenta poucos golpes, mas cada um pesa.</p>
+
+            <h3>Sem Defesa <span class="badge">emboscada, surpresa, sem reação</span></h3>
+            <p>Pegou o inimigo de calça curta — dormindo, surpreso, sem reação disponível, imobilizado? <strong>O defensor não rola</strong> — a defesa vale 0. Toda a soma do atacante vira diferença pela <strong>tabela de Ataque &amp; Defesa acima</strong> (1-9 Leve · 10-19 Grave · 20-39 Crítica · 40+ Morte).</p>
+            <p>Sem rede. Por isso ninguém em SCAR anda relaxado.</p>
+
+            <h3>Injúrias</h3>
+            <p>Slots fixos baseados em Vigor:</p>
+            <ul>
+                <li><strong>Leves</strong> = 2 + ⌊Vigor/2⌋</li>
+                <li><strong>Graves</strong> = 1 + ⌊Vigor/3⌋</li>
+                <li><strong>Crítica</strong> = sempre 1 slot</li>
+            </ul>
+            <p>Encheu o slot, próximo ataque sobe pro nível seguinte. <strong>Crítica + crítica = morte.</strong></p>
+
+            <h3>Movimento</h3>
+            <p><strong>Coordenação × 2 metros</strong> de graça por turno. Quer correr mais? Paga <strong>1 Stress por 2 metros extras</strong>. Velocidade em SCAR custa fôlego.</p>
+
+            <h3>Sangue</h3>
+            <p><strong>Sangue é Poder.</strong> Quando um inimigo sofre Injúria Grave/Crítica ou morre a até <strong>3m</strong> de você, o sangue derramado pode ser absorvido pra fortalecer e regenerar a carne. Gasta <strong>1 Reação</strong>:</p>
+            <ul>
+                <li><strong>Demônio Puro:</strong> reduz 1 grau da maior Injúria sua <strong>na hora</strong>. Engorda no que escorre — quanto mais cai ao redor, mais poderoso fica.</li>
+                <li><strong>Híbrido / Infernal:</strong> reduz 1 grau, mas o corpo demora — efeito ativa <strong>no início do seu próximo turno</strong>, e só <strong>1x por cena</strong>.</li>
+                <li><strong>Humano:</strong> sangue é só sangue. Sem efeito.</li>
+            </ul>
+            <p>É a regra que separa quem é feito de medo de quem só sangra.</p>
+
+            <h3>Armadura</h3>
+            <p>Reduz nível da injúria automaticamente. Tiers básicos: <strong>-1 nível</strong> (Roupa Reforçada, Colete Oculto, Tático, Capacete) ou <strong>-2 níveis</strong> (Colete + Placas, Anti-Motim). Escudo bloqueia 1 ataque frontal/rodada.</p>
+            <div class="quote-block">Catálogo completo → <a href="vendinha.html" style="color: var(--cor-secundaria);">vendinha</a></div>
+
+            <h3>Armas & Dano</h3>
+            <p>Soma direto no resultado do ataque:</p>
+            <ul>
+                <li><strong>+0</strong> (faca)</li>
+                <li><strong>+1d10</strong> (armas leves: bastão, katana, pistola, arco)</li>
+                <li><strong>+2d10</strong> (armas médias: machado, SMG, rifle, granada)</li>
+                <li><strong>+3d10</strong> (armas pesadas: motosserra, sniper)</li>
+            </ul>
+            <p>Arma boa não te faz invencível, te faz menos morto.</p>
+            <div class="quote-block">Catálogo completo (críticos, alcance, efeitos, custo) → <a href="vendinha.html" style="color: var(--cor-secundaria);">vendinha</a></div>
+
+            <h3>Automóveis</h3>
+            <div class="quote-block">Em SCAR ninguém anda devagar quando demônio tá atrás.</div>
+
+            <p>Veículo tem ficha mínima: <strong>Velocidade · Resistência (Stress do veículo) · Manobrabilidade</strong>. Quem dirige soma seus atributos quando relevante.</p>
+
+            <h4>Pilotagem por Atributo</h4>
+            <table class="stat-table">
+                <thead><tr><th>Situação</th><th>Atributo</th></tr></thead>
+                <tbody>
+                    <tr><td>Dirigir / pilotar comum</td><td><strong>Coordenação</strong></td></tr>
+                    <tr><td>Veículo moderno, hack, sistema eletrônico</td><td><strong>Tecnologia</strong></td></tr>
+                    <tr><td>Furar bloqueio, contramão, manobra ilegal</td><td><strong>Malandragem</strong></td></tr>
+                    <tr><td>Perseguição longa, aguentar trepidação</td><td><strong>Vigor</strong></td></tr>
+                </tbody>
+            </table>
+
+            <h4>Perseguição</h4>
+            <p>Resolvida em rodadas como combate. Cada rodada:</p>
+            <ol>
+                <li>Piloto rola <strong>Xd10 + atributo do veículo d10</strong> contra piloto adversário</li>
+                <li>Diferença positiva = aproxima ou afasta 1 nível</li>
+                <li><strong>Falha crítica</strong> (múltiplos 1) = <strong>colisão</strong>: Injúria automática no piloto + dano no veículo</li>
+            </ol>
+
+            <h4>Dano em Veículos</h4>
+            <p>Veículo tem <strong>Slots de Dano</strong> (parecido com Injúria). Encheu = veículo para. Crítica = explode ou capota.</p>
+
+            <table class="stat-table">
+                <thead><tr><th>Veículo</th><th>Slots de Dano</th></tr></thead>
+                <tbody>
+                    <tr><td>Moto</td><td>2</td></tr>
+                    <tr><td>Carro comum</td><td>4</td></tr>
+                    <tr><td>SUV blindado</td><td>6</td></tr>
+                    <tr><td>Caminhão / van</td><td>5</td></tr>
+                    <tr><td>Helicóptero</td><td>4</td></tr>
+                </tbody>
+            </table>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 4 — DUELO -->
+        <section id="sec-4" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">4. Duelo</h2>
+
+            <h3>Preparação & Rodadas</h3>
+            <p>Briga focada, um contra um. Cada um escolhe <strong>3 atributos</strong> e rola os 3 secretamente. Em cada rodada revela 1, maior vence. <strong>Melhor de 3.</strong> É xadrez emocional: você aposta os atributos certos contra a pessoa errada e é destroçado.</p>
+
+            <h3>Consequências</h3>
+            <ul>
+                <li>Perdeu primeira rodada: <strong>+3 Stress</strong></li>
+                <li>Perdeu segunda: <strong>Injúria Leve automática</strong></li>
+                <li>Perdeu terceira: 1-9 Grave · 10-19 Grave + Aflição · 20+ morte ou incapacitação</li>
+            </ul>
+            <p>Quem ganha sai com <strong>cicatriz permanente</strong> narrativa. Duelo em SCAR não é exibição, é marca.</p>
+
+            <h3>All-In</h3>
+            <p>Aposta tudo. Soma os atributos restantes num único teste. <strong>Perde = dobra a consequência. Empate = triplica.</strong></p>
+            <p><strong>Recusar duelo:</strong> -3d10 por 2 rodadas + marca de covarde. Em SCAR a fuga também custa.</p>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 5 — STRESS -->
+        <section id="sec-5" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">5. Stress</h2>
+
+            <h3>Stress Máximo</h3>
+            <ul>
+                <li><strong>Humano/Infernal/Híbrido:</strong> 6 + Vigor + Vínculo</li>
+                <li><strong>Demônio Puro:</strong> 4 + Vigor + atributo da Categoria de Medo</li>
+            </ul>
+            <p>Stress é o quanto sua cabeça aguenta antes de quebrar.</p>
+
+            <h3>Gasto de Stress</h3>
+            <p>Stress não é só dano mental, é <strong>moeda de buff</strong>. Você queima Stress pra fazer coisa que o corpo não daria sozinho:</p>
+
+            <table class="stat-table">
+                <thead><tr><th>Custo</th><th>Ação</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>1 Stress</strong></td><td>Ajudar aliado: rola junto e dá <strong>+1d10</strong> no teste dele</td></tr>
+                    <tr><td><strong>1 Stress por 2m</strong></td><td>Movimento extra além do base (Coord × 2m)</td></tr>
+                    <tr><td><strong>2 Stress</strong></td><td>Forçar o dado: rerola um teste falho</td></tr>
+                    <tr><td><strong>3 Stress</strong></td><td>+1 ação extra no turno (máx 1 por rodada)</td></tr>
+                    <tr><td><strong>Variável</strong></td><td>Ativar poderes, contratos e estilos especiais</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Stress é gasolina queimada.</strong> Quanto mais você queima pra brilhar, mais perto fica do Colapso.</p>
+
+            <h3>Colapso</h3>
+            <p>Bateu no máximo? <strong>Injúria automática + Stress reseta pra 0.</strong> Seu corpo desliga e te protege da própria mente. Acordou diferente.</p>
+
+            <h3>Recuperação</h3>
+            <p><strong>1x por cena</strong> você rola:</p>
+            <ul>
+                <li><strong>Descanso:</strong> 1d10 + Vínculo</li>
+                <li><strong>Combate</strong> (manter foco no caos): 1d10 + Vigor</li>
+                <li><strong>Em grupo</strong> (2+ pessoas se apoiando): 1d10 + atributo escolhido, dividido</li>
+            </ul>
+            <p>Stress reseta totalmente com <strong>1 noite de sono seguro</strong>. Sem segurança, só metade.</p>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 6 — AFLIÇÕES -->
+        <section id="sec-6" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">6. Aflições</h2>
+
+            <h3>Gatilhos</h3>
+            <p>Aflição entra automática quando você:</p>
+            <ul>
+                <li>Sofre <strong>Injúria Grave</strong></li>
+                <li>Leva <strong>+40% do Stress máximo de uma vez</strong></li>
+                <li>Presencia algo perturbador</li>
+                <li>Falha crítica em situação extrema</li>
+            </ul>
+            <p>Sem dado pra evitar.</p>
+
+            <h3>Tipos</h3>
+            <p><strong>Física</strong> (membro quebrado, hemorragia, cegueira temporária) ou <strong>Mental</strong> (pânico, alucinação, fúria descontrolada). Rola <strong>1d100</strong> na tabela apropriada pra ver qual te pegou.</p>
+
+            <h3>Duração & Efeitos</h3>
+            <p>Aflição dura <strong>1d3 rodadas</strong> em combate, mais em narrativa pesada. Cada uma tem debuff específico aplicado automático. Crítico de 4×10 pode dar aflição <strong>permanente</strong>, algo que vira parte do personagem pra sempre.</p>
+
+            <div class="quote-block">Tabela completa d100 → <a href="aflicoes.html" style="color: var(--cor-secundaria);">aflicoes</a></div>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 7 — DEMÔNIOS PUROS -->
+        <section id="sec-7" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">7. Demônios Puros</h2>
+
+            <h3>Visão Geral</h3>
+            <p>Demônio Puro é medo encarnado. <strong>Não é gente, não foi gente, nunca vai ser.</strong> Funciona diferente em quase tudo:</p>
+            <ul>
+                <li><strong>22 atributos livres</strong> com teto de 10 cada</li>
+                <li><strong>Sem Talismã</strong>: não tem âncora, é o próprio abismo</li>
+                <li><strong>Sem Sonhos</strong>: só presente, não persegue futuro</li>
+                <li><strong>Falha Central obrigatória</strong> definida na criação</li>
+                <li><strong>Stress</strong> calculado pela Categoria de Medo</li>
+                <li><strong>Não procria</strong>: Demônio Puro + qualquer = nada</li>
+            </ul>
+
+            <h3>Categorias de Medo</h3>
+            <p>Escolhida na criação. Determina o tipo de pavor que sustenta o bicho e qual atributo entra no Stress máx:</p>
+
+            <table class="stat-table">
+                <thead><tr><th>Categoria</th><th>Exemplos</th><th>Stress Máximo</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Incomum</strong></td><td>bicho-papão, mistério urbano, bizarrice</td><td>4 + Vigor + Força</td></tr>
+                    <tr><td><strong>Social/Sistêmico</strong></td><td>burocracia, vigilância, mercado</td><td>4 + Vigor + Autoridade</td></tr>
+                    <tr><td><strong>Bíblico/Arquetípico</strong></td><td>apocalipse, dogma, sagrado</td><td>4 + Vigor + Autoridade</td></tr>
+                    <tr><td><strong>Conceitual/Abstrato</strong></td><td>solidão, esquecimento, vazio</td><td>4 + Vigor + Percepção</td></tr>
+                    <tr><td><strong>Primordial</strong></td><td>antes do mundo, abismo, fim</td><td>6 + Vigor + Força</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Idade & Pontos de Idade</h3>
+            <p>Demônio acumula poder pelo tempo que existe. Pontos extras pra distribuir entre <strong>Força · Resistência · Sabedoria</strong>:</p>
+
+            <table class="stat-table">
+                <thead><tr><th>Idade</th><th>Anos</th><th>Pontos</th><th>DT Base (Medo)</th></tr></thead>
+                <tbody>
+                    <tr><td>Recém-Nascido</td><td>0-10</td><td>0</td><td>15</td></tr>
+                    <tr><td>Jovem</td><td>11-50</td><td>2</td><td>20</td></tr>
+                    <tr><td>Maduro</td><td>51-200</td><td>3</td><td>25</td></tr>
+                    <tr><td>Veterano</td><td>201-500</td><td>4</td><td>30</td></tr>
+                    <tr><td>Ancião</td><td>501-1000</td><td>5</td><td>35</td></tr>
+                    <tr><td>Primevo</td><td>1000+</td><td>6</td><td>40</td></tr>
+                </tbody>
+            </table>
+
+            <div class="row gap-20 m-20-t">
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4>FORÇA <span style="font-weight: normal; opacity: 0.7;">(combate)</span></h4>
+                        <p>Cada ponto:</p>
+                        <ul style="padding-left: 18px;">
+                            <li>+1 em Força ou Vigor (atributo)</li>
+                            <li>+1 Ferimento Leve máximo</li>
+                            <li><em>2 pontos:</em> +1 Poder Demoníaco de combate</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4>RESISTÊNCIA <span style="font-weight: normal; opacity: 0.7;">(durabilidade)</span></h4>
+                        <p>Cada ponto:</p>
+                        <ul style="padding-left: 18px;">
+                            <li>+2 Stress máximo</li>
+                            <li>+1 Ferimento Leve máximo</li>
+                            <li><em>2 pontos:</em> +1 Ferimento Grave máximo</li>
+                            <li><em>2 pontos:</em> Regeneração passiva (1 Leve por cena)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4>SABEDORIA <span style="font-weight: normal; opacity: 0.7;">(controle)</span></h4>
+                        <p>Cada ponto:</p>
+                        <ul style="padding-left: 18px;">
+                            <li>+1 em Malandragem, Tecnologia ou Autoridade</li>
+                            <li>-1 custo de Stress em 1 poder</li>
+                            <li><em>2 pontos:</em> +1 Poder Demoníaco de utilidade</li>
+                            <li><em>2 pontos:</em> +1 Habilidade Geral</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="quote-block"><strong>Regra do Mestre:</strong> A distribuição deve ser coerente com a lore do demônio. O Mestre tem palavra final.</div>
+
+            <h3>Escala de Medo</h3>
+            <p>A relevância do demônio na cabeça do mundo. Vai de <strong>-5 (Esquecido)</strong> a <strong>+5 (Incompreensível)</strong>. Cada nível dá ou tira d10 dos testes. <strong>Demônio não tem ego, é mídia.</strong></p>
+            <ul>
+                <li><strong>Sobe</strong> quando causa Crítica, mata gente importante, age com crueldade</li>
+                <li><strong>Desce</strong> quando protege humano, é ridicularizado, é derrotado em público</li>
+            </ul>
+
+            <h3>Falha Central</h3>
+            <p>Toda Demônio Puro tem <strong>uma fraqueza obrigatória</strong> definida na criação. É a coisa que pode apagar o demônio do mundo: luz do sol, nome verdadeiro, dogma quebrado, oposto conceitual, símbolo certo. <strong>Sem Falha Central, ficha de Demônio não fecha.</strong></p>
+
+            <h3>Marca do Demônio <span style="font-weight: normal; opacity: 0.7;">(o demônio marca)</span></h3>
+            <div class="quote-block"><strong>O Demônio não é marcado, ele marca.</strong></div>
+            <p>Diferente de humanos, que recebem Marca, Demônios deixam marcas em:</p>
+            <ul>
+                <li><strong>Pessoas com contratos:</strong> quem fechou negócio carrega o sinal</li>
+                <li><strong>Lugares corrompidos:</strong> território que o demônio reivindicou</li>
+            </ul>
+            <p><strong>Efeitos:</strong> criam novos medos, alimentam o demônio, deixam consequências permanentes em quem/onde foi marcado.</p>
+
+            <h3>Armas + Poderes</h3>
+            <p>Demônio Puro pode misturar armamento com poder demoníaco. Não é só "ataca" ou "usa poder", é os dois acontecendo juntos.</p>
+
+            <div class="row gap-20 m-20-t">
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>Poderes podem:</h4>
+                        <ul style="padding-left: 18px;">
+                            <li>Usar armamento como <strong>canal</strong> (poder sai pela arma)</li>
+                            <li><strong>Distorcer armas humanas</strong> (transformar uma faca em algo a mais)</li>
+                            <li><strong>Criar armas temporárias</strong> (osso, sangue, sombra; dura 1 cena)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>Armas podem:</h4>
+                        <ul style="padding-left: 18px;">
+                            <li><strong>Reduzir custo de poder</strong> (-1 Stress se a arma é parte do conceito)</li>
+                            <li>Ser <strong>destruídas como sacrifício</strong> (quebra a arma pra potencializar 1 uso)</li>
+                            <li><strong>Aumentar o grau da injúria</strong> quando o poder canaliza por elas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Portas para o Inferno</h3>
+            <p>Portas literais que ligam o mundo humano ao Inferno. <strong>Demônio Puro usa com frequência</strong>. Híbrido e Infernal conseguem mas raramente fazem (custa demais à cabeça).</p>
+            <p><strong>Como abre:</strong> quem pode usa a mente pra imaginar e abrir a sua porta. A porta surge perto do usuário, sobrepondo o que existe (chão, parede, céu). Nem todos conseguem — é um terror que poucos aceitam encarar.</p>
+            <p><strong>Quem encontra uma porta:</strong> reza e se afasta. Grandes chances de algo sair, ou de um demônio estar próximo. <strong>Encontrar Porta nunca é boa notícia.</strong></p>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 8 — DESCANSO -->
+        <section id="sec-8" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">8. Descanso</h2>
+
+            <h3>Cura de Injúrias</h3>
+            <table class="stat-table">
+                <thead><tr><th>Nível</th><th>Com tratamento</th><th>Sem tratamento</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Leve</strong></td><td>1 noite de descanso seguro</td><td>—</td></tr>
+                    <tr><td><strong>Grave</strong></td><td>1 dia (médico) ou 1d3 dias (descanso)</td><td>Mestre rola 1d10: 1-2 = Aflição Física permanente</td></tr>
+                    <tr><td><strong>Crítica</strong></td><td>1d3 semanas com tratamento intensivo</td><td>Vira condição permanente (membro perdido, órgão danificado, cicatriz)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Sono & Stress</h3>
+            <p>Stress reseta totalmente com <strong>1 noite de sono seguro</strong>. Sem segurança (acampamento exposto, esconderijo precário, fugindo de algo), só metade do total.</p>
+
+            <h3>Intimidade</h3>
+            <p>Cena de intimidade é <strong>narrativa, sem rolagem pro ato em si</strong>. Tem teste opcional de Vínculo se houver tensão.</p>
+            <p><strong>Pós-cena (1x por arco):</strong></p>
+            <ul>
+                <li>Com vínculo mútuo: recupera <strong>1d10 + Vínculo + 3 Stress</strong></li>
+                <li>Sem vínculo: recupera <strong>1d7</strong> e ganha <strong>+1 Stress depois</strong></li>
+            </ul>
+            <p><strong>Vulnerabilidade:</strong> até fim da próxima cena, se o parceiro morre/sofre Grave você toma +3 Stress + teste de Aflição Mental.</p>
+            <p><strong>Gravidez:</strong> mestre rola 1d10 secreto (8-9 = grávida, 10 = grávida com complicação).</p>
+
+            <h3>Fertilidade por Natureza</h3>
+            <p>Cada natureza tem um status de fertilidade que vira modificador na rolagem. <strong>Modificadores acumulam por participante.</strong></p>
+
+            <table class="stat-table">
+                <thead><tr><th>Natureza</th><th>Fertilidade</th><th>Mod.</th><th>Razão</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Humano</strong></td><td>Fértil</td><td>0</td><td>biologia normal</td></tr>
+                    <tr><td><strong>Híbrido</strong></td><td>Reduzida</td><td>-3</td><td>biologia instável, demônio interno interfere</td></tr>
+                    <tr><td><strong>Infernal</strong></td><td>Quase nula</td><td>-4</td><td>cadáver reanimado, biologia em deterioração</td></tr>
+                    <tr><td><strong>Demônio Puro</strong></td><td>Estéril</td><td>impossível</td><td>não tem biologia humana, não procria</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Mods narrativos:</strong> Precaução -2 · Impulsividade +1.</p>
+            <p><strong>Parto:</strong> Vigor DT 15 do bebê, DT 20 da mãe. Falha = Injúria Grave + Aflição Mental pra ambos, ou morte.</p>
+
+            <div class="quote-block">
+                <strong>Nota:</strong> O uso indevido dessa mecânica trará sérios perigos. Vocês estão gerando uma vida que deve ser respeitada. Filhos não são bênçãos nesse mundo, são alvos, moeda de troca, a coisa mais perigosa que se pode criar. Algo que te dá motivo pra hesitar. O Mestre não vai permitir caso seja pra coisa fútil e sem sentido.
+            </div>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 9 — DINHEIRO & ECONOMIA -->
+        <section id="sec-9" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">9. Dinheiro & Economia</h2>
+
+            <h3>O Que É</h3>
+            <p>A moeda do mundo: <strong>Iene (¥)</strong>. SCAR se passa no Japão. Caçadores não são ricos, são funcionários descartáveis, mercenários de esquina, sobreviventes que roubam dos mortos. <strong>Dinheiro aqui não é luxo, é prazo de validade</strong>: enquanto você tem, dura mais um pouco.</p>
+
+            <h3>Pra Que Serve</h3>
+            <ul>
+                <li><strong>Equipar-se</strong>: comprar arma, armadura, munição, ferramenta (catálogo: <a href="vendinha.html" style="color: var(--cor-secundaria);">vendinha</a>)</li>
+                <li><strong>Comer e dormir</strong>: vida básica custa ¥, e quem não come bem cai mais rápido em combate</li>
+                <li><strong>Contratar treino</strong>: pegar um 2º ou 3º Estilo de Luta exige PM <strong>e</strong> ¥</li>
+                <li><strong>Pagar informante / subornar</strong>: Negociação resolve metade, o resto é envelope no bolso</li>
+                <li><strong>Mercado Negro</strong>: única fonte de armas pesadas, itens demoníacos e partes de criatura. Preço <strong>2-3x</strong> o legal</li>
+                <li><strong>Tratamento</strong>: médico clandestino e remédio bom não são gratuitos</li>
+                <li><strong>Reposição</strong>: arma quebra, armadura fura, veículo pega bala</li>
+            </ul>
+            <div class="quote-block">Em campanha onde Mestre quer foco narrativo, pode ignorar dinheiro. Em campanha de sobrevivência, ¥ é tão letal quanto qualquer demônio.</div>
+
+            <h3>Renda por Missão <span style="font-weight: normal; opacity: 0.7;">(Segurança Pública)</span></h3>
+            <table class="stat-table">
+                <thead><tr><th>Tipo de Missão</th><th>Pagamento</th></tr></thead>
+                <tbody>
+                    <tr><td>Patrulha simples</td><td>500-1.000 ¥</td></tr>
+                    <tr><td>Investigação</td><td>1.000-3.000 ¥</td></tr>
+                    <tr><td>Caça a demônio menor</td><td>3.000-5.000 ¥</td></tr>
+                    <tr><td>Caça a demônio forte (Medo 3+)</td><td>5.000-15.000 ¥</td></tr>
+                    <tr><td>Missão suicida / Cavaleiro</td><td>20.000-50.000 ¥</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Freelancer/mercenário</strong> negocia 50-200% do valor da SP dependendo do risco e de quem contrata.</p>
+
+            <h3>Custo de Vida</h3>
+            <ul>
+                <li><strong>Vida básica:</strong> ~2.000 ¥/semana (comida, abrigo precário, transporte)</li>
+                <li><strong>Equipamento básico</strong> (faca, roupa reforçada): geralmente fornecido pela organização</li>
+                <li><strong>Equipamento avançado</strong> (rifles, coletes, explosivos, ferramentas, veículos): você compra, rouba ou requisita</li>
+            </ul>
+
+            <h3>Mercado Negro</h3>
+            <p>Onde se acha o ilegal: armas pesadas, itens demoníacos, partes de criaturas mortas. <strong>Preço 2-3x mais alto</strong> que o legal. Partes de demônios têm valor variado, Mestre define caso a caso.</p>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- SEÇÃO 10 — CRIAÇÃO DE PERSONAGEM -->
+        <section id="sec-10" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">10. Criação de Personagem</h2>
+
+            <div class="quote-block">
+                Guia passo a passo pra fechar a ficha do zero, sem deixar dúvida. Cada item tem explicação curta. Detalhes mecânicos completos estão linkados nos docs certos.
+            </div>
+
+            <p>Ordem pra fechar ficha (tudo decisão, nenhum dado):</p>
+
+            <div class="row gap-20 m-30-t">
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>1. Natureza</h4>
+                        <p>Humano, Infernal, Híbrido ou Demônio Puro. Define bônus, malefícios e como o mundo reage.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>2. Atributos</h4>
+                        <p>Distribui pontos entre os 10 atributos:</p>
+                        <ul style="padding-left: 18px;">
+                            <li>Humano/Infernal/Híbrido: <strong>16-22 pontos</strong></li>
+                            <li>Demônio Puro: <strong>22 pontos livres</strong> (teto 10 por atributo). A Categoria de Medo define só o atributo que entra no Stress, não trava distribuição</li>
+                        </ul>
+                        <p style="color: var(--cor-secundaria); font-size: 0.9rem;">⚠️ Atributo 0 = falha automática + 1 Stress.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>3. Talismã <span style="font-weight: normal; opacity: 0.7;">(pula se Demônio Puro)</span></h4>
+                        <p>Objeto físico que você carrega. Ativa <strong>1x por sessão sem custo</strong> pra reroll, reduzir Injúria, ignorar Aflição, recuperar Stress ou resistir Medo.</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>4. Sonhos <span style="font-weight: normal; opacity: 0.7;">(pula se Demônio Puro)</span></h4>
+                        <p>1 a 3 desejos que dão direção. PM ao realizar: Comum 4 · Pessoal 6 · Ambicioso 10 · Tolo 15. <strong>Sonho quebrado = Aflição permanente + -1 Vínculo.</strong></p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>5. Estilo de Luta</h4>
+                        <p>Escolhe 1 dos 12 estilos. Passivo, sempre ativo, sem custo.</p>
+                        <p><a href="vendinha.html" style="color: var(--cor-secundaria);">→ Catálogo na Vendinha</a></p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>6. Poderes</h4>
+                        <ul style="padding-left: 18px;">
+                            <li><strong>Humano:</strong> sem poder de berço. Pode fechar Contrato</li>
+                            <li><strong>Infernal:</strong> 1 Poder Demoníaco + 1 Sentido Sobrenatural</li>
+                            <li><strong>Híbrido:</strong> 1 Poder de transformação. Grilhões = 0</li>
+                            <li><strong>Demônio Puro:</strong> 2 Poderes ligados ao conceito do medo</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>7. Habilidades</h4>
+                        <p>Escolhe habilidades de origem (da sua natureza) + habilidades gerais (universais). Custo padrão <strong>2 PM cada</strong>.</p>
+                        <p><a href="habilidades.html" style="color: var(--cor-secundaria);">→ Catálogo de Habilidades</a></p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>8. Lore</h4>
+                        <p>Fecha o personagem como pessoa: passado, vínculos, motivações, o que ainda persegue, o que não perdoa. As perguntas viram <strong>ganchos pro Mestre</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Variações por Natureza</h3>
+            <ul>
+                <li><strong>Humano:</strong> PM inicial pelo passado — vida comum 3 / violência 5 / trauma 7 / extremo 9</li>
+                <li><strong>Infernal:</strong> define o disfarce humano e o que escapa quando ele falha</li>
+                <li><strong>Híbrido:</strong> define o gatilho da transformação e como o demônio interno se manifesta</li>
+                <li><strong>Demônio Puro:</strong> pula Talismã/Sonhos. Define <strong>Falha Central</strong>, <strong>Categoria de Medo</strong> e distribui <strong>Pontos de Idade</strong></li>
+            </ul>
+
+            <h3>Modelos de Ficha (Copia e Cola)</h3>
+            <p style="color: var(--cor-texto-secundario);">Copia, cola no app de notas e preenche. Dois modelos: padrão (Humano/Infernal/Híbrido) e Demônio Puro.</p>
+
+            <div class="row gap-20 m-20-t">
+                <div class="c-xs-12 c-md-6">
+                    <div class="ficha-template">
+                        <div class="ficha-template-header">
+                            <div>
+                                <h4 class="ficha-template-title">Ficha Padrão</h4>
+                                <p class="ficha-template-subtitle">Humano · Infernal · Híbrido</p>
+                            </div>
+                            <button class="ficha-copy-btn" data-copy-target="ficha-padrao">COPIAR</button>
+                        </div>
+<pre class="ficha-pre" id="ficha-padrao">═══ FICHA PADRÃO — SCAR ═══
+
+NOME:
+IDADE:
+NATUREZA:           (Humano · Infernal · Híbrido)
+APARÊNCIA:
+PERSONALIDADE:
+CONCEITO/RESUMO:
+BACKGROUND:
+
+LIGAÇÃO C/ DEMÔNIOS:
+FALHA CENTRAL:
+TALISMÃ:
+
+── ATRIBUTOS (16-22 pts · teto 5) ──
+Físicos      Táticos        Mentais/Sociais
+Força:       Malandragem:   Investigação:
+Vigor:       Tecnologia:    Negociação:
+Coord:       Percepção:     Autoridade:
+                            Vínculo:
+
+── RECURSOS ──
+Stress máx: ___ / ___   (6 + Vigor + Vínculo · Humano +2)
+PM: ___
+Grilhões: ___           (só Híbrido)
+
+Injúrias:  Leve ___  Grave ___  Crítica ___
+
+── COMBATE ──
+Estilo de Luta:
+Armamento:
+Armadura:
+
+── PODERES / CONTRATOS ──
+1)
+2)
+
+── HABILIDADES ──
+Origem:
+Gerais:
+
+── SONHOS (1-3) ──
+1)
+2)
+3)
+
+── AFLIÇÕES ──
+1)
+2)
+
+── VÍNCULOS ──
+1)
+2)
+3)
+
+── MARCAS DO DEMÔNIO ──</pre>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-md-6">
+                    <div class="ficha-template">
+                        <div class="ficha-template-header">
+                            <div>
+                                <h4 class="ficha-template-title">Ficha Demônio Puro</h4>
+                                <p class="ficha-template-subtitle">Sem Talismã/Sonhos · Falha Central obrigatória</p>
+                            </div>
+                            <button class="ficha-copy-btn" data-copy-target="ficha-demonio">COPIAR</button>
+                        </div>
+<pre class="ficha-pre" id="ficha-demonio">═══ FICHA DEMÔNIO PURO — SCAR ═══
+
+NOME:
+CONCEITO / MEDO QUE ENCARNA:
+APARÊNCIA:
+PERSONALIDADE:
+
+CATEGORIA DE MEDO:  (Incomum · Social · Bíblico · Conceitual · Primordial)
+IDADE / TIER:       (Recém-Nascido → Primevo)
+FALHA CENTRAL:
+
+── ATRIBUTOS (22 pontos livres · teto 10) ──
+Físicos      Táticos        Mentais/Sociais
+Força:       Malandragem:   Investigação:
+Vigor:       Tecnologia:    Negociação:
+Coord:       Percepção:     Autoridade:
+                            Vínculo:
+
+── RECURSOS ──
+Stress máx: ___ / ___
+PM: ___
+Escala de Medo:  0      (-5 a +5)
+
+Injúrias:  Leve ___  Grave ___  Crítica ___
+
+── COMBATE ──
+Estilo de Luta:
+Armamento:
+
+── PODERES (2 ligados ao medo) ──
+1)
+2)
+
+── HABILIDADES ──
+Origem:
+Gerais:
+
+── AFLIÇÕES ──
+1)
+2)
+
+── MARCAS NO MUNDO ──
+Pessoas (contratos):
+Lugares (corrompidos):</pre>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+    </main>
+
+    <!-- CTA -->
+    <section class="cta-section p-100-tb xs-p-60-tb">
+        <div class="container">
+            <div class="cta-content text-center">
+                <h2 class="cta-title wow fadeInUp">Pronto para <span>encarar o Inferno</span>?</h2>
+                <p class="fs-9 m-20-t wow fadeInUp" data-wow-delay="0.1s" style="color: var(--cor-texto-secundario); max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Catálogo completo de habilidades, armamento e contratos.
+                </p>
+                <div class="m-40-t d-flex f-justify-center f-wrap f-gap-15 wow fadeInUp" data-wow-delay="0.2s">
+                    <a href="habilidades.html" class="btn btn-primary">Habilidades</a>
+                    <a href="vendinha.html" class="btn btn-primary">Vendinha</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a href="index.html">SCAR</a>
+            <span>Sacrificial Contract & Risk</span>
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="agradecimentos.html">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                Agradecimentos
+            </a>
+        </div>
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">© 2026 SCAR RPG • Feito com 🩸 por fãs, para fãs</p>
+    </footer>
+
+    <!-- Back to top -->
+    <a href="#" class="back-to-top" aria-label="Voltar ao topo">↑</a>
+
+    <!-- Squeleton JS (Footer) -->
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+
+    <!-- SCAR JS Compartilhado -->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Back to top
+        const backBtn = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backBtn.classList.add('visible');
+            } else {
+                backBtn.classList.remove('visible');
+            }
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Esconde TODOS os <hr> adjacentes às sumario-sections
+        document.querySelectorAll('hr.secao-divider').forEach(hr => {
+            const prev = hr.previousElementSibling;
+            const next = hr.nextElementSibling;
+            const adj = (prev && prev.classList.contains('sumario-section')) ||
+                        (next && next.classList.contains('sumario-section'));
+            if (adj) hr.style.display = 'none';
+        });
+
+        // ===== TABS — uma section por vez =====
+        const sumarioTabs = document.querySelectorAll('.sumario-tab');
+        const sumarioSections = document.querySelectorAll('.sumario-section');
+
+        function activateSumarioTab(tabId) {
+            sumarioTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabId));
+            sumarioSections.forEach(s => s.classList.toggle('tab-active', s.id === tabId));
+        }
+
+        sumarioTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                activateSumarioTab(tab.dataset.tab);
+                // Scroll suave até a seção
+                const target = document.getElementById(tab.dataset.tab);
+                if (target) {
+                    setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+                }
+            });
+        });
+
+        // Estado inicial: 1. Personagem
+        activateSumarioTab('sec-1');
+
+        // Copiar fichas
+        document.querySelectorAll('.ficha-copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.copyTarget);
+                if (!target) return;
+                const text = target.innerText;
+                const done = () => {
+                    const original = btn.textContent;
+                    btn.textContent = '✓ COPIADO';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = original;
+                        btn.classList.remove('copied');
+                    }, 1800);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+                } else {
+                    fallbackCopy(text, done);
+                }
+            });
+        });
+        function fallbackCopy(text, cb) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); cb(); } catch (e) { /* noop */ }
+            document.body.removeChild(ta);
+        }
+    </script>
+
+    <!-- Botão Flutuante - Rolador de Dados -->
+    <a href="dice-roller.html" class="dice-fab" title="Rolador de Dados" aria-label="Abrir Rolador de Dados">
+        <span class="dice-fab-icon">🎲</span>
+        <span class="dice-fab-text">DADOS</span>
+    </a>
+
+</body>
+</html>

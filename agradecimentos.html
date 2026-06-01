@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agradecimentos - SCAR</title>
+    <meta name="description" content="Agradecimentos do SCAR RPG — as mesas e pessoas que ajudaram a dar forma ao sistema.">
+
+    <!-- Squeleton CSS -->
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+
+    <!-- SCAR CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/contratos.css">
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <!-- Squeleton JS -->
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Polimento dos cards — profundidade já em repouso, como no index */
+        main .scar-card {
+            background: linear-gradient(135deg, rgba(35,12,16,0.55) 0%, var(--cor-fundo-card) 55%);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 22px rgba(139,0,0,0.08);
+        }
+        /* Linha vermelha sempre visível no topo do card */
+        main .scar-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-blood);
+            border-radius: 8px 8px 0 0;
+            opacity: 0.9;
+            z-index: 2;
+        }
+        /* Hover mais marcante (lift + glow vermelho) */
+        main .scar-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--cor-secundaria);
+            box-shadow: 0 20px 55px rgba(0,0,0,0.55), 0 0 32px rgba(220,20,60,0.28);
+        }
+        /* Divisores da lista de membros um pouco mais visíveis */
+        main .scar-card .border-t {
+            border-top-color: rgba(220,20,60,0.18);
+        }
+
+        /* Accordion das mesas — clica no título pra abrir/fechar */
+        .mesa-acc { padding: 0; }
+        .mesa-acc > summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 22px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        .mesa-acc > summary::-webkit-details-marker { display: none; }
+        .mesa-acc > summary::marker { content: ""; }
+        .mesa-acc > summary h3 { margin: 0; }
+        .mesa-acc-chevron {
+            color: var(--cor-secundaria);
+            font-size: 0.85rem;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .mesa-acc[open] > summary .mesa-acc-chevron { transform: rotate(90deg); }
+        .mesa-acc-body { padding: 0 25px 25px; }
+        .mesa-acc-body > p:first-child { margin-top: 0; }
+
+        /* Citação grande (mesma do index) */
+        .quote-large {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            letter-spacing: 4px;
+            color: var(--cor-secundaria);
+            text-align: center;
+            margin: 60px auto;
+            max-width: 800px;
+            line-height: 1.4;
+            position: relative;
+            padding: 40px 20px;
+        }
+        .quote-large::before,
+        .quote-large::after {
+            content: '"';
+            position: absolute;
+            font-size: 6rem;
+            color: rgba(220,20,60,0.2);
+            font-family: serif;
+        }
+        .quote-large::before { top: -10px; left: 20px; }
+        .quote-large::after { bottom: -40px; right: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header p-15-tb">
+        <div class="container">
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+
+                <nav class="nav-desktop d-flex f-items-center f-gap-10">
+                    <a href="sumario.html" class="nav-link">Sumário</a>
+                    <a href="habilidades.html" class="nav-link">Habilidades</a>
+                    <a href="vendinha.html" class="nav-link">Vendinha</a>
+                    <a href="aflicoes.html" class="nav-link">Aflições</a>
+                    <a href="historia.html" class="nav-link">História</a>
+                    <a href="aparencias.html" class="nav-link">Aparências</a>
+                </nav>
+
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu">
+                    <span>☰</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Modal -->
+    <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
+                <button class="mobile-menu-close" data-modal-hide>✕</button>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <nav class="mobile-menu-nav">
+                        <a href="sumario.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">📚</span><span class="link-text">Sumário</span>
+                        </a>
+                        <a href="habilidades.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🎯</span><span class="link-text">Habilidades</span>
+                        </a>
+                        <a href="vendinha.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🏪</span><span class="link-text">Vendinha</span>
+                        </a>
+                        <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">💀</span><span class="link-text">Aflições</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-section-divider"></div>
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">História</span>
+                        </a>
+                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Aparências</span>
+                        </a>
+                        <a href="agradecimentos.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Agradecimentos</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-footer">
+                        <p>"Todo contrato tem um preço"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO -->
+        <section class="container text-center p-90-t p-40-b">
+            <h1 class="fs-16 fw-700 wow fadeInUp" style="color: var(--cor-secundaria);">AGRADECIMENTOS</h1>
+            <p class="fs-10 m-20-t opacity-7 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 650px; margin-left: auto; margin-right: auto;">
+                SCAR não nasceu sozinho. Cada regra foi testada, quebrada e remendada em volta de uma mesa.
+                Aqui vão as pessoas que sangraram junto e ajudaram a dar forma a esse mundo.
+            </p>
+        </section>
+
+        <!-- AS MESAS -->
+        <section class="container p-40-tb">
+            <h2 class="scar-section-header">As Mesas</h2>
+            <div class="row gap-20 m-30-t">
+
+                <!-- ===== MESA 1 — VANGUARDA ESCARLATE ===== -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-animated scar-card-bordered mesa-acc">
+                        <summary>
+                            <div class="mesa-acc-head">
+                                <h3 class="fs-12 fw-700 ls-2" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Vanguarda Escarlate</h3>
+                                <span class="d-block fs-5" style="color: var(--cor-texto-secundario); font-style: italic;">A primeira mesa · URSS</span>
+                            </div>
+                            <span class="mesa-acc-chevron">▶</span>
+                        </summary>
+                        <div class="mesa-acc-body">
+                        <p class="lh-1-7" style="color: var(--cor-texto-secundario);">
+                            Foi o primeiro grupo que mestrei com este sistema — pode-se dizer que são fundadores deste mundo, e um grupo completo em todos os sentidos. A campanha era ambientada numa União Soviética autoritária (Moscou, 1981): os agentes eram a <span style="color: var(--cor-texto);">"mão de ferro"</span> da União contra demônios e "seres inferiores". Terminou com o esquadrão inteiro sendo arrastado por uma <span style="color: var(--cor-texto);">Porta para o Inferno</span>, e o destino deles segue desconhecido. Foi essa mesa que me deu a ideia de ancorar a lore do SCAR na história do mundo real dentro do universo de Chainsaw Man.
+                        </p>
+                        <div class="m-20-t">
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">Teochi</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Echo</span> · <span class="fs-4" style="color: var(--cor-texto-secundario);">Infernal da Invisibilidade</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">A primeira pessoa que chamei pra jogar — e quem me incentivou a criar este RPG. Echo tinha uma premissa genial e hilária: invisível, quebrava qualquer sessão que eu planejava na base da conversa. Quebrado como toda a mesa, mas tudo que ele fez me inspirou em várias atualizações e me empurrou a criar o sistema de furtividade, o aproveitamento de campo e os itens.</p>
+                            </div>
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">Gabriel</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Ivanne</span> · <span class="fs-4" style="color: var(--cor-texto-secundario);">Híbrido do Demônio dos Ossos</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">Talvez o personagem mais completo do grupo, e uma das lores mais legais da mesa — rendeu cenas memoráveis que eu ainda queria ter desenvolvido mais. e me mostrou o caminho pra uma ficha melhor, quando elas ainda eram péssimas em combate e no social.</p>
+                            </div>
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">Malek</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Yelena</span> · <span class="fs-4" style="color: var(--cor-texto-secundario);">Híbrido do Demônio da Realeza</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">O personagem mais quebrado da mesa — atributos mentais absurdos, que viraram o nome de uma atualização futura dedicada a nerfar a Autoridade. Mas tenho que bater palmas: muito do RPG bebe das ideias e das filosofias desse personagem.</p>
+                            </div>
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">Gar</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Timor</span> · <span class="fs-4" style="color: var(--cor-texto-secundario);">Híbrido do Demônio da Areia</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">O DPS nato do grupo. Mesmo com o tempo curto por causa do trabalho, sempre entrava com toda a energia que tinha. Me deu a ideia dos Duelos nos combates longos, ajudou a construir a narrativa — e sou grato que a lore dele afetou diretamente o mundo do próprio sistema.</p>
+                            </div>
+                        </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- ===== MESA 2 — VAZIO DIVINO ===== -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-animated scar-card-bordered mesa-acc">
+                        <summary>
+                            <div class="mesa-acc-head">
+                                <h3 class="fs-12 fw-700 ls-2" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">One shot</h3>
+                                <span class="d-block fs-5" style="color: var(--cor-texto-secundario); font-style: italic;">A segunda mesa · pura zoeira</span>
+                            </div>
+                            <span class="mesa-acc-chevron">▶</span>
+                        </summary>
+                        <div class="mesa-acc-body">
+                        <p class="lh-1-7" style="color: var(--cor-texto-secundario);">
+                            Mesa de pura zoeira, que passou por duas campanhas — uma sobre demônios (Dominar, Conquistar e Eliminar) e outra sobre o divino (O Vazio Divino). Foi a base pra eu reformular os demônios e o balanceamento do Medo: antes não tinha evolução, hoje tem. E foi essa galera que eu tive a ideia de criar este site.
+                        </p>
+                        <div class="m-20-t">
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">h1r0kk</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Peter · Gelo</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">No período de teste de combate com os demônios, foi quem mais explorou o sistema — os efeitos de status e as invocações ainda eram fracos, e ele me fez repensar os dois. Junto do ishadows, cria personagens que cativam: muito bom de fala e de situações narrativas.</p>
+                            </div>
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">legends</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Elian · Esquecimento</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">Um player estranho que me confundia pela premissa das habilidades — mas gostei que elas eram narrativas e me ajudaram em alguns pontos. E um personagem tão engraçado que virou inspiração pra personagens que ainda quero criar.</p>
+                            </div>
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">Say</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Maska · Sangue</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">A lenda do personagem psicopata — pra mim, o melhor de todos. Imprevisível ao extremo: mudou uma sessão inteira com uma única habilidade, rendeu cenas de combate memoráveis (e umas que eu literalmente tive que pular). Quebra a mesa em furtividade, me fez rir um monte, e me ajudou a ser criativo no campo de batalha e nos armamentos.</p>
+                            </div>
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">Mavii</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Chloe · Absoluto</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">Sempre me surpreende com o personagem, e criou cenários que ferravam o grupo inteiro — bem memoráveis. Primeira pessoa com quem mestrei um RPG (junto do Teochi); me inspirou em muita coisa, no que fazer e no que não.</p>
+                            </div>
+                            <div class="border-t p-15-tb">
+                                <div><span class="fw-700" style="color: var(--cor-secundaria);">ishadows</span> <span style="color: var(--cor-texto-secundario); opacity: 0.7;">— Geto · Peste</span></div>
+                                <p class="fs-5 lh-1-6 m-5-t m-0-b" style="color: var(--cor-texto-secundario);">Entrou em cima da hora pra primeira sessão da primeira campanha e já fez diferença — segurou o Say, que seria a primeira morte do RPG. Faz personagens que literalmente quebraram o sistema (junto do Say), e por causa dele tive que melhorar o sistema de cura.</p>
+                            </div>
+                        </div>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- CRIAÇÃO & INSPIRAÇÃO -->
+        <section class="container p-40-tb">
+            <h2 class="scar-section-header">Criação & Inspiração</h2>
+            <div class="row gap-20 m-30-t">
+                <div class="c-xs-12 c-md-6">
+                    <div class="scar-card scar-card-animated scar-card-bordered h-100">
+                        <h3 class="fs-12 fw-700 ls-2 m-0-t m-15-b" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Criação</h3>
+                        <p class="lh-1-7 m-0" style="color: var(--cor-texto-secundario);">
+                            <strong style="color: var(--cor-texto);">Jonathan Ribeiro</strong> — Mestre e autor do sistema
+                        </p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="scar-card scar-card-animated scar-card-bordered h-100">
+                        <h3 class="fs-12 fw-700 ls-2 m-0-t m-15-b" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Inspiração</h3>
+                        <p class="lh-1-7 m-0" style="color: var(--cor-texto-secundario);">
+                            <strong style="color: var(--cor-texto);">Tatsuki Fujimoto</strong> e a obra <em>Chainsaw Man</em>, que acendeu a fagulha de tudo isso. SCAR é uma homenagem feita por fãs, sem fins lucrativos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUOTE -->
+        <p class="quote-large wow fadeIn">
+            "Todo o tempo passado tem um preço.<br>Obrigado a quem pagou junto comigo."
+        </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a href="index.html">SCAR</a>
+            <span>Sacrificial Contract & Risk</span>
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="agradecimentos.html">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                Agradecimentos
+            </a>
+        </div>
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">© 2026 SCAR RPG • Feito com 🩸 por fãs, para fãs</p>
+    </footer>
+
+    <!-- Squeleton JS Footer -->
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+    </script>
+
+    <!-- Botão Flutuante - Rolador -->
+    <a href="dice-roller.html" class="dice-fab" title="Rolador de Dados" aria-label="Abrir Rolador de Dados">
+        <span class="dice-fab-icon">🎲</span>
+        <span class="dice-fab-text">DADOS</span>
+    </a>
+
+</body>
+</html>

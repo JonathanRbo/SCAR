@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendinha do Seu Bento - SCAR RPG</title>
+
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/contratos.css">
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        .vendinha-section {
+            scroll-margin-top: 90px;
+        }
+        .vendinha-section h2 {
+            color: var(--cor-secundaria);
+            border-bottom: 2px solid var(--cor-principal);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 4px;
+        }
+        .vendinha-section h3 {
+            color: var(--cor-texto);
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 3px;
+        }
+        .vendinha-section h3::before {
+            content: '◆';
+            color: var(--cor-secundaria);
+            margin-right: 10px;
+        }
+        .item-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-left: 4px solid var(--cor-principal);
+            border-radius: 8px;
+            padding: 20px;
+            height: 100%;
+            transition: all 0.3s;
+        }
+        .item-card:hover {
+            border-color: var(--cor-secundaria);
+            border-left-color: var(--cor-secundaria);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(220,20,60,0.15);
+        }
+        .item-name {
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 3px;
+            font-size: 1.4rem;
+            margin: 0 0 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+        }
+        .item-price {
+            color: var(--gold);
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        .item-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--cor-texto-secundario);
+        }
+        .item-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(220,20,60,0.15);
+        }
+        .item-stat:last-child {
+            border-bottom: none;
+        }
+        .item-stat-label {
+            color: var(--cor-secundaria);
+            font-weight: 500;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1.5px;
+            font-size: 0.85rem;
+        }
+        .item-stat-value {
+            color: var(--cor-texto);
+            text-align: right;
+        }
+        .item-effect {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--cor-borda);
+            color: var(--cor-texto-secundario);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+        /* TAB BAR sticky */
+        .vendinha-tabs {
+            position: sticky;
+            top: 70px;
+            background: rgba(10,10,10,0.96);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--cor-borda);
+            border-bottom: 2px solid var(--cor-principal);
+            padding: 14px 0;
+            z-index: 50;
+            margin: 20px 0 40px;
+        }
+        .vendinha-tabs-inner {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 15px;
+        }
+        .vendinha-tab {
+            background: transparent;
+            color: var(--cor-texto-secundario);
+            border: 1px solid var(--cor-borda);
+            padding: 10px 18px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            text-decoration: none;
+            white-space: nowrap;
+            position: relative;
+        }
+        .vendinha-tab:hover {
+            border-color: var(--cor-secundaria);
+            color: var(--cor-secundaria);
+            transform: translateY(-2px);
+        }
+        .vendinha-tab.active {
+            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-fundo-card) 100%);
+            border-color: var(--cor-secundaria);
+            color: var(--cor-texto);
+            box-shadow: 0 0 18px rgba(220,20,60,0.35);
+        }
+        .vendinha-tab .tab-icon {
+            margin-right: 6px;
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        /* Esconde sections inativas */
+        .vendinha-section[data-tab]:not(.tab-active) {
+            display: none;
+        }
+
+        /* Glyph watermark sutil em cada section ativa */
+        .vendinha-section[data-tab="armas"]      { --section-glyph: '⚔'; }
+        .vendinha-section[data-tab="armaduras"]  { --section-glyph: '🛡'; }
+        .vendinha-section[data-tab="veiculos"]   { --section-glyph: '🏍'; }
+        .vendinha-section[data-tab="estilos"]    { --section-glyph: '👊'; }
+        .vendinha-section[data-tab="contratos"]  { --section-glyph: '📜'; }
+        .vendinha-section[data-tab="encomendas"] { --section-glyph: '📦'; }
+
+        /* Glyph watermark no canto do item-card */
+        .item-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .item-card::before {
+            content: var(--section-glyph, '');
+            position: absolute;
+            bottom: -25px;
+            right: -10px;
+            font-size: 7rem;
+            opacity: 0.05;
+            pointer-events: none;
+            line-height: 1;
+            transform: rotate(-15deg);
+            transition: all 0.4s;
+        }
+        .item-card:hover::before {
+            opacity: 0.12;
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        /* Dano em destaque nas armas */
+        .vendinha-section[data-tab="armas"] .item-stat:nth-child(1) .item-stat-value {
+            color: var(--cor-secundaria);
+            font-weight: 700;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+        .estilo-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-top: 4px solid var(--cor-secundaria);
+            border-radius: 8px;
+            padding: 25px;
+            height: 100%;
+            transition: all 0.3s;
+        }
+        .estilo-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--cor-secundaria);
+        }
+        .estilo-card h4 {
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 4px;
+            font-size: 1.6rem;
+            margin: 0 0 15px;
+            text-align: center;
+            border-bottom: 1px dashed var(--cor-principal);
+            padding-bottom: 12px;
+        }
+        .estilo-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .estilo-card li {
+            color: var(--cor-texto-secundario);
+            padding: 8px 0;
+            padding-left: 18px;
+            position: relative;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            border-bottom: 1px dotted rgba(220,20,60,0.1);
+        }
+        .estilo-card li:last-child { border-bottom: none; }
+        .estilo-card li::before {
+            content: '▸';
+            color: var(--cor-secundaria);
+            position: absolute;
+            left: 0;
+        }
+        .narrativo {
+            background: linear-gradient(135deg, rgba(220,20,60,0.06) 0%, transparent 100%);
+            border-left: 3px solid var(--cor-secundaria);
+            padding: 15px 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: var(--cor-texto-secundario);
+        }
+        .stat-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .stat-table th, .stat-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--cor-borda);
+        }
+        .stat-table th {
+            background: var(--cor-fundo-card);
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .stat-table tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+        .tier-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            padding: 25px;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .tier-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-blood);
+        }
+        .tier-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--cor-secundaria);
+        }
+        .tier-card h4 {
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 3px;
+            font-size: 1.4rem;
+            margin: 0 0 15px;
+        }
+        .tier-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .tier-card li {
+            color: var(--cor-texto-secundario);
+            padding: 6px 0;
+            font-size: 0.9rem;
+            border-bottom: 1px dashed rgba(220,20,60,0.1);
+        }
+        .tier-card li:last-child { border-bottom: none; }
+        .tier-card .price {
+            color: var(--gold);
+            font-weight: 500;
+        }
+        .secao-divider {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cor-principal), transparent);
+            margin: 80px 0 40px;
+        }
+        .badge-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            margin: 2px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            background: rgba(220,20,60,0.15);
+            color: var(--cor-secundaria);
+            border: 1px solid var(--cor-secundaria);
+        }
+
+        /* Hero da Vendinha com imagem de fundo */
+        .vendinha-hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 80px 0 60px;
+        }
+        .vendinha-hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('assets/images/vendinha-loja.jpg') center/cover no-repeat;
+            filter: brightness(0.55) saturate(0.85) contrast(1.05);
+            transform: scale(1.05);
+            animation: hero-zoom 20s ease-in-out infinite alternate;
+        }
+        @keyframes hero-zoom {
+            from { transform: scale(1.05); }
+            to { transform: scale(1.12); }
+        }
+        .vendinha-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center, transparent 0%, rgba(10,10,10,0.4) 50%, rgba(10,10,10,0.95) 100%),
+                linear-gradient(180deg, rgba(10,10,10,0.7) 0%, transparent 30%, transparent 70%, rgba(10,10,10,0.95) 100%);
+        }
+        .vendinha-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .vendinha-hero h1 {
+            text-shadow: 0 0 40px rgba(220,20,60,0.6), 0 4px 20px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header p-15-tb">
+        <div class="container">
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+                <nav class="nav-desktop d-flex f-items-center f-gap-10">
+                    <a href="sumario.html" class="nav-link">Sumário</a>
+                    <a href="habilidades.html" class="nav-link">Habilidades</a>
+                    <a href="vendinha.html" class="nav-link">Vendinha</a>
+                    <a href="aflicoes.html" class="nav-link">Aflições</a>
+                    <a href="historia.html" class="nav-link">História</a>
+                    <a href="aparencias.html" class="nav-link">Aparências</a>
+                </nav>
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu"><span>☰</span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
+                <button class="mobile-menu-close" data-modal-hide>✕</button>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <nav class="mobile-menu-nav">
+                        <a href="sumario.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">📚</span><span class="link-text">Sumário</span></a>
+                        <a href="habilidades.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">🎯</span><span class="link-text">Habilidades</span></a>
+                        <a href="vendinha.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">🏪</span><span class="link-text">Vendinha</span></a>
+                        <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">💀</span><span class="link-text">Aflições</span></a>
+                    </nav>
+                    <div class="mobile-menu-section-divider"></div>
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">História</span></a>
+                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Aparências</span></a>
+                        <a href="index.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Home</span></a>
+                    </nav>
+                    <div class="mobile-menu-footer">
+                        <p>"Bento não pergunta de onde vem o dinheiro"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="p-100-t xs-p-80-t">
+
+        <!-- Hero com imagem da loja -->
+        <section class="vendinha-hero">
+            <div class="vendinha-hero-bg"></div>
+            <div class="vendinha-hero-overlay"></div>
+            <div class="container vendinha-hero-content">
+                <h1 class="fs-16 fw-700 wow fadeInUp" style="color: var(--cor-secundaria);">VENDINHA</h1>
+                <p class="fs-11 m-10-t opacity-8" style="font-family: 'Bebas Neue', sans-serif; letter-spacing: 4px;">DO SEU BENTO</p>
+                <p class="fs-10 m-20-t opacity-8 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 750px; margin-left: auto; margin-right: auto;">
+                    Loja, escola e banco do submundo. Seu Bento não pergunta de onde vem o dinheiro. Tem ferramenta, treino, contrato, marca e iene.
+                </p>
+                <div class="narrativo m-30-t" style="max-width: 700px; margin-left: auto; margin-right: auto; background: linear-gradient(135deg, rgba(220,20,60,0.15) 0%, rgba(10,10,10,0.6) 100%); backdrop-filter: blur(4px);">
+                    Dizem que ele é um demônio em pele de cordeiro, chegando em qualquer lugar.
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabs (filtro por categoria) -->
+        <div class="vendinha-tabs">
+            <div class="vendinha-tabs-inner">
+                <button class="vendinha-tab" data-tab="armas"><span class="tab-icon">🔪</span>Armas</button>
+                <button class="vendinha-tab" data-tab="armaduras"><span class="tab-icon">🛡️</span>Armaduras</button>
+                <button class="vendinha-tab" data-tab="veiculos"><span class="tab-icon">🚗</span>Veículos</button>
+                <button class="vendinha-tab" data-tab="estilos"><span class="tab-icon">🥊</span>Estilos de Luta</button>
+                <button class="vendinha-tab" data-tab="contratos"><span class="tab-icon">📜</span>Contratos</button>
+                <button class="vendinha-tab" data-tab="encomendas"><span class="tab-icon">📦</span>Encomendas</button>
+            </div>
+        </div>
+
+        <!-- ARMAS -->
+        <section id="armas" class="container p-30-tb vendinha-section">
+            <h2 class="fs-13">Armas & Equipamento</h2>
+            <div class="narrativo">
+                Faca de cozinha ou motosserra possuída — Seu Bento tem tudo. O que não tem, ele pode tentar encontrar pelo precinho.
+            </div>
+
+            <h3 id="curto">Curto Alcance</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Faca <span class="item-price">50 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+0 / Leve</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Corte</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Sangramento</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Curto</span></div>
+                        </div>
+                        <div class="item-effect">Ocultável. Sangramento: +2 Stress/rodada.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Soco Inglês <span class="item-price">30 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+1d10 / Leve</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Impacto</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Atordoar</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Curto</span></div>
+                        </div>
+                        <div class="item-effect">Ocultável. Atordoar: alvo -1 ação.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Bastão / Taco <span class="item-price">40 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+1d10 / Leve</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Impacto</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Atordoar</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Curto</span></div>
+                        </div>
+                        <div class="item-effect">Atordoar: alvo -1 ação.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Katana <span class="item-price">800 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+1d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Corte</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Sangramento</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Curto+</span></div>
+                        </div>
+                        <div class="item-effect">Alcance estendido. Sangramento: +3 Stress/rodada.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Machado <span class="item-price">300 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+2d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Corte</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Execução</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Curto</span></div>
+                        </div>
+                        <div class="item-effect">Pesada (-1d10 esquiva). Execução em indefeso.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Marreta <span class="item-price">250 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+2d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Impacto</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Derrubar</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Curto</span></div>
+                        </div>
+                        <div class="item-effect">Pesada, Lenta. Derrubar: alvo no chão.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Motosserra <span class="item-price">1.500 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+3d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Corte</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Brutal</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Curto</span></div>
+                        </div>
+                        <div class="item-effect">Pesada, Barulhenta. Requer combustível. Brutal: +1 nível de Injúria.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Lança <span class="item-price">200 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+1d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Perfuração</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Perfurante</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Curto+</span></div>
+                        </div>
+                        <div class="item-effect">Alcance estendido. Arremessar (1x). Perfurante: ignora 1 nível de proteção.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 id="medio">Médio Alcance</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Revólver <span class="item-price">600 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+1d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Balístico</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">+1 Injúria</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Munição</span><span class="item-stat-value">6 tiros</span></div>
+                        </div>
+                        <div class="item-effect">Confiável — nunca falha.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Pistola 9mm <span class="item-price">700 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+1d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Balístico</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">+1 Injúria</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Munição</span><span class="item-stat-value">3 rajadas</span></div>
+                        </div>
+                        <div class="item-effect">Rápida — pode atirar 2x por turno.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Pistola .45 <span class="item-price">900 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+2d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Balístico</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Perfurante</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Munição</span><span class="item-stat-value">4 tiros</span></div>
+                        </div>
+                        <div class="item-effect">Recuo: -1d10 no 2º tiro seguido.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Submetralhadora <span class="item-price">2.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+2d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Balístico</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Supressão</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Munição</span><span class="item-stat-value">2 rajadas</span></div>
+                        </div>
+                        <div class="item-effect">Área (até 2 alvos). Supressão: alvo não avança.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 id="longo">Longo Alcance</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Rifle de Caça <span class="item-price">2.500 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+2d10 / Crítica</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Balístico</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Execução</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Munição</span><span class="item-stat-value">3 tiros</span></div>
+                        </div>
+                        <div class="item-effect">Precisa: +2d10 se preparar.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Rifle Tático <span class="item-price">4.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+2d10 / Crítica</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Balístico</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">+1 Injúria</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Munição</span><span class="item-stat-value">5 tiros</span></div>
+                        </div>
+                        <div class="item-effect">Rápido — não precisa preparar.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Sniper <span class="item-price">8.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+3d10 / Crítica</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Balístico</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Crítico</span><span class="item-stat-value">Execução</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Munição</span><span class="item-stat-value">1 tiro</span></div>
+                        </div>
+                        <div class="item-effect">Requer preparo (1 ação). Silencioso (1º tiro). Execução: morte se alvo não souber.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 id="especiais">Explosivos / Especiais</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Granada <span class="item-price">500 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+2d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Explosivo</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Médio</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Uso</span><span class="item-stat-value">1x</span></div>
+                        </div>
+                        <div class="item-effect">Área grande. Arremesso.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Coquetel Molotov <span class="item-price">50 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+1d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Fogo</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Médio</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Uso</span><span class="item-stat-value">1x</span></div>
+                        </div>
+                        <div class="item-effect">Área média. Queimadura: +3 Stress/rodada. Improvisado.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Arco Composto <span class="item-price">1.500 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Dano</span><span class="item-stat-value">+1d10 / Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Tipo</span><span class="item-stat-value">Perfuração</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Alcance</span><span class="item-stat-value">Longo</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Munição</span><span class="item-stat-value">∞ flechas</span></div>
+                        </div>
+                        <div class="item-effect">Silencioso. Flechas recuperáveis.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Tipos de Dano</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="item-card"><strong style="color: var(--cor-secundaria);">Corte</strong> — pode causar sangramento</div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="item-card"><strong style="color: var(--cor-secundaria);">Perfuração</strong> — pode ignorar proteção</div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="item-card"><strong style="color: var(--cor-secundaria);">Impacto</strong> — pode atordoar / derrubar</div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="item-card"><strong style="color: var(--cor-secundaria);">Balístico</strong> — ignorado por coberturas</div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="item-card"><strong style="color: var(--cor-secundaria);">Explosivo</strong> — área, ignora cobertura parcial</div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="item-card"><strong style="color: var(--cor-secundaria);">Fogo</strong> — dano contínuo</div></div>
+            </div>
+
+            <h3>Efeitos Comuns</h3>
+            <p>
+                <span class="badge-tag">Ocultável</span>
+                <span class="badge-tag">Pesada</span>
+                <span class="badge-tag">Lenta</span>
+                <span class="badge-tag">Barulhenta</span>
+                <span class="badge-tag">Perfurante</span>
+            </p>
+            <ul style="color: var(--cor-texto-secundario);">
+                <li><strong style="color: var(--cor-texto);">Ocultável</strong> — pode esconder no corpo</li>
+                <li><strong style="color: var(--cor-texto);">Pesada</strong> — -1d10 esquiva enquanto carrega</li>
+                <li><strong style="color: var(--cor-texto);">Lenta</strong> — não move e ataca no mesmo turno</li>
+                <li><strong style="color: var(--cor-texto);">Barulhenta</strong> — impossível ser furtivo</li>
+                <li><strong style="color: var(--cor-texto);">Perfurante</strong> — ignora 1 nível de proteção</li>
+            </ul>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- ARMADURAS -->
+        <section id="armaduras" class="container p-30-tb vendinha-section">
+            <h2 class="fs-13">Armaduras</h2>
+            <div class="narrativo">
+                Bento jura que comprou tudo "de leilão da polícia". O furo de bala bem no peito do colete diz outra coisa. Anti-motim veio "encalhada de manifestação que ninguém reclamou". O capacete tem nome riscado por dentro: ninguém pergunta de quem era. <strong style="color: var(--cor-secundaria);">Aceita ou recusa, mas não negocia procedência.</strong>
+            </div>
+
+            <div class="row gap-20 m-30-t">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Roupa Reforçada <span class="item-price">200 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Proteção</span><span class="item-stat-value">-1 nível (1x/cena)</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Cobertura</span><span class="item-stat-value">Tronco</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Penalidade</span><span class="item-stat-value">—</span></div>
+                        </div>
+                        <div class="item-effect">Ocultável. Descartável após uso.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Colete Oculto <span class="item-price">800 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Proteção</span><span class="item-stat-value">-1 nível</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Cobertura</span><span class="item-stat-value">Tronco</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Penalidade</span><span class="item-stat-value">—</span></div>
+                        </div>
+                        <div class="item-effect">Ocultável.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Colete Tático <span class="item-price">1.500 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Proteção</span><span class="item-stat-value">-1 nível</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Cobertura</span><span class="item-stat-value">Tronco</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Penalidade</span><span class="item-stat-value">-1d10 Coord</span></div>
+                        </div>
+                        <div class="item-effect">Pode adicionar placas.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Colete + Placas <span class="item-price">3.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Proteção</span><span class="item-stat-value">-2 níveis</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Cobertura</span><span class="item-stat-value">Tronco</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Penalidade</span><span class="item-stat-value">-1d10 Coord, -1d10 Mal</span></div>
+                        </div>
+                        <div class="item-effect">Pesado.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Capacete Tático <span class="item-price">600 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Proteção</span><span class="item-stat-value">Crítica → Grave</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Cobertura</span><span class="item-stat-value">Cabeça</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Penalidade</span><span class="item-stat-value">-1d10 Percepção</span></div>
+                        </div>
+                        <div class="item-effect">Reduz golpe na cabeça em 1 nível.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Anti-Motim <span class="item-price">5.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Proteção</span><span class="item-stat-value">-2 níveis</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Cobertura</span><span class="item-stat-value">Corpo todo</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Penalidade</span><span class="item-stat-value">-2d10 Coord, -2d10 Mal</span></div>
+                        </div>
+                        <div class="item-effect">Pesada, Óbvia.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Escudo Balístico <span class="item-price">2.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Proteção</span><span class="item-stat-value">Bloqueia 1 ataque frontal/rd</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Cobertura</span><span class="item-stat-value">Frontal</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Penalidade</span><span class="item-stat-value">Ocupa 1 mão</span></div>
+                        </div>
+                        <div class="item-effect">Pode usar como cobertura móvel.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- VEÍCULOS -->
+        <section id="veiculos" class="container p-30-tb vendinha-section">
+            <h2 class="fs-13">Veículos</h2>
+            <div class="narrativo">
+                Bento tem garagem nos fundos. Não é concessionária, é pátio de coisas que voltaram da rua. Cada veículo tem história, e nenhuma é boa. <strong>Documento?</strong> "Fácil resolver, fica caro."
+            </div>
+
+            <h3>Motos</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Honda CBR <span class="item-price">4.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">2</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Muito Rápida</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Alta</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+1d10 fuga</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Coordenação ou Malandragem. Frágil — cai feio em colisão.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Scooter 50cc <span class="item-price">800 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">1</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Média</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Alta</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+1d10 furtividade urbana</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Coordenação. Boa pra entrega/disfarce. Não corre de demônio sério.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card" style="border-left-color: var(--cor-mental);">
+                        <h4 class="item-name" style="color: var(--cor-mental);">Moto-Besta <span class="item-price">12.000 ¥ + contrato</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">3</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Muito Rápida</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Média</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+1d10 geral</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Vínculo (ela escolhe quem monta). Demoníaca — bebe sangue (1 Injúria Leve/semana). Atrai demônios maiores.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Carros</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Fusca <span class="item-price">1.500 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">3</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Média</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Média</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">—</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Coordenação. Quebra fácil (1d10/perseguição: 1-2 = pifa). Sempre volta a ligar.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Sedan Comum <span class="item-price">8.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">4</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Rápida</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Média</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+1d10 rodovia</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Coordenação ou Tecnologia. Confiável. Anônimo.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Pickup velha <span class="item-price">5.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">5</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Média</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Baixa</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+1d10 manobra agressiva</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Vigor ou Força. Carrega aliados/cargas. Difícil de virar.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Land Rover Blindado <span class="item-price">25.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">6</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Média</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Baixa</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+2d10 colisão</span></div>
+                        </div>
+                        <div class="item-effect">Vidro à prova de bala. Reduz 1 nível por tiro externo. Roubado da SP — risco de marca.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Pesados</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Van usada <span class="item-price">6.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">5</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Lenta</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Baixa</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">—</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Coordenação ou Vigor. 6 pessoas + equipamento. Padrão "vanzinha branca".</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Caminhão de Carga <span class="item-price">12.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">7</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Lenta</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Baixa</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+1d10 colisão / barricada</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Vigor ou Força. Atravessa barricada média. Difícil em rua estreita (-1d10).</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Aéreos</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6">
+                    <div class="item-card">
+                        <h4 class="item-name">Helicóptero <span class="item-price">80.000 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">4</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Muito Rápida</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Média</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+2d10 terreno aberto</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Tecnologia (licença obrigatória). Ignora trânsito. <strong>Crítica em voo = queda fatal</strong> pra todos. Barulhento — impossível ser furtivo.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Especiais / Zoeira</h3>
+            <div class="narrativo">Bento ri, mas vende. Já vendeu pra coisa pior.</div>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Trem-Bala <span class="item-price">13.000 ¥ / 200 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Muito Rápida</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Nenhuma</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Pilota</span><span class="item-stat-value">Não pilota</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bilhete/Sem</span><span class="item-stat-value">13k / 200 ¥</span></div>
+                        </div>
+                        <div class="item-effect">Cena de combate = arena móvel. Cair = morte.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Carrinho de Sorvete <span class="item-price">2.500 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">1</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Lenta</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Alta</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+2d10 disfarce</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Negociação. Ninguém suspeita. Esconde armas/cadáver no compartimento. Toca a musiquinha.</div>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="item-card">
+                        <h4 class="item-name">Cadeira de Rodas <span class="item-price">1.800 ¥</span></h4>
+                        <div class="item-stats">
+                            <div class="item-stat"><span class="item-stat-label">Slots</span><span class="item-stat-value">1</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Velocidade</span><span class="item-stat-value">Lenta</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Manobra</span><span class="item-stat-value">Alta</span></div>
+                            <div class="item-stat"><span class="item-stat-label">Bônus</span><span class="item-stat-value">+1d10 fingir incapacidade</span></div>
+                        </div>
+                        <div class="item-effect">Pilota: Malandragem. Modificada. Botão secreto → vira scooter elétrica (Vel. Média por 1 cena).</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Atributos de Pilotagem</h3>
+            <table class="stat-table">
+                <thead><tr><th>Situação</th><th>Atributo</th></tr></thead>
+                <tbody>
+                    <tr><td>Pilotagem comum, retas, mira</td><td><strong>Coordenação</strong></td></tr>
+                    <tr><td>Veículo moderno, hack, GPS</td><td><strong>Tecnologia</strong></td></tr>
+                    <tr><td>Manobra ilegal, contramão, furar bloqueio</td><td><strong>Malandragem</strong></td></tr>
+                    <tr><td>Perseguição longa, aguentar trepidação</td><td><strong>Vigor</strong></td></tr>
+                    <tr><td>Pickup, caminhão pesado, ramming</td><td><strong>Força ou Vigor</strong></td></tr>
+                    <tr><td>Animal/demoníaco como veículo</td><td><strong>Vínculo</strong></td></tr>
+                </tbody>
+            </table>
+            <div class="narrativo">
+                Sistema completo de perseguição no <a href="sumario.html#sec-3" style="color: var(--cor-secundaria);">Sumário → Combate → Automóveis</a>. <strong>Falha crítica em pilotagem = colisão</strong> (Injúria automática + 1 slot de dano).
+            </div>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- ESTILOS DE LUTA -->
+        <section id="estilos" class="container p-30-tb vendinha-section">
+            <h2 class="fs-13">Estilos de Luta <span style="font-size: 0.5em; opacity: 0.7;">(Treino)</span></h2>
+            <div class="narrativo">
+                Seu Bento conhece um cara que conhece um cara. Por uma graninha extra, ele apresenta. Todo personagem escolhe <strong>1 Estilo na criação</strong>. Estilos são <strong>passivos, sempre ativos, sem custo de Stress</strong>. Não dão bônus numéricos fixos; alteram como você recebe ou causa Injúrias, Stress ou Aflições.
+            </div>
+
+            <h3>Custo de Estilo Adicional</h3>
+            <p>Quer mais de um? Bento arruma o treino — paga em PM <strong>e</strong> em iene:</p>
+            <table class="stat-table">
+                <thead><tr><th>O quê</th><th>Custo</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>2º Estilo</strong> (treino com mestre/dojo/contato)</td><td><strong class="price" style="color: var(--gold);">5 PM + 3.000 ¥</strong></td></tr>
+                    <tr><td><strong>3º Estilo</strong> (vc tá ficando perigoso, Bento pede mais)</td><td><strong class="price" style="color: var(--gold);">8 PM + 6.000 ¥</strong></td></tr>
+                    <tr><td><strong>4º+ Estilo</strong></td><td>indisponível, só por evento narrativo único</td></tr>
+                </tbody>
+            </table>
+            <ul style="color: var(--cor-texto-secundario);">
+                <li>Requer <strong>cena narrativa de treinamento</strong> (1d3 semanas off-screen ou arco curto). Não vem na próxima missão</li>
+                <li><strong>Máximo prático: 3 estilos</strong> — mais que isso vc se confunde no calor da hora</li>
+                <li>Estilos novos não acumulam efeitos do mesmo gatilho — escolhe qual aplicar</li>
+            </ul>
+
+            <h3>Os 12 Estilos</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Boxe</h4>
+                        <ul>
+                            <li><strong>Jab</strong> — se defesa do alvo falhar, repete ataque com metade dos dados</li>
+                            <li>Pode defender com <strong>Percepção ou Vínculo</strong> em curto alcance</li>
+                            <li><strong>Esquiva natural</strong> — defesa por 5+ → +1d10 no próximo ataque (leu o movimento)</li>
+                            <li><strong>Resistência de ringue</strong> — 1ª Injúria Leve por combate não gera penalidade</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Estilo Livre</h4>
+                        <ul>
+                            <li>Pode usar <strong>Malandragem</strong> pra atacar 1x/rd ou defender</li>
+                            <li>Injúrias causadas podem gerar efeito (queda, deslocamento, desarme)</li>
+                            <li>Se o ambiente ajudar, defensor rola <strong>-1d10</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Espadachim</h4>
+                        <ul>
+                            <li>Diferença de 5+ → Injúria Leve vira <strong>sangramento</strong></li>
+                            <li>Pode defender com <strong>Percepção ou Tecnologia</strong></li>
+                            <li>Em 1x1, ignora armamento defensivo do alvo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Atirador</h4>
+                        <ul>
+                            <li>Ataques criam <strong>zona de perigo</strong> — alvos que atravessam sofrem -1d10 em toda ação</li>
+                            <li>Diferença 10+ pode aumentar Injúria em 1 grau</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Armas Pesadas</h4>
+                        <ul>
+                            <li><strong>Armaduras não reduzem dano</strong></li>
+                            <li>Injúrias Graves criam <strong>Aflição Física automática</strong></li>
+                            <li>Alvos menores fazem <strong>Teste de Medo DT 20</strong> ao serem atacados</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Caçador</h4>
+                        <ul>
+                            <li>Por rodada observando, ignora <strong>1d10 defensivo</strong> do alvo (máx 3 rodadas = 3d10)</li>
+                            <li>Ataques armados podem usar <strong>Investigação ou Negociação</strong></li>
+                            <li>Pode trocar dano por <strong>condição</strong> (marcado, exposto, sangrando, deslocado)</li>
+                            <li>Pode avisar aliados sem gastar ação</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Instintivo</h4>
+                        <ul>
+                            <li>Sempre que causar Injúria → <strong>+2 Stress no alvo</strong></li>
+                            <li>Pode atacar usando <strong>Percepção ou Investigação</strong> em vez de Força</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Spetsnaz</h4>
+                        <ul>
+                            <li>1º ataque da cena contra alvo: se causar Injúria, <strong>aumenta 1 grau</strong></li>
+                            <li>Pode usar <strong>Coordenação ou Autoridade</strong> pra c.a.c armados</li>
+                            <li>Atacar alvo desatento, imobilizado ou ferido <strong>ignora redução de defesa</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Wrestling</h4>
+                        <ul>
+                            <li>Pode usar <strong>Força ou Vigor</strong> pra agarrar, derrubar, imobilizar</li>
+                            <li>Alvos agarrados sofrem em ações físicas: -1d10 / -2d10 / -3d10 progressivos</li>
+                            <li>Não podem fugir ou lutar com outra coisa sem vencer no teste</li>
+                            <li>Pode escolher <strong>não causar Injúria</strong> pra: drenar +2 Stress OU Aflição leve (asfixia, deslocamento, dor)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Judô</h4>
+                        <ul>
+                            <li><strong>Contra-ataque</strong> — quando inimigo erra c.a.c, contra-ataca usando Coord vs Vigor (1x/rd)</li>
+                            <li>Pode defender com <strong>Coordenação, Vigor ou Vínculo</strong></li>
+                            <li>Defesa por 5+ → pode derrubar ou deslocar o alvo</li>
+                            <li>Se atacante tem Força maior: <strong>+1d10 no contra-ataque E na defesa</strong></li>
+                            <li><strong>Fluxo</strong> — derrubou? Próximo ataque de aliado contra ele ganha +1d10</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Executor</h4>
+                        <ul>
+                            <li>Contra alvos com Autoridade maior: <strong>+1d10 geral</strong></li>
+                            <li>Injúria Grave → alvo não pode conceder bônus ou liderar</li>
+                            <li>Pode trocar dano por <strong>Aflição</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="estilo-card">
+                        <h4>Mãos da Guerra</h4>
+                        <ul>
+                            <li>Toda arma improvisada vira armamento leve ou médio (<strong>+1d10 ou +2d10</strong>)</li>
+                            <li>Empunhando armamento demoníaco: ganha apenas <strong>+10</strong> em dano</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- CONTRATOS -->
+        <section id="contratos" class="container p-30-tb vendinha-section">
+            <h2 class="fs-13">Contratos <span style="font-size: 0.5em; opacity: 0.7;">(Apresentação)</span></h2>
+            <div class="narrativo">
+                Bento não fecha contrato. Bento conhece o demônio que fecha. Mas Bento só cobra quando o tempo aperta — em arco secreto, você faz seu trabalho de campo sozinho. Aqui é pra quando o relógio tá rodando e você precisa de um demônio <strong>AGORA</strong>.
+            </div>
+
+            <h3>Duas Formas de Fechar</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-md-6">
+                    <div class="tier-card">
+                        <h4>1. Arco Secreto <span style="font-size: 0.6em; opacity: 0.7;">(off-screen)</span></h4>
+                        <p style="color: var(--cor-texto-secundario);">Você mesmo procura o demônio. Faz a pesquisa, segue a pista, negocia cara a cara. Não precisa do Bento.</p>
+                        <ul>
+                            <li><strong>Custo:</strong> <span class="price" style="color: var(--gold);">só PM</span> + preço do contrato</li>
+                            <li><strong>Requer:</strong> cena narrativa fora da campanha ativa</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="tier-card">
+                        <h4>2. Em Campanha <span style="font-size: 0.6em; opacity: 0.7;">(durante missão)</span></h4>
+                        <p style="color: var(--cor-texto-secundario);">Liga pro Bento. Ele tem contato no submundo, marca encontro em horas em vez de semanas.</p>
+                        <ul>
+                            <li><strong>Custo:</strong> <span class="price" style="color: var(--gold);">PM + ¥ apresentação</span> + preço do contrato</li>
+                            <li><strong>Requer:</strong> ligação ao Bento</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Custo por Tier</h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="tier-card">
+                        <h4>Contrato Menor</h4>
+                        <ul>
+                            <li>PM: <strong>2 (Humano) / 3 (Híbrido)</strong></li>
+                            <li>¥ Apresentação: <span class="price" style="color: var(--gold);">1.000 ¥</span> (campanha)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="tier-card">
+                        <h4>Contrato Médio</h4>
+                        <ul>
+                            <li>PM: <strong>3 (Humano) / 4 (Híbrido)</strong></li>
+                            <li>¥ Apresentação: <span class="price" style="color: var(--gold);">5.000 ¥</span> (campanha)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="tier-card">
+                        <h4>Contrato Maior</h4>
+                        <ul>
+                            <li>PM: <strong>4 (Humano) / 5 (Híbrido)</strong></li>
+                            <li>¥ Apresentação: <span class="price" style="color: var(--gold);">15.000 ¥</span> (campanha)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="tier-card">
+                        <h4>Contrato de Invocação</h4>
+                        <ul>
+                            <li>PM: <strong>3 (qualquer)</strong></li>
+                            <li>¥ Apresentação: <span class="price" style="color: var(--gold);">8.000 ¥</span> (campanha)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="tier-card">
+                        <h4>Evolução</h4>
+                        <ul>
+                            <li>PM: <strong>2 (Humano)</strong></li>
+                            <li>¥ Apresentação: <em>sem taxa</em> (porta já tá aberta)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-4">
+                    <div class="tier-card">
+                        <h4>Contrato de Restrição</h4>
+                        <ul>
+                            <li>PM: <strong>aprovação do mestre</strong></li>
+                            <li>¥: <em>não passa pelo Bento — ritual direto com o mestre</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="narrativo">
+                Custos de PM são canônicos do <a href="sumario.html#sec-1" style="color: var(--cor-secundaria);">Sumário → Custos por Natureza</a>. Em <strong>arco secreto</strong> ignora a linha ¥. Em <strong>campanha</strong> paga as duas.
+            </div>
+        </section>
+
+        <hr class="secao-divider">
+
+        <!-- ENCOMENDAS -->
+        <section id="encomendas" class="container p-30-tb vendinha-section">
+            <h2 class="fs-13">Encomendas</h2>
+            <div class="narrativo">
+                <strong>Não tá na prateleira? Bento consegue.</strong> Paga em <strong>¥</strong> ou <strong>PM</strong>.
+            </div>
+
+            <div class="row gap-20 m-30-t">
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="tier-card">
+                        <h4>Baixo</h4>
+                        <p class="price" style="color: var(--gold); font-size: 1.1rem;">100 – 1.000 ¥</p>
+                        <p style="color: var(--cor-texto-secundario);">Faca, info simples, contato básico</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="tier-card">
+                        <h4>Médio</h4>
+                        <p class="price" style="color: var(--gold); font-size: 1.1rem;">1k – 10k ¥</p>
+                        <p style="color: var(--cor-texto-secundario);">Arma rara, animal de combate, recruta</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="tier-card">
+                        <h4>Alto</h4>
+                        <p class="price" style="color: var(--gold); font-size: 1.1rem;">10k – 50k ¥</p>
+                        <p style="color: var(--cor-texto-secundario);">Arma sob medida, familiar demoníaco, Júnior pronto</p>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-sm-6 c-md-3">
+                    <div class="tier-card">
+                        <h4>Excepcional</h4>
+                        <p class="price" style="color: var(--gold); font-size: 1.1rem;">50k+ ¥</p>
+                        <p style="color: var(--cor-texto-secundario);">Artefato, contato com demônios específicos, identidade falsa</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="secao-divider">
+
+
+    </main>
+
+    <!-- CTA -->
+    <section class="cta-section p-100-tb xs-p-60-tb">
+        <div class="container">
+            <div class="cta-content text-center">
+                <h2 class="cta-title wow fadeInUp">Já tem <span>um plano</span>?</h2>
+                <p class="fs-9 m-20-t" style="color: var(--cor-texto-secundario); max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Volta pro sumário e veja como gastar PM e ¥ na criação.
+                </p>
+                <div class="m-40-t d-flex f-justify-center f-wrap f-gap-15">
+                    <a href="sumario.html" class="btn btn-primary">Ver Sumário</a>
+                    <a href="habilidades.html" class="btn btn-primary">Ver Habilidades</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a href="index.html">SCAR</a>
+            <span>Sacrificial Contract & Risk</span>
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub</a>
+            <a href="agradecimentos.html"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Agradecimentos</a>
+        </div>
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">© 2026 SCAR RPG • Feito com 🩸 por fãs, para fãs</p>
+    </footer>
+
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // Esconde TODOS os <hr> adjacentes às vendinha-sections
+        document.querySelectorAll('hr.secao-divider').forEach(hr => {
+            const prev = hr.previousElementSibling;
+            const next = hr.nextElementSibling;
+            const adj = (prev && prev.classList.contains('vendinha-section')) ||
+                        (next && next.classList.contains('vendinha-section'));
+            if (adj) hr.style.display = 'none';
+        });
+
+        // ===== TABS — filtro por categoria =====
+        // Marca cada section com data-tab baseado no id
+        document.querySelectorAll('.vendinha-section').forEach(section => {
+            if (section.id) section.dataset.tab = section.id;
+        });
+
+        const tabs = document.querySelectorAll('.vendinha-tab');
+        const sections = document.querySelectorAll('.vendinha-section[data-tab]');
+
+        function activateTab(tabId) {
+            tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabId));
+            sections.forEach(s => s.classList.toggle('tab-active', s.dataset.tab === tabId));
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                activateTab(tab.dataset.tab);
+                // Scroll suave até o topo do conteúdo (logo abaixo das tabs)
+                const target = document.querySelector(`.vendinha-section[data-tab="${tab.dataset.tab}"]`);
+                if (target) {
+                    setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+                }
+            });
+        });
+
+        // Estado inicial: Armas
+        activateTab('armas');
+    </script>
+
+    <a href="dice-roller.html" class="dice-fab" title="Rolador de Dados" aria-label="Abrir Rolador de Dados">
+        <span class="dice-fab-icon">🎲</span>
+        <span class="dice-fab-text">DADOS</span>
+    </a>
+
+</body>
+</html>

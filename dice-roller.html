@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCAR - Rolador de Dados</title>
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           Dice Roller - Estilos Especificos da Pagina
+           Estilos comuns estao em assets/css/main.css
+           ============================================ */
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Container principal de conteúdo */
+        .main-content {
+            background: var(--cor-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03);
+        }
+
+        /* Tabs - integradas ao container */
+        .tabs {
+            border-bottom: 1px solid var(--cor-borda);
+            overflow-x: auto;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            padding: 0 15px;
+            display: flex;
+            gap: 5px;
+        }
+        .tabs::-webkit-scrollbar {
+            height: 3px;
+        }
+        .tabs::-webkit-scrollbar-thumb {
+            background: var(--cor-principal);
+            border-radius: 3px;
+        }
+        .tab {
+            background: transparent;
+            border: none;
+            color: var(--cor-texto-soft);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1.5px;
+            font-size: 0.95rem;
+            position: relative;
+            margin-bottom: -1px;
+        }
+        .tab:hover {
+            color: var(--cor-texto);
+            background: rgba(255,255,255,0.03);
+        }
+        .tab.active {
+            color: var(--cor-secundaria);
+            border-bottom-color: var(--cor-secundaria);
+            background: linear-gradient(180deg, rgba(220,20,60,0.08) 0%, transparent 100%);
+        }
+        .tab-content {
+            display: none;
+            padding: 28px;
+        }
+        .tab-content.active { display: block; }
+
+        /* Labels */
+        .field-label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--cor-texto-soft);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Inputs */
+        input, select {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        input:hover, select:hover {
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.5);
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--cor-secundaria);
+            background: rgba(0,0,0,0.5);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3), 0 0 0 3px rgba(220, 20, 60, 0.15);
+        }
+        input::placeholder { color: rgba(255,255,255,0.3); }
+
+        /* Select dropdown */
+        select option {
+            background: var(--cor-card);
+            color: var(--cor-texto);
+        }
+
+        /* Buttons */
+        .btn {
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        .btn:hover::after {
+            left: 100%;
+        }
+        .btn-primary {
+            background: var(--gradient-blood);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(139,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .btn-primary:hover {
+            filter: brightness(1.15);
+            box-shadow: 0 8px 30px rgba(220,20,60,0.5);
+            transform: translateY(-3px);
+        }
+        .btn-primary:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(220,20,60,0.4);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--cor-texto-soft);
+            transform: translateY(-2px);
+        }
+        .btn-online {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(155,89,182,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .btn-online:hover {
+            filter: brightness(1.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(155,89,182,0.5);
+        }
+        .btn-green {
+            background: linear-gradient(135deg, #27ae60, #1e8449);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(39,174,96,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .btn-green:hover {
+            filter: brightness(1.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(39,174,96,0.5);
+        }
+
+        /* Dice */
+        .dice-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        .die {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border: 2px solid var(--cor-borda);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            font-family: 'Bebas Neue', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+        .die.rolling {
+            animation: shake 0.1s infinite;
+            border-color: var(--cor-gold);
+            box-shadow: 0 0 20px rgba(212,175,55,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .die.max {
+            border-color: var(--green);
+            color: var(--green);
+            background: linear-gradient(145deg, rgba(39,174,96,0.15), rgba(39,174,96,0.05));
+            box-shadow: 0 0 20px rgba(39,174,96,0.4), inset 0 1px 0 rgba(39,174,96,0.2);
+        }
+        .die.min {
+            border-color: var(--cor-secundaria);
+            color: var(--cor-secundaria);
+            background: linear-gradient(145deg, rgba(220,20,60,0.15), rgba(220,20,60,0.05));
+            box-shadow: 0 0 20px rgba(220,20,60,0.4), inset 0 1px 0 rgba(220,20,60,0.2);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Results */
+        .result-total {
+            font-size: 60px;
+            font-weight: bold;
+            color: var(--cor-gold);
+            font-family: 'Bebas Neue', sans-serif;
+            text-shadow: 0 0 40px rgba(212,175,55,0.5), 0 2px 10px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+        }
+        .injury-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            white-space: nowrap;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* Tabela de Injúrias */
+        .injury-table-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .injury-table-row:last-child {
+            border-bottom: none;
+        }
+        .injury-none {
+            background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(39,174,96,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+        .injury-leve {
+            background: linear-gradient(135deg, #D4AF37 0%, #b8960c 100%);
+            color: #000;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+        }
+        .injury-grave {
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(230,126,34,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+        .injury-critica {
+            background: var(--gradient-blood);
+            color: #fff;
+            animation: critGlow 1s ease-in-out infinite alternate;
+            box-shadow: 0 4px 20px rgba(220,20,60,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        @keyframes critGlow {
+            from { box-shadow: 0 0 10px rgba(220,20,60,0.3); }
+            to { box-shadow: 0 0 25px rgba(220,20,60,0.6); }
+        }
+
+        .fear-success {
+            color: var(--green);
+            text-shadow: 0 0 20px rgba(39,174,96,0.5), 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .fear-fail {
+            color: var(--cor-secundaria);
+            text-shadow: 0 0 20px rgba(220,20,60,0.5), 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Crítico */
+        .crit-banner {
+            background: var(--gradient-blood);
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin-top: 18px;
+            animation: critPulse 0.5s ease;
+            box-shadow: 0 8px 30px rgba(220,20,60,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        @keyframes critPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Quick dice */
+        .quick-btn {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto-soft);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .quick-btn:hover {
+            background: var(--gradient-blood);
+            border-color: var(--cor-secundaria);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(220,20,60,0.4);
+        }
+        .quick-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(220,20,60,0.3);
+        }
+
+        /* Seção interna do card */
+        .section-box {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .section-box:last-child {
+            margin-bottom: 0;
+        }
+        .section-box:hover {
+            border-color: rgba(255,255,255,0.08);
+            background: rgba(0,0,0,0.3);
+        }
+
+        /* Separador decorativo */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cor-borda), transparent);
+            margin: 20px 0;
+        }
+
+        /* Título de seção */
+        .section-title {
+            color: var(--cor-gold);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--gradient-blood);
+            border-radius: 2px;
+        }
+
+        /* Modal */
+        .modal-popup {
+            background: var(--cor-card);
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--cor-borda);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+        }
+        .history-item {
+            border-left: 3px solid var(--cor-borda);
+            transition: all 0.2s ease;
+            background: rgba(0,0,0,0.3);
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .history-item:hover {
+            border-left-color: var(--cor-secundaria);
+            background: rgba(0,0,0,0.4);
+            transform: translateX(4px);
+        }
+
+        /* Online */
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .status-dot.online {
+            background: var(--green);
+            box-shadow: 0 0 12px rgba(39,174,96,0.7), 0 0 4px rgba(39,174,96,0.9);
+        }
+        .status-dot.offline {
+            background: var(--cor-secundaria);
+            box-shadow: 0 0 12px rgba(220,20,60,0.7), 0 0 4px rgba(220,20,60,0.9);
+        }
+        .status-dot.waiting {
+            background: var(--cor-gold);
+            animation: pulse 1.2s ease-in-out infinite;
+            box-shadow: 0 0 12px rgba(212,175,55,0.7), 0 0 4px rgba(212,175,55,0.9);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .room-code {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 6px;
+            color: var(--cor-gold);
+            background: rgba(212,175,55,0.08);
+            text-shadow: 0 0 25px rgba(212,175,55,0.5);
+            padding: 14px 28px;
+            border-radius: 10px;
+            border: 2px dashed rgba(212,175,55,0.5);
+            display: inline-block;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .player-box {
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--cor-borda);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+        .player-box.connected {
+            border-color: var(--green);
+            background: rgba(39,174,96,0.08);
+            box-shadow: 0 0 25px rgba(39,174,96,0.2), inset 0 1px 0 rgba(39,174,96,0.1);
+        }
+        .player-box.ready {
+            border-color: var(--cor-gold);
+            background: rgba(212,175,55,0.08);
+            box-shadow: 0 0 25px rgba(212,175,55,0.25), inset 0 1px 0 rgba(212,175,55,0.1);
+        }
+        .player-box.winner {
+            border-color: var(--green);
+            background: rgba(39,174,96,0.12);
+            box-shadow: 0 0 35px rgba(39,174,96,0.35), inset 0 1px 0 rgba(39,174,96,0.15);
+        }
+        .player-box.loser {
+            border-color: var(--cor-secundaria);
+            opacity: 0.65;
+            background: rgba(220,20,60,0.08);
+            box-shadow: 0 0 20px rgba(220,20,60,0.2);
+        }
+
+        .chat-box {
+            background: rgba(0,0,0,0.4);
+            height: 160px;
+            overflow-y: auto;
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .chat-msg {
+            padding: 10px 14px;
+            margin: 8px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+        .chat-msg.system {
+            background: rgba(212,175,55,0.12);
+            color: var(--cor-gold);
+            border-left: 3px solid var(--cor-gold);
+        }
+        .chat-msg.player {
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid var(--cor-texto-soft);
+            color: var(--cor-texto);
+        }
+
+        /* Botão Voltar */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            color: var(--cor-texto-soft);
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .btn-back:hover {
+            background: rgba(220,20,60,0.1);
+            border-color: var(--cor-secundaria);
+            color: var(--cor-texto);
+            transform: translateX(-3px);
+        }
+        .btn-back svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+        .btn-back:hover svg {
+            transform: translateX(-3px);
+        }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 40px 20px 30px;
+            margin-top: 40px;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(180deg, var(--cor-fundo) 0%, rgba(139,0,0,0.15) 100%);
+            border-top: 1px solid rgba(139,0,0,0.3);
+        }
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: var(--gradient-blood);
+            box-shadow: 0 0 10px rgba(220,20,60,0.5);
+        }
+        .footer-brand {
+            margin-bottom: 20px;
+        }
+        .footer-brand a {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--cor-secundaria);
+            text-decoration: none;
+            letter-spacing: 4px;
+            transition: text-shadow 0.3s ease;
+        }
+        .footer-brand a:hover {
+            text-shadow: 0 0 30px rgba(220,20,60,0.6);
+        }
+        .footer-brand span {
+            display: block;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.7rem;
+            color: var(--cor-texto-soft);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 16px;
+            color: var(--cor-texto-soft);
+            text-decoration: none;
+            font-size: 0.8rem;
+            border: 1px solid var(--cor-borda);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: var(--cor-texto);
+            border-color: var(--cor-secundaria);
+            background: rgba(139,0,0,0.2);
+            transform: translateY(-2px);
+        }
+        .footer-links svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.8;
+        }
+        .footer-links a:hover svg {
+            opacity: 1;
+        }
+        .footer-divider-line {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139,0,0,0.3), transparent);
+            margin: 0 auto 15px;
+        }
+        .footer-copy {
+            color: var(--cor-texto-soft);
+            font-size: 0.7rem;
+            opacity: 0.5;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== MOBILE RESPONSIVO - ONLINE ========== */
+        @media (max-width: 640px) {
+            #tab-online .section-box {
+                padding: 15px;
+            }
+
+            #tab-online .section-title {
+                font-size: 1.1rem;
+            }
+
+            /* Botões em coluna no mobile */
+            #online-lobby .d-flex.f-gap-15 {
+                flex-direction: column;
+            }
+
+            /* Código da sala menor */
+            .room-code {
+                font-size: 16px;
+                letter-spacing: 2px;
+                padding: 10px 14px;
+                word-break: break-all;
+            }
+
+            /* Grid de jogadores responsivo */
+            #online-sala .row.gap-20 {
+                gap: 10px;
+            }
+
+            .player-box {
+                padding: 12px !important;
+            }
+
+            .player-box .fs-9 {
+                font-size: 0.85rem;
+            }
+
+            /* Controles de combate em coluna */
+            #online-controles .d-flex {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch !important;
+            }
+
+            #online-controles .d-flex > div {
+                width: 100%;
+            }
+
+            #online-controles input,
+            #online-controles select {
+                width: 100% !important;
+            }
+
+            #online-controles button {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            /* Chat menor */
+            .chat-box {
+                height: 100px;
+            }
+
+            .chat-msg {
+                padding: 8px 10px;
+                margin: 5px;
+                font-size: 0.8rem;
+            }
+
+            /* Inputs mais compactos */
+            #tab-online input,
+            #tab-online select {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            /* Botão sair */
+            #online-sala > button:last-child {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="p-30-t p-30-lr xs-p-15-t xs-p-15-lr" style="overflow-x: hidden;">
+    <div class="container">
+        <!-- Botão Voltar -->
+        <div class="m-20-b">
+            <a href="index.html" class="btn-back">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Voltar ao Início
+            </a>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center m-40-b xs-m-25-b">
+            <h1 class="title fs-15 xs-fs-12 m-5-b" style="letter-spacing: 10px;">SCAR</h1>
+            <p class="opacity-4 fs-7" style="letter-spacing: 5px; text-transform: uppercase;">Sacrificial Contract & Risk</p>
+            <div class="m-15-t d-flex f-justify-center f-items-center f-gap-15">
+                <span style="width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--cor-secundaria));"></span>
+                <span class="fs-6" style="color: var(--cor-secundaria); font-style: italic;">Rolador de Dados</span>
+                <span style="width: 40px; height: 1px; background: linear-gradient(90deg, var(--cor-secundaria), transparent);"></span>
+            </div>
+        </div>
+
+        <!-- Botão Histórico -->
+        <div class="text-center m-25-b">
+            <button class="btn btn-secondary border-rd-10 p-12-tb p-30-lr fs-7" data-modal-show="modal-historico">
+                📜 HISTÓRICO <span id="historico-count" class="m-5-l opacity-6">(0)</span>
+            </button>
+        </div>
+
+        <!-- Container Principal -->
+        <div class="main-content">
+            <!-- Tabs -->
+            <div class="tabs d-flex f-gap-5">
+                <button class="tab active p-15-tb p-25-lr fs-7" data-tab="livre">LIVRE</button>
+                <button class="tab p-15-tb p-25-lr fs-7" data-tab="combate">COMBATE</button>
+                <button class="tab p-15-tb p-25-lr fs-7" data-tab="medo">MEDO</button>
+                <button class="tab p-15-tb p-25-lr fs-7" data-tab="duelo">DUELO</button>
+                <button class="tab p-15-tb p-25-lr fs-7" data-tab="online" style="color:var(--pink)">⚔ ONLINE</button>
+            </div>
+
+            <!-- TAB: Teste de Ação -->
+            <!-- TAB: Combate -->
+            <div class="tab-content" id="tab-combate">
+                <div class="section-title">Combate - Injúrias</div>
+
+                <div class="section-box">
+                    <div class="row gap-25">
+                        <div class="c-xs-12 c-sm-6">
+                            <label class="field-label">Atacante (dados)</label>
+                            <input type="number" id="atacante-dados" value="4" min="1" class="border-rd-10 p-14-all w-100 text-center fs-9">
+                        </div>
+                        <div class="c-xs-12 c-sm-6">
+                            <label class="field-label">Defensor (dados)</label>
+                            <input type="number" id="defensor-dados" value="3" min="1" class="border-rd-10 p-14-all w-100 text-center fs-9">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary border-rd-10 p-15-tb w-100 fs-8 m-25-t" onclick="rolarCombate()">ROLAR COMBATE</button>
+                </div>
+
+                <div class="section-box">
+                    <label class="field-label m-15-b">Tabela de Injúrias</label>
+                    <div class="fs-7">
+                        <div class="injury-table-row">
+                            <span class="opacity-6">Diferença 1-9</span>
+                            <span class="injury-badge injury-leve">Leve</span>
+                        </div>
+                        <div class="injury-table-row">
+                            <span class="opacity-6">Diferença 10-19</span>
+                            <span class="injury-badge injury-grave">Grave</span>
+                        </div>
+                        <div class="injury-table-row">
+                            <span class="opacity-6">Diferença 20+</span>
+                            <span class="injury-badge injury-critica">Crítica</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="resultado-combate" class="section-box text-center p-35-all">
+                    <span class="opacity-4 fs-8">⚔ Role o combate</span>
+                </div>
+            </div>
+
+            <!-- TAB: Teste de Medo -->
+            <div class="tab-content" id="tab-medo">
+                <div class="section-title">Teste de Medo</div>
+
+                <div class="section-box">
+                    <div class="d-flex f-wrap f-gap-25 f-items-end">
+                        <div>
+                            <label class="field-label">Categoria de Idade</label>
+                            <select id="nivel-medo" class="border-rd-10 p-14-all w-200px fs-7">
+                                <option value="0">Recém-Nascido (DT 15)</option>
+                                <option value="1">Jovem (DT 20)</option>
+                                <option value="2">Maduro (DT 25)</option>
+                                <option value="3">Veterano (DT 30)</option>
+                                <option value="4">Ancião (DT 35)</option>
+                                <option value="5">Primevo (DT 40)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label">Atributo</label>
+                            <input type="number" id="medo-atributo" value="4" min="0" class="border-rd-10 p-14-all w-90px text-center fs-9">
+                        </div>
+                        <div>
+                            <label class="field-label">DT</label>
+                            <input type="number" id="medo-dt" value="25" min="1" class="border-rd-10 p-14-all w-90px text-center fs-9">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary border-rd-10 p-15-tb w-100 fs-8 m-25-t" onclick="rolarMedo()">TESTAR MEDO</button>
+                </div>
+
+                <div id="resultado-medo" class="section-box text-center p-35-all">
+                    <span class="opacity-4 fs-8">👁 Faça o teste de medo</span>
+                </div>
+            </div>
+
+            <!-- TAB: Duelo -->
+            <div class="tab-content" id="tab-duelo">
+                <div class="section-title">Duelo (Melhor de 3)</div>
+
+                <div class="section-box">
+                    <p class="fs-7 opacity-5 m-20-b" style="border-left: 3px solid var(--cor-principal); padding-left: 12px;">Cada duelista escolhe 3 atributos (forte, médio, fraco)</p>
+                    <div class="row gap-25 m-25-b">
+                        <div class="c-xs-6">
+                            <p class="fs-7 text-center m-15-b" style="color:var(--blue); letter-spacing: 2px; font-family: 'Bebas Neue', sans-serif;">DUELISTA A</p>
+                            <input type="number" id="duelo-a1" placeholder="Forte" class="border-rd-10 p-12-all w-100 text-center m-10-b">
+                            <input type="number" id="duelo-a2" placeholder="Médio" class="border-rd-10 p-12-all w-100 text-center m-10-b">
+                            <input type="number" id="duelo-a3" placeholder="Fraco" class="border-rd-10 p-12-all w-100 text-center">
+                        </div>
+                        <div class="c-xs-6">
+                            <p class="fs-7 text-center m-15-b" style="color:var(--cor-secundaria); letter-spacing: 2px; font-family: 'Bebas Neue', sans-serif;">DUELISTA B</p>
+                            <input type="number" id="duelo-b1" placeholder="Forte" class="border-rd-10 p-12-all w-100 text-center m-10-b">
+                            <input type="number" id="duelo-b2" placeholder="Médio" class="border-rd-10 p-12-all w-100 text-center m-10-b">
+                            <input type="number" id="duelo-b3" placeholder="Fraco" class="border-rd-10 p-12-all w-100 text-center">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary border-rd-10 p-15-tb w-100 fs-8" onclick="rolarDuelo()">INICIAR DUELO</button>
+                </div>
+
+                <div id="resultado-duelo" class="section-box text-center p-35-all">
+                    <span class="opacity-4 fs-8">🗡 Configure os duelistas</span>
+                </div>
+            </div>
+
+            <!-- TAB: Livre -->
+            <div class="tab-content active" id="tab-livre">
+                <div class="section-title">Rolagem Livre</div>
+
+                <div class="section-box">
+                    <div class="d-flex f-wrap f-gap-20 f-items-end">
+                        <div>
+                            <label class="field-label">Quantidade</label>
+                            <input type="number" id="livre-qtd" value="1" min="1" class="border-rd-10 p-14-all w-80px text-center fs-9">
+                        </div>
+                        <div>
+                            <label class="field-label">Lados</label>
+                            <input type="number" id="livre-lados" value="10" min="2" class="border-rd-10 p-14-all w-80px text-center fs-9">
+                        </div>
+                        <div>
+                            <label class="field-label">Modificador</label>
+                            <input type="number" id="livre-mod" value="0" class="border-rd-10 p-14-all w-80px text-center fs-9">
+                        </div>
+                        <button class="btn btn-primary border-rd-10 p-15-tb p-40-lr fs-8" onclick="rolarLivre()">ROLAR</button>
+                    </div>
+                </div>
+
+                <div class="section-box">
+                    <label class="field-label m-15-b">Atalhos</label>
+                    <div class="d-flex f-wrap f-gap-12">
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(1,4,0)">D4</button>
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(1,6,0)">D6</button>
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(1,8,0)">D8</button>
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(1,10,0)">D10</button>
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(1,12,0)">D12</button>
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(1,20,0)">D20</button>
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(1,100,0)">D100</button>
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(2,6,0)">2D6</button>
+                        <button class="quick-btn border-rd-10 p-12-tb p-18-lr fs-7" onclick="rolarCustom(1,7,0)">D7</button>
+                    </div>
+                </div>
+
+                <div id="resultado-livre" class="section-box text-center p-35-all">
+                    <span class="opacity-4 fs-8">🎲 Role os dados</span>
+                </div>
+            </div>
+
+            <!-- TAB: Online -->
+            <div class="tab-content" id="tab-online">
+                <!-- Status -->
+                <div class="section-box p-15-all m-0-b">
+                    <div class="d-flex f-items-center f-gap-12">
+                        <span class="status-dot offline" id="online-status-dot"></span>
+                        <span class="fs-7" id="online-status-text">Desconectado</span>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Tela Inicial (não conectado) -->
+                <div id="online-lobby">
+                    <div class="section-title">Combate Online (P2P)</div>
+
+                    <div class="section-box">
+                        <div class="m-20-b">
+                            <label class="field-label">Seu Nome</label>
+                            <input type="text" id="online-nome" placeholder="Digite seu nome" maxlength="20" class="border-rd-10 p-14-all w-100 fs-8">
+                        </div>
+
+                        <div class="d-flex f-gap-15">
+                            <button class="btn btn-online border-rd-10 p-15-tb f-grow-1 fs-8" onclick="criarSala()">CRIAR SALA</button>
+                            <button class="btn btn-secondary border-rd-10 p-15-tb f-grow-1 fs-8" onclick="toggleEntrar()">ENTRAR EM SALA</button>
+                        </div>
+
+                        <div id="entrar-form" class="d-none m-25-t">
+                            <label class="field-label">Código da Sala</label>
+                            <div class="d-flex f-gap-12">
+                                <input type="text" id="codigo-entrar" placeholder="Cole o código aqui" class="border-rd-10 p-14-all f-grow-1 fs-8">
+                                <button class="btn btn-green border-rd-10 p-14-tb p-30-lr fs-8" onclick="entrarSala()">ENTRAR</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-box">
+                        <label class="field-label m-15-b">Como Funciona</label>
+                        <ol class="fs-7 opacity-5" style="padding-left: 20px; line-height: 2.2;">
+                            <li>Um jogador clica em "Criar Sala"</li>
+                            <li>Compartilha o código com o outro jogador</li>
+                            <li>O outro jogador cola o código e clica "Entrar"</li>
+                            <li>Ambos rolam e veem o resultado em tempo real!</li>
+                        </ol>
+                    </div>
+                </div>
+
+            <!-- Tela da Sala (conectado) -->
+            <div id="online-sala" class="d-none">
+                <!-- Código da Sala -->
+                <div class="section-box text-center">
+                    <label class="field-label">Código da Sala</label>
+                    <p class="room-code m-15-t" id="sala-codigo">------</p>
+                    <button class="btn btn-secondary border-rd-8 p-10-tb p-25-lr fs-7 m-15-t" onclick="copiarCodigo()">📋 Copiar Código</button>
+                </div>
+
+                <!-- Jogadores (renderizado dinamicamente) -->
+                <div class="section-box">
+                    <div class="section-title">Jogadores na Sala (<span id="jogadores-count">0</span>)</div>
+                    <div class="row gap-15" id="jogadores-container">
+                        <!-- Renderizado via JavaScript -->
+                        <div class="c-xs-12 text-center p-20-all">
+                            <span class="opacity-4 fs-8">Aguardando jogadores...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles de Combate -->
+                <div class="section-box" id="online-controles">
+                    <div class="section-title">Rolar Dados</div>
+                    <div class="d-flex f-wrap f-gap-25 f-items-end f-justify-center">
+                        <div>
+                            <label class="field-label">Quantidade de Dados</label>
+                            <input type="number" id="online-dados" value="3" min="1" max="10" class="border-rd-10 p-14-all w-90px text-center fs-9">
+                        </div>
+                        <button class="btn btn-primary border-rd-10 p-15-tb p-50-lr fs-8" id="btn-rolar-online" onclick="rolarOnline()">ROLAR!</button>
+                    </div>
+                </div>
+
+                <!-- Resultado Online -->
+                <div class="section-box" id="online-resultado">
+                    <div class="text-center p-20-all">
+                        <span class="opacity-4 fs-8">⚔ Aguardando rolagens...</span>
+                    </div>
+                </div>
+
+                <!-- Chat / Log -->
+                <div class="section-box">
+                    <div class="section-title">Log de Eventos</div>
+                    <div class="chat-box border-rd-10 p-15-all" id="chat-box"></div>
+                </div>
+
+                <!-- Sair -->
+                <button class="btn btn-secondary border-rd-10 p-14-tb w-100 fs-7" onclick="sairSala()">SAIR DA SALA</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a href="index.html">SCAR</a>
+            <span>Sacrificial Contract & Risk</span>
+        </div>
+
+        <div class="footer-links">
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="agradecimentos.html">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                Agradecimentos
+            </a>
+        </div>
+
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">© 2026 SCAR RPG • Feito com 🩸 por fãs, para fãs</p>
+    </footer>
+
+    <!-- Modal Histórico -->
+    <div data-modal="modal-historico" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide></div>
+            <div class="dialog-inline w-550px xs-w-95">
+                <button class="dialog-close" data-modal-hide></button>
+                <div class="modal-popup border-rd-16 p-30-all xs-p-20-all">
+                    <div class="section-title m-0-b p-0-b border-0-b">📜 Histórico de Rolagens</div>
+                    <div class="divider m-15-t m-20-b"></div>
+                    <div id="historico-lista" class="p-5-r" style="max-height:55vh; overflow-y:auto;">
+                        <div class="text-center p-30-all">
+                            <span class="opacity-4 fs-7">Nenhuma rolagem ainda</span>
+                        </div>
+                    </div>
+                    <div class="divider m-20-t m-15-b"></div>
+                    <button class="btn btn-secondary border-rd-10 p-14-tb w-100 fs-7" onclick="limparHistorico()">🗑 Limpar Histórico</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // ========== ESTADO ==========
+        let historico = [];
+
+        // ========== ESTADO ONLINE (Multi-jogador) ==========
+        let peer = null;
+        let isHost = false;
+        let meuId = null;
+        let hostId = null;
+        let meuNome = '';
+        let conns = new Map();              // Map<peerId, DataConnection>
+        let jogadores = new Map();          // Map<peerId, {nome, rolagem, status}>
+        let hostConn = null;                // Conexão com o host (se não for host)
+
+        // ========== TABS ==========
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // ========== FUNÇÕES DE DADOS ==========
+        function rolar(lados) {
+            return Math.floor(Math.random() * lados) + 1;
+        }
+
+        function rolarMultiplos(qtd, lados) {
+            const resultados = [];
+            for (let i = 0; i < qtd; i++) resultados.push(rolar(lados));
+            return resultados;
+        }
+
+        function soma(arr) {
+            return arr.reduce((a, b) => a + b, 0);
+        }
+
+        // ========== HISTÓRICO ==========
+        function addHistorico(tipo, descricao, total, extra = '') {
+            const hora = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+            historico.unshift({ hora, tipo, descricao, total, extra });
+            if (historico.length > 50) historico.pop();
+            renderHistorico();
+            document.getElementById('historico-count').textContent = `(${historico.length})`;
+        }
+
+        function renderHistorico() {
+            const el = document.getElementById('historico-lista');
+            if (historico.length === 0) {
+                el.innerHTML = '<span class="opacity-5 fs-6">Nenhuma rolagem</span>';
+                return;
+            }
+            el.innerHTML = historico.map(h => `
+                <div class="history-item p-12-all m-8-b border-rd-4" style="background:rgba(255,255,255,0.02)">
+                    <div class="d-flex f-justify-between f-items-start">
+                        <div>
+                            <span class="opacity-5 fs-5">${h.hora}</span>
+                            <span class="fs-6 fw-600 m-5-l" style="color:var(--gold)">${h.tipo}</span>
+                            <p class="fs-6 opacity-8 m-5-t">${h.descricao}</p>
+                            ${h.extra ? `<p class="fs-5 m-5-t" style="color:var(--purple)">${h.extra}</p>` : ''}
+                        </div>
+                        <span class="fs-9 fw-700">${h.total}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function limparHistorico() {
+            historico = [];
+            renderHistorico();
+            document.getElementById('historico-count').textContent = '(0)';
+        }
+
+        let diceIdCounter = 0;
+
+        function renderDados(container, resultados, lados = 10) {
+            const baseId = ++diceIdCounter;
+            container.innerHTML = `
+                <div class="dice-pool m-20-b" id="dice-pool-${baseId}">
+                    ${resultados.map((r, i) => `<div class="die rolling border-rd-8" id="die-${baseId}-${i}">?</div>`).join('')}
+                </div>
+            `;
+
+            return new Promise((resolve) => {
+                let completed = 0;
+                resultados.forEach((r, i) => {
+                    const el = document.getElementById(`die-${baseId}-${i}`);
+                    if (!el) return;
+                    let count = 0;
+                    const interval = setInterval(() => {
+                        el.textContent = rolar(lados);
+                        count++;
+                        if (count >= 8) {
+                            clearInterval(interval);
+                            el.textContent = r;
+                            el.classList.remove('rolling');
+                            if (r === lados) el.classList.add('max');
+                            if (r === 1) el.classList.add('min');
+                            completed++;
+                            if (completed === resultados.length) resolve();
+                        }
+                    }, 50);
+                });
+            });
+        }
+
+        // ========== CRÍTICO E FALHAS ==========
+        // Crítico = quantidade de dados que tiraram 10 (valor máximo)
+        // 2 dados com 10 = 2x, 3 dados com 10 = 3x, 4+ dados com 10 = 4x+
+        function verificarCritico(resultados) {
+            const quantDez = resultados.filter(r => r === 10).length;
+            if (quantDez < 2) return null;
+            if (quantDez >= 4) return { mult: '4x+', bonus: '+3 níveis de Injúria OU Aflição permanente', qtd: quantDez };
+            if (quantDez === 3) return { mult: '3x', bonus: '+2 níveis de Injúria + 1 Aflição', qtd: quantDez };
+            if (quantDez === 2) return { mult: '2x', bonus: '+1 nível de Injúria + 1 Aflição', qtd: quantDez };
+            return null;
+        }
+
+        // Falhas baseadas em múltiplos (espelha sistema de crítico)
+        // 0-1 uns = sem penalidade | 2 uns = -5 | 3 uns = -10 | 4+ uns = -15
+        function calcularFalhas(resultados) {
+            const quantUm = resultados.filter(r => r === 1).length;
+            if (quantUm < 2) return { qtd: quantUm, penalidade: 0, mult: null };
+            if (quantUm >= 4) return { qtd: quantUm, penalidade: 15, mult: '4x+' };
+            if (quantUm === 3) return { qtd: quantUm, penalidade: 10, mult: '3x' };
+            return { qtd: quantUm, penalidade: 5, mult: '2x' }; // quantUm === 2
+        }
+
+        // Crítico Defensivo = defensor com 2+ dados 10 reduz nível da injúria
+        function verificarCriticoDefensivo(resultados) {
+            const quantDez = resultados.filter(r => r === 10).length;
+            if (quantDez < 2) return null;
+            if (quantDez >= 4) return { mult: '4x+', reducao: 3, qtd: quantDez };
+            if (quantDez === 3) return { mult: '3x', reducao: 2, qtd: quantDez };
+            if (quantDez === 2) return { mult: '2x', reducao: 1, qtd: quantDez };
+            return null;
+        }
+
+        // Calcula injúria final considerando críticos ofensivo/defensivo
+        function calcularInjuria(diff, criticoAtk, criticoDef) {
+            // Níveis: 0 = Defendeu, 1 = Leve, 2 = Grave, 3 = Crítica
+            let nivel = 0;
+            if (diff <= 0) nivel = 0;
+            else if (diff <= 9) nivel = 1;
+            else if (diff <= 19) nivel = 2;
+            else nivel = 3;
+
+            // Se não acertou, não tem modificação
+            if (nivel === 0) {
+                return { nivel: 0, nome: 'Defendeu!', classe: 'injury-none', modificado: false };
+            }
+
+            const nivelOriginal = nivel;
+
+            // Crítico ofensivo aumenta nível
+            if (criticoAtk) {
+                if (criticoAtk.mult === '2x') nivel += 1;
+                else if (criticoAtk.mult === '3x') nivel += 2;
+                else if (criticoAtk.mult === '4x+') nivel += 3;
+            }
+
+            // Crítico defensivo reduz nível (mínimo 1 = Leve)
+            if (criticoDef) {
+                nivel -= criticoDef.reducao;
+                if (nivel < 1) nivel = 1; // Mínimo Leve se acertou
+            }
+
+            const nomes = ['Defendeu!', 'Injúria Leve', 'Injúria Grave', 'Injúria Crítica', 'Injúria Crítica+', 'Injúria Crítica++', 'DEVASTADOR'];
+            const classes = ['injury-none', 'injury-leve', 'injury-grave', 'injury-critica', 'injury-critica', 'injury-critica', 'injury-critica'];
+
+            return {
+                nivel: nivel,
+                nome: nomes[Math.min(nivel, nomes.length - 1)],
+                classe: classes[Math.min(nivel, classes.length - 1)],
+                modificado: nivel !== nivelOriginal
+            };
+        }
+
+        // ========== TESTE DE AÇÃO ==========
+        async function rolarTeste() {
+            const atributo = parseInt(document.getElementById('atributo').value) || 0;
+            const bonus = parseInt(document.getElementById('bonus').value) || 0;
+            const qtd = Math.max(1, atributo);
+            const resultados = rolarMultiplos(qtd, 10);
+            const total = soma(resultados) + bonus;
+
+            const container = document.getElementById('resultado-teste');
+            await renderDados(container, resultados);
+
+            container.innerHTML += `
+                <div class="result-total">${total}</div>
+                <p class="fs-6 opacity-6 m-10-t">${qtd}d10${bonus ? (bonus > 0 ? '+' : '') + bonus : ''} = [${resultados.join(', ')}]${bonus ? ' ' + (bonus > 0 ? '+' : '') + bonus : ''}</p>
+                ${atributo === 0 ? '<p class="fs-6 m-10-t" style="color:var(--red)">Atributo 0: Falha gera +1 Stress</p>' : ''}
+            `;
+
+            addHistorico('Teste', `${qtd}d10${bonus ? (bonus > 0 ? '+' : '') + bonus : ''} = [${resultados.join(', ')}]`, total);
+        }
+
+        async function rolarRapido(qtd) {
+            document.getElementById('atributo').value = qtd;
+            document.getElementById('bonus').value = 0;
+            await rolarTeste();
+        }
+
+        // ========== COMBATE ==========
+        async function rolarCombate() {
+            const atkDados = parseInt(document.getElementById('atacante-dados').value) || 1;
+            const defDados = parseInt(document.getElementById('defensor-dados').value) || 1;
+
+            const atkResultados = rolarMultiplos(atkDados, 10);
+            const defResultados = rolarMultiplos(defDados, 10);
+
+            // Calcular falhas (múltiplos de 1: 2+=−5, 3+=−10, 4+=−15)
+            const atkFalhas = calcularFalhas(atkResultados);
+            const defFalhas = calcularFalhas(defResultados);
+
+            // Total com penalidade de falhas
+            const atkTotalBruto = soma(atkResultados);
+            const defTotalBruto = soma(defResultados);
+            const atkTotal = atkTotalBruto - atkFalhas.penalidade;
+            const defTotal = defTotalBruto - defFalhas.penalidade;
+            const diff = atkTotal - defTotal;
+
+            // Críticos
+            const criticoAtk = diff > 0 ? verificarCritico(atkResultados) : null;
+            const criticoDef = diff > 0 ? verificarCriticoDefensivo(defResultados) : null;
+
+            // Calcular injúria final
+            const injuriaFinal = calcularInjuria(diff, criticoAtk, criticoDef);
+
+            // Criar IDs únicos para animação
+            const atkId = ++diceIdCounter;
+            const defId = ++diceIdCounter;
+
+            const container = document.getElementById('resultado-combate');
+            container.innerHTML = `
+                <div class="row gap-20 m-20-b">
+                    <div class="c-xs-6 text-center">
+                        <p class="fs-6 m-10-b" style="color:var(--blue)">Atacante</p>
+                        <div class="dice-pool f-justify-center">
+                            ${atkResultados.map((r, i) => `<div class="die rolling border-rd-8" id="die-${atkId}-${i}">?</div>`).join('')}
+                        </div>
+                        <p class="fs-10 fw-700 m-10-t" id="atk-total-${atkId}">...</p>
+                    </div>
+                    <div class="c-xs-6 text-center">
+                        <p class="fs-6 m-10-b" style="color:var(--red)">Defensor</p>
+                        <div class="dice-pool f-justify-center">
+                            ${defResultados.map((r, i) => `<div class="die rolling border-rd-8" id="die-${defId}-${i}">?</div>`).join('')}
+                        </div>
+                        <p class="fs-10 fw-700 m-10-t" id="def-total-${defId}">...</p>
+                    </div>
+                </div>
+                <div id="combate-resultado-${atkId}"></div>
+            `;
+
+            // Animar dados
+            await Promise.all([
+                animarDados(atkId, atkResultados, 10),
+                animarDados(defId, defResultados, 10)
+            ]);
+
+            // Mostrar totais (com falhas se houver penalidade)
+            document.getElementById(`atk-total-${atkId}`).innerHTML = atkFalhas.penalidade > 0
+                ? `${atkTotalBruto} <span style="color:var(--red)">-${atkFalhas.penalidade}</span> = ${atkTotal}`
+                : `${atkTotal}`;
+            document.getElementById(`def-total-${defId}`).innerHTML = defFalhas.penalidade > 0
+                ? `${defTotalBruto} <span style="color:var(--red)">-${defFalhas.penalidade}</span> = ${defTotal}`
+                : `${defTotal}`;
+
+            // Mostrar resultado
+            let resultadoHTML = `<p class="fs-8 opacity-7">Diferença: <strong>${diff}</strong></p>`;
+
+            // Mostrar falhas se houver múltiplo (2+ uns)
+            if (atkFalhas.mult || defFalhas.mult) {
+                resultadoHTML += `<p class="fs-6 m-10-t" style="color:var(--red)">`;
+                if (atkFalhas.mult) resultadoHTML += `ATK: Falha ${atkFalhas.mult} (${atkFalhas.qtd} uns) = -${atkFalhas.penalidade} `;
+                if (defFalhas.mult) resultadoHTML += `DEF: Falha ${defFalhas.mult} (${defFalhas.qtd} uns) = -${defFalhas.penalidade}`;
+                resultadoHTML += `</p>`;
+            }
+
+            resultadoHTML += `
+                <div class="m-15-t">
+                    <span class="injury-badge ${injuriaFinal.classe} fs-9">${injuriaFinal.nome}</span>
+                </div>
+            `;
+
+            // Crítico ofensivo
+            if (criticoAtk) {
+                resultadoHTML += `
+                    <div class="crit-banner">
+                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO OFENSIVO ${criticoAtk.mult}!</p>
+                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">${criticoAtk.bonus}</p>
+                    </div>
+                `;
+            }
+
+            // Crítico defensivo
+            if (criticoDef) {
+                resultadoHTML += `
+                    <div class="crit-banner" style="background: linear-gradient(135deg, var(--blue), var(--green));">
+                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO DEFENSIVO ${criticoDef.mult}!</p>
+                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">Reduz ${criticoDef.reducao} nível(is) de injúria (mínimo Leve)</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById(`combate-resultado-${atkId}`).innerHTML = resultadoHTML;
+
+            // Histórico
+            let extra = '';
+            if (criticoAtk) extra += `CRIT ATK ${criticoAtk.mult} `;
+            if (criticoDef) extra += `CRIT DEF ${criticoDef.mult} `;
+            if (atkFalhas.mult) extra += `Falha ATK ${atkFalhas.mult} `;
+            if (defFalhas.mult) extra += `Falha DEF ${defFalhas.mult}`;
+
+            addHistorico('Combate', `ATK ${atkTotal} vs DEF ${defTotal} (diff: ${diff})`, injuriaFinal.nome, extra.trim());
+        }
+
+        function animarDados(baseId, resultados, lados) {
+            return new Promise((resolve) => {
+                let completed = 0;
+                resultados.forEach((r, i) => {
+                    const el = document.getElementById(`die-${baseId}-${i}`);
+                    if (!el) { completed++; if (completed === resultados.length) resolve(); return; }
+                    let count = 0;
+                    const interval = setInterval(() => {
+                        el.textContent = rolar(lados);
+                        count++;
+                        if (count >= 8) {
+                            clearInterval(interval);
+                            el.textContent = r;
+                            el.classList.remove('rolling');
+                            if (r === lados) el.classList.add('max');
+                            if (r === 1) el.classList.add('min');
+                            completed++;
+                            if (completed === resultados.length) resolve();
+                        }
+                    }, 50);
+                });
+            });
+        }
+
+        // ========== TESTE DE MEDO ==========
+        const idadeDTs = {0:15, 1:20, 2:25, 3:30, 4:35, 5:40};
+        const idadeNomes = {0:'Recém-Nascido', 1:'Jovem', 2:'Maduro', 3:'Veterano', 4:'Ancião', 5:'Primevo'};
+        document.getElementById('nivel-medo').addEventListener('change', function() {
+            document.getElementById('medo-dt').value = idadeDTs[parseInt(this.value)] || 25;
+        });
+
+        async function rolarMedo() {
+            const idadeVal = parseInt(document.getElementById('nivel-medo').value);
+            const categoria = idadeNomes[idadeVal] || 'Desconhecido';
+            const atributo = parseInt(document.getElementById('medo-atributo').value) || 1;
+            const dt = parseInt(document.getElementById('medo-dt').value) || 25;
+
+            const resultados = rolarMultiplos(Math.max(1, atributo), 10);
+            const total = soma(resultados);
+            const sucesso = total >= dt;
+
+            const container = document.getElementById('resultado-medo');
+            await renderDados(container, resultados);
+
+            container.innerHTML += `
+                <div class="result-total">${total}</div>
+                <p class="fs-7 m-10-t">DT: ${dt} | ${categoria}</p>
+                <div class="m-15-t">
+                    <span class="fs-11 fw-700 ${sucesso ? 'fear-success' : 'fear-fail'}">
+                        ${sucesso ? '✓ SUCESSO' : '✗ FALHA'}
+                    </span>
+                </div>
+                ${!sucesso ? `<p class="fs-6 m-10-t" style="color:var(--red)">Penalidade aplicada por 1 rodada</p>` : ''}
+            `;
+
+            addHistorico('Medo', `${categoria}, DT ${dt}, Rolou: ${total}`, sucesso ? 'Sucesso' : 'Falha', !sucesso ? 'Penalidade aplicada' : '');
+        }
+
+        // ========== DUELO ==========
+        function rolarDuelo() {
+            const a = [
+                parseInt(document.getElementById('duelo-a1').value) || 3,
+                parseInt(document.getElementById('duelo-a2').value) || 2,
+                parseInt(document.getElementById('duelo-a3').value) || 1
+            ];
+            const b = [
+                parseInt(document.getElementById('duelo-b1').value) || 3,
+                parseInt(document.getElementById('duelo-b2').value) || 2,
+                parseInt(document.getElementById('duelo-b3').value) || 1
+            ];
+
+            const rolagemA = a.map(attr => ({ attr, resultados: rolarMultiplos(attr, 10), total: 0 }));
+            const rolagemB = b.map(attr => ({ attr, resultados: rolarMultiplos(attr, 10), total: 0 }));
+            rolagemA.forEach(r => r.total = soma(r.resultados));
+            rolagemB.forEach(r => r.total = soma(r.resultados));
+
+            const ordA = [...rolagemA].sort((x, y) => y.total - x.total);
+            const ordB = [...rolagemB].sort((x, y) => y.total - x.total);
+
+            let vitoriasA = 0, vitoriasB = 0;
+            const rodadas = [];
+
+            for (let i = 0; i < 3; i++) {
+                if (ordA[i].total > ordB[i].total) {
+                    vitoriasA++;
+                    rodadas.push({ a: ordA[i].total, b: ordB[i].total, vencedor: 'A' });
+                } else if (ordB[i].total > ordA[i].total) {
+                    vitoriasB++;
+                    rodadas.push({ a: ordA[i].total, b: ordB[i].total, vencedor: 'B' });
+                } else {
+                    rodadas.push({ a: ordA[i].total, b: ordB[i].total, vencedor: 'Empate' });
+                }
+            }
+
+            const vencedor = vitoriasA > vitoriasB ? 'A' : (vitoriasB > vitoriasA ? 'B' : 'Empate');
+            const diffFinal = Math.abs(ordA[2].total - ordB[2].total);
+
+            let consequencia = '';
+            if (diffFinal <= 9) consequencia = 'Injúria Grave';
+            else if (diffFinal <= 19) consequencia = 'Injúria Grave + Aflição';
+            else consequencia = 'Morte ou Incapacitado';
+
+            const container = document.getElementById('resultado-duelo');
+            container.innerHTML = `
+                <div class="row gap-15 m-20-b">
+                    <div class="c-xs-6 text-center">
+                        <p class="fs-7 fw-600 m-10-b" style="color:var(--blue)">Duelista A</p>
+                        ${rolagemA.map(r => `<div class="p-8-all m-5-b" style="background:rgba(52,152,219,0.1);border-radius:4px"><span class="fs-5 opacity-6">${r.attr}d10:</span> <span class="fw-600">${r.total}</span></div>`).join('')}
+                    </div>
+                    <div class="c-xs-6 text-center">
+                        <p class="fs-7 fw-600 m-10-b" style="color:var(--red)">Duelista B</p>
+                        ${rolagemB.map(r => `<div class="p-8-all m-5-b" style="background:rgba(231,76,60,0.1);border-radius:4px"><span class="fs-5 opacity-6">${r.attr}d10:</span> <span class="fw-600">${r.total}</span></div>`).join('')}
+                    </div>
+                </div>
+                <div class="m-15-b">
+                    ${rodadas.map((r, i) => `
+                        <div class="d-flex f-justify-between p-8-all m-5-b" style="background:rgba(255,255,255,0.03)">
+                            <span>Rodada ${i+1}</span>
+                            <span>${r.a} vs ${r.b}</span>
+                            <span class="fw-600" style="color:${r.vencedor === 'A' ? 'var(--blue)' : r.vencedor === 'B' ? 'var(--red)' : 'var(--gold)'}">${r.vencedor}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="result-total" style="color:${vencedor === 'A' ? 'var(--blue)' : vencedor === 'B' ? 'var(--red)' : 'var(--gold)'}">
+                    ${vencedor === 'Empate' ? 'EMPATE' : `Duelista ${vencedor} vence!`}
+                </div>
+                ${vencedor !== 'Empate' ? `<p class="fs-7 m-10-t">Perdedor: <strong style="color:var(--red)">${consequencia}</strong></p>` : ''}
+            `;
+
+            addHistorico('Duelo', `A(${vitoriasA}) vs B(${vitoriasB})`, vencedor === 'Empate' ? 'Empate' : `${vencedor} vence`, vencedor !== 'Empate' ? consequencia : '');
+        }
+
+        // ========== LIVRE ==========
+        async function rolarLivre() {
+            const qtd = parseInt(document.getElementById('livre-qtd').value) || 1;
+            const lados = parseInt(document.getElementById('livre-lados').value) || 10;
+            const mod = parseInt(document.getElementById('livre-mod').value) || 0;
+            await rolarCustom(qtd, lados, mod);
+        }
+
+        async function rolarCustom(qtd, lados, mod) {
+            const resultados = rolarMultiplos(qtd, lados);
+            const total = soma(resultados) + mod;
+
+            const container = document.getElementById('resultado-livre');
+            await renderDados(container, resultados, lados);
+
+            container.innerHTML += `
+                <div class="result-total">${total}</div>
+                <p class="fs-6 opacity-6 m-10-t">${qtd}d${lados}${mod ? (mod > 0 ? '+' : '') + mod : ''} = [${resultados.join(', ')}]${mod ? ' ' + (mod > 0 ? '+' : '') + mod : ''}</p>
+            `;
+
+            addHistorico('Livre', `${qtd}d${lados}${mod ? (mod > 0 ? '+' : '') + mod : ''} = [${resultados.join(', ')}]`, total);
+        }
+
+        // ========== ONLINE (PeerJS) ==========
+        function setStatus(status, text) {
+            const dot = document.getElementById('online-status-dot');
+            const txt = document.getElementById('online-status-text');
+            dot.className = 'status-dot ' + status;
+            txt.textContent = text;
+        }
+
+        function addChat(msg, type = 'system') {
+            const box = document.getElementById('chat-box');
+            box.innerHTML += `<div class="chat-msg ${type} fs-6">${msg}</div>`;
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function toggleEntrar() {
+            document.getElementById('entrar-form').classList.toggle('d-none');
+        }
+
+        function mostrarSala() {
+            document.getElementById('online-lobby').classList.add('d-none');
+            document.getElementById('online-sala').classList.remove('d-none');
+        }
+
+        function mostrarLobby() {
+            document.getElementById('online-lobby').classList.remove('d-none');
+            document.getElementById('online-sala').classList.add('d-none');
+        }
+
+        function criarSala() {
+            const nomeInput = document.getElementById('online-nome');
+            meuNome = nomeInput.value.trim();
+
+            if (!meuNome) {
+                alert('Digite seu nome para criar uma sala!');
+                nomeInput.focus();
+                return;
+            }
+
+            setStatus('waiting', 'Conectando...');
+
+            peer = new Peer();
+
+            peer.on('open', (id) => {
+                isHost = true;
+                meuId = id;
+                hostId = id;
+                document.getElementById('sala-codigo').textContent = id;
+
+                // Adiciona o host como primeiro jogador
+                jogadores.set(meuId, { nome: meuNome, rolagem: null, status: 'connected' });
+                renderizarJogadores();
+
+                setStatus('waiting', 'Aguardando jogadores...');
+                addChat('Sala criada! Compartilhe o código com os jogadores.');
+                mostrarSala();
+            });
+
+            // Host aceita múltiplas conexões
+            peer.on('connection', (connection) => {
+                const peerId = connection.peer;
+                conns.set(peerId, connection);
+                setupConnection(connection, peerId);
+            });
+
+            peer.on('error', (err) => {
+                setStatus('offline', 'Erro: ' + err.type);
+                addChat('Erro: ' + err.type, 'system');
+            });
+        }
+
+        function entrarSala() {
+            const nomeInput = document.getElementById('online-nome');
+            meuNome = nomeInput.value.trim();
+
+            if (!meuNome) {
+                alert('Digite seu nome para entrar na sala!');
+                nomeInput.focus();
+                return;
+            }
+
+            const codigo = document.getElementById('codigo-entrar').value.trim();
+            if (!codigo) return alert('Digite o código da sala');
+
+            setStatus('waiting', 'Conectando...');
+
+            peer = new Peer();
+
+            peer.on('open', (id) => {
+                meuId = id;
+                hostId = codigo;
+                hostConn = peer.connect(codigo, { reliable: true });
+
+                hostConn.on('open', () => {
+                    isHost = false;
+                    document.getElementById('sala-codigo').textContent = codigo;
+
+                    // Envia nome para o host
+                    hostConn.send({ type: 'join', playerId: meuId, nome: meuNome });
+                });
+
+                hostConn.on('data', (data) => {
+                    handleMessage(data, hostId);
+                });
+
+                hostConn.on('close', () => {
+                    setStatus('offline', 'Host desconectou');
+                    addChat('O host encerrou a sala.', 'system');
+                    resetOnline();
+                    mostrarLobby();
+                });
+
+                hostConn.on('error', (err) => {
+                    setStatus('offline', 'Erro na conexão');
+                    alert('Não foi possível conectar. Verifique o código.');
+                });
+            });
+
+            peer.on('error', (err) => {
+                setStatus('offline', 'Erro: ' + err.type);
+                if (err.type === 'peer-unavailable') {
+                    alert('Sala não encontrada. Verifique o código.');
+                }
+            });
+        }
+
+        function setupConnection(conn, peerId) {
+            conn.on('data', (data) => {
+                handleMessage(data, peerId);
+            });
+
+            conn.on('close', () => {
+                // Jogador desconectou
+                const player = jogadores.get(peerId);
+                if (player) {
+                    addChat(`${player.nome} saiu da sala.`, 'system');
+                    jogadores.delete(peerId);
+                    conns.delete(peerId);
+                    renderizarJogadores();
+
+                    // Notifica outros jogadores
+                    broadcast({ type: 'playerLeft', playerId: peerId });
+                }
+            });
+        }
+
+        // Host envia para todos os jogadores conectados
+        function broadcast(data, excludePeerId = null) {
+            if (!isHost) return;
+
+            conns.forEach((conn, peerId) => {
+                if (peerId !== excludePeerId && conn.open) {
+                    conn.send(data);
+                }
+            });
+        }
+
+        function handleMessage(data, fromPeerId) {
+            switch (data.type) {
+                case 'join':
+                    // Novo jogador entrou (apenas host recebe)
+                    if (isHost) {
+                        jogadores.set(data.playerId, { nome: data.nome, rolagem: null, status: 'connected' });
+                        addChat(`${data.nome} entrou na sala!`);
+                        renderizarJogadores();
+
+                        // Envia lista completa de jogadores para o novo jogador
+                        const playerList = [];
+                        jogadores.forEach((p, id) => playerList.push({ playerId: id, nome: p.nome }));
+
+                        const newPlayerConn = conns.get(data.playerId);
+                        if (newPlayerConn && newPlayerConn.open) {
+                            newPlayerConn.send({ type: 'welcome', jogadores: playerList, hostId: meuId });
+                        }
+
+                        // Notifica outros jogadores sobre o novo jogador
+                        broadcast({ type: 'playerJoined', playerId: data.playerId, nome: data.nome }, data.playerId);
+                    }
+                    break;
+
+                case 'welcome':
+                    // Jogador recebe lista de jogadores do host
+                    jogadores.clear();
+                    data.jogadores.forEach(p => {
+                        jogadores.set(p.playerId, { nome: p.nome, rolagem: null, status: 'connected' });
+                    });
+                    hostId = data.hostId;
+                    renderizarJogadores();
+                    setStatus('online', 'Conectado');
+                    addChat(`Conectado! ${jogadores.size} jogador(es) na sala.`);
+                    mostrarSala();
+                    break;
+
+                case 'playerJoined':
+                    // Notificação de novo jogador (para jogadores não-host)
+                    jogadores.set(data.playerId, { nome: data.nome, rolagem: null, status: 'connected' });
+                    addChat(`${data.nome} entrou na sala!`);
+                    renderizarJogadores();
+                    break;
+
+                case 'playerLeft':
+                    // Jogador saiu
+                    const leftPlayer = jogadores.get(data.playerId);
+                    if (leftPlayer) {
+                        addChat(`${leftPlayer.nome} saiu da sala.`, 'system');
+                        jogadores.delete(data.playerId);
+                        renderizarJogadores();
+                    }
+                    break;
+
+                case 'roll':
+                    // Jogador rolou dados
+                    const player = jogadores.get(data.playerId);
+                    if (player) {
+                        player.rolagem = { dados: data.dados, resultados: data.resultados, total: data.total };
+                        player.status = 'ready';
+                        renderizarJogadores();
+
+                        // Se host, retransmite para todos
+                        if (isHost) {
+                            broadcast({ type: 'rollUpdate', playerId: data.playerId, nome: player.nome, ...data }, data.playerId);
+                        }
+
+                        // Mostra resultado imediatamente
+                        adicionarRolagemResultado(data.playerId, player.nome, data.dados, data.resultados, data.total);
+                    }
+                    break;
+
+                case 'rollUpdate':
+                    // Atualização de rolagem (de outro jogador via host)
+                    const updatedPlayer = jogadores.get(data.playerId);
+                    if (updatedPlayer) {
+                        updatedPlayer.rolagem = { dados: data.dados, resultados: data.resultados, total: data.total };
+                        updatedPlayer.status = 'ready';
+                        renderizarJogadores();
+
+                        // Mostra resultado imediatamente
+                        adicionarRolagemResultado(data.playerId, data.nome, data.dados, data.resultados, data.total);
+                    }
+                    break;
+
+                case 'reset':
+                    resetRolagens();
+                    addChat('Nova rodada iniciada!');
+                    break;
+            }
+        }
+
+        function renderizarJogadores() {
+            const container = document.getElementById('jogadores-container');
+            const countEl = document.getElementById('jogadores-count');
+
+            countEl.textContent = jogadores.size;
+
+            if (jogadores.size === 0) {
+                container.innerHTML = '<div class="c-xs-12 text-center p-20-all"><span class="opacity-4 fs-8">Aguardando jogadores...</span></div>';
+                return;
+            }
+
+            let html = '';
+            jogadores.forEach((player, peerId) => {
+                const isMe = peerId === meuId;
+                const isHostPlayer = peerId === hostId;
+                const statusClass = player.status || '';
+                const label = isMe ? 'Você' : (isHostPlayer ? 'Host' : 'Jogador');
+                const statusText = player.rolagem ? '✓ Rolou' : '';
+
+                html += `
+                    <div class="c-xs-6 c-sm-4 c-md-3">
+                        <div class="player-box border-rd-12 p-15-all text-center ${statusClass}" id="player-${peerId}">
+                            <span class="field-label">${label}</span>
+                            <p class="fs-9 m-8-t" style="font-family: 'Bebas Neue', sans-serif;">${player.nome}</p>
+                            <p class="fs-7 m-5-t" style="color: var(--green);">${statusText}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function rolarOnline() {
+            const meuJogador = jogadores.get(meuId);
+            if (!meuJogador) {
+                return alert('Erro: você não está na sala!');
+            }
+
+            const dados = parseInt(document.getElementById('online-dados').value) || 1;
+            const resultados = rolarMultiplos(dados, 10);
+            const total = soma(resultados);
+
+            // Atualiza local
+            meuJogador.rolagem = { dados, resultados, total };
+            meuJogador.status = 'ready';
+            renderizarJogadores();
+
+            // Envia para host (ou broadcast se for host)
+            const rollData = { type: 'roll', playerId: meuId, dados, resultados, total };
+
+            if (isHost) {
+                // Host faz broadcast para todos
+                broadcast({ type: 'rollUpdate', playerId: meuId, nome: meuNome, dados, resultados, total });
+            } else {
+                // Jogador envia para o host
+                hostConn.send(rollData);
+            }
+
+            // Mostra resultado imediatamente
+            adicionarRolagemResultado(meuId, meuNome, dados, resultados, total);
+        }
+
+        // Adiciona uma rolagem à área de resultados em tempo real
+        function adicionarRolagemResultado(playerId, nome, dados, resultados, total) {
+            const container = document.getElementById('online-resultado');
+            const isMe = playerId === meuId;
+
+            // Calcula falhas
+            const falhas = calcularFalhas(resultados);
+            const totalFinal = total - falhas.penalidade;
+
+            // Verifica crítico
+            const critico = verificarCritico(resultados);
+
+            // Se é a primeira rolagem, limpa o placeholder
+            if (container.querySelector('.opacity-4')) {
+                container.innerHTML = '<div class="section-title m-15-b">Rolagens</div><div id="rolagens-lista"></div>';
+                if (isHost) {
+                    container.innerHTML += '<button class="btn btn-secondary border-rd-6 p-10-tb p-25-lr fs-7 m-15-t" onclick="novaRodada()">Limpar Rolagens</button>';
+                }
+            }
+
+            const lista = document.getElementById('rolagens-lista');
+
+            // Cria elemento da rolagem
+            const rolagemEl = document.createElement('div');
+            rolagemEl.className = 'p-15-all m-10-b border-rd-8 animated fadeInUp';
+            rolagemEl.style.cssText = `background: ${isMe ? 'rgba(212,175,55,0.1)' : 'rgba(255,255,255,0.03)'}; border: 1px solid ${isMe ? 'var(--gold)' : 'var(--cor-borda)'};`;
+
+            let html = `
+                <div class="d-flex f-items-center f-justify-between f-wrap f-gap-10">
+                    <div class="d-flex f-items-center f-gap-12">
+                        <div>
+                            <p class="fs-8 fw-600" style="${isMe ? 'color: var(--gold);' : ''}">${nome}${isMe ? ' (você)' : ''}</p>
+                            <p class="fs-6 opacity-5">${dados}d10</p>
+                        </div>
+                    </div>
+                    <div class="d-flex f-items-center f-gap-8">
+                        <div class="dice-pool f-gap-5">
+                            ${resultados.map(r => `<div class="die border-rd-4" style="width:30px;height:30px;font-size:13px;${r===10?'border-color:var(--green);color:var(--green)':r===1?'border-color:var(--red);color:var(--red)':''}">${r}</div>`).join('')}
+                        </div>
+                        <div class="text-right" style="min-width: 50px;">
+                            <p class="fs-10 fw-700">
+                                ${falhas.penalidade > 0 ? `<span class="fs-7" style="color:var(--red)">-${falhas.penalidade}</span> ` : ''}${totalFinal}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Mostra falhas e críticos
+            if (falhas.mult || critico) {
+                html += '<div class="m-10-t">';
+                if (falhas.mult) {
+                    html += `<span class="fs-6 p-5-tb p-10-lr border-rd-4 m-5-r" style="background: rgba(220,20,60,0.2); color: var(--red);">Falha ${falhas.mult}</span>`;
+                }
+                if (critico) {
+                    html += `<span class="fs-6 p-5-tb p-10-lr border-rd-4" style="background: rgba(39,174,96,0.2); color: var(--green);">Crítico ${critico.mult}x</span>`;
+                }
+                html += '</div>';
+            }
+
+            rolagemEl.innerHTML = html;
+
+            // Adiciona no topo da lista
+            lista.insertBefore(rolagemEl, lista.firstChild);
+
+            // Adiciona ao histórico
+            addHistorico('Online', `${nome}: ${dados}d10`, `Total: ${totalFinal}`, critico ? `Crítico ${critico.mult}x` : '');
+        }
+
+        function novaRodada() {
+            if (!isHost) return;
+
+            // Reseta rolagens de todos os jogadores
+            jogadores.forEach(p => {
+                p.rolagem = null;
+                p.status = 'connected';
+            });
+
+            renderizarJogadores();
+            resetRolagemUI();
+
+            // Notifica todos
+            broadcast({ type: 'reset' });
+            addChat('Rolagens limpas!');
+        }
+
+        function resetRolagens() {
+            jogadores.forEach(p => {
+                p.rolagem = null;
+                p.status = 'connected';
+            });
+            renderizarJogadores();
+            resetRolagemUI();
+        }
+
+        function resetRolagemUI() {
+            document.getElementById('online-resultado').innerHTML = '<div class="text-center p-20-all"><span class="opacity-4 fs-8">⚔ Aguardando rolagens...</span></div>';
+            document.getElementById('btn-rolar-online').disabled = false;
+            document.getElementById('btn-rolar-online').textContent = 'ROLAR!';
+        }
+
+        function copiarCodigo() {
+            const codigo = document.getElementById('sala-codigo').textContent;
+            navigator.clipboard.writeText(codigo).then(() => {
+                alert('Código copiado!');
+            });
+        }
+
+        function sairSala() {
+            // Fecha todas as conexões
+            conns.forEach(conn => conn.close());
+            if (hostConn) hostConn.close();
+            if (peer) peer.destroy();
+
+            resetOnline();
+            mostrarLobby();
+            setStatus('offline', 'Desconectado');
+        }
+
+        function resetOnline() {
+            peer = null;
+            hostConn = null;
+            isHost = false;
+            meuId = null;
+            hostId = null;
+            conns.clear();
+            jogadores.clear();
+
+            document.getElementById('jogadores-container').innerHTML = '<div class="c-xs-12 text-center p-20-all"><span class="opacity-4 fs-8">Aguardando jogadores...</span></div>';
+            document.getElementById('jogadores-count').textContent = '0';
+            document.getElementById('chat-box').innerHTML = '';
+            document.getElementById('online-resultado').innerHTML = '<div class="text-center p-20-all"><span class="opacity-4 fs-8">⚔ Aguardando rolagens...</span></div>';
+            document.getElementById('btn-rolar-online').disabled = false;
+            document.getElementById('btn-rolar-online').textContent = 'ROLAR!';
+        }
+    </script>
+</body>
+</html>
