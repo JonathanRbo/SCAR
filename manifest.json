@@ -2,17 +2,15 @@
   "name": "SCAR — Dado",
   "version": "1.0.0",
   "manifest_version": 1,
+  "description": "Rolador de dados do sistema SCAR com criticos em destaque e sala online.",
   "author": "JonathanRbo",
-  "homepage_url": "https://jonathanrbo.github.io/SCAR/",
   "icon": "https://jonathanrbo.github.io/SCAR/assets/images/logo1.jpg",
-  "description": "Rolador de dados do sistema SCAR — críticos em destaque e sala online (PeerJS) embutidos no Owlbear.",
-  "actions": [
-    {
-      "icon": "https://jonathanrbo.github.io/SCAR/assets/images/logo1.jpg",
-      "title": "Dado SCAR",
-      "url": "https://jonathanrbo.github.io/SCAR/dice-roller.html",
-      "height": 720,
-      "width": 440
-    }
-  ]
+  "homepage_url": "https://jonathanrbo.github.io/SCAR/",
+  "action": {
+    "title": "Dado SCAR",
+    "icon": "https://jonathanrbo.github.io/SCAR/assets/images/logo1.jpg",
+    "popover": "https://jonathanrbo.github.io/SCAR/dice-roller.html",
+    "width": 440,
+    "height": 720
+  }
 }
