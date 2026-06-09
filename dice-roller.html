@@ -739,114 +739,7 @@
             <!-- Tabs -->
             <div class="tabs d-flex f-gap-5">
                 <button class="tab active p-15-tb p-25-lr fs-7" data-tab="livre">LIVRE</button>
-                <button class="tab p-15-tb p-25-lr fs-7" data-tab="combate">COMBATE</button>
-                <button class="tab p-15-tb p-25-lr fs-7" data-tab="medo">MEDO</button>
-                <button class="tab p-15-tb p-25-lr fs-7" data-tab="duelo">DUELO</button>
                 <button class="tab p-15-tb p-25-lr fs-7" data-tab="online" style="color:var(--pink)">⚔ ONLINE</button>
-            </div>
-
-            <!-- TAB: Teste de Ação -->
-            <!-- TAB: Combate -->
-            <div class="tab-content" id="tab-combate">
-                <div class="section-title">Combate - Injúrias</div>
-
-                <div class="section-box">
-                    <div class="row gap-25">
-                        <div class="c-xs-12 c-sm-6">
-                            <label class="field-label">Atacante (dados)</label>
-                            <input type="number" id="atacante-dados" value="4" min="1" class="border-rd-10 p-14-all w-100 text-center fs-9">
-                        </div>
-                        <div class="c-xs-12 c-sm-6">
-                            <label class="field-label">Defensor (dados)</label>
-                            <input type="number" id="defensor-dados" value="3" min="1" class="border-rd-10 p-14-all w-100 text-center fs-9">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary border-rd-10 p-15-tb w-100 fs-8 m-25-t" onclick="rolarCombate()">ROLAR COMBATE</button>
-                </div>
-
-                <div class="section-box">
-                    <label class="field-label m-15-b">Tabela de Injúrias</label>
-                    <div class="fs-7">
-                        <div class="injury-table-row">
-                            <span class="opacity-6">Diferença 1-9</span>
-                            <span class="injury-badge injury-leve">Leve</span>
-                        </div>
-                        <div class="injury-table-row">
-                            <span class="opacity-6">Diferença 10-19</span>
-                            <span class="injury-badge injury-grave">Grave</span>
-                        </div>
-                        <div class="injury-table-row">
-                            <span class="opacity-6">Diferença 20+</span>
-                            <span class="injury-badge injury-critica">Crítica</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="resultado-combate" class="section-box text-center p-35-all">
-                    <span class="opacity-4 fs-8">⚔ Role o combate</span>
-                </div>
-            </div>
-
-            <!-- TAB: Teste de Medo -->
-            <div class="tab-content" id="tab-medo">
-                <div class="section-title">Teste de Medo</div>
-
-                <div class="section-box">
-                    <div class="d-flex f-wrap f-gap-25 f-items-end">
-                        <div>
-                            <label class="field-label">Categoria de Idade</label>
-                            <select id="nivel-medo" class="border-rd-10 p-14-all w-200px fs-7">
-                                <option value="0">Recém-Nascido (DT 15)</option>
-                                <option value="1">Jovem (DT 20)</option>
-                                <option value="2">Maduro (DT 25)</option>
-                                <option value="3">Veterano (DT 30)</option>
-                                <option value="4">Ancião (DT 35)</option>
-                                <option value="5">Primevo (DT 40)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="field-label">Atributo</label>
-                            <input type="number" id="medo-atributo" value="4" min="0" class="border-rd-10 p-14-all w-90px text-center fs-9">
-                        </div>
-                        <div>
-                            <label class="field-label">DT</label>
-                            <input type="number" id="medo-dt" value="25" min="1" class="border-rd-10 p-14-all w-90px text-center fs-9">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary border-rd-10 p-15-tb w-100 fs-8 m-25-t" onclick="rolarMedo()">TESTAR MEDO</button>
-                </div>
-
-                <div id="resultado-medo" class="section-box text-center p-35-all">
-                    <span class="opacity-4 fs-8">👁 Faça o teste de medo</span>
-                </div>
-            </div>
-
-            <!-- TAB: Duelo -->
-            <div class="tab-content" id="tab-duelo">
-                <div class="section-title">Duelo (Melhor de 3)</div>
-
-                <div class="section-box">
-                    <p class="fs-7 opacity-5 m-20-b" style="border-left: 3px solid var(--cor-principal); padding-left: 12px;">Cada duelista escolhe 3 atributos (forte, médio, fraco)</p>
-                    <div class="row gap-25 m-25-b">
-                        <div class="c-xs-6">
-                            <p class="fs-7 text-center m-15-b" style="color:var(--blue); letter-spacing: 2px; font-family: 'Bebas Neue', sans-serif;">DUELISTA A</p>
-                            <input type="number" id="duelo-a1" placeholder="Forte" class="border-rd-10 p-12-all w-100 text-center m-10-b">
-                            <input type="number" id="duelo-a2" placeholder="Médio" class="border-rd-10 p-12-all w-100 text-center m-10-b">
-                            <input type="number" id="duelo-a3" placeholder="Fraco" class="border-rd-10 p-12-all w-100 text-center">
-                        </div>
-                        <div class="c-xs-6">
-                            <p class="fs-7 text-center m-15-b" style="color:var(--cor-secundaria); letter-spacing: 2px; font-family: 'Bebas Neue', sans-serif;">DUELISTA B</p>
-                            <input type="number" id="duelo-b1" placeholder="Forte" class="border-rd-10 p-12-all w-100 text-center m-10-b">
-                            <input type="number" id="duelo-b2" placeholder="Médio" class="border-rd-10 p-12-all w-100 text-center m-10-b">
-                            <input type="number" id="duelo-b3" placeholder="Fraco" class="border-rd-10 p-12-all w-100 text-center">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary border-rd-10 p-15-tb w-100 fs-8" onclick="rolarDuelo()">INICIAR DUELO</button>
-                </div>
-
-                <div id="resultado-duelo" class="section-box text-center p-35-all">
-                    <span class="opacity-4 fs-8">🗡 Configure os duelistas</span>
-                </div>
             </div>
 
             <!-- TAB: Livre -->
@@ -888,6 +781,25 @@
 
                 <div id="resultado-livre" class="section-box text-center p-35-all">
                     <span class="opacity-4 fs-8">🎲 Role os dados</span>
+                </div>
+
+                <div class="section-box">
+                    <label class="field-label m-15-b">Injúria pela diferença entre as duas rolagens</label>
+                    <p class="fs-5 opacity-5 m-12-b">Cada um rola a sua. A diferença entre os dois totais define a injúria do perdedor:</p>
+                    <div class="fs-7">
+                        <div class="injury-table-row">
+                            <span class="opacity-6">Diferença 1-9</span>
+                            <span class="injury-badge injury-leve">Leve</span>
+                        </div>
+                        <div class="injury-table-row">
+                            <span class="opacity-6">Diferença 10-19</span>
+                            <span class="injury-badge injury-grave">Grave</span>
+                        </div>
+                        <div class="injury-table-row">
+                            <span class="opacity-6">Diferença 20+</span>
+                            <span class="injury-badge injury-critica">Crítica</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1156,8 +1068,8 @@
         // ========== CRÍTICO E FALHAS ==========
         // Crítico = quantidade de dados que tiraram 10 (valor máximo)
         // 2 dados com 10 = 2x, 3 dados com 10 = 3x, 4+ dados com 10 = 4x+
-        function verificarCritico(resultados) {
-            const quantDez = resultados.filter(r => r === 10).length;
+        function verificarCritico(resultados, maxVal = 10) {
+            const quantDez = resultados.filter(r => r === maxVal).length;
             if (quantDez < 2) return null;
             if (quantDez >= 4) return { mult: '4x+', bonus: '+3 níveis de Injúria OU Aflição permanente', qtd: quantDez };
             if (quantDez === 3) return { mult: '3x', bonus: '+2 níveis de Injúria + 1 Aflição', qtd: quantDez };
@@ -1389,12 +1301,9 @@
             });
         }
 
-        // ========== TESTE DE MEDO ==========
+        // ========== TESTE DE MEDO (desativado) ==========
         const idadeDTs = {0:15, 1:20, 2:25, 3:30, 4:35, 5:40};
         const idadeNomes = {0:'Recém-Nascido', 1:'Jovem', 2:'Maduro', 3:'Veterano', 4:'Ancião', 5:'Primevo'};
-        document.getElementById('nivel-medo').addEventListener('change', function() {
-            document.getElementById('medo-dt').value = idadeDTs[parseInt(this.value)] || 25;
-        });
 
         async function rolarMedo() {
             const idadeVal = parseInt(document.getElementById('nivel-medo').value);
@@ -1509,15 +1418,38 @@
             const resultados = rolarMultiplos(qtd, lados);
             const total = soma(resultados) + mod;
 
+            // Crítico = 2+ dados no valor máximo do dado | Falha = 2+ dados em 1
+            const critico = verificarCritico(resultados, lados);
+            const falhas = calcularFalhas(resultados);
+
             const container = document.getElementById('resultado-livre');
             await renderDados(container, resultados, lados);
 
-            container.innerHTML += `
+            let html = `
                 <div class="result-total">${total}</div>
                 <p class="fs-6 opacity-6 m-10-t">${qtd}d${lados}${mod ? (mod > 0 ? '+' : '') + mod : ''} = [${resultados.join(', ')}]${mod ? ' ' + (mod > 0 ? '+' : '') + mod : ''}</p>
             `;
 
-            addHistorico('Livre', `${qtd}d${lados}${mod ? (mod > 0 ? '+' : '') + mod : ''} = [${resultados.join(', ')}]`, total);
+            if (critico) {
+                html += `
+                    <div class="crit-banner m-15-t">
+                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO ${critico.mult}! (${critico.qtd}× ${lados})</p>
+                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">${critico.bonus}</p>
+                    </div>
+                `;
+            }
+
+            if (falhas.mult) {
+                html += `<p class="fs-7 m-15-t" style="color:var(--red)">Falha ${falhas.mult} (${falhas.qtd} uns) — penalidade -${falhas.penalidade}</p>`;
+            }
+
+            container.innerHTML += html;
+
+            let extra = '';
+            if (critico) extra += `CRÍTICO ${critico.mult} `;
+            if (falhas.mult) extra += `Falha ${falhas.mult} -${falhas.penalidade}`;
+
+            addHistorico('Livre', `${qtd}d${lados}${mod ? (mod > 0 ? '+' : '') + mod : ''} = [${resultados.join(', ')}]`, total, extra.trim());
         }
 
         // ========== ONLINE (PeerJS) ==========
