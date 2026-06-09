@@ -1074,13 +1074,24 @@
         }
 
         // ========== HISTÓRICO ==========
-        function addHistorico(tipo, descricao, total, extra = '') {
+        function addHistorico(tipo, descricao, total, extra = '', transmitir = true) {
             const hora = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
             historico.unshift({ hora, tipo, descricao, total, extra });
             if (historico.length > 50) historico.pop();
             renderHistorico();
             document.getElementById('historico-count').textContent = `(${historico.length})`;
+
+            // Owlbear: transmite a rolagem para todos da sala (notificacao nativa)
+            if (transmitir && typeof window.enviarRolagemOBR === 'function') {
+                window.enviarRolagemOBR({ tipo, descricao, total, extra });
+            }
         }
+
+        // Owlbear: registra no historico uma rolagem recebida de outro jogador (sem retransmitir)
+        window.receberRolagemOBR = function (r) {
+            const tipoComNome = r.nome ? `${r.tipo} · ${r.nome}` : r.tipo;
+            addHistorico(tipoComNome, r.descricao, r.total, r.extra, false);
+        };
 
         function renderHistorico() {
             const el = document.getElementById('historico-lista');
@@ -1953,6 +1964,52 @@
             document.getElementById('online-resultado').innerHTML = '<div class="text-center p-20-all"><span class="opacity-4 fs-8">⚔ Aguardando rolagens...</span></div>';
             document.getElementById('btn-rolar-online').disabled = false;
             document.getElementById('btn-rolar-online').textContent = 'ROLAR!';
+        }
+    </script>
+
+    <!-- ========== INTEGRACAO OWLBEAR RODEO (notificacao para todos) ========== -->
+    <script type="module">
+        import OBR from "https://cdn.jsdelivr.net/npm/@owlbear-rodeo/sdk@3.1.0/+esm";
+
+        const CANAL = "rodeo.scar.dado/rolagem";
+        let pronto = false;
+        let meuNomeOBR = "Jogador";
+
+        function montarTexto(r) {
+            const crit = /crit/i.test(r.extra || "");
+            let txt = `🎲 ${r.nome || "Jogador"} • ${r.tipo}: ${r.descricao} → ${r.total}`;
+            if (r.extra) txt += `  ⚡ ${r.extra}`;
+            return { txt, crit };
+        }
+
+        function mostrarToast(r) {
+            const { txt, crit } = montarTexto(r);
+            OBR.notification.show(txt, crit ? "WARNING" : "DEFAULT");
+        }
+
+        // Chamada pelo dado a cada rolagem local: avisa todos da sala do Owlbear
+        window.enviarRolagemOBR = function (r) {
+            if (!pronto) return;
+            r.nome = meuNomeOBR;
+            mostrarToast(r);                                              // toast para quem rolou
+            OBR.broadcast.sendMessage(CANAL, r, { destination: "REMOTE" }); // toast para os demais
+        };
+
+        if (OBR.isAvailable) {
+            OBR.onReady(async () => {
+                pronto = true;
+                try { meuNomeOBR = await OBR.player.getName(); } catch (e) {}
+                OBR.player.onChange((p) => { if (p && p.name) meuNomeOBR = p.name; });
+
+                // Recebe rolagens de outros jogadores: mostra toast + grava no historico
+                OBR.broadcast.onMessage(CANAL, (event) => {
+                    const r = event.data;
+                    mostrarToast(r);
+                    if (typeof window.receberRolagemOBR === "function") {
+                        window.receberRolagemOBR(r);
+                    }
+                });
+            });
         }
     </script>
 </body>
