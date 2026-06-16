@@ -111,15 +111,28 @@
         }
 
         .type-icon {
-            width: 50px;
-            height: 50px;
+            width: 56px;
+            height: 56px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             flex-shrink: 0;
+            overflow: hidden;
         }
+
+        .type-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 4px;
+        }
+
+        /* Zoom individual para compensar o espaco vazio de cada desenho */
+        .type-icon.humanos img { transform: scale(1.25); }
+        .type-icon.hibridos img { transform: scale(1.3); }
+        .type-icon.infernais img { transform: scale(1.55); }
 
         .type-icon.humanos { background: linear-gradient(135deg, #1a3a5c, #5DADE2); }
         .type-icon.infernais { background: linear-gradient(135deg, #5c1a1a, #E74C3C); }
@@ -415,7 +428,7 @@
                      ============================ -->
                 <div class="type-section wow fadeInUp" data-type="humanos">
                     <div class="type-header">
-                        <div class="type-icon humanos">&#128100;</div>
+                        <div class="type-icon humanos"><img src="assets/images/icones/humano.png" alt="Humanos"></div>
                         <div class="type-header-text">
                             <h2>HUMANOS</h2>
                             <p class="type-desc">Cacadores comuns que enfrentam demonios com coragem e determinacao.</p>
@@ -485,10 +498,10 @@
                      ============================ -->
                 <div class="type-section wow fadeInUp" data-type="infernais">
                     <div class="type-header">
-                        <div class="type-icon infernais">&#128293;</div>
+                        <div class="type-icon infernais"><img src="assets/images/icones/infernal.png" alt="Infernais"></div>
                         <div class="type-header-text">
                             <h2>INFERNAIS</h2>
-                            <p class="type-desc">Humanos corrompidos por contratos demoniacos, carregando marcas de seus pactos.</p>
+                            <p class="type-desc">Demonios que habitam um corpo sem vida, seja um humano morto ou um objeto. A consciencia humana ja cessou: nao ha humano como no Hibrido, resta so o demonio na carne.</p>
                         </div>
                         <span class="type-count infernais">6 imagens</span>
                     </div>
@@ -555,7 +568,7 @@
                      ============================ -->
                 <div class="type-section wow fadeInUp" data-type="hibridos">
                     <div class="type-header">
-                        <div class="type-icon hibridos">&#9876;</div>
+                        <div class="type-icon hibridos"><img src="assets/images/icones/hibrido.png" alt="Hibridos"></div>
                         <div class="type-header-text">
                             <h2>HIBRIDOS</h2>
                             <p class="type-desc">Seres que fundiram sua essencia com um demonio, ganhando poderes sobre-humanos.</p>
@@ -643,7 +656,7 @@
                      ============================ -->
                 <div class="type-section wow fadeInUp" data-type="demonios">
                     <div class="type-header">
-                        <div class="type-icon demonios">&#128123;</div>
+                        <div class="type-icon demonios"><img src="assets/images/icones/demonio.png" alt="Demonios"></div>
                         <div class="type-header-text">
                             <h2>DEMONIOS</h2>
                             <p class="type-desc">Entidades sobrenaturais nascidas dos medos e desejos da humanidade.</p>
