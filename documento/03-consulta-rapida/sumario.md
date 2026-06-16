@@ -240,7 +240,9 @@ Você ganha PM matando inimigo forte, fechando missão, treinando, sobrevivendo 
 | Evento que muda o personagem | +8 PM |
 
 **Combate / Feitos**
-| Situação | Ganho |
+> *Ganho **único por sessão**: escolhe só o feito mais alto que aconteceu — **não soma inimigo por inimigo**. É recompensa de sessão, não de cada batalha (evita farmar PM).*
+
+| Feito mais alto da sessão | Ganho |
 |---|---|
 | Derrotar inimigo mais forte que você | +3 PM |
 | Derrotar inimigo muito acima do seu nível | +5 PM |
@@ -344,6 +346,23 @@ Roleta básica. Você rola **Xd10** (X = atributo) contra **DT** (dificuldade) o
 > **Profano (91-100)**: quase ninguém pisa aqui. É o feito de uma vida só.
 > **Imensurável (100+)**: ninguém rola isso. Resolve na narrativa, no contrato ou no conceito.
 
+## Insistir no Teste
+> *Errou e quer tentar de novo? Pode — mas o mundo não congela esperando você acertar. Cada tentativa empina a DT, e tem hora que não tem segunda chance.*
+
+Falhou num teste de **perícia, social ou exploração**? Dependendo da cena, você **tenta de novo** — só que **cada nova tentativa sobe +5 na DT**. Errou de novo, sobe mais +5. A dificuldade escala até virar inalcançável: aí já é **falha automática**, parou de tentar. O limite não é uma regra que diz "não pode" — é a DT subindo até você não passar mais.
+
+O Mestre bate o olho na cena e escolhe o estado:
+
+> **Calmo** *(sem relógio, sem perigo)* — tenta à vontade. Cada tentativa: **+5 DT**.
+> **Sob pressão** *(perigo perto, tempo curto)* — tenta, mas cada tentativa: **+5 DT e +1 Stress**.
+> **Uma chance só** *(a porta tranca, o demônio percebe, a ponte cai)* — falhou, **falha automática**. Sem retry.
+
+O *mesmo* teste muda de estado conforme a cena: arrombar fechadura sozinho de madrugada é **Calmo**; com a guarda chegando é **Sob pressão**; com o prédio pegando fogo é **Uma chance só**.
+
+> **Insistir ≠ Forçar o Dado.** Forçar o Dado rerola *o mesmo teste, na mesma DT*, pagando 2 Stress na hora. Insistir é aceitar a falha e tentar *de novo do zero* — numa DT mais alta. Dá pra Forçar o Dado dentro de uma tentativa de Insistir; são camadas diferentes.
+
+> *É o espelho da Brecha: estudar o alvo acumula bônus a teu favor; insistir num teste acumula dificuldade contra você.*
+
 ## Teste de Medo
 Quando você encara algo que sua cabeça não tava pronta. Rola **Xd10 contra DT** baseada na idade do demônio + Escala de Medo (Recém-Nascido 15 → Primevo 40). Você escolhe **com qual atributo enfrenta**, cada um conta uma história diferente de como seu personagem aguenta (ou não):
 
@@ -365,12 +384,28 @@ Não gostou do resultado de um teste? Paga **2 Stress** e **rerola os dados**: f
 Quem deixa atributo zerado **falha automático** em qualquer teste relacionado **e leva +1 Stress**. Tentou ser esperto colocando tudo em Força e zero em Vínculo? Toda interação social vira humilhação ambulante.
 
 ## Críticos & Falhas
-**Múltiplos 10** num teste = **crítico** (efeito extra). **Múltiplos 1** = **falha catastrófica** (penalidade no total).
-- **Crítico ofensivo** (múltiplos 10 no ataque). 2×10: +1 Leve extra + Aflição. 3×10: +1 Grave extra + Aflição. 4×10+: +1 Crítica extra OU Aflição permanente
-- **Crítico defensivo** (múltiplos 10 na defesa). 2×10: -1 nível de Injúria. 3×10: -2 níveis. 4×10+: -3 níveis (mínimo Leve)
-- **Falha catastrófica** (múltiplos 1 em qualquer teste). 2×1: -5 no total. 3×1: -10. 4×1+: -15
+**Dado Marcado.** Antes de rolar, separe **1 dado** — o primeiro que cair, ou um de cor diferente. Só ele decide crítico e desastre. Tanto faz se você joga 3 ou 20 dados: a chance é sempre **~10% pra cada lado**. Pool grande deixa o golpe mais forte na *soma*, mas **não crita mais vezes**.
 
-Quanto mais 10s ou 1s, mais o dado decide o destino, pra cima ou pra baixo.
+| Dado Marcado | Atacando | Defendendo |
+|:---:|---|---|
+| **10** — Crítico | dano que causa **+1 nível** | dano que sofre **−1 nível** |
+| **1** — Desastre | dano que causa **−1 nível** (ou erra) | dano que sofre **+1 nível** |
+| 2 a 9 | rolagem normal | rolagem normal |
+
+Um princípio só: **10 pende a teu favor, 1 pende contra, sempre por 1 nível** (Leve↔Grave↔Crítica↔Morte). O crítico exige **vencer o confronto** — não adianta o Dado Marcado dar 10 se o golpe não conecta.
+
+**Fora de combate:** Dado Marcado em 10 = sucesso espetacular (o teste conta como o melhor resultado); em 1 = falha automática.
+
+> *O mesmo dado que te coroa é o que te trai. Quem quer torcer a sorte a favor investe em **Sorte do Combate** (habilidades Físicas) — mas todo Dado Marcado a mais também é um Desastre a mais esperando acontecer.*
+
+## Brecha — conhecimento que corta
+> *Estudar o alvo rende. Quem descobre onde apertar, aperta de novo, mais fundo.*
+
+Em qualquer teste de **Investigação, Intelecto ou análise narrativa**: a cada **10 pontos no resultado final**, você ganha **+5 no próximo teste sobre o mesmo alvo** *(resultado 30 = +15)*. Esse bônus é **passageiro** — vale pro próximo teste relacionado e some no fim da rodada seguinte.
+
+**Com uma habilidade de análise** *(Já Vi Esse Bicho, Raio-X do Inimigo, Enciclopédia do Horror, Calcanhar de Aquiles…)* o bônus **não expira**: vira **Brecha**, fica marcada no alvo e **acumula até o fim da cena** (+5 → +10 → +15…, sem teto). Quanto mais a mesa estuda, mais fundo corta.
+
+A Brecha soma como **bônus fixo** nos seus testes contra o alvo. A **Calcanhar de Aquiles** inverte: transforma a Brecha acumulada em **penalidade no próprio demônio**. *(Detalhe completo → `habilidades.md`.)*
 
 ## Companheiros
 > *Quem te segue quando você encara o Inferno. Bicho, gente ou demônio.*
