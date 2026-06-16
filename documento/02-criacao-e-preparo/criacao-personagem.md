@@ -83,6 +83,9 @@ PM: 0
 ═══ RECURSOS ═══
 
 STRESS: 6 + Vigor + Vínculo =
+¥ (IENE): 
+MOVIMENTO: Coordenação × 2 m
+AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação   
 
 INJÚRIAS
   Leves: 
@@ -155,6 +158,9 @@ STRESS: (varia pela Categoria de Medo)
   STRESS FINAL: 
 
 DT BASE — TESTE DE MEDO: [ ]   (15/20/25/30/35/40 conforme idade)
+
+MOVIMENTO: Coordenação × 2 m   (correr: +2 m por 1 Stress)
+AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação   (+1 ação extra: 3 Stress, 1×/rodada)
 
 INJÚRIAS
   Leves: 
