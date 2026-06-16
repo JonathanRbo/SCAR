@@ -36,6 +36,23 @@
 - Stress de Sobrecarregado **não pode ser mitigado** por habilidades que reduzem ou pagam Stress de outras fontes
 
 ═══════════════════════════════════════
+
+## 🔎 BRECHA — conhecimento que corta
+
+> *Estudar o alvo rende. Cada lampejo de leitura abre uma brecha — e quem descobre onde apertar, aperta de novo, mais fundo.*
+
+**Regra base — vale pra qualquer teste de Investigação, Intelecto ou análise narrativa:**
+- A cada **10 pontos no resultado final** do teste, você ganha **+5 no próximo teste sobre o mesmo assunto/alvo** *(resultado 30 = +15; resultado 25 = +10; arredonda pra baixo)*.
+- Esse bônus é **passageiro**: vale só pro próximo teste relacionado e **some no fim da rodada seguinte**.
+
+**Com uma habilidade de análise *(Já Vi Esse Bicho, Raio-X do Inimigo, Enciclopédia do Horror, Cartógrafo do Inferno, Calcanhar de Aquiles…)*:**
+- O bônus **não expira** — vira **Brecha**, que fica marcada no alvo e **acumula até o fim da cena/combate**.
+- Cada nova leitura **empilha** em cima da anterior: **+5 → +10 → +15…** Sem teto. Quanto mais a mesa estuda o alvo, mais fundo corta.
+- A Brecha some quando a cena acaba ou quando o alvo deixa de ser observável (saiu de cena, fugiu sem rastro).
+
+> **Como usar a Brecha:** ela soma como **bônus fixo** nos seus testes contra/sobre aquele alvo. A **Calcanhar de Aquiles** inverte isso — transforma a Brecha acumulada em **penalidade no próprio demônio** *(ver a habilidade)*.
+
+═══════════════════════════════════════
 # CATEGORIA: FÍSICO
 > *O corpo respondendo. Bater, atirar, esquivar, aparar, apanhar e continuar de pé.*
 ═══════════════════════════════════════
@@ -301,6 +318,42 @@
 - *Passivo.*
 - **Nota:** O inverno desistiu de você antes de você desistir dele.
 
+---
+
+## Sorte do Combate *(3 habilidades)*
+> *O crítico mora num dado só — o **Dado Marcado** (ver Sumário). Estas habilidades torcem a sorte a teu favor… e te expõem ao tombo na mesma medida. Toda glória extra é um Desastre a mais esperando.*
+
+### Carregar o Dado *(repetível — custo dobra)*
+- **Requisito:** Coordenação 4
+- **Efeito:** +1 **Dado Marcado**. Com mais de um, basta **um** deles dar 10 pra critar (e **um** dar 1 pra desastrar). Se sair 10 e 1 ao mesmo tempo, **se anulam** (rolagem normal)
+- **Custo (PM):** 4 PM pelo primeiro. Cada Dado Marcado adicional custa o **dobro** do anterior *(4 → 8 → 16 → 32…)* — equivale a tudo que você já pôs nele. O corpo tem limite
+- **Custo (em jogo):** cada Dado Marcado **além do primeiro** soma **+1 Stress** toda vez que o Dado Marcado dispara (crítico OU desastre)
+- **Nota:** Mais dados não compram sorte, compram **variância**. Mais chance de coroar, mais chance de cair
+
+### Sorte Afiada *(repetível — 3 PM cada)*
+- **Requisito:** Coordenação 5
+- **Requer:** Carregar o Dado
+- **Efeito:** Faca de dois gumes que **stacka**. Cada compra **alarga a janela** do dado decisivo: o crítico desce 1 *(10 → 9-10 → 8-10…)* e o desastre sobe 1 *(1 → 1-2 → 1-3…)*. Tetos: **crítico até 5-10** (5 compras), **desastre trava em 1-4** (3 compras)
+- **Custo:** 1 Stress por crítico ou desastre disparado
+- *Passivo.*
+- **Nota:** A navalha que corta o inimigo não te pergunta de que lado você segura. Quanto mais afiada, mais os dois fios cortam
+
+| Compras | Crítico | Desastre |
+|:---:|:---:|:---:|
+| 1 | 9-10 | 1-2 |
+| 2 | 8-10 | 1-3 |
+| 3 | 7-10 | 1-4 *(máx)* |
+| 4 | 6-10 | 1-4 |
+| 5 | 5-10 *(máx)* | 1-4 |
+
+### Golpe Aniquilador *(4 PM)*
+- **Requisito:** Força 6 ou Coordenação 6
+- **Requer:** Sorte Afiada
+- **Efeito:** Seus extremos ficam brutais: o **crítico sobe 2 níveis** em vez de 1. Mas o **Desastre desce 2 níveis** também
+- **Custo:** 3 Stress por crítico disparado
+- *Passivo.*
+- **Nota:** Quando o Dado Marcado sorri, é carnificina. Quando vira a cara, é você no chão
+
 ═══════════════════════════════════════
 
 # CATEGORIA: MENTAL
@@ -373,7 +426,7 @@
 ### Engenheiro de Campo
 - **Requisito:** Tecnologia 4
 - **Requer:** Toque do Especialista
-- **Efeito:** Pode reparar 1 arma quebrada ou montar 1 armadilha simples. Armadilha causa Injúria Leve + alvo faz Coordenação DT 15 ou fica imobilizado 1 rodada
+- **Efeito:** Pode reparar 1 arma quebrada ou montar 1 armadilha simples. Armadilha causa Injúria Leve + alvo faz Coordenação (**DT base Moderado — Tabela de DT**, sobe/desce conforme a armadilha) ou fica imobilizado 1 rodada
 - **Custo:** 2 Stress + tempo narrativo
 
 ### Beijo da Cobra
@@ -397,7 +450,7 @@
 ### Açougueiro de Confiança *(3 PM)*
 - **Requisito:** Tecnologia 5, Percepção 3
 - **Requer:** Agulha e Vodka
-- **Efeito:** Pode tratar 1 Injúria Grave de aliado durante cena de descanso, reduzindo a Leve. Teste de Tecnologia DT 25
+- **Efeito:** Pode tratar 1 Injúria Grave de aliado durante cena de descanso, reduzindo a Leve. Teste de Tecnologia — **DT conforme a gravidade (Tabela de DT)**
 - **Custo:** 3 Stress
 - **Nota:** Falha não piora a Injúria, mas gasta os materiais
 
@@ -429,7 +482,7 @@
 
 ### Nariz de Cão
 - **Requisito:** Percepção 3
-- **Efeito:** Pode rastrear criaturas (pegadas, sangue, cheiro, marcas) em terreno difícil. Teste de Percepção com DT do Mestre
+- **Efeito:** Pode rastrear criaturas (pegadas, sangue, cheiro, marcas) em terreno difícil. Teste de Percepção — **DT pelo terreno e idade do rastro (Tabela de DT)**
 - **Nota:** Demônios = +5 DT. Primordiais = +15 DT
 - *Passivo.*
 
@@ -474,11 +527,13 @@
 ### Já Vi Esse Bicho
 - **Requisito:** Investigação 2
 - **Efeito:** Pode identificar demônios comuns (Medo -2 a +2): nome, conceito, fraquezas conhecidas. Mestre revela 1 informação útil
+- **Brecha:** cada identificação marca **+5 de Brecha persistente** no alvo *(ver Brecha)*
 - *Passivo.*
 
 ### Raio-X do Inimigo
 - **Requisito:** Investigação 3, Percepção 3
 - **Efeito:** Após observar 1 inimigo por 1 rodada, descubra 1 informação mecânica: atributo mais alto, mais baixo, Injúrias restantes, ou estilo de luta
+- **Brecha:** cada rodada observando marca **+5 de Brecha persistente** no alvo *(ver Brecha)*
 - **Custo:** 1 Stress
 
 ### Nunca Esqueço
@@ -491,18 +546,21 @@
 - **Requisito:** Investigação 4, Percepção 3
 - **Requer:** Já Vi Esse Bicho
 - **Efeito:** Pode identificar demônios fortes (Medo +3 a +5) e Primordiais. Mestre revela até 3 informações: conceito, poder principal, fraqueza, restrição
+- **Brecha:** marca **+5 de Brecha persistente** por informação revelada *(ver Brecha)* — uma leitura completa pode render até +15 de uma vez
 - **Custo:** 2 Stress
 
 ### Calcanhar de Aquiles *(3 PM)*
 - **Requisito:** Investigação 5, Tecnologia 3
 - **Requer:** Enciclopédia do Horror
-- **Efeito:** Se identificar o conceito de um demônio, pode propor uma contramedida específica que reduz seu poder. Se o Mestre aprovar, o demônio sofre -1d10 em todos os testes enquanto a contramedida estiver ativa
+- **Efeito:** Identifica o conceito do demônio e propõe **1 contramedida específica**. Aprovada pelo Mestre, ela **vira a Brecha contra ele**: enquanto a contramedida se mantiver no campo, o demônio sofre **-1d10 + toda a Brecha acumulada** *(ver Brecha)* como penalidade fixa em todos os testes
+- **Escalada:** cada teste de análise novo no mesmo demônio empilha **+5** de Brecha — ou seja, a penalidade dele só cresce enquanto a contramedida estiver de pé *(-1d10 e -5, depois -10, -15…)*
+- **Quebra:** acabou a música, voltou o oxigênio, o demônio gastou ação pra romper a contramedida → para de aplicar a Brecha como penalidade (a Brecha em si continua marcada pra seus testes até o fim da cena)
 - **Custo:** 3 Stress + preparação narrativa
 - **Nota:** Ex: Demônio do Silêncio? Toque música alta. Demônio do Fogo? Isole o oxigênio
 
 ### Sabe Demais *(3 PM)*
 - **Requisito:** Investigação 5
-- **Efeito:** Pode fazer perguntas ao Mestre sobre lore oculta (rituais, contratos antigos, segredos de facções, localização de Portas do Inferno). Teste de Investigação DT 25. Sucesso = resposta verdadeira
+- **Efeito:** Pode fazer perguntas ao Mestre sobre lore oculta (rituais, contratos antigos, segredos de facções, localização de Portas do Inferno). Teste de Investigação — **DT conforme a pergunta (Tabela de DT)** — quanto mais oculto/perigoso o que você quer saber, mais alta. Sucesso = resposta verdadeira
 - **Custo:** 3 Stress + risco narrativo (saber demais atrai atenção)
 - **Limite:** 1x/sessão
 
@@ -515,7 +573,7 @@
 
 ### Leitura de Cicatriz
 - **Requisito:** Investigação 3, Percepção 3
-- **Efeito:** Pode analisar Marcas do Demônio em pessoas ou lugares. Teste de Investigação DT 20: revela qual demônio deixou, há quanto tempo, e se ainda está ativo
+- **Efeito:** Pode analisar Marcas do Demônio em pessoas ou lugares. Teste de Investigação — **DT conforme a marca (Tabela de DT)** — mais antiga ou sutil = mais alta: revela qual demônio deixou, há quanto tempo, e se ainda está ativo
 - **Custo:** 1 Stress
 
 ### O Sangue Conta a História
@@ -525,13 +583,13 @@
 
 ### Conheço um Cara
 - **Requisito:** Negociação 3, Vínculo 2
-- **Efeito:** Em qualquer cidade ou base, pode tentar encontrar 1 contato útil (informante, vendedor, médico clandestino). Teste de Negociação DT 20
+- **Efeito:** Em qualquer cidade ou base, pode tentar encontrar 1 contato útil (informante, vendedor, médico clandestino). Teste de Negociação — **DT conforme o contato e a cidade (Tabela de DT)**
 - **Custo:** 2 Stress + favor narrativo
 - **Nota:** O favor nunca é grátis. Cedo ou tarde, ele cobra
 
 ### Objetos Falam
 - **Requisito:** Investigação 4, Tecnologia 3
-- **Efeito:** Pode extrair informações de objetos (armas usadas, roupas, dispositivos). Determina quem usou, quando, e em que contexto. Teste de Investigação DT 20
+- **Efeito:** Pode extrair informações de objetos (armas usadas, roupas, dispositivos). Determina quem usou, quando, e em que contexto. Teste de Investigação — **DT conforme o objeto (Tabela de DT)**
 - **Custo:** 1 Stress
 
 ═══════════════════════════════════════
@@ -738,7 +796,7 @@
 ### Rugido de Guerra
 - **Requisito:** Autoridade 4
 - **Requer:** Familiar (demoníaco) + Familiar de Combate
-- **Efeito:** Seu familiar emite grito/rugido demoníaco. Todos inimigos a curta distância fazem teste de Medo DT 15
+- **Efeito:** Seu familiar emite grito/rugido demoníaco. Todos inimigos a curta distância fazem Teste de Medo (**DT base Moderado — sobe conforme o quão assustador é o familiar e a cena**)
 - **Custo:** 3 Stress (1x/combate)
 
 ### Adotar Júnior
@@ -777,10 +835,10 @@
 
 | Categoria | Subgrupos | Habilidades |
 |---|---|---|
-| **Físico** | Combate (17), Mobilidade & Defesa (11), Resistência (9) | **37** |
+| **Físico** | Combate (17), Mobilidade & Defesa (11), Resistência (9), Sorte do Combate (3) | **40** |
 | **Mental** | Vontade & Foco (7), Perícia Técnica (10), Percepção & Exploração (9), Conhecimento & Investigação (11) | **37** |
 | **Social** | Comando & Estratégia (8), Persuasão & Manipulação (9), Vínculo & Laços (8), Familiares & Aliados (10) | **35** |
-| | | **109** |
+| | | **112** |
 
 > *Os subgrupos dentro de cada categoria são apenas organizadores visuais — para fins de regra, todas as habilidades de uma categoria são equivalentes.*
 
@@ -1344,7 +1402,7 @@ Ilusão do Medo:
 Tipo: Ação Principal
 Custo: 3 Stress
 Atributo: Malandragem
-Efeito: Cria ilusão do conceito do seu medo (o alvo vê fogo, escuridão, insetos, etc). Alvo faz teste de Percepção DT 20 ou acredita por 1 rodada. Enquanto acredita, sofre -2d10 em tudo.
+Efeito: Cria ilusão do conceito do seu medo (o alvo vê fogo, escuridão, insetos, etc). Alvo faz teste de Percepção (**DT base Moderado — Tabela de DT**) ou acredita por 1 rodada. Enquanto acredita, sofre -2d10 em tudo.
 
 Marca Territorial:
 Tipo: Ação Principal pra marcar
