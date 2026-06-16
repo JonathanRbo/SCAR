@@ -48,10 +48,11 @@ Inspirado no universo sombrio de **Chainsaw Man**, o jogo coloca os jogadores em
 | **Stress & Injúrias** | Sistema de dano que afeta corpo e mente |
 | **4 Naturezas Jogáveis** | Humanos, Infernais, Híbridos e Demônios — cada um com mecânicas exclusivas |
 | **12 Estilos de Luta** | Combate personalizado para cada jogador |
-| **Árvores de Pré-requisito** | 112 habilidades em 3 categorias (Físico/Mental/Social) com cadeias de progressão — escolhas com peso real |
+| **Habilidades** | **115 Gerais** (Físico/Mental/Social) + **80 de Origem** = **195 no total**, com cadeias de pré-requisito — escolhas com peso real |
+| **Crítico "Dado Marcado"** | Um dado decide tudo: **10 = crítico** (+1 nível de dano), **1 = desastre** (-1 nível) — raro e igual pra qualquer pool. As habilidades de *Sorte do Combate* torcem a sorte a teu favor |
 | **Aflições** | 100 físicas + 100 mentais que marcam permanentemente os personagens |
 | **Sistema de Sonhos** | Objetivos de vida que recompensam PM ao serem realizados (4 tiers) |
-| **Rolador de Dados Multiplayer** | Sistema de dados online com sincronização em tempo real |
+| **Rolador de Dados** | App online (PeerJS) **e extensão do Owlbear Rodeo** — sincroniza rolagens em tempo real |
 
 ---
 
@@ -59,11 +60,13 @@ Inspirado no universo sombrio de **Chainsaw Man**, o jogo coloca os jogadores em
 
 ### Mecânica Principal
 ```
-Atributo + Habilidade + Xd10 vs Dificuldade
+Rola Xd10 (X = atributo), soma os dados e compara com a DT
 ```
-- **Sistema d10**: Rolagens usando dados de 10 faces
-- Maior valor do dado determina sucesso ou falha
-- Críticos e falhas críticas com consequências reais
+- **Sistema d10 somado**: um dado por ponto de atributo, somados
+- **Tabela de DT**: Fácil (1-15) → Imensurável (100+) — o Mestre bate o olho e escolhe a faixa
+- **Insistir no Teste**: falhou? pode tentar de novo, mas cada tentativa sobe **+5 na DT** (até virar falha automática)
+- **Crítico "Dado Marcado"**: 1 dado é o decisivo — **10 = crítico** (dano +1 nível), **1 = desastre** (-1 nível); ~10% pra qualquer pool
+- **Combate**: rolagem oposta (atacante vs defensor) — a diferença vira Injúria (Leve / Grave / Crítica / Morte)
 
 ### Recursos do Personagem
 
@@ -75,6 +78,7 @@ Atributo + Habilidade + Xd10 vs Dificuldade
 | **Vínculos** | Relações que ancoram sua humanidade |
 | **PM (Pontos de Marca)** | Custo para criar contratos e poderes |
 | **Sonhos** | Objetivos de vida — ao realizá-los, o jogador ganha PM |
+| **¥ (Iene)** | Dinheiro do submundo — gasto na Vendinha do Seu Bento |
 
 ### Tipos de Personagens
 
@@ -120,7 +124,7 @@ O website oficial do SCAR oferece:
 #### 📜 Páginas Principais
 - **Home** ([`index.html`](index.html)) - Apresentação do sistema, princípios, modais interativos das 4 Naturezas
 - **Sumário** ([`sumario.html`](sumario.html)) - Sistema completo em uma página (10 seções com índice navegável) + Modelos de Ficha copia-e-cola
-- **Habilidades** ([`habilidades.html`](habilidades.html)) - 112 habilidades em 3 categorias (Físico/Mental/Social) com filtros e accordion por subcategoria
+- **Habilidades** ([`habilidades.html`](habilidades.html)) - **195 habilidades** (115 Gerais em Físico/Mental/Social + 80 de Origem) com "Como funciona" explicativo em cada uma, accordion por subcategoria e toggle Gerais/Origem
 - **Vendinha** ([`vendinha.html`](vendinha.html)) - Catálogo único: armas, armaduras, veículos, 12 Estilos de Luta, Contratos, Encomendas
 - **Aflições** ([`aflicoes.html`](aflicoes.html)) - 100 aflições físicas + 100 mentais com busca e filtros
 - **História** ([`historia.html`](historia.html)) - Linha do tempo canônica (1908-2011), apagamentos, eras
@@ -128,11 +132,11 @@ O website oficial do SCAR oferece:
 - **Agradecimentos** ([`agradecimentos.html`](agradecimentos.html)) - Homenagem às mesas que ajudaram a moldar o sistema (Vanguarda Escarlate e Vazio Divino), em cards accordion com os players e suas contribuições
 
 #### 🎲 Ferramentas
-- **Rolador de Dados Multiplayer** ([`dice-roller.html`](dice-roller.html)) - Sistema de dados online com:
-  - Sincronização em tempo real via PeerJS
-  - Sala com código de 6 dígitos
-  - Histórico de rolagens
-  - Suporte para múltiplos dados (1d10 até 10d10)
+- **Rolador de Dados** ([`dice-roller.html`](dice-roller.html)) - Roda no navegador **e como extensão do Owlbear Rodeo** (via [`manifest.json`](manifest.json)):
+  - Crítico / Desastre automáticos pelo **Dado Marcado** (o 1º dado da rolagem)
+  - Combate com Injúria calculada, Teste de Ação, rolagem livre e aba de **Ficha**
+  - Sala multiplayer via PeerJS (código), histórico de rolagens
+  - Transmite as rolagens pra mesa toda no Owlbear
   - Interface dark theme
 
 #### 📋 Recursos Interativos
@@ -155,8 +159,8 @@ Os arquivos em [`documento/`](documento/) estão organizados por **ordem de leit
 - `criacao-personagem.md` - Guia passo a passo de criação + modelos de ficha
 
 **[`03-consulta-rapida/`](documento/03-consulta-rapida/) — referência rápida durante a sessão**
-- `sumario.md` - Sistema inteiro em uma página (10 seções: Personagem, Testes, Combate, Duelo, Stress, Aflições, Demônios Puros, Descanso, Economia, Criação)
-- `habilidades.md` - 112 habilidades em 3 categorias (Físico/Mental/Social) + pré-requisitos
+- `sumario.md` - Sistema inteiro em uma página (Testes, Tabela de DT, Insistir no Teste, Combate, Críticos/Dado Marcado, Stress, Aflições, Demônios Puros, Descanso, Economia, Criação)
+- `habilidades.md` - **195 habilidades** (115 Gerais + 80 de Origem) com "Como funciona", pré-requisitos e o tópico **Sorte do Combate** (build de crítico)
 - `vendinha-do-seu-bento.md` - Armas, armaduras, veículos, 12 Estilos de Luta, Contratos, Encomendas
 
 **[`04-mecanicas-em-jogo/`](documento/04-mecanicas-em-jogo/) — mecânicas detalhadas**
@@ -170,6 +174,7 @@ Os arquivos em [`documento/`](documento/) estão organizados por **ordem de leit
 - `roadmap.md` - Próximas atualizações planejadas
 - `migracao-site.md` - Documento da reformulação do site v2.0
 - `momento-de-aura.md` - Notas de momentos marcantes / referências de aura
+- `balanceamento-pm.md` - Notas de balanceamento de PM e custos
 
 **[`06-loucuras-do-mestre/`](documento/06-loucuras-do-mestre/) — spinoffs experimentais (fora do canon)**
 - `STAGE.md` - Indústria musical / idols (Perfect Blue + Idolish7 + Mob Psycho)
@@ -195,6 +200,7 @@ Os arquivos em [`documento/`](documento/) estão organizados por **ordem de leit
 | **CSS3 Custom** | Estilos do tema dark | - |
 | **JavaScript Vanilla** | Interações e lógica | ES6+ |
 | **PeerJS** | Multiplayer no rolador | Latest |
+| **Owlbear Rodeo SDK** | Rolador como extensão de VTT | CDN |
 | **WOW.js** | Animações on-scroll | Integrado |
 
 ### Estrutura de Arquivos
@@ -203,13 +209,14 @@ Os arquivos em [`documento/`](documento/) estão organizados por **ordem de leit
 SCAR/
 ├── index.html              # Home com modais das 4 Naturezas
 ├── sumario.html            # Sistema completo (10 seções) + modelos de ficha
-├── habilidades.html        # 112 habilidades (Físico/Mental/Social)
+├── habilidades.html        # 195 habilidades (115 Gerais + 80 de Origem)
 ├── vendinha.html           # Armas, armaduras, estilos, contratos
 ├── aflicoes.html           # 100 físicas + 100 mentais
 ├── historia.html           # Linha do tempo canônica
 ├── aparencias.html         # Referências visuais por natureza
 ├── agradecimentos.html     # Homenagem às mesas (accordion)
-├── dice-roller.html        # Rolador multiplayer (PeerJS)
+├── dice-roller.html        # Rolador multiplayer (PeerJS) + extensão Owlbear
+├── manifest.json           # Manifest da extensão do Owlbear Rodeo
 ├── assets/
 │   ├── css/
 │   │   ├── main.css           # Estilos compartilhados + mobile menu
