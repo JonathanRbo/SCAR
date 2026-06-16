@@ -755,8 +755,9 @@
             </table>
 
             <h4>Ganho de PM em Combate / Feitos</h4>
+            <p><strong>Ganho único por sessão:</strong> escolha apenas o feito mais alto que aconteceu na sessão — <strong>não soma inimigo por inimigo</strong>. É recompensa de sessão, não de cada batalha (evita farmar PM).</p>
             <table class="stat-table">
-                <thead><tr><th>Situação</th><th>Ganho</th></tr></thead>
+                <thead><tr><th>Feito mais alto da sessão</th><th>Ganho</th></tr></thead>
                 <tbody>
                     <tr><td>Derrotar inimigo mais forte que você</td><td>+3 PM</td></tr>
                     <tr><td>Derrotar inimigo muito acima do seu nível</td><td>+5 PM</td></tr>
@@ -864,6 +865,38 @@
             <h3>Teste de Ação</h3>
             <p>Roleta básica. Você rola <strong>Xd10</strong> (X = atributo) contra <strong>DT</strong> ou contra outra pessoa. Conta os dados que passaram. Mais sucessos = melhor resultado. É o teste único que resolve quase tudo: trepar muro, hackear celular, mentir pra policial, atirar no demônio.</p>
 
+            <h3>Tabela de DT (Dificuldade)</h3>
+            <p>Bate o olho na situação, escolhe a DT. (Pra perícia/social/exploração — combate é rolagem oposta, Medo tem escala própria.)</p>
+            <table class="stat-table">
+                <thead><tr><th>Faixa</th><th>O que significa</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Fácil (1-15)</strong></td><td>Até criança faz no automático. Rola só se tiver pressa ou perigo em volta.</td></tr>
+                    <tr><td><strong>Moderado (16-30)</strong></td><td>Pede treino básico e mão firme. Amador trava sob pressão.</td></tr>
+                    <tr><td><strong>Difícil (31-45)</strong></td><td>Território de profissional. Quem não treinou anos não passa.</td></tr>
+                    <tr><td><strong>Muito Difícil (46-60)</strong></td><td>O melhor da área, no limite do que carne humana entrega.</td></tr>
+                    <tr><td><strong>Extremo (61-75)</strong></td><td>Humano comum não alcança. Coisa de Infernal, Híbrido ou veterano forjado.</td></tr>
+                    <tr><td><strong>Monstruoso (76-90)</strong></td><td>Só monstro de verdade — demônio forte, poder bruto.</td></tr>
+                    <tr><td><strong>Profano (91-100)</strong></td><td>Quase ninguém pisa aqui. É o feito de uma vida só.</td></tr>
+                    <tr><td><strong>Imensurável (100+)</strong></td><td>Ninguém rola isso. Resolve na narrativa, no contrato ou no conceito.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Insistir no Teste</h3>
+            <p>Falhou num teste de <strong>perícia, social ou exploração</strong>? Dependendo da cena, você <strong>tenta de novo</strong> — só que <strong>cada nova tentativa sobe +5 na DT</strong>. Errou de novo, sobe mais +5. A dificuldade escala até virar inalcançável: aí já é <strong>falha automática</strong>. O limite não é uma regra que diz "não pode" — é a DT subindo até você não passar mais.</p>
+            <p>O Mestre bate o olho na cena e escolhe o estado:</p>
+            <table class="stat-table">
+                <thead><tr><th>Estado</th><th>Pode insistir?</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Calmo</strong> (sem relógio, sem perigo)</td><td>Tenta à vontade. Cada tentativa: <strong>+5 DT</strong>.</td></tr>
+                    <tr><td><strong>Sob pressão</strong> (perigo perto, tempo curto)</td><td>Tenta, mas cada tentativa: <strong>+5 DT e +1 Stress</strong>.</td></tr>
+                    <tr><td><strong>Uma chance só</strong> (a porta tranca, o demônio percebe, a ponte cai)</td><td>Falhou, <strong>falha automática</strong>. Sem retry.</td></tr>
+                </tbody>
+            </table>
+            <p>O mesmo teste muda de estado conforme a cena: arrombar fechadura sozinho de madrugada é <strong>Calmo</strong>; com a guarda chegando é <strong>Sob pressão</strong>; com o prédio pegando fogo é <strong>Uma chance só</strong>.</p>
+            <div class="quote-block">
+                Insistir ≠ Forçar o Dado. Forçar o Dado rerola o mesmo teste, na mesma DT, pagando 2 Stress na hora. Insistir é aceitar a falha e tentar de novo do zero — numa DT mais alta. É o espelho da Brecha: estudar o alvo acumula bônus a teu favor; insistir num teste acumula dificuldade contra você.
+            </div>
+
             <h3>Teste de Medo</h3>
             <p>Quando você encara algo que sua cabeça não tava pronta. Rola <strong>Xd10 contra DT</strong> baseada na idade do demônio + Escala de Medo (Recém-Nascido 15 → Primevo 40). Você escolhe <strong>com qual atributo enfrenta</strong>:</p>
 
@@ -887,16 +920,25 @@
             <p>Quem deixa atributo zerado <strong>falha automático</strong> em qualquer teste relacionado <strong>e leva +1 Stress</strong>. Tentou ser esperto colocando tudo em Força e zero em Vínculo? Toda interação social vira humilhação ambulante.</p>
 
             <h3>Críticos & Falhas</h3>
-            <p><strong>Múltiplos 10</strong> num teste = <strong>crítico</strong> (efeito extra). <strong>Múltiplos 1</strong> = <strong>falha catastrófica</strong> (penalidade no total).</p>
+            <p><strong>Dado Marcado.</strong> Antes de rolar, separe <strong>1 dado</strong> — o primeiro que cair, ou um de cor diferente. Só ele decide crítico e desastre. Tanto faz se você joga 3 ou 20 dados: a chance é sempre <strong>~10% pra cada lado</strong>. Pool grande deixa o golpe mais forte na <em>soma</em>, mas <strong>não crita mais vezes</strong>.</p>
 
             <table class="stat-table">
-                <thead><tr><th>Tipo</th><th>2× (10 ou 1)</th><th>3×</th><th>4×+</th></tr></thead>
+                <thead><tr><th>Dado Marcado</th><th>Atacando</th><th>Defendendo</th></tr></thead>
                 <tbody>
-                    <tr><td><strong>Crítico Ofensivo</strong> (no ataque)</td><td>+1 Leve extra + Aflição</td><td>+1 Grave extra + Aflição</td><td>+1 Crítica extra OU Aflição permanente</td></tr>
-                    <tr><td><strong>Crítico Defensivo</strong> (na defesa)</td><td>-1 nível de Injúria</td><td>-2 níveis</td><td>-3 níveis (mín Leve)</td></tr>
-                    <tr><td><strong>Falha Catastrófica</strong> (qualquer teste)</td><td>-5 no total</td><td>-10</td><td>-15</td></tr>
+                    <tr><td><strong>10</strong> — Crítico</td><td>dano que causa <strong>+1 nível</strong></td><td>dano que sofre <strong>−1 nível</strong></td></tr>
+                    <tr><td><strong>1</strong> — Desastre</td><td>dano que causa <strong>−1 nível</strong> (ou erra)</td><td>dano que sofre <strong>+1 nível</strong></td></tr>
+                    <tr><td>2 a 9</td><td>rolagem normal</td><td>rolagem normal</td></tr>
                 </tbody>
             </table>
+            <p>Um princípio só: <strong>10 pende a teu favor, 1 pende contra, sempre por 1 nível</strong> (Leve↔Grave↔Crítica↔Morte). O crítico exige <strong>vencer o confronto</strong>. Fora de combate: Dado Marcado em 10 = sucesso espetacular; em 1 = falha automática.</p>
+            <div class="quote-block">
+                O mesmo dado que te coroa é o que te trai. Quem quer torcer a sorte a favor investe em Sorte do Combate (habilidades Físicas) — mas todo Dado Marcado a mais também é um Desastre a mais esperando acontecer.
+            </div>
+
+            <h3>Brecha — conhecimento que corta</h3>
+            <div class="quote-block">Estudar o alvo rende. Quem descobre onde apertar, aperta de novo, mais fundo.</div>
+            <p>Em qualquer teste de <strong>Investigação, Intelecto ou análise narrativa</strong>: a cada <strong>10 pontos no resultado final</strong>, você ganha <strong>+5 no próximo teste sobre o mesmo alvo</strong> (resultado 30 = +15). Bônus <strong>passageiro</strong> — vale pro próximo teste e some no fim da rodada seguinte.</p>
+            <p>Com uma <strong>habilidade de análise</strong> (Já Vi Esse Bicho, Raio-X do Inimigo, Enciclopédia do Horror, Calcanhar de Aquiles…) o bônus <strong>não expira</strong>: vira <strong>Brecha</strong>, fica marcada no alvo e <strong>acumula até o fim da cena</strong> (+5 → +10 → +15…, sem teto). A Brecha soma como bônus fixo nos seus testes contra o alvo; a <strong>Calcanhar de Aquiles</strong> a inverte em penalidade no próprio demônio.</p>
 
             <h3>Companheiros</h3>
             <div class="quote-block">Quem te segue quando você encara o Inferno. Bicho, gente ou demônio.</div>
