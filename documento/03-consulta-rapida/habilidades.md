@@ -587,7 +587,7 @@
 - **Custo:** 2 Stress + favor narrativo
 - **Nota:** O favor nunca é grátis. Cedo ou tarde, ele cobra
 
-### Objetos Falam
+### Esquizofrenia
 - **Requisito:** Investigação 4, Tecnologia 3
 - **Efeito:** Pode extrair informações de objetos (armas usadas, roupas, dispositivos). Determina quem usou, quando, e em que contexto. Teste de Investigação — **DT conforme o objeto (Tabela de DT)**
 - **Custo:** 1 Stress
