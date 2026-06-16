@@ -4,11 +4,11 @@
   "manifest_version": 1,
   "description": "Rolador de dados do sistema SCAR com criticos em destaque e sala online.",
   "author": "JonathanRbo",
-  "icon": "https://jonathanrbo.github.io/SCAR/assets/images/logo1.jpg",
+  "icon": "https://jonathanrbo.github.io/SCAR/assets/images/icones/demonio.png",
   "homepage_url": "https://jonathanrbo.github.io/SCAR/",
   "action": {
     "title": "Dado SCAR",
-    "icon": "https://jonathanrbo.github.io/SCAR/assets/images/logo1.jpg",
+    "icon": "https://jonathanrbo.github.io/SCAR/assets/images/demonio-icon.svg",
     "popover": "https://jonathanrbo.github.io/SCAR/dice-roller.html",
     "width": 440,
     "height": 720
