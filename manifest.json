@@ -4,7 +4,7 @@
   "manifest_version": 1,
   "description": "Rolador de dados do sistema SCAR com criticos em destaque e sala online.",
   "author": "JonathanRbo",
-  "icon": "https://jonathanrbo.github.io/SCAR/assets/images/icones/demonio.png",
+  "icon": "https://jonathanrbo.github.io/SCAR/assets/images/icones/logo1.jpg",
   "homepage_url": "https://jonathanrbo.github.io/SCAR/",
   "action": {
     "title": "Dado SCAR",
