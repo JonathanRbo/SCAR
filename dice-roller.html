@@ -704,6 +704,25 @@
                 padding: 12px;
             }
         }
+
+        /* ========== FICHA ========== */
+        .ficha-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+        @media (max-width:560px) { .ficha-grid { grid-template-columns:1fr; } }
+        .ficha-attr-row, .ficha-buff-row {
+            display:flex; align-items:center; justify-content:space-between; gap:10px;
+            background:rgba(0,0,0,0.25); border:1px solid var(--cor-borda); border-radius:10px; padding:8px 12px;
+        }
+        .ficha-buff-row { margin-bottom:8px; }
+        .ficha-buff-row.ativo { border-color:var(--cor-secundaria); background:rgba(220,20,60,0.08); }
+        .ficha-attr-row .nome { flex:1; font-family:'Bebas Neue',sans-serif; letter-spacing:1px; }
+        .ficha-attr-row input { width:52px; text-align:center; padding:6px; }
+        .ficha-stepper { display:flex; align-items:center; gap:8px; }
+        .ficha-stepper button {
+            width:32px; height:32px; border:none; border-radius:8px; background:var(--gradient-blood);
+            color:#fff; font-size:1.2rem; cursor:pointer; font-family:'Bebas Neue',sans-serif; line-height:1;
+        }
+        .ficha-stepper button:hover { filter:brightness(1.2); }
+        .ficha-stepper > span { min-width:34px; text-align:center; font-family:'Bebas Neue',sans-serif; color:var(--cor-gold); font-size:1.1rem; }
     </style>
 </head>
 <body class="p-30-t p-30-lr xs-p-15-t xs-p-15-lr" style="overflow-x: hidden;">
@@ -739,6 +758,7 @@
             <!-- Tabs -->
             <div class="tabs d-flex f-gap-5">
                 <button class="tab active p-15-tb p-25-lr fs-7" data-tab="livre">LIVRE</button>
+                <button class="tab p-15-tb p-25-lr fs-7" data-tab="ficha" style="color:var(--cor-gold)">🎲 FICHA</button>
                 <button class="tab p-15-tb p-25-lr fs-7" data-tab="online" style="color:var(--pink)">⚔ ONLINE</button>
             </div>
 
@@ -899,6 +919,40 @@
                 <button class="btn btn-secondary border-rd-10 p-14-tb w-100 fs-7" onclick="sairSala()">SAIR DA SALA</button>
             </div>
         </div>
+
+            <!-- TAB: Ficha -->
+            <div class="tab-content" id="tab-ficha">
+                <div class="section-title">Ficha & Rolagem</div>
+
+                <div class="section-box">
+                    <label class="field-label">Nome do Personagem</label>
+                    <input type="text" id="ficha-nome" placeholder="Ex: Yelena" class="border-rd-10 p-14-all w-100 fs-8">
+                </div>
+
+                <div class="section-box">
+                    <label class="field-label m-15-b">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
+                    <div id="ficha-attrs" class="ficha-grid"></div>
+                    <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
+                    <p class="fs-5 opacity-5 m-10-t" id="ficha-save-hint"></p>
+                </div>
+
+                <div class="section-box">
+                    <label class="field-label m-15-b">Buffs — use − / + pra empilhar (somam DADOS)</label>
+                    <div id="ficha-buffs"></div>
+                    <div class="ficha-buff-row m-10-t">
+                        <span class="fs-7">Números a mais <span class="opacity-5 fs-5">(soma no total, não vira dado · passo 5)</span></span>
+                        <div class="ficha-stepper">
+                            <button onclick="stepExtrasFicha(-5)">−</button>
+                            <span id="ficha-extras-qtd">+0</span>
+                            <button onclick="stepExtrasFicha(5)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ficha-resultado" class="section-box text-center p-35-all">
+                    <span class="opacity-4 fs-8">🎲 Escolha um atributo pra rolar</span>
+                </div>
+            </div>
     </div>
 
     <!-- Footer -->
@@ -1897,6 +1951,113 @@
             document.getElementById('btn-rolar-online').disabled = false;
             document.getElementById('btn-rolar-online').textContent = 'ROLAR!';
         }
+
+        // ========== FICHA & ROLAGEM (atributos salvos + buffs) ==========
+        const FICHA_ATRIBUTOS = ["Força","Vigor","Coordenação","Malandragem","Tecnologia","Percepção","Investigação","Negociação","Autoridade","Vínculo"];
+        const FICHA_BUFFS = [
+            {nome:"Arma Leve", dados:1},
+            {nome:"Arma Média", dados:2},
+            {nome:"Arma Pesada", dados:3},
+            {nome:"Talismã", dados:3},
+            {nome:"Ajuda de Aliado", dados:1},
+            {nome:"Memória do Inferno", dados:1},
+        ];
+        let fichaBuffsQtd = {};   // {indice: quantidade}
+        let fichaExtras = 0;      // números a mais (somam no total, não viram dado)
+
+        function montarFichaAttrs() {
+            const el = document.getElementById('ficha-attrs');
+            if (!el) return;
+            el.innerHTML = FICHA_ATRIBUTOS.map(a => `
+                <div class="ficha-attr-row">
+                    <span class="nome">${a}</span>
+                    <input type="number" min="0" max="10" value="2" id="ficha-attr-${a}">
+                    <button class="btn btn-primary border-rd-8 p-10-tb p-18-lr fs-6" onclick="rolarFicha('${a}')">ROLAR</button>
+                </div>
+            `).join("");
+        }
+        function montarFichaBuffs() {
+            const el = document.getElementById('ficha-buffs');
+            if (!el) return;
+            el.innerHTML = FICHA_BUFFS.map((b, i) => `
+                <div class="ficha-buff-row" id="ficha-buff-row-${i}">
+                    <span class="fs-7">${b.nome} <span class="opacity-5 fs-5">+${b.dados}d10 cada</span></span>
+                    <div class="ficha-stepper">
+                        <button onclick="stepBuffFicha(${i},-1)">−</button>
+                        <span id="ficha-buff-qtd-${i}">0d</span>
+                        <button onclick="stepBuffFicha(${i},1)">+</button>
+                    </div>
+                </div>
+            `).join("");
+        }
+        function stepBuffFicha(i, delta) {
+            fichaBuffsQtd[i] = Math.max(0, (fichaBuffsQtd[i] || 0) + delta);
+            document.getElementById('ficha-buff-qtd-' + i).textContent = (fichaBuffsQtd[i] * FICHA_BUFFS[i].dados) + "d";
+            document.getElementById('ficha-buff-row-' + i).classList.toggle('ativo', fichaBuffsQtd[i] > 0);
+        }
+        function stepExtrasFicha(delta) {
+            fichaExtras = Math.max(0, fichaExtras + delta);
+            document.getElementById('ficha-extras-qtd').textContent = "+" + fichaExtras;
+        }
+        function salvarFichaLocal() {
+            const f = { nome: document.getElementById('ficha-nome').value };
+            FICHA_ATRIBUTOS.forEach(a => f[a] = document.getElementById('ficha-attr-' + a).value);
+            localStorage.setItem('scar-ficha', JSON.stringify(f));
+            document.getElementById('ficha-save-hint').textContent = '✓ Ficha salva! Abre preenchida da próxima vez.';
+        }
+        function carregarFichaLocal() {
+            const raw = localStorage.getItem('scar-ficha');
+            if (!raw) return;
+            try {
+                const f = JSON.parse(raw);
+                const nomeEl = document.getElementById('ficha-nome');
+                if (nomeEl) nomeEl.value = f.nome || '';
+                FICHA_ATRIBUTOS.forEach(a => {
+                    const el = document.getElementById('ficha-attr-' + a);
+                    if (el && f[a] !== undefined) el.value = f[a];
+                });
+            } catch (e) {}
+        }
+        async function rolarFicha(attr) {
+            const base = parseInt(document.getElementById('ficha-attr-' + attr).value) || 0;
+            let extraDados = 0, fontes = [];
+            FICHA_BUFFS.forEach((b, i) => {
+                const q = fichaBuffsQtd[i] || 0;
+                if (q > 0) { const d = q * b.dados; extraDados += d; fontes.push(`${q}× ${b.nome}`); }
+            });
+            const qtd = Math.max(1, base + extraDados);
+            const resultados = rolarMultiplos(qtd, 10);
+            const somaDados = soma(resultados);
+            const total = somaDados + fichaExtras;
+            const personagem = (document.getElementById('ficha-nome').value || '').trim();
+
+            const crit = verificarCritico(resultados);   // múltiplos 10
+            const falha = calcularFalhas(resultados);     // múltiplos 1
+
+            const container = document.getElementById('ficha-resultado');
+            await renderDados(container, resultados);
+
+            const detalhe = `${base}d10 (${attr})${extraDados ? ` + ${extraDados}d10 (${fontes.join(", ")})` : ""} = ${qtd}d10${fichaExtras ? ` , +${fichaExtras} no total` : ""}`;
+            container.innerHTML += `
+                <div class="result-total">${total}</div>
+                <p class="fs-6 opacity-6 m-10-t">${detalhe}</p>
+                <p class="fs-5 opacity-5 m-5-t">[${resultados.join(", ")}]${fichaExtras ? ` &nbsp;${somaDados}+${fichaExtras}` : ""}</p>
+                ${crit ? `<div class="crit-banner"><p class="fs-9 fw-700" style="color:#fff">CRÍTICO ${crit.mult}!</p><p class="fs-6 m-5-t" style="color:rgba(255,255,255,0.9)">${crit.bonus}</p></div>` : ''}
+            `;
+
+            // Transmite (Owlbear/online): nome do personagem + qtd de dados + valores crus + total = anti-trapaça
+            const tipo = personagem ? `${attr} · ${personagem}` : attr;
+            const descricao = `${qtd}d10${fichaExtras ? ` +${fichaExtras}` : ""} = [${resultados.join(", ")}]`;
+            let extraTxt = '';
+            if (crit) extraTxt += `CRIT ${crit.mult} `;
+            if (falha.mult) extraTxt += `Falha ${falha.mult}`;
+            addHistorico(tipo, descricao, total, extraTxt.trim());
+        }
+
+        // Inicializa a aba Ficha
+        montarFichaAttrs();
+        montarFichaBuffs();
+        carregarFichaLocal();
     </script>
 
     <!-- ========== INTEGRACAO OWLBEAR RODEO (notificacao para todos) ========== -->
