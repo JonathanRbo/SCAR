@@ -223,6 +223,23 @@
             background: linear-gradient(145deg, rgba(220,20,60,0.15), rgba(220,20,60,0.05));
             box-shadow: 0 0 20px rgba(220,20,60,0.4), inset 0 1px 0 rgba(220,20,60,0.2);
         }
+        /* Dado Marcado — o primeiro dado, destacado com anel dourado e estrela */
+        .die.destino {
+            position: relative;
+            outline: 3px solid var(--cor-gold);
+            outline-offset: 2px;
+        }
+        .die.destino::after {
+            content: '★';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 15px;
+            color: var(--cor-gold);
+            text-shadow: 0 0 4px rgba(0,0,0,0.9);
+            line-height: 1;
+        }
 
         @keyframes shake {
             0%, 100% { transform: rotate(-3deg); }
@@ -1092,7 +1109,7 @@
             const baseId = ++diceIdCounter;
             container.innerHTML = `
                 <div class="dice-pool m-20-b" id="dice-pool-${baseId}">
-                    ${resultados.map((r, i) => `<div class="die rolling border-rd-8" id="die-${baseId}-${i}">?</div>`).join('')}
+                    ${resultados.map((r, i) => `<div class="die rolling border-rd-8${i === 0 ? ' destino' : ''}" id="die-${baseId}-${i}">?</div>`).join('')}
                 </div>
             `;
 
@@ -1119,68 +1136,52 @@
             });
         }
 
-        // ========== CRÍTICO E FALHAS ==========
-        // Crítico = quantidade de dados que tiraram 10 (valor máximo)
-        // 2 dados com 10 = 2x, 3 dados com 10 = 3x, 4+ dados com 10 = 4x+
-        function verificarCritico(resultados, maxVal = 10) {
-            const quantDez = resultados.filter(r => r === maxVal).length;
-            if (quantDez < 2) return null;
-            if (quantDez >= 4) return { mult: '4x+', bonus: '+3 níveis de Injúria OU Aflição permanente', qtd: quantDez };
-            if (quantDez === 3) return { mult: '3x', bonus: '+2 níveis de Injúria + 1 Aflição', qtd: quantDez };
-            if (quantDez === 2) return { mult: '2x', bonus: '+1 nível de Injúria + 1 Aflição', qtd: quantDez };
+        // ========== DADO DO DESTINO ==========
+        // O PRIMEIRO dado de qualquer rolagem é o Dado Marcado.
+        // 10 = Crítico · 1 = Desastre · 2-9 = normal. Chance fixa (~10% cada),
+        // não importa quantos dados você joga.
+        function efeitoDestino(resultados, maxVal = 10) {
+            if (!resultados || !resultados.length) return null;
+            const d = resultados[0];
+            if (d === maxVal) return 'critico';
+            if (d === 1) return 'desastre';
             return null;
         }
 
-        // Falhas baseadas em múltiplos (espelha sistema de crítico)
-        // 0-1 uns = sem penalidade | 2 uns = -5 | 3 uns = -10 | 4+ uns = -15
-        function calcularFalhas(resultados) {
-            const quantUm = resultados.filter(r => r === 1).length;
-            if (quantUm < 2) return { qtd: quantUm, penalidade: 0, mult: null };
-            if (quantUm >= 4) return { qtd: quantUm, penalidade: 15, mult: '4x+' };
-            if (quantUm === 3) return { qtd: quantUm, penalidade: 10, mult: '3x' };
-            return { qtd: quantUm, penalidade: 5, mult: '2x' }; // quantUm === 2
-        }
-
-        // Crítico Defensivo = defensor com 2+ dados 10 reduz nível da injúria
-        function verificarCriticoDefensivo(resultados) {
-            const quantDez = resultados.filter(r => r === 10).length;
-            if (quantDez < 2) return null;
-            if (quantDez >= 4) return { mult: '4x+', reducao: 3, qtd: quantDez };
-            if (quantDez === 3) return { mult: '3x', reducao: 2, qtd: quantDez };
-            if (quantDez === 2) return { mult: '2x', reducao: 1, qtd: quantDez };
-            return null;
-        }
-
-        // Calcula injúria final considerando críticos ofensivo/defensivo
-        function calcularInjuria(diff, criticoAtk, criticoDef) {
-            // Níveis: 0 = Defendeu, 1 = Leve, 2 = Grave, 3 = Crítica
-            let nivel = 0;
+        // Injúria final no combate: nível pela diferença, ajustado pelo Dado Marcado.
+        // Atacante: crítico +1 nível, desastre -1.  Defensor: crítico -1, desastre +1.
+        function calcularInjuria(diff, atkDestino, defDestino) {
+            // Níveis: 0 = Defendeu, 1 = Leve, 2 = Grave, 3 = Crítica, 4 = Morte
+            let nivel;
             if (diff <= 0) nivel = 0;
             else if (diff <= 9) nivel = 1;
             else if (diff <= 19) nivel = 2;
-            else nivel = 3;
+            else if (diff <= 39) nivel = 3;
+            else nivel = 4; // 40+ = Morte Instantânea
 
-            // Se não acertou, não tem modificação
+            // Não acertou: não há golpe pra modificar
             if (nivel === 0) {
                 return { nivel: 0, nome: 'Defendeu!', classe: 'injury-none', modificado: false };
             }
 
             const nivelOriginal = nivel;
 
-            // Crítico ofensivo aumenta nível
-            if (criticoAtk) {
-                if (criticoAtk.mult === '2x') nivel += 1;
-                else if (criticoAtk.mult === '3x') nivel += 2;
-                else if (criticoAtk.mult === '4x+') nivel += 3;
+            // Atacante
+            if (atkDestino === 'critico') nivel += 1;
+            else if (atkDestino === 'desastre') nivel -= 1;
+            // Defensor
+            if (defDestino === 'critico') nivel -= 1;
+            else if (defDestino === 'desastre') nivel += 1;
+
+            // Se as reduções zeram o golpe que conectou
+            if (nivel < 1) {
+                if (atkDestino === 'desastre') {
+                    return { nivel: 0, nome: 'Desastre — errou!', classe: 'injury-none', modificado: true };
+                }
+                nivel = 1; // golpe conectou: defesa reduz no mínimo até Leve
             }
 
-            // Crítico defensivo reduz nível (mínimo 1 = Leve)
-            if (criticoDef) {
-                nivel -= criticoDef.reducao;
-                if (nivel < 1) nivel = 1; // Mínimo Leve se acertou
-            }
-
-            const nomes = ['Defendeu!', 'Injúria Leve', 'Injúria Grave', 'Injúria Crítica', 'Injúria Crítica+', 'Injúria Crítica++', 'DEVASTADOR'];
+            const nomes = ['Defendeu!', 'Injúria Leve', 'Injúria Grave', 'Injúria Crítica', 'MORTE', 'MORTE', 'MORTE'];
             const classes = ['injury-none', 'injury-leve', 'injury-grave', 'injury-critica', 'injury-critica', 'injury-critica', 'injury-critica'];
 
             return {
@@ -1198,6 +1199,7 @@
             const qtd = Math.max(1, atributo);
             const resultados = rolarMultiplos(qtd, 10);
             const total = soma(resultados) + bonus;
+            const destino = efeitoDestino(resultados);
 
             const container = document.getElementById('resultado-teste');
             await renderDados(container, resultados);
@@ -1205,6 +1207,7 @@
             container.innerHTML += `
                 <div class="result-total">${total}</div>
                 <p class="fs-6 opacity-6 m-10-t">${qtd}d10${bonus ? (bonus > 0 ? '+' : '') + bonus : ''} = [${resultados.join(', ')}]${bonus ? ' ' + (bonus > 0 ? '+' : '') + bonus : ''}</p>
+                ${destino === 'critico' ? '<p class="fs-7 m-10-t" style="color:var(--green)">★ Dado Marcado = 10 — Crítico (sucesso espetacular)</p>' : destino === 'desastre' ? '<p class="fs-7 m-10-t" style="color:var(--red)">★ Dado Marcado = 1 — Desastre (falha automática)</p>' : ''}
                 ${atributo === 0 ? '<p class="fs-6 m-10-t" style="color:var(--red)">Atributo 0: Falha gera +1 Stress</p>' : ''}
             `;
 
@@ -1225,23 +1228,16 @@
             const atkResultados = rolarMultiplos(atkDados, 10);
             const defResultados = rolarMultiplos(defDados, 10);
 
-            // Calcular falhas (múltiplos de 1: 2+=−5, 3+=−10, 4+=−15)
-            const atkFalhas = calcularFalhas(atkResultados);
-            const defFalhas = calcularFalhas(defResultados);
-
-            // Total com penalidade de falhas
-            const atkTotalBruto = soma(atkResultados);
-            const defTotalBruto = soma(defResultados);
-            const atkTotal = atkTotalBruto - atkFalhas.penalidade;
-            const defTotal = defTotalBruto - defFalhas.penalidade;
+            const atkTotal = soma(atkResultados);
+            const defTotal = soma(defResultados);
             const diff = atkTotal - defTotal;
 
-            // Críticos
-            const criticoAtk = diff > 0 ? verificarCritico(atkResultados) : null;
-            const criticoDef = diff > 0 ? verificarCriticoDefensivo(defResultados) : null;
+            // Dado Marcado = primeiro dado de cada lado
+            const atkDestino = efeitoDestino(atkResultados);
+            const defDestino = efeitoDestino(defResultados);
 
-            // Calcular injúria final
-            const injuriaFinal = calcularInjuria(diff, criticoAtk, criticoDef);
+            // Calcular injúria final (ajustada pelo Destino)
+            const injuriaFinal = calcularInjuria(diff, atkDestino, defDestino);
 
             // Criar IDs únicos para animação
             const atkId = ++diceIdCounter;
@@ -1253,18 +1249,19 @@
                     <div class="c-xs-6 text-center">
                         <p class="fs-6 m-10-b" style="color:var(--blue)">Atacante</p>
                         <div class="dice-pool f-justify-center">
-                            ${atkResultados.map((r, i) => `<div class="die rolling border-rd-8" id="die-${atkId}-${i}">?</div>`).join('')}
+                            ${atkResultados.map((r, i) => `<div class="die rolling border-rd-8${i === 0 ? ' destino' : ''}" id="die-${atkId}-${i}">?</div>`).join('')}
                         </div>
                         <p class="fs-10 fw-700 m-10-t" id="atk-total-${atkId}">...</p>
                     </div>
                     <div class="c-xs-6 text-center">
                         <p class="fs-6 m-10-b" style="color:var(--red)">Defensor</p>
                         <div class="dice-pool f-justify-center">
-                            ${defResultados.map((r, i) => `<div class="die rolling border-rd-8" id="die-${defId}-${i}">?</div>`).join('')}
+                            ${defResultados.map((r, i) => `<div class="die rolling border-rd-8${i === 0 ? ' destino' : ''}" id="die-${defId}-${i}">?</div>`).join('')}
                         </div>
                         <p class="fs-10 fw-700 m-10-t" id="def-total-${defId}">...</p>
                     </div>
                 </div>
+                <p class="fs-5 opacity-5 text-center m-10-b">★ = Dado Marcado (1º dado) — 10 = Crítico, 1 = Desastre</p>
                 <div id="combate-resultado-${atkId}"></div>
             `;
 
@@ -1274,47 +1271,47 @@
                 animarDados(defId, defResultados, 10)
             ]);
 
-            // Mostrar totais (com falhas se houver penalidade)
-            document.getElementById(`atk-total-${atkId}`).innerHTML = atkFalhas.penalidade > 0
-                ? `${atkTotalBruto} <span style="color:var(--red)">-${atkFalhas.penalidade}</span> = ${atkTotal}`
-                : `${atkTotal}`;
-            document.getElementById(`def-total-${defId}`).innerHTML = defFalhas.penalidade > 0
-                ? `${defTotalBruto} <span style="color:var(--red)">-${defFalhas.penalidade}</span> = ${defTotal}`
-                : `${defTotal}`;
+            document.getElementById(`atk-total-${atkId}`).innerHTML = `${atkTotal}`;
+            document.getElementById(`def-total-${defId}`).innerHTML = `${defTotal}`;
 
             // Mostrar resultado
             let resultadoHTML = `<p class="fs-8 opacity-7">Diferença: <strong>${diff}</strong></p>`;
-
-            // Mostrar falhas se houver múltiplo (2+ uns)
-            if (atkFalhas.mult || defFalhas.mult) {
-                resultadoHTML += `<p class="fs-6 m-10-t" style="color:var(--red)">`;
-                if (atkFalhas.mult) resultadoHTML += `ATK: Falha ${atkFalhas.mult} (${atkFalhas.qtd} uns) = -${atkFalhas.penalidade} `;
-                if (defFalhas.mult) resultadoHTML += `DEF: Falha ${defFalhas.mult} (${defFalhas.qtd} uns) = -${defFalhas.penalidade}`;
-                resultadoHTML += `</p>`;
-            }
-
             resultadoHTML += `
                 <div class="m-15-t">
                     <span class="injury-badge ${injuriaFinal.classe} fs-9">${injuriaFinal.nome}</span>
                 </div>
             `;
 
-            // Crítico ofensivo
-            if (criticoAtk) {
+            // Dado Marcado — Atacante
+            if (atkDestino === 'critico') {
                 resultadoHTML += `
                     <div class="crit-banner">
-                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO OFENSIVO ${criticoAtk.mult}!</p>
-                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">${criticoAtk.bonus}</p>
+                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO! (Dado Marcado do atacante = 10)</p>
+                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">Dano +1 nível</p>
+                    </div>
+                `;
+            } else if (atkDestino === 'desastre') {
+                resultadoHTML += `
+                    <div class="crit-banner" style="background: linear-gradient(135deg, var(--cor-secundaria), #6b0f1a);">
+                        <p class="fs-10 fw-700" style="color:#fff">DESASTRE! (Dado Marcado do atacante = 1)</p>
+                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">Dano −1 nível (ou erra)</p>
                     </div>
                 `;
             }
 
-            // Crítico defensivo
-            if (criticoDef) {
+            // Dado Marcado — Defensor
+            if (defDestino === 'critico') {
                 resultadoHTML += `
                     <div class="crit-banner" style="background: linear-gradient(135deg, var(--blue), var(--green));">
-                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO DEFENSIVO ${criticoDef.mult}!</p>
-                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">Reduz ${criticoDef.reducao} nível(is) de injúria (mínimo Leve)</p>
+                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO DEFENSIVO! (Dado Marcado do defensor = 10)</p>
+                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">Dano sofrido −1 nível</p>
+                    </div>
+                `;
+            } else if (defDestino === 'desastre') {
+                resultadoHTML += `
+                    <div class="crit-banner" style="background: linear-gradient(135deg, var(--cor-secundaria), #6b0f1a);">
+                        <p class="fs-10 fw-700" style="color:#fff">DESASTRE NA DEFESA! (Dado Marcado do defensor = 1)</p>
+                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">Dano sofrido +1 nível</p>
                     </div>
                 `;
             }
@@ -1323,10 +1320,10 @@
 
             // Histórico
             let extra = '';
-            if (criticoAtk) extra += `CRIT ATK ${criticoAtk.mult} `;
-            if (criticoDef) extra += `CRIT DEF ${criticoDef.mult} `;
-            if (atkFalhas.mult) extra += `Falha ATK ${atkFalhas.mult} `;
-            if (defFalhas.mult) extra += `Falha DEF ${defFalhas.mult}`;
+            if (atkDestino === 'critico') extra += 'CRIT ATK ';
+            else if (atkDestino === 'desastre') extra += 'DESASTRE ATK ';
+            if (defDestino === 'critico') extra += 'CRIT DEF ';
+            else if (defDestino === 'desastre') extra += 'DESASTRE DEF ';
 
             addHistorico('Combate', `ATK ${atkTotal} vs DEF ${defTotal} (diff: ${diff})`, injuriaFinal.nome, extra.trim());
         }
@@ -1472,9 +1469,8 @@
             const resultados = rolarMultiplos(qtd, lados);
             const total = soma(resultados) + mod;
 
-            // Crítico = 2+ dados no valor máximo do dado | Falha = 2+ dados em 1
-            const critico = verificarCritico(resultados, lados);
-            const falhas = calcularFalhas(resultados);
+            // Dado Marcado = primeiro dado (max = crítico, 1 = desastre)
+            const destino = efeitoDestino(resultados, lados);
 
             const container = document.getElementById('resultado-livre');
             await renderDados(container, resultados, lados);
@@ -1484,24 +1480,22 @@
                 <p class="fs-6 opacity-6 m-10-t">${qtd}d${lados}${mod ? (mod > 0 ? '+' : '') + mod : ''} = [${resultados.join(', ')}]${mod ? ' ' + (mod > 0 ? '+' : '') + mod : ''}</p>
             `;
 
-            if (critico) {
+            if (destino === 'critico') {
                 html += `
                     <div class="crit-banner m-15-t">
-                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO ${critico.mult}! (${critico.qtd}× ${lados})</p>
-                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">${critico.bonus}</p>
+                        <p class="fs-10 fw-700" style="color:#fff">CRÍTICO! (Dado Marcado = ${lados})</p>
+                        <p class="fs-7 m-5-t" style="color:rgba(255,255,255,0.9)">Sucesso espetacular</p>
                     </div>
                 `;
-            }
-
-            if (falhas.mult) {
-                html += `<p class="fs-7 m-15-t" style="color:var(--red)">Falha ${falhas.mult} (${falhas.qtd} uns) — penalidade -${falhas.penalidade}</p>`;
+            } else if (destino === 'desastre') {
+                html += `<p class="fs-7 m-15-t" style="color:var(--red)">DESASTRE — Dado Marcado = 1 (falha automática)</p>`;
             }
 
             container.innerHTML += html;
 
             let extra = '';
-            if (critico) extra += `CRÍTICO ${critico.mult} `;
-            if (falhas.mult) extra += `Falha ${falhas.mult} -${falhas.penalidade}`;
+            if (destino === 'critico') extra += 'CRÍTICO ';
+            else if (destino === 'desastre') extra += 'DESASTRE ';
 
             addHistorico('Livre', `${qtd}d${lados}${mod ? (mod > 0 ? '+' : '') + mod : ''} = [${resultados.join(', ')}]`, total, extra.trim());
         }
@@ -1821,12 +1815,9 @@
             const container = document.getElementById('online-resultado');
             const isMe = playerId === meuId;
 
-            // Calcula falhas
-            const falhas = calcularFalhas(resultados);
-            const totalFinal = total - falhas.penalidade;
-
-            // Verifica crítico
-            const critico = verificarCritico(resultados);
+            // Dado Marcado = primeiro dado
+            const destino = efeitoDestino(resultados);
+            const totalFinal = total;
 
             // Se é a primeira rolagem, limpa o placeholder
             if (container.querySelector('.opacity-4')) {
@@ -1853,25 +1844,22 @@
                     </div>
                     <div class="d-flex f-items-center f-gap-8">
                         <div class="dice-pool f-gap-5">
-                            ${resultados.map(r => `<div class="die border-rd-4" style="width:30px;height:30px;font-size:13px;${r===10?'border-color:var(--green);color:var(--green)':r===1?'border-color:var(--red);color:var(--red)':''}">${r}</div>`).join('')}
+                            ${resultados.map((r, i) => `<div class="die border-rd-4${i === 0 ? ' destino' : ''}" style="width:30px;height:30px;font-size:13px;${r===10?'border-color:var(--green);color:var(--green)':r===1?'border-color:var(--red);color:var(--red)':''}"${i === 0 ? ' title="Dado Marcado"' : ''}>${r}</div>`).join('')}
                         </div>
                         <div class="text-right" style="min-width: 50px;">
-                            <p class="fs-10 fw-700">
-                                ${falhas.penalidade > 0 ? `<span class="fs-7" style="color:var(--red)">-${falhas.penalidade}</span> ` : ''}${totalFinal}
-                            </p>
+                            <p class="fs-10 fw-700">${totalFinal}</p>
                         </div>
                     </div>
                 </div>
             `;
 
-            // Mostra falhas e críticos
-            if (falhas.mult || critico) {
+            // Mostra Dado Marcado
+            if (destino) {
                 html += '<div class="m-10-t">';
-                if (falhas.mult) {
-                    html += `<span class="fs-6 p-5-tb p-10-lr border-rd-4 m-5-r" style="background: rgba(220,20,60,0.2); color: var(--red);">Falha ${falhas.mult}</span>`;
-                }
-                if (critico) {
-                    html += `<span class="fs-6 p-5-tb p-10-lr border-rd-4" style="background: rgba(39,174,96,0.2); color: var(--green);">Crítico ${critico.mult}x</span>`;
+                if (destino === 'critico') {
+                    html += `<span class="fs-6 p-5-tb p-10-lr border-rd-4" style="background: rgba(39,174,96,0.2); color: var(--green);">Crítico (Dado Marcado 10)</span>`;
+                } else {
+                    html += `<span class="fs-6 p-5-tb p-10-lr border-rd-4" style="background: rgba(220,20,60,0.2); color: var(--red);">Desastre (Dado Marcado 1)</span>`;
                 }
                 html += '</div>';
             }
@@ -1882,7 +1870,7 @@
             lista.insertBefore(rolagemEl, lista.firstChild);
 
             // Adiciona ao histórico
-            addHistorico('Online', `${nome}: ${dados}d10`, `Total: ${totalFinal}`, critico ? `Crítico ${critico.mult}x` : '');
+            addHistorico('Online', `${nome}: ${dados}d10`, `Total: ${totalFinal}`, destino === 'critico' ? 'CRIT' : destino === 'desastre' ? 'DESASTRE' : '');
         }
 
         function novaRodada() {
@@ -2031,8 +2019,7 @@
             const total = somaDados + fichaExtras;
             const personagem = (document.getElementById('ficha-nome').value || '').trim();
 
-            const crit = verificarCritico(resultados);   // múltiplos 10
-            const falha = calcularFalhas(resultados);     // múltiplos 1
+            const destino = efeitoDestino(resultados);   // primeiro dado: 10 = crítico, 1 = desastre
 
             const container = document.getElementById('ficha-resultado');
             await renderDados(container, resultados);
@@ -2042,15 +2029,15 @@
                 <div class="result-total">${total}</div>
                 <p class="fs-6 opacity-6 m-10-t">${detalhe}</p>
                 <p class="fs-5 opacity-5 m-5-t">[${resultados.join(", ")}]${fichaExtras ? ` &nbsp;${somaDados}+${fichaExtras}` : ""}</p>
-                ${crit ? `<div class="crit-banner"><p class="fs-9 fw-700" style="color:#fff">CRÍTICO ${crit.mult}!</p><p class="fs-6 m-5-t" style="color:rgba(255,255,255,0.9)">${crit.bonus}</p></div>` : ''}
+                ${destino === 'critico' ? `<div class="crit-banner"><p class="fs-9 fw-700" style="color:#fff">CRÍTICO! (Dado Marcado = 10)</p><p class="fs-6 m-5-t" style="color:rgba(255,255,255,0.9)">Sucesso espetacular</p></div>` : destino === 'desastre' ? `<p class="fs-7 m-10-t" style="color:var(--red)">DESASTRE — Dado Marcado = 1</p>` : ''}
             `;
 
             // Transmite (Owlbear/online): nome do personagem + qtd de dados + valores crus + total = anti-trapaça
             const tipo = personagem ? `${attr} · ${personagem}` : attr;
             const descricao = `${qtd}d10${fichaExtras ? ` +${fichaExtras}` : ""} = [${resultados.join(", ")}]`;
             let extraTxt = '';
-            if (crit) extraTxt += `CRIT ${crit.mult} `;
-            if (falha.mult) extraTxt += `Falha ${falha.mult}`;
+            if (destino === 'critico') extraTxt += 'CRÍTICO ';
+            else if (destino === 'desastre') extraTxt += 'DESASTRE ';
             addHistorico(tipo, descricao, total, extraTxt.trim());
         }
 
@@ -2069,7 +2056,7 @@
         let meuNomeOBR = "Jogador";
 
         function montarTexto(r) {
-            const crit = /crit/i.test(r.extra || "");
+            const crit = /crit|desastre/i.test(r.extra || "");
             let txt = `🎲 ${r.nome || "Jogador"} • ${r.tipo}: ${r.descricao} → ${r.total}`;
             if (r.extra) txt += `  ⚡ ${r.extra}`;
             return { txt, crit };
