@@ -26,10 +26,10 @@
 **__Crítico:__** Sangramento (+2 Stress/rodada)
 **__Alcance:__** Curto
 **__Tipo:__** Corte
-**__Efeito:__** Ocultável
+**__Efeito:__** Ocultável, Perfurante (ignora 1 nível de proteção), +2d10 contra alvo desprevenido ou imobilizado
 **__Custo:__** 50 ¥
 ------------------------------
-Faca: +0 | Leve / 9 / Sangramento / Curto / Corte / 50 ¥
+Faca: +0 | Leve / 9 / Sangramento / Curto / Corte / Perfurante · +2d10 furtivo / 50 ¥
 ------------------------------
 
 ------------------------------
@@ -624,8 +624,9 @@ Liga pro Bento. Ele tem contato no submundo, marca o encontro em horas em vez de
 - **¥ Apresentação:** 8.000 *(só em campanha)*
 
 ### Evolução *(contrato que você já tem)*
-- **PM:** 2 (Humano)
+- **PM:** 2 (Humano) — *por passo de idade, dentro do mesmo tier*
 - **¥ Apresentação:** sem taxa *(porta já tá aberta)*
+- **O que faz:** o demônio envelhece 1 passo e te dá +1 Ponto de Idade pra gastar no contrato (trilhas PODER / FÔLEGO / CONTROLE). Cruzar de tier custa o PM do tier novo + aprovação do demônio (narrativo). *Regra completa → `contratos-demoniacos.md` → Evolução.*
 
 ### Contrato de Restrição
 - **PM:** aprovação do mestre
