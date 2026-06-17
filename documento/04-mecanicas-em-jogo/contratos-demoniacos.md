@@ -2,21 +2,56 @@
 
 > *Acordos conscientes com demônios. Você oferece algo, ganha poder. Sempre cobra preço.*
 
-Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocação e Restrição. Cada um vem com poder, aflição e marca proporcionais ao que entrega.
+Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocação e Restrição. A intensidade não é arbitrária — ela é a **idade do demônio** com quem você fechou. Demônio velho dá poder grande e cobra caro; recém-nascido dá pouco e cobra pouco.
+
+> *Por que contrato é diferente de Habilidade?* Habilidade forte é travada por **atributo alto + treino** (cadeia de pré-requisitos). Contrato **não tem trava de atributo** — um humano franzino solta poder de monstro. O equilíbrio vem do outro lado: o contrato cobra em **corpo e alma** (Custo por uso, Aflição, Marca e Restrição), não em ficha.
 
 ---
 
 ## CATEGORIAS
 
-| Categoria | Poder | Aflição | Marca | Custo PM *(Humano)* |
-|---|---|---|---|---|
-| **Menor** | limitado | leve | discreta | 2 PM |
-| **Médio** | forte | ativa, com risco de escalada | visível | 3 PM |
-| **Maior** | destruidor | severa | permanente | 4 PM |
-| **Invocação** | médio/fraco | aflição = força do invocado | passiva | 3 PM |
-| **Restrição** | extremo | morte instantânea se quebrar a regra | enquanto ativo | aprovação do Mestre |
+| Categoria | Idade do demônio | DT de Medo *(referência)* | Poder | Aflição | Marca | PM *(Humano)* |
+|---|---|---|---|---|---|---|
+| **Menor** | Recém-nascido → Jovem | 15-20 | limitado / condicional | leve | discreta | 2 |
+| **Médio** | Maduro → Veterano | 25-30 | forte | ativa, com risco | visível | 3 |
+| **Maior** | Ancião → Primevo | 35-40 | destruidor | severa | permanente | 4 |
+| **Invocação** | qualquer | = do invocado | médio/fraco | = força do invocado | passiva | 3 |
+| **Restrição** | Cavaleiro / conceito | 40+ | extremo | morte se quebrar a regra | enquanto ativo | aprovação |
 
 > *Custos de PM variam por natureza (Humano / Infernal / Híbrido). Tabela completa em `sumario.md` → Custos de PM por Natureza.*
+
+---
+
+## FECHAR UM CONTRATO
+
+> *Não tem rolagem. Tem acordo. O demônio quer oferecer, o humano aceita o preço — fechou.*
+
+Fechar um contrato é **decisão narrativa**: o demônio precisa estar disposto a oferecer e o humano precisa aceitar pagar. O que sela o acordo é o **preço escrito no próprio contrato** (Custo por uso + Aflição + Restrição + Marca) — não existe teste pra assinar.
+
+- O Mestre decide se aquele demônio toparia fechar, e em que termos (pode endurecer Aflição/Restrição se for um demônio velho ou se o humano estiver desesperado).
+- Fechar um contrato **sempre deixa uma Marca do Demônio** (ver `sumario.md`) — é o que muda você pra sempre.
+
+---
+
+## EVOLUÇÃO — o demônio envelhece pra você
+
+> *Você não compra um upgrade. Você alimenta o demônio até ele ficar mais velho — e mais faminto.*
+
+Evoluir um contrato faz o demônio **ganhar 2 anos de idade**, te entregando **+1 Ponto de evolução** pra gastar **no contrato** (não na sua ficha). 
+
+Gaste cada Ponto em **uma das três trilhas**
+
+| Trilha | 1 Ponto | 2 Pontos |
+|---|---|---|
+| **PODER** | +1 nível na Injúria causada **ou** +1d10 no efeito **ou** dobra área/alcance | +1 modo de uso (2º poder do mesmo demônio) |
+| **FÔLEGO**| −1 Stress no custo por uso | o custo de auto-Injúria cai 1 nível (Grave → Leve) |
+| **CONTROLE** | abranda a Aflição passiva **ou** afrouxa a Restrição | o demônio te dá um sentido / info (poder de utilidade) |
+
+**Teto de Pontos por tier** *(o demônio só envelhece até o limite da fase dele)*: **Menor 2 · Médio 3 · Maior 4**. Gastou todos os Pontos do tier? O contrato só cresce mais se você **cruzar de tier** — e um Maior no teto já é Primevo, o topo da escala normal.
+
+**Cruzar de tier** *(ex.: Médio → Maior)* não é evolução simples: o demônio tem que **aceitar aprofundar o pacto** (narrativo — Mestre aprova), você paga o **PM do tier novo**, e a Marca se aprofunda (pode disparar um **Marco de Cicatriz**). Não é parede — é o preço subindo.
+
+> **Invocação** evolui igual (a força/aflição do invocado escala com a idade). **Restrição não evolui** — é tudo-ou-nada por definição.
 
 ---
 
@@ -26,9 +61,10 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 **Estrutura:**
 - **Categoria:** Menor / Médio / Maior / Invocação / Restrição
+- **Demônio:** idade do demônio (DT de Medo de referência)
 - **Poder:** o que o contrato deixa você fazer (efeito mecânico claro)
 - **Atributo:** qual atributo você rola pra ativar
-- **Custo:** Stress, Injúria, sacrifício ou outro preço pago **a cada uso**
+- **Custo:** preço pago **a cada uso** (Stress, Injúria, sacrifício)
 - **Aflição:** debuff passivo que você carrega **enquanto o contrato existir**
 - **Restrição:** regra que você deve seguir pra manter o contrato ativo
 - **Marca:** sinal visível ou audível que o contrato deixa em você (permanente)
@@ -39,23 +75,24 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ## CONTRATOS MENORES
 
-> - Poder limitado
-> - Aflição leve
-> - Controle razoável
+> - Demônio Recém-nascido a Jovem (DT 15-20)
+> - Poder limitado ou condicional · Aflição leve · controle razoável
 
 ---
 
 ### DEMÔNIO DO CIGARRO
 - **Categoria:** Menor
+- **Demônio:** Jovem · DT 20
 - **Poder:** Crie cortina de fumaça densa que bloqueia visão (área média)
 - **Atributo:** Percepção
 - **Custo:** 2 Stress por uso
-- **Aflição:** Tosse persistente (-5 em testes de furtividade)
+- **Aflição:** Tosse persistente (-1d10 em testes de furtividade)
 - **Restrição:** Deve fumar ao menos 1 cigarro por dia
 - **Marca:** Dedos amarelados permanentes
 
 ### DEMÔNIO DO VIDRO
 - **Categoria:** Menor
+- **Demônio:** Recém-nascido · DT 15
 - **Poder:** Crie espinhos de vidro em 1 arma corpo a corpo (+1d10 dano, 1 cena)
 - **Atributo:** Coordenação
 - **Custo:** 1 Stress + corta sua mão (1 Injúria Leve)
@@ -65,7 +102,8 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DO MARTELO
 - **Categoria:** Menor
-- **Poder:** Invoque martelo grande (causa Injúria +1 estágio, 1 ataque)
+- **Demônio:** Jovem · DT 20
+- **Poder:** Invoque martelo grande (1 ataque): **ao vencer o ataque por 5+**, a Injúria sobe +1 estágio
 - **Atributo:** Força
 - **Custo:** 3 Stress
 - **Aflição:** Dores crônicas nos braços
@@ -74,6 +112,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DA PELE
 - **Categoria:** Menor
+- **Demônio:** Recém-nascido · DT 15
 - **Poder:** Endureça sua pele (reduza 1 Injúria em 1 estágio, 1 vez)
 - **Atributo:** Vigor
 - **Custo:** 2 Stress
@@ -83,6 +122,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DO RATO
 - **Categoria:** Menor
+- **Demônio:** Recém-nascido · DT 15
 - **Poder:** Invoque 3 ratos que espionam por você (dura 1 cena)
 - **Atributo:** Malandragem
 - **Custo:** 1 Stress por rato
@@ -92,6 +132,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DA AGULHA
 - **Categoria:** Menor
+- **Demônio:** Jovem · DT 20
 - **Poder:** Lance agulhas à distância (ataque Coordenação, causa múltiplas Injúrias Leves)
 - **Atributo:** Coordenação
 - **Custo:** 2 Stress
@@ -103,23 +144,14 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ## CONTRATOS MÉDIOS
 
-> - Poder forte
-> - Aflição ativa
-> - Risco de escalada
+> - Demônio Maduro a Veterano (DT 25-30)
+> - Poder forte · Aflição ativa · risco de escalada
 
 ---
 
-### DEMÔNIO DA RAPOSA
-- **Categoria:** Médio
-- **Poder:** Invoque cabeça gigante de raposa que mastiga inimigos (causa Injúria Grave)
-- **Atributo:** Autoridade
-- **Custo:** 4 Stress + sacrifício de memória recente
-- **Aflição:** Esquecimento progressivo de rostos
-- **Restrição:** Não pode mentir para demônios
-- **Marca:** Olhos ficam alaranjados em situações de raiva
-
 ### DEMÔNIO DA MALDIÇÃO
 - **Categoria:** Médio
+- **Demônio:** Veterano · DT 30
 - **Poder:** Amaldiçoe 1 alvo: ele sofre -2d10 em todos testes por 1 cena
 - **Atributo:** Investigação
 - **Custo:** 5 Stress + deve falar nome do alvo 3 vezes
@@ -129,6 +161,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DO PUNHO
 - **Categoria:** Médio
+- **Demônio:** Maduro · DT 25
 - **Poder:** Seus socos causam +2d10 dano e empurram alvos (1 cena)
 - **Atributo:** Força
 - **Custo:** 3 Stress por cena
@@ -138,6 +171,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DA FACA
 - **Categoria:** Médio
+- **Demônio:** Veterano · DT 30
 - **Poder:** Crie lâminas flutuantes que atacam independentemente (3 lâminas, 1d10 cada)
 - **Atributo:** Coordenação
 - **Custo:** 4 Stress + 1 Injúria Leve
@@ -147,6 +181,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DA CORRENTE
 - **Categoria:** Médio
+- **Demônio:** Maduro · DT 25
 - **Poder:** Invoque correntes que prendem alvos (teste de Força para escapar)
 - **Atributo:** Malandragem
 - **Custo:** 3 Stress por alvo
@@ -156,6 +191,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DO VENENO
 - **Categoria:** Médio
+- **Demônio:** Veterano · DT 30
 - **Poder:** Seus ataques envenenam: alvo sofre +2 Stress por turno (dura 3 turnos)
 - **Atributo:** Tecnologia
 - **Custo:** 4 Stress
@@ -167,14 +203,25 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ## CONTRATOS MAIORES
 
-> - Poder destruidor
-> - Aflição severa
-> - Marca permanente
+> - Demônio Ancião a Primevo (DT 35-40)
+> - Poder destruidor · Aflição severa · Marca permanente
+> - Custo alto **+ 1 Injúria por uso** (a regra dos grandes)
 
 ---
 
+### DEMÔNIO DA RAPOSA
+- **Categoria:** Maior
+- **Demônio:** Primevo · DT 40
+- **Poder:** Invoque uma cabeça gigante de raposa que mastiga inimigos (causa **Injúria Grave automática**)
+- **Atributo:** Autoridade
+- **Custo:** 5 Stress + 1 Injúria
+- **Aflição:** O olho perdido — o demônio toma um olho (-1d10 em Percepção visual / mira)
+- **Restrição:** Só serve a um usuário **belo**. Perdeu a beleza (queimadura, Injúria facial grave)? O demônio se recusa até você reparar
+- **Marca:** Beleza sobrenatural perturbadora ("usuários da Raposa são bonitos")
+
 ### DEMÔNIO DA ARANHA
 - **Categoria:** Maior
+- **Demônio:** Ancião · DT 35
 - **Poder:** Controle teias gigantes que imobilizam múltiplos alvos (área grande)
 - **Atributo:** Percepção
 - **Custo:** 6 Stress + 1 Injúria Grave
@@ -184,6 +231,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DA KATANA
 - **Categoria:** Maior
+- **Demônio:** Ancião · DT 35
 - **Poder:** Invoque katana demoníaca (cada corte causa Injúria +1 estágio)
 - **Atributo:** Coordenação
 - **Custo:** 5 Stress + sangue de inimigo derrotado
@@ -193,6 +241,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DO PESADELO
 - **Categoria:** Maior
+- **Demônio:** Primevo · DT 40
 - **Poder:** Todos inimigos em área média fazem teste de Medo (DT 30)
 - **Atributo:** Autoridade
 - **Custo:** 7 Stress + não pode dormir por 2 dias após uso
@@ -202,6 +251,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DO TROVÃO
 - **Categoria:** Maior
+- **Demônio:** Ancião · DT 35
 - **Poder:** Invoque raio devastador (área, 3d10 dano)
 - **Atributo:** Força
 - **Custo:** 6 Stress + 1 Injúria Grave
@@ -211,6 +261,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### DEMÔNIO DO ESPELHO
 - **Categoria:** Maior
+- **Demônio:** Primevo · DT 40
 - **Poder:** Crie cópia perfeita de 1 inimigo (dura 3 rodadas, mesmos atributos)
 - **Atributo:** Investigação
 - **Custo:** 8 Stress + pedaço de cabelo/sangue do alvo
@@ -222,13 +273,14 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ## CONTRATOS DE INVOCAÇÃO (Custo: 3 PM)
 
-> - Poder médio/fraco
-> - Aflição = Força
+> - Poder médio/fraco · Aflição = Força do invocado
+> - **Evolui por Pontos de Idade** como os demais (a idade do invocado escala força e aflição)
 
 ---
 
 ### INVOCAÇÃO: DEMÔNIO MENOR FAMILIAR
 - **Categoria:** Invocação
+- **Demônio:** = idade do invocado (DT do invocado)
 - **Poder:** Invoque 1 demônio menor que luta ao seu lado (atributos 2 em tudo, 3 Injúrias Leves)
 - **Atributo:** Vínculo
 - **Custo:** 4 Stress por invocação (dura até ser derrotado ou 1 cena)
@@ -238,6 +290,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### INVOCAÇÃO: ENXAME
 - **Categoria:** Invocação
+- **Demônio:** = idade do invocado (DT do invocado)
 - **Poder:** Invoque enxame de insetos demoníacos (cobre área, causa -2d10 a inimigos)
 - **Atributo:** Malandragem
 - **Custo:** 3 Stress (dura 2 rodadas)
@@ -247,6 +300,7 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ### INVOCAÇÃO: GUARDIÃO ESPECTRAL
 - **Categoria:** Invocação
+- **Demônio:** = idade do invocado (DT do invocado)
 - **Poder:** Invoque espírito guardião que bloqueia 1 ataque automaticamente
 - **Atributo:** Vínculo
 - **Custo:** 4 Stress (1 uso, depois desaparece)
@@ -258,8 +312,10 @@ Contratos são categorizados por **intensidade**: Menor, Médio, Maior, Invocaç
 
 ## CONTRATOS DE RESTRIÇÃO (Aprovação do mestre)
 
+> - Demônio de Cavaleiro / conceito (DT 40+) · só fecha com aprovação do Mestre
 > - Morte instantânea caso a restrição seja quebrada
 > - Marca permanente enquanto o contrato está ativo
+> - **Não evolui** — é tudo-ou-nada por definição
 
 ---
 
