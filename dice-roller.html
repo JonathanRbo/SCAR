@@ -863,6 +863,9 @@
         .ficha-stepper > span { min-width:34px; text-align:center; font-family:'Bebas Neue',sans-serif; color:var(--cor-gold); font-size:1.1rem; }
         /* Modo compacto quando rodando dentro do Owlbear (popover): esconde moldura de site */
         body.obr .obr-hide { display: none !important; }
+        /* Atalho que só aparece dentro do Owlbear */
+        .obr-only { display: none; }
+        body.obr .obr-only { display: block; }
         /* O documento não rola no iframe do Owlbear mobile — então o .container vira a área de scroll por toque */
         body.obr { overflow: hidden; height: 100vh; min-height: 0 !important; padding: 0 !important; }
         body.obr .container {
@@ -888,6 +891,12 @@
 </head>
 <body class="p-30-t p-30-lr xs-p-15-t xs-p-15-lr" style="overflow-x: hidden;">
     <div class="container">
+        <!-- Aviso/atalho só dentro do Owlbear: o popover mobile não rola, então oferece abrir no navegador -->
+        <div class="obr-only m-15-b">
+            <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7" onclick="window.open('https://jonathanrbo.github.io/SCAR/dice-roller.html','_blank')">↗ Abrir no navegador (tela cheia)</button>
+            <p class="fs-5 opacity-5 m-5-t text-center">No celular o popover não rola — abra aqui pra usar completo.</p>
+        </div>
+
         <!-- Botão Voltar -->
         <div class="m-20-b obr-hide">
             <a href="index.html" class="btn-back">
