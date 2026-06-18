@@ -842,7 +842,18 @@
         .hab-add.cat-social { border-left-color:var(--cor-gold); }
         .hab-add.cat-origem { border-left-color:var(--green); }
         .hab-add-nome { font-size:0.8rem; line-height:1.15; }
+        .hab-add-cat { font-size:0.6rem; opacity:0.5; text-transform:uppercase; letter-spacing:1px; }
         .hab-add-plus { color:var(--green); font-size:1.15rem; font-weight:bold; line-height:1; flex-shrink:0; }
+        /* Escolhidas em formato simples (popover): nome + efeito curto + botões */
+        .hab-min { background:rgba(0,0,0,0.25); border:1px solid var(--cor-borda); border-left:3px solid var(--cor-borda); border-radius:8px; padding:7px 9px; margin-bottom:6px; }
+        .hab-min.cat-fisico { border-left-color:var(--red); }
+        .hab-min.cat-mental { border-left-color:#9B59B6; }
+        .hab-min.cat-social { border-left-color:var(--cor-gold); }
+        .hab-min.cat-origem { border-left-color:var(--green); }
+        .hab-min-head { display:flex; align-items:center; gap:6px; }
+        .hab-min-nome { flex:1; min-width:0; font-family:'Bebas Neue',sans-serif; letter-spacing:0.5px; font-size:0.92rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .hab-min-ef { font-size:0.72rem; opacity:0.7; line-height:1.25; margin-top:3px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:1; line-clamp:1; -webkit-box-orient:vertical; }
+        .hab-min .hab-quick { padding:3px 8px; font-size:0.72rem; }
         /* Escolhidas reusam .skill-card (components.css) + grid do Squeleton.
            Custom só o que o Squeleton/componentes não cobrem: */
         .skill-card.origem { border-left-color: var(--green); }   /* variante de origem que faltava */
@@ -1151,9 +1162,13 @@
                             <button onclick="stepExtrasFicha(5)">+5</button>
                         </div>
                     </div>
-                    <div class="ficha-buff-row m-10-t ativo" id="ficha-marca-row" style="display:none">
-                        <span class="fs-7">🎯 Dado Marcado <span id="ficha-marca-lbl" class="opacity-5 fs-5"></span></span>
-                        <button class="hab-quick" onclick="resetMarca()">↺ limpar</button>
+                    <div class="ficha-buff-row m-10-t" id="ficha-marca-row">
+                        <span class="fs-7">🎯 Dados Marcados <span id="ficha-marca-lbl" class="opacity-5 fs-5"></span></span>
+                        <div class="ficha-stepper">
+                            <button onclick="addMarca(-1)" title="Menos um dado marcado">−</button>
+                            <span id="ficha-marca-qtd">1</span>
+                            <button onclick="addMarca(1)" title="Mais um dado marcado">+</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1175,6 +1190,7 @@
                     </div>
 
                     <div id="hab-painel-ver" class="hab-painel m-12-t">
+                        <div class="obr-only field-label m-10-b" style="opacity:.7">✓ Minhas (toque no botão pra usar na rolagem)</div>
                         <div id="hab-selecionadas"></div>
                     </div>
                 </div>
@@ -2208,14 +2224,18 @@
         function addJanela(n) { fichaJanela = Math.min(5, Math.max(0, fichaJanela + n)); atualizarMarcaRow(); }
         function resetMarca() { fichaMarcas = 1; fichaJanela = 0; atualizarMarcaRow(); }
         function atualizarMarcaRow() {
+            const q = document.getElementById('ficha-marca-qtd');
+            if (q) q.textContent = fichaMarcas;
             const row = document.getElementById('ficha-marca-row');
-            if (!row) return;
-            const ativo = fichaMarcas > 1 || fichaJanela > 0;
-            row.style.display = ativo ? '' : 'none';
-            if (ativo) {
-                const critMin = Math.max(5, 10 - fichaJanela), desMax = Math.min(4, 1 + fichaJanela);
-                document.getElementById('ficha-marca-lbl').textContent =
-                    `${fichaMarcas} marcado(s) · crít ${critMin}-10 · desastre 1-${desMax}`;
+            if (row) row.classList.toggle('ativo', fichaMarcas > 1 || fichaJanela > 0);
+            const lbl = document.getElementById('ficha-marca-lbl');
+            if (lbl) {
+                if (fichaJanela > 0) {
+                    const critMin = Math.max(5, 10 - fichaJanela), desMax = Math.min(4, 1 + fichaJanela);
+                    lbl.textContent = `crít ${critMin}-10 · desastre 1-${desMax}`;
+                } else {
+                    lbl.textContent = '';
+                }
             }
         }
 
@@ -2475,14 +2495,13 @@
             if (!el) return;
             const termo = (document.getElementById('hab-busca').value || '').trim().toLowerCase();
             const obr = document.body.classList.contains('obr');
-            let itens = HAB_CATALOGO.filter(h =>
-                !habSelecionadas.includes(h.id) &&
-                (!termo || h.nome.toLowerCase().includes(termo))
-            );
+            // busca casa por NOME ou por TIPO/CATEGORIA (ex: "demonio", "fisico", "origem")
+            const bate = h => !termo || h.nome.toLowerCase().includes(termo) || h.cat.includes(termo) || h.tipo.includes(termo);
+            let itens = HAB_CATALOGO.filter(h => !habSelecionadas.includes(h.id) && bate(h));
             if (obr) {
                 // no popover: busca o catálogo inteiro, exige termo e limita pra caber sem rolar
-                if (!termo) { el.innerHTML = `<p class="hab-empty">Digite o nome da habilidade pra buscar.</p>`; return; }
-                itens = itens.slice(0, 6);
+                if (!termo) { el.innerHTML = `<p class="hab-empty">Busque pelo nome ou pelo tipo (ex: demonio, fisico, social).</p>`; return; }
+                itens = itens.slice(0, 8);
             } else {
                 itens = itens.filter(h => h.tipo === habTab && (!habCatFiltro || h.cat === habCatFiltro));
             }
@@ -2492,10 +2511,11 @@
             }
             const cells = itens.map(h => {
                 const catCls = (h.tipo === 'origem') ? 'origem' : h.cat;
+                const colCls = obr ? 'c-xs-12' : 'c-xs-6 c-sm-4';
                 return `
-                    <div class="c-xs-6 c-sm-4">
+                    <div class="${colCls}">
                         <div class="hab-add cat-${catCls}" onclick="addHab('${h.id}')">
-                            <span class="hab-add-nome">${h.nome}</span>
+                            <span class="hab-add-nome">${h.nome} <span class="hab-add-cat">${HAB_CAT_LABEL[h.cat]}</span></span>
                             <span class="hab-add-plus">＋</span>
                         </div>
                     </div>`;
@@ -2525,19 +2545,41 @@
             const cont = document.getElementById('hab-conta');
             if (cont) cont.textContent = habSelecionadas.length ? `(${habSelecionadas.length})` : '';
             if (!habSelecionadas.length) {
-                el.innerHTML = `<p class="hab-empty">Nenhuma ainda — toque em ＋ Adicionar.</p>`;
+                el.innerHTML = `<p class="hab-empty">Nenhuma ainda — busque acima e toque pra pegar.</p>`;
                 return;
             }
+            const acoesDe = h => [
+                h.dado ? `<button class="hab-quick" onclick="addBonusDados(${h.dado})">+${h.dado}d10</button>` : '',
+                h.fixo ? `<button class="hab-quick" onclick="stepExtrasFicha(${h.fixo})">+${h.fixo} fixo</button>` : '',
+                h.marca ? `<button class="hab-quick" onclick="addMarca(${h.marca})">+${h.marca} marcado</button>` : '',
+                h.janela ? `<button class="hab-quick" onclick="addJanela(${h.janela})">janela +${h.janela}</button>` : '',
+            ].filter(Boolean).join('');
+
+            // No popover: linha simples (nome + efeito curto + botões) pra caber mais escolhidas
+            if (document.body.classList.contains('obr')) {
+                el.innerHTML = habSelecionadas.map(id => {
+                    const h = HAB_CATALOGO.find(x => x.id === id);
+                    if (!h) return '';
+                    const catCls = (h.tipo === 'origem') ? 'origem' : h.cat;
+                    const acoes = acoesDe(h);
+                    return `
+                        <div class="hab-min cat-${catCls}">
+                            <div class="hab-min-head">
+                                <span class="hab-min-nome">${h.nome}</span>
+                                ${acoes}
+                                <button class="hab-remove" aria-label="Remover" onclick="removeHab('${h.id}')">✕</button>
+                            </div>
+                            <div class="hab-min-ef">${h.efeito}</div>
+                        </div>`;
+                }).join("");
+                return;
+            }
+
             const cards = habSelecionadas.map(id => {
                 const h = HAB_CATALOGO.find(x => x.id === id);
                 if (!h) return '';
                 const catCls = (h.tipo === 'origem') ? 'origem' : h.cat;   // skill-card .fisico/.mental/.social/.origem
-                const acoes = [
-                    h.dado ? `<button class="hab-quick" onclick="addBonusDados(${h.dado})">+${h.dado}d10</button>` : '',
-                    h.fixo ? `<button class="hab-quick" onclick="stepExtrasFicha(${h.fixo})">+${h.fixo} fixo</button>` : '',
-                    h.marca ? `<button class="hab-quick" onclick="addMarca(${h.marca})">+${h.marca} marcado</button>` : '',
-                    h.janela ? `<button class="hab-quick" onclick="addJanela(${h.janela})">janela +${h.janela}</button>` : '',
-                ].filter(Boolean).join('');
+                const acoes = acoesDe(h);
                 return `
                     <div class="c-xs-12 c-sm-6 c-md-4">
                         <div class="skill-card ${catCls} h-100 p-10-all d-flex f-col" id="habcard-${h.id}">
