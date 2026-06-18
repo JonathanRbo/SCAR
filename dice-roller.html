@@ -861,12 +861,26 @@
         .skill-card.aberto .hab-ef { display:block; overflow:visible; }
         #hab-selecionadas { max-height:55vh; overflow-y:auto; }
         .ficha-stepper > span { min-width:34px; text-align:center; font-family:'Bebas Neue',sans-serif; color:var(--cor-gold); font-size:1.1rem; }
+        /* Modo compacto quando rodando dentro do Owlbear (popover): esconde moldura de site e aperta margens */
+        body.obr { padding: 8px !important; }
+        body.obr .obr-hide { display: none !important; }
+        /* Faz o CONTEÚDO rolar dentro da altura do popover (no mobile o iframe do Owlbear não rola sozinho) */
+        body.obr {
+            height: 100vh;
+            min-height: 0 !important;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* evita "scroll trap": no popover, listas rolam junto com a página, não separadas */
+        body.obr .hab-resultados { max-height: none; }
+        body.obr #hab-selecionadas { max-height: none; overflow: visible; }
     </style>
 </head>
 <body class="p-30-t p-30-lr xs-p-15-t xs-p-15-lr" style="overflow-x: hidden;">
     <div class="container">
         <!-- Botão Voltar -->
-        <div class="m-20-b">
+        <div class="m-20-b obr-hide">
             <a href="index.html" class="btn-back">
                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 Voltar ao Início
@@ -874,7 +888,7 @@
         </div>
 
         <!-- Header -->
-        <div class="text-center m-40-b xs-m-25-b">
+        <div class="text-center m-40-b xs-m-25-b obr-hide">
             <h1 class="title fs-15 xs-fs-12 m-5-b" style="letter-spacing: 10px;">SCAR</h1>
             <p class="opacity-4 fs-7" style="letter-spacing: 5px; text-transform: uppercase;">Sacrificial Contract & Risk</p>
             <div class="m-15-t d-flex f-justify-center f-items-center f-gap-15">
@@ -2602,6 +2616,7 @@
         };
 
         if (OBR.isAvailable) {
+            document.body.classList.add('obr');   // modo compacto: esconde Voltar/header, aperta margens
             OBR.onReady(async () => {
                 pronto = true;
                 try { meuNomeOBR = await OBR.player.getName(); } catch (e) {}
