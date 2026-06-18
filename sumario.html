@@ -897,7 +897,7 @@
             </div>
 
             <h3>Teste de Medo</h3>
-            <p>Quando você encara algo que sua cabeça não tava pronta. Rola <strong>Xd10 contra DT</strong> baseada na idade do demônio + Escala de Medo (Recém-Nascido 15 → Primevo 40). Você escolhe <strong>com qual atributo enfrenta</strong>:</p>
+            <p>Quando você encara algo que sua cabeça não tava pronta. Rola <strong>Xd10 contra DT</strong> baseada na idade do demônio + Escala de Medo (Recém-Nascido 15 → Primevo 50+, sem teto). Você escolhe <strong>com qual atributo enfrenta</strong>:</p>
 
             <table class="stat-table">
                 <thead><tr><th>Atributo</th><th>Sucesso</th><th>Falha</th></tr></thead>
@@ -1249,19 +1249,22 @@
             </table>
 
             <h3>Idade & Pontos de Idade</h3>
-            <p>Demônio acumula poder pelo tempo que existe. Pontos extras pra distribuir entre <strong>Força · Resistência · Sabedoria</strong>:</p>
+            <p>Demônio acumula poder pelo tempo que existe. Pontos extras pra distribuir entre <strong>Força · Resistência · Sabedoria</strong>. <strong>Cada ponto rende todos os efeitos de "cada ponto" do tópico</strong> (acumulam — 2 pontos = o dobro deles); os itens marcados <em>2 pontos</em> destravam ao somar esse total.</p>
 
             <table class="stat-table">
                 <thead><tr><th>Idade</th><th>Anos</th><th>Pontos</th><th>DT Base (Medo)</th></tr></thead>
                 <tbody>
                     <tr><td>Recém-Nascido</td><td>0-10</td><td>0</td><td>15</td></tr>
                     <tr><td>Jovem</td><td>11-50</td><td>2</td><td>20</td></tr>
-                    <tr><td>Maduro</td><td>51-200</td><td>3</td><td>25</td></tr>
-                    <tr><td>Veterano</td><td>201-500</td><td>4</td><td>30</td></tr>
-                    <tr><td>Ancião</td><td>501-1000</td><td>5</td><td>35</td></tr>
-                    <tr><td>Primevo</td><td>1000+</td><td>6</td><td>40</td></tr>
+                    <tr><td>Maduro</td><td>51-200</td><td>4</td><td>25</td></tr>
+                    <tr><td>Veterano</td><td>201-500</td><td>6</td><td>30</td></tr>
+                    <tr><td>Ancião</td><td>501-1.000</td><td>9</td><td>35</td></tr>
+                    <tr><td>Milenar</td><td>1.001-5.000</td><td>12</td><td>40</td></tr>
+                    <tr><td>Imemorial</td><td>5.001-50.000</td><td>16</td><td>45</td></tr>
+                    <tr><td>Primevo</td><td>50.000+</td><td>20</td><td>50</td></tr>
                 </tbody>
             </table>
+            <div class="quote-block"><strong>Sem teto:</strong> Primevo é só o tier nomeado mais alto. Acima dele, a cada <strong>×10</strong> na idade vem <strong>+2 Pontos de Idade e +5 na DT Base</strong>. Como quase todo demônio é antigo, a Idade já o coloca acima dos caçadores antes do Medo entrar na conta.</div>
 
             <div class="row gap-20 m-20-t">
                 <div class="c-xs-12 c-md-4">
@@ -1269,7 +1272,7 @@
                         <h4>FORÇA <span style="font-weight: normal; opacity: 0.7;">(combate)</span></h4>
                         <p>Cada ponto:</p>
                         <ul style="padding-left: 18px;">
-                            <li>+1 em Força ou Vigor (atributo)</li>
+                            <li>+1 em qualquer atributo Físico (Força, Vigor, Coordenação)</li>
                             <li>+1 Ferimento Leve máximo</li>
                             <li><em>2 pontos:</em> +1 Poder Demoníaco de combate</li>
                         </ul>
@@ -1292,7 +1295,7 @@
                         <h4>SABEDORIA <span style="font-weight: normal; opacity: 0.7;">(controle)</span></h4>
                         <p>Cada ponto:</p>
                         <ul style="padding-left: 18px;">
-                            <li>+1 em Malandragem, Tecnologia ou Autoridade</li>
+                            <li>+1 em qualquer outro atributo (Tático, Mental ou Social)</li>
                             <li>-1 custo de Stress em 1 poder</li>
                             <li><em>2 pontos:</em> +1 Poder Demoníaco de utilidade</li>
                             <li><em>2 pontos:</em> +1 Habilidade Geral</li>
@@ -1303,7 +1306,25 @@
             <div class="quote-block"><strong>Regra do Mestre:</strong> A distribuição deve ser coerente com a lore do demônio. O Mestre tem palavra final.</div>
 
             <h3>Escala de Medo</h3>
-            <p>A relevância do demônio na cabeça do mundo. Vai de <strong>-5 (Esquecido)</strong> a <strong>+5 (Incompreensível)</strong>. Cada nível dá ou tira d10 dos testes. <strong>Demônio não tem ego, é mídia.</strong></p>
+            <p>Quanto mais o mundo teme o demônio, mais forte ele fica <em>agora</em>. Vai de <strong>-5 (Esquecido)</strong> a <strong>+5 (Incompreensível)</strong> — <strong>demônio não tem ego, é mídia</strong>. A <strong>Idade</strong> dá o teto de poder; o <strong>Medo</strong> decide quanto desse teto está ligado.</p>
+            <p>Cada nível mexe <strong>±20% nos status</strong> — os 10 atributos do demônio, em cascata: pool de dados (Xd10), Stress máx e a DT que ele impõe:</p>
+            <table class="stat-table">
+                <thead><tr><th>Escala de Medo</th><th>Mundo</th><th>Multiplicador nos status</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>+5</strong> Incompreensível</td><td>todos o temem</td><td><strong>×2,0</strong> (+100%)</td></tr>
+                    <tr><td>+4</td><td></td><td>×1,8</td></tr>
+                    <tr><td>+3</td><td></td><td>×1,6</td></tr>
+                    <tr><td>+2</td><td></td><td>×1,4</td></tr>
+                    <tr><td>+1</td><td></td><td>×1,2</td></tr>
+                    <tr><td><strong>0</strong> Neutro</td><td>medo comum</td><td>×1,0</td></tr>
+                    <tr><td>-1</td><td></td><td>×0,8</td></tr>
+                    <tr><td>-2</td><td></td><td>×0,6</td></tr>
+                    <tr><td>-3</td><td></td><td>×0,4</td></tr>
+                    <tr><td>-4</td><td></td><td>×0,2</td></tr>
+                    <tr><td><strong>-5</strong> Esquecido</td><td>ninguém o teme</td><td><strong>×0,0 — Dormente</strong></td></tr>
+                </tbody>
+            </table>
+            <div class="quote-block">Arredonda pra baixo, <strong>mínimo 1 por atributo</strong> enquanto não estiver Dormente.<br><strong>Dormente (-5):</strong> o demônio não age, entra em sono conceitual até alguém voltar a temê-lo. <strong>Não morre</strong> — desperta no instante em que o Medo sobe. É assim que demônios antigos "adormecem" (o Demônio Solar sob o Japão é exatamente isso).</div>
             <ul>
                 <li><strong>Sobe</strong> quando causa Crítica, mata gente importante, age com crueldade</li>
                 <li><strong>Desce</strong> quando protege humano, é ridicularizado, é derrotado em público</li>
@@ -1641,7 +1662,7 @@ Coord:       Percepção:     Autoridade:
 ── RECURSOS ──
 Stress máx: ___ / ___
 PM: ___
-Escala de Medo:  0      (-5 a +5)
+Escala de Medo:  0      (-5 a +5 · ×status: ×0 a ×2)
 
 Injúrias:  Leve ___  Grave ___  Crítica ___
 
