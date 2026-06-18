@@ -875,6 +875,18 @@
         body.obr .ficha-attr-row .nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.74rem; letter-spacing: 0; }
         body.obr .ficha-attr-row input { width: 34px; padding: 3px; flex-shrink: 0; }
         body.obr .ficha-attr-row button { padding: 6px 9px !important; font-size: 0.95rem !important; flex-shrink: 0; line-height: 1; }
+        /* Switcher de visões da Ficha (só no popover do Owlbear): troca por toque, sem scroll */
+        .ficha-switch { display: none; gap: 6px; }
+        body.obr .ficha-switch { display: flex; }
+        .ficha-view-btn {
+            flex: 1; padding: 9px 6px; border: 1px solid var(--cor-borda); background: rgba(0,0,0,0.25);
+            color: var(--cor-texto-soft); border-radius: 10px; cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.5px; font-size: 0.8rem;
+        }
+        .ficha-view-btn.active { background: var(--gradient-blood); color: #fff; border-color: var(--cor-secundaria); }
+        /* Visão Habilidades no popover: só busca + resultados + escolhidas (sem modos/abas/chips) */
+        body.obr .hab-modes, body.obr .hab-tabs, body.obr #hab-chips { display: none; }
+        body.obr #hab-painel-add, body.obr #hab-painel-ver { display: block !important; }
         /* O documento não rola no iframe do Owlbear mobile — então o .container vira a área de scroll por toque */
         body.obr { overflow: hidden; height: 100vh; min-height: 0 !important; padding: 0 !important; }
         body.obr .container {
@@ -901,9 +913,8 @@
 <body class="p-30-t p-30-lr xs-p-15-t xs-p-15-lr" style="overflow-x: hidden;">
     <div class="container">
         <!-- Aviso/atalho só dentro do Owlbear: o popover mobile não rola, então oferece abrir no navegador -->
-        <div class="obr-only m-15-b">
-            <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7" onclick="window.open('https://jonathanrbo.github.io/SCAR/dice-roller.html','_blank')">↗ Abrir no navegador (tela cheia)</button>
-            <p class="fs-5 opacity-5 m-5-t text-center">No celular o popover não rola — abra aqui pra usar completo.</p>
+        <div class="obr-only m-10-b">
+            <button class="btn btn-secondary border-rd-8 p-10-tb w-100 fs-5" onclick="window.open('https://jonathanrbo.github.io/SCAR/dice-roller.html','_blank')">↗ Abrir no navegador (versão completa)</button>
         </div>
 
         <!-- Botão Voltar -->
@@ -926,7 +937,7 @@
         </div>
 
         <!-- Botão Histórico -->
-        <div class="text-center m-25-b">
+        <div class="text-center m-25-b obr-hide">
             <button class="btn btn-secondary border-rd-10 p-12-tb p-30-lr fs-7" data-modal-show="modal-historico">
                 📜 HISTÓRICO <span id="historico-count" class="m-5-l opacity-6">(0)</span>
             </button>
@@ -935,7 +946,7 @@
         <!-- Container Principal -->
         <div class="main-content">
             <!-- Tabs -->
-            <div class="tabs d-flex f-gap-5">
+            <div class="tabs d-flex f-gap-5 obr-hide">
                 <button class="tab active p-15-tb p-25-lr fs-7" data-tab="livre">LIVRE</button>
                 <button class="tab p-15-tb p-25-lr fs-7" data-tab="ficha" style="color:var(--cor-gold)">🎲 FICHA</button>
                 <button class="tab p-15-tb p-25-lr fs-7" data-tab="online" style="color:var(--pink)">⚔ ONLINE</button>
@@ -1101,21 +1112,28 @@
 
             <!-- TAB: Ficha -->
             <div class="tab-content" id="tab-ficha">
-                <div class="section-title">Ficha & Rolagem</div>
+                <div class="section-title obr-hide">Ficha & Rolagem</div>
+
+                <!-- Popover Owlbear: troca de visão por toque (sem precisar rolar a tela) -->
+                <div class="ficha-switch m-12-b">
+                    <button type="button" class="ficha-view-btn active" data-view="rolar" onclick="setFichaView('rolar')">🎲 Rolar</button>
+                    <button type="button" class="ficha-view-btn" data-view="bonus" onclick="setFichaView('bonus')">✨ Bônus</button>
+                    <button type="button" class="ficha-view-btn" data-view="hab" onclick="setFichaView('hab')">📖 Habilidades</button>
+                </div>
 
                 <div class="section-box obr-hide">
                     <label class="field-label">Nome do Personagem</label>
                     <input type="text" id="ficha-nome" placeholder="Ex: Yelena" class="border-rd-10 p-14-all w-100 fs-8">
                 </div>
 
-                <div class="section-box">
+                <div class="section-box" id="ficha-attrs-box">
                     <label class="field-label m-15-b obr-hide">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
                     <div id="ficha-attrs" class="ficha-grid"></div>
                     <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t obr-hide" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
                     <p class="fs-5 opacity-5 m-10-t obr-hide" id="ficha-save-hint"></p>
                 </div>
 
-                <div class="section-box">
+                <div class="section-box" id="ficha-bonus-box">
                     <label class="field-label m-15-b">Bônus da rolagem</label>
                     <div class="ficha-buff-row" id="ficha-bonus-row">
                         <span class="fs-7">Dados de bônus <span id="ficha-bonus-dados-lbl" class="opacity-5 fs-5">+0d10</span></span>
@@ -1139,7 +1157,7 @@
                     </div>
                 </div>
 
-                <div class="section-box obr-hide" id="ficha-habilidades-box">
+                <div class="section-box" id="ficha-habilidades-box">
                     <label class="field-label m-15-b">Minhas Habilidades <span class="opacity-5 fs-5">· 195 no catálogo</span></label>
                     <div class="hab-modes">
                         <button type="button" class="hab-mode ativo" data-view="ver" onclick="setHabView('ver')">📋 Minhas <span id="hab-conta"></span></button>
@@ -2152,6 +2170,18 @@
         let fichaMarcas = 1;      // nº de Dados Marcados (Carregar o Dado)
         let fichaJanela = 0;      // alarga a janela do Dado Marcado (Sorte Afiada)
 
+        // Popover Owlbear: troca qual seção aparece (sem precisar rolar). Só age no modo obr.
+        function setFichaView(v) {
+            if (!document.body.classList.contains('obr')) return;
+            const vis = {
+                'ficha-attrs-box': v === 'rolar',
+                'ficha-resultado': v === 'rolar',
+                'ficha-bonus-box': v === 'bonus',
+                'ficha-habilidades-box': v === 'hab',
+            };
+            for (const id in vis) { const el = document.getElementById(id); if (el) el.style.display = vis[id] ? '' : 'none'; }
+            document.querySelectorAll('.ficha-view-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+        }
         function montarFichaAttrs() {
             const el = document.getElementById('ficha-attrs');
             if (!el) return;
@@ -2444,12 +2474,18 @@
             const el = document.getElementById('hab-resultados');
             if (!el) return;
             const termo = (document.getElementById('hab-busca').value || '').trim().toLowerCase();
-            const itens = HAB_CATALOGO.filter(h =>
-                h.tipo === habTab &&
-                (!habCatFiltro || h.cat === habCatFiltro) &&
+            const obr = document.body.classList.contains('obr');
+            let itens = HAB_CATALOGO.filter(h =>
                 !habSelecionadas.includes(h.id) &&
                 (!termo || h.nome.toLowerCase().includes(termo))
             );
+            if (obr) {
+                // no popover: busca o catálogo inteiro, exige termo e limita pra caber sem rolar
+                if (!termo) { el.innerHTML = `<p class="hab-empty">Digite o nome da habilidade pra buscar.</p>`; return; }
+                itens = itens.slice(0, 6);
+            } else {
+                itens = itens.filter(h => h.tipo === habTab && (!habCatFiltro || h.cat === habCatFiltro));
+            }
             if (!itens.length) {
                 el.innerHTML = `<p class="hab-empty">${termo ? 'Nada encontrado.' : 'Tudo dessa aba já foi escolhido.'}</p>`;
                 return;
@@ -2604,6 +2640,7 @@
             document.body.classList.add('obr');
             document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === 'ficha'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab-ficha'));
+            setFichaView('rolar');   // popover abre na visão de rolagem
         }
 
         // Inicializa a aba Ficha
