@@ -10,7 +10,7 @@
     "title": "Dado SCAR",
     "icon": "https://jonathanrbo.github.io/SCAR/assets/images/logo1.jpg",
     "popover": "https://jonathanrbo.github.io/SCAR/dice-roller.html",
-    "width": 440,
-    "height": 720
+    "width": 400,
+    "height": 600
   }
 }
