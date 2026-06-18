@@ -2572,15 +2572,25 @@
         let meuNomeOBR = "Jogador";
 
         function montarTexto(r) {
-            const crit = /crit|desastre/i.test(r.extra || "");
-            let txt = `🎲 ${r.nome || "Jogador"} • ${r.tipo}: ${r.descricao} → ${r.total}`;
-            if (r.extra) txt += `  ⚡ ${r.extra}`;
-            return { txt, crit };
+            const ex = r.extra || "";
+            const isCrit = /crit/i.test(ex), isDes = /desastre/i.test(ex), isSobre = /sobrecarga/i.test(ex);
+            // resultado na frente, sem amontoar: nome — tipo: TOTAL (detalhe/dados ficam no histórico)
+            let txt = `🎲 ${r.nome || "Jogador"} — ${r.tipo}: ${r.total}`;
+            const flags = [];
+            if (isCrit) flags.push("🔥 CRÍTICO");
+            if (isDes) flags.push("💀 DESASTRE");
+            if (isSobre) flags.push("⚠️ SOBRECARGA");
+            if (flags.length) txt += `  ·  ${flags.join(" · ")}`;
+            let variant = "DEFAULT";
+            if (isDes) variant = "ERROR";          // vermelho
+            else if (isCrit) variant = "SUCCESS";  // verde
+            else if (isSobre) variant = "WARNING"; // amarelo
+            return { txt, variant };
         }
 
         function mostrarToast(r) {
-            const { txt, crit } = montarTexto(r);
-            OBR.notification.show(txt, crit ? "WARNING" : "DEFAULT");
+            const { txt, variant } = montarTexto(r);
+            OBR.notification.show(txt, variant);
         }
 
         // Chamada pelo dado a cada rolagem local: avisa todos da sala do Owlbear
