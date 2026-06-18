@@ -871,10 +871,10 @@
         body.obr .section-title { font-size: 1rem; margin-bottom: 8px; }
         body.obr #ficha-resultado { padding: 14px !important; }
         body.obr .ficha-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px; }
-        body.obr .ficha-attr-row { padding: 5px 7px; gap: 5px; }
-        body.obr .ficha-attr-row .nome { font-size: 0.76rem; letter-spacing: 0; line-height: 1.05; }
-        body.obr .ficha-attr-row input { width: 36px; padding: 3px; }
-        body.obr .ficha-attr-row button { padding: 6px 8px !important; font-size: 0.72rem !important; }
+        body.obr .ficha-attr-row { padding: 5px 7px; gap: 5px; overflow: hidden; }
+        body.obr .ficha-attr-row .nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.74rem; letter-spacing: 0; }
+        body.obr .ficha-attr-row input { width: 34px; padding: 3px; flex-shrink: 0; }
+        body.obr .ficha-attr-row button { padding: 6px 9px !important; font-size: 0.95rem !important; flex-shrink: 0; line-height: 1; }
         /* O documento não rola no iframe do Owlbear mobile — então o .container vira a área de scroll por toque */
         body.obr { overflow: hidden; height: 100vh; min-height: 0 !important; padding: 0 !important; }
         body.obr .container {
@@ -2155,11 +2155,13 @@
         function montarFichaAttrs() {
             const el = document.getElementById('ficha-attrs');
             if (!el) return;
+            const compacto = document.body.classList.contains('obr');   // no popover, botão vira 🎲 (cabe na largura)
+            const rotulo = compacto ? '🎲' : 'ROLAR';
             el.innerHTML = FICHA_ATRIBUTOS.map(a => `
                 <div class="ficha-attr-row">
-                    <span class="nome">${a}</span>
+                    <span class="nome" title="${a}">${a}</span>
                     <input type="number" min="0" max="10" value="2" id="ficha-attr-${a}">
-                    <button class="btn btn-primary border-rd-8 p-10-tb p-18-lr fs-6" onclick="rolarFicha('${a}')">ROLAR</button>
+                    <button class="btn btn-primary border-rd-8 p-10-tb p-18-lr fs-6" onclick="rolarFicha('${a}')">${rotulo}</button>
                 </div>
             `).join("");
         }
