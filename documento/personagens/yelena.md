@@ -52,6 +52,36 @@
 
 ---
 
+## HABILIDADES
+
+## *Abertura Tática*
+> **Tipo:** Ação · Req: Percepção 3
+> **Custo:** 1 Stress
+> **Efeito:** "Marque" 1 inimigo. Você e aliados ganham +5 fixo em ataques contra ele até o fim da cena.
+
+## *Voz de Comando*
+> **Tipo:** Ação · Req: Autoridade 4
+> **Custo:** 2 Stress
+> **Efeito:** Aliado próximo pode repetir 1 teste falho imediatamente.
+
+## *Coordenação de Equipe*
+> **Tipo:** Ação · Req: Autoridade 4 · Requer Voz de Comando
+> **Custo:** 2 Stress (dura a rodada)
+> **Efeito:** Aliados que agem após você ganham +5 fixo no primeiro teste.
+
+## *Dor Conhecida*
+> **Tipo:** Passivo · Req: Vigor 3
+> **Efeito:** Ignora as penalidades da primeira Injúria da cena.
+
+## HABILIDADES DE ORIGEM *(Híbrido)*
+
+## *Fome Controlada*
+> **Tipo:** Ação principal · 1x/combate · Req: Vigor 2
+> **Custo:** 2 PM
+> **Efeito:** Beber sangue (humano ou demônio) recupera 1 Injúria Leve.
+
+---
+
 ## FALHA CENTRAL — *Arrogante*
 **Tipo:** *Passivo · debuff*
 > **Efeito:** *Yelena se acha acima de todos, e o orgulho cobra:*

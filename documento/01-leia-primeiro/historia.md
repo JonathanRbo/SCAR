@@ -12,7 +12,7 @@ LINHA DO TEMPO
 
 A era da negação organizada. Demônios eram tabu, mito ou doença psiquiátrica e o governos anotavam em segredo enquanto a população fingia que não via.
  
-Evil-Nathan [CLT],  — 07/05/2026 14:31
+
 1908: Tunguska (Sibéria)
 A "explosão de meteoro" foi um Demônio atravessando uma Porta colapsada. 2.000 km² de floresta apagados. Império Russo classifica como acidente e grande infortúnio. Os corpos foram recuperados em segredo, viraram base do projeto soviético décadas depois.
 
@@ -26,7 +26,7 @@ Os documentos sobreviveram porque foram tirados do contexto histórico antes do 
 
 A era da burocratização. Pós-Hiroshima, cada potência montou sua estrutura demoníaca oficial; o segredo virou política externa e o Sul Global virou laboratório informal.
  
-Evil-Nathan [CLT],  — 07/05/2026 14:31
+
 1945: Floração de Hiroshima (Japão)
 A bomba atômica desperta o Demônio Solar. EUA suprime os registros. O que ninguém fala:
 Sobreviventes desenvolveram Doença crônica que passou hereditariamente
@@ -61,7 +61,7 @@ KGB-Demônica estreia híbridos em combate aberto. Mujahideen respondem com cont
 
 A era em que o sistema rachou. O Projeto Filha rompeu a contenção, Chernobyl gastou o último fôlego do regime e o Leste Europeu virou terra de ninguém demoníaca.
  
-Evil-Nathan [CLT],  — 07/05/2026 14:31
+
 1986: Chernobyl (Ucrânia)
 Não foi acidente nuclear. Foi a tentativa final do projeto soviético de conter o Demônio da Radiação. URSS sacrifica Pripyat inteira. Funciona, mas a URSS sai abalada e nunca mais opera com o mesmo controle absoluto de antes.
 Pripyat hoje: Zona-Inferno permanente. Caçadores que entram pegam doença demoníaca crônica. Alguns dizem que a cidade ainda está habitada por Infernais e demônios.
@@ -91,7 +91,7 @@ Os relatórios da Divisão 4 chegaram em Tóquio dentro de 24 horas. Makima leu 
 
 A era da ferida aberta. O Demônio das Armas matou 1.2 milhão em 1997, EUA virou potência demoníaca declarada
  
-Evil-Nathan [CLT],  — 07/05/2026 14:31
+
 1997: O Contrato da Casa Branca (EUA)
 O Presidente dos EUA, em pânico com Demônio da guerra  faz um contrato. Sacrifica 1 ano de vida de cada cidadão americano em troca do uso do Demônio das guerra. Funciona, em parte. O Pentágono opera o demônio desde então. 
 

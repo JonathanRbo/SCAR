@@ -333,6 +333,70 @@
             50% { transform: scale(1.02); }
         }
 
+        /* ===== Bloco de resultado da Ficha — hierarquia clara mesmo com muita info ===== */
+        .ficha-rollout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .ficha-rollout .result-total { margin: 2px 0 0; }
+        .roll-meta {
+            font-size: 0.8rem;
+            opacity: 0.65;
+            line-height: 1.4;
+            max-width: 92%;
+        }
+        .roll-rawdice {
+            font-size: 0.72rem;
+            opacity: 0.42;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+        .roll-status {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            margin-top: 14px;
+        }
+        .status-banner {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-left-width: 4px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.06);
+            animation: critPulse 0.5s ease;
+        }
+        .status-banner .sb-icon { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+        .status-banner .sb-body { display: flex; flex-direction: column; gap: 2px; }
+        .status-banner .sb-title {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1.5px;
+            font-size: 1.05rem;
+            line-height: 1.05;
+        }
+        .status-banner .sb-desc { font-size: 0.78rem; opacity: 0.95; line-height: 1.35; }
+        .status-crit { background: var(--gradient-blood); border-left-color: #fff; color: #fff; }
+        .status-disaster {
+            background: linear-gradient(135deg, #2a0d12, #170a0d);
+            border-left-color: var(--red, #dc143c);
+            color: #ff7484;
+        }
+        .status-disaster .sb-title { color: #ff7484; }
+        .status-overload {
+            background: linear-gradient(135deg, #3a160a, #20100a);
+            border-left-color: #ff8a3d;
+            color: #ffc59c;
+        }
+        .status-overload .sb-title { color: #ff8a3d; }
+        .status-overload b { color: #fff; }
+
         /* Quick dice */
         .quick-btn {
             background: rgba(0,0,0,0.3);
@@ -739,6 +803,47 @@
             color:#fff; font-size:1.2rem; cursor:pointer; font-family:'Bebas Neue',sans-serif; line-height:1;
         }
         .ficha-stepper button:hover { filter:brightness(1.2); }
+        .ficha-stepper button.step-wide { width:auto; padding:0 12px; font-size:0.85rem; letter-spacing:0.5px; }
+        /* ===== Minhas Habilidades — modos (Ver / Adicionar) ===== */
+        .hab-modes { display:flex; gap:8px; }
+        .hab-mode {
+            flex:1; padding:10px; border:1px solid var(--cor-borda); background:rgba(0,0,0,0.25);
+            color:var(--cor-texto-soft); border-radius:10px; cursor:pointer;
+            font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; font-size:1rem;
+        }
+        .hab-mode.ativo { background:var(--gradient-blood); color:#fff; border-color:var(--cor-secundaria); }
+        .hab-empty { font-size:0.8rem; opacity:0.45; text-align:center; padding:8px 0; }
+        .hab-tabs { display:flex; gap:4px; background:rgba(0,0,0,0.3); border:1px solid var(--cor-borda); border-radius:8px; padding:3px; }
+        .hab-tab {
+            flex:1; padding:7px; border:none; background:transparent;
+            color:var(--cor-texto-soft); border-radius:6px; cursor:pointer;
+            font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; font-size:0.85rem;
+        }
+        .hab-tab.ativo { background:rgba(220,20,60,0.18); color:#fff; box-shadow:inset 0 0 0 1px rgba(220,20,60,0.55); }
+        #hab-busca { background:rgba(0,0,0,0.25); border:1px solid var(--cor-borda); color:var(--cor-texto); }
+        .hab-resultados { max-height:210px; overflow-y:auto; display:flex; flex-direction:column; gap:5px; }
+        .hab-resultados:empty { display:none; }
+        .hab-add-row {
+            display:flex; align-items:center; justify-content:space-between; gap:8px;
+            padding:8px 10px; background:rgba(0,0,0,0.2); border:1px solid var(--cor-borda);
+            border-radius:8px; cursor:pointer;
+        }
+        .hab-add-row:hover { border-color:var(--cor-secundaria); background:rgba(220,20,60,0.08); }
+        .hab-add-row .nome { font-size:0.88rem; }
+        .hab-add-row .cat { font-size:0.6rem; opacity:0.45; text-transform:uppercase; letter-spacing:1px; margin-left:4px; }
+        .hab-add-row .plus { color:var(--green,#27ae60); font-size:1.2rem; font-weight:bold; line-height:1; }
+        /* Escolhidas reusam .skill-card (components.css) + grid do Squeleton.
+           Custom só o que o Squeleton/componentes não cobrem: */
+        .skill-card.origem { border-left-color: var(--green); }   /* variante de origem que faltava */
+        .hab-quick {
+            border:none; border-radius:8px; background:var(--gradient-blood); color:#fff;
+            font-family:'Bebas Neue',sans-serif; letter-spacing:0.5px; font-size:0.78rem;
+            padding:4px 9px; cursor:pointer;
+        }
+        .hab-quick:hover { filter:brightness(1.2); }
+        .hab-remove { background:none; border:none; color:var(--cor-texto-soft); opacity:0.5; cursor:pointer; font-size:0.95rem; line-height:1; padding:0 2px; flex-shrink:0; }
+        .hab-remove:hover { opacity:1; color:var(--red); }
+        .hab-custo { color:var(--cor-gold); font-weight:600; }
         .ficha-stepper > span { min-width:34px; text-align:center; font-family:'Bebas Neue',sans-serif; color:var(--cor-gold); font-size:1.1rem; }
     </style>
 </head>
@@ -954,15 +1059,43 @@
                 </div>
 
                 <div class="section-box">
-                    <label class="field-label m-15-b">Buffs — use − / + pra empilhar (somam DADOS)</label>
-                    <div id="ficha-buffs"></div>
-                    <div class="ficha-buff-row m-10-t">
-                        <span class="fs-7">Números a mais <span class="opacity-5 fs-5">(soma no total, não vira dado · passo 5)</span></span>
+                    <label class="field-label m-15-b">Bônus da rolagem</label>
+                    <div class="ficha-buff-row" id="ficha-bonus-row">
+                        <span class="fs-7">Dados de bônus <span id="ficha-bonus-dados-lbl" class="opacity-5 fs-5">+0d10</span></span>
                         <div class="ficha-stepper">
-                            <button onclick="stepExtrasFicha(-5)">−</button>
-                            <span id="ficha-extras-qtd">+0</span>
-                            <button onclick="stepExtrasFicha(5)">+</button>
+                            <button onclick="addBonusDados(-1)" title="Remover 1 dado">−</button>
+                            <button class="step-wide" onclick="addBonusDados(1)">+1d10</button>
+                            <button class="step-wide" onclick="addBonusDados(2)">+2d10</button>
                         </div>
+                    </div>
+                    <div class="ficha-buff-row m-10-t">
+                        <span class="fs-7">Modificador fixo <span class="opacity-5 fs-5">(soma no total, não vira dado)</span></span>
+                        <div class="ficha-stepper">
+                            <button onclick="stepExtrasFicha(-5)">−5</button>
+                            <span id="ficha-extras-qtd">+0</span>
+                            <button onclick="stepExtrasFicha(5)">+5</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-box">
+                    <label class="field-label m-15-b">Minhas Habilidades <span class="opacity-5 fs-5">· lote-teste (12 de ~195)</span></label>
+                    <div class="hab-modes">
+                        <button type="button" class="hab-mode ativo" data-view="ver" onclick="setHabView('ver')">📋 Minhas <span id="hab-conta"></span></button>
+                        <button type="button" class="hab-mode" data-view="add" onclick="setHabView('add')">＋ Adicionar</button>
+                    </div>
+
+                    <div id="hab-painel-add" class="hab-painel" style="display:none">
+                        <div class="hab-tabs m-12-t">
+                            <button type="button" class="hab-tab ativo" data-tipo="geral" onclick="setHabTab('geral')">Gerais</button>
+                            <button type="button" class="hab-tab" data-tipo="origem" onclick="setHabTab('origem')">Origem</button>
+                        </div>
+                        <input type="text" id="hab-busca" class="border-rd-10 p-14-all w-100 fs-7 m-10-t" placeholder="🔍 Buscar pelo nome…" oninput="renderHabResultados()">
+                        <div id="hab-resultados" class="hab-resultados m-10-t"></div>
+                    </div>
+
+                    <div id="hab-painel-ver" class="hab-painel m-12-t">
+                        <div id="hab-selecionadas"></div>
                     </div>
                 </div>
 
@@ -1940,18 +2073,10 @@
             document.getElementById('btn-rolar-online').textContent = 'ROLAR!';
         }
 
-        // ========== FICHA & ROLAGEM (atributos salvos + buffs) ==========
+        // ========== FICHA & ROLAGEM (atributos salvos + bônus genéricos) ==========
         const FICHA_ATRIBUTOS = ["Força","Vigor","Coordenação","Malandragem","Tecnologia","Percepção","Investigação","Negociação","Autoridade","Vínculo"];
-        const FICHA_BUFFS = [
-            {nome:"Arma Leve", dados:1},
-            {nome:"Arma Média", dados:2},
-            {nome:"Arma Pesada", dados:3},
-            {nome:"Talismã", dados:3},
-            {nome:"Ajuda de Aliado", dados:1},
-            {nome:"Memória do Inferno", dados:1},
-        ];
-        let fichaBuffsQtd = {};   // {indice: quantidade}
-        let fichaExtras = 0;      // números a mais (somam no total, não viram dado)
+        let fichaBonusDados = 0;  // dados de bônus que somam na rolagem (genéricos)
+        let fichaExtras = 0;      // modificador fixo (soma no total, não vira dado)
 
         function montarFichaAttrs() {
             const el = document.getElementById('ficha-attrs');
@@ -1964,28 +2089,127 @@
                 </div>
             `).join("");
         }
-        function montarFichaBuffs() {
-            const el = document.getElementById('ficha-buffs');
-            if (!el) return;
-            el.innerHTML = FICHA_BUFFS.map((b, i) => `
-                <div class="ficha-buff-row" id="ficha-buff-row-${i}">
-                    <span class="fs-7">${b.nome} <span class="opacity-5 fs-5">+${b.dados}d10 cada</span></span>
-                    <div class="ficha-stepper">
-                        <button onclick="stepBuffFicha(${i},-1)">−</button>
-                        <span id="ficha-buff-qtd-${i}">0d</span>
-                        <button onclick="stepBuffFicha(${i},1)">+</button>
-                    </div>
-                </div>
-            `).join("");
-        }
-        function stepBuffFicha(i, delta) {
-            fichaBuffsQtd[i] = Math.max(0, (fichaBuffsQtd[i] || 0) + delta);
-            document.getElementById('ficha-buff-qtd-' + i).textContent = (fichaBuffsQtd[i] * FICHA_BUFFS[i].dados) + "d";
-            document.getElementById('ficha-buff-row-' + i).classList.toggle('ativo', fichaBuffsQtd[i] > 0);
+        function addBonusDados(delta) {
+            fichaBonusDados = Math.max(0, fichaBonusDados + delta);
+            document.getElementById('ficha-bonus-dados-lbl').textContent = '+' + fichaBonusDados + 'd10';
+            document.getElementById('ficha-bonus-row').classList.toggle('ativo', fichaBonusDados > 0);
         }
         function stepExtrasFicha(delta) {
             fichaExtras = Math.max(0, fichaExtras + delta);
             document.getElementById('ficha-extras-qtd').textContent = "+" + fichaExtras;
+        }
+
+        // ===== Catálogo de Habilidades (LOTE-TESTE — 12 de ~195) =====
+        // tipo = geral|origem · cat = fisico/mental/social (geral) ou natureza (origem)
+        // dado = quantos d10 pode somar (atalho) · fixo = bônus fixo · Fonte: habilidades.html
+        const HAB_CAT_LABEL = {
+            fisico:"Físico", mental:"Mental", social:"Social",
+            humano:"Humano", infernal:"Infernal", hibrido:"Híbrido", demonio:"Demônio"
+        };
+        const HAB_CATALOGO = [
+            {id:"golpe-decisivo", nome:"Golpe Decisivo", tipo:"geral", cat:"fisico", custo:"2 Stress", efeito:"Vencer confronto por 10+ → +1 estágio de Injúria", dado:0, fixo:0},
+            {id:"atirador", nome:"Atirador", tipo:"geral", cat:"fisico", custo:"2 PM · +1 Stress ao errar", efeito:"+10 fixo em ataques à distância (passivo)", dado:0, fixo:10},
+            {id:"postura-combate", nome:"Postura de Combate", tipo:"geral", cat:"fisico", custo:"1 Stress", efeito:"Ofensiva (+1d10 atk, −1d10 def) ou Defensiva (+1d10 def, −1d10 atk)", dado:1, fixo:0},
+            {id:"contra-ataque-brutal", nome:"Contra-Ataque Brutal", tipo:"geral", cat:"fisico", custo:"2 Stress · 1x/rd", efeito:"Defender com sucesso → revida com +1d10", dado:1, fixo:0},
+            {id:"cacador-paciente", nome:"Caçador Paciente", tipo:"geral", cat:"fisico", custo:"3 PM · 2 Stress · 1x/cena", efeito:"1 turno mirando → próximo tiro +2d10 ou +12 fixo", dado:2, fixo:0},
+            {id:"defensor-natural", nome:"Defensor Natural", tipo:"geral", cat:"fisico", custo:"—", efeito:"+1d10 em todos os testes defensivos (passivo)", dado:1, fixo:0},
+            {id:"aparagem-mestra", nome:"Aparagem Mestra", tipo:"geral", cat:"fisico", custo:"—", efeito:"+10 fixo em aparagem (passivo)", dado:0, fixo:10},
+            {id:"frieza-profissional", nome:"Frieza Profissional", tipo:"geral", cat:"mental", custo:"2 Stress", efeito:"Ignora próximo ganho de Stress psicológico", dado:0, fixo:0},
+            {id:"mente-de-aco", nome:"Mente de Aço", tipo:"geral", cat:"mental", custo:"—", efeito:"Imune a efeitos mentais de Veterano− (passivo)", dado:0, fixo:0},
+            {id:"abertura-tatica", nome:"Abertura Tática", tipo:"geral", cat:"social", custo:"1 Stress", efeito:"Marca inimigo: você e aliados +5 fixo contra ele", dado:0, fixo:5},
+            {id:"voz-de-comando", nome:"Voz de Comando", tipo:"geral", cat:"social", custo:"2 Stress", efeito:"Aliado próximo repete 1 teste falho", dado:0, fixo:0},
+            {id:"mira-calculada", nome:"Mira Calculada", tipo:"origem", cat:"humano", custo:"2 PM", efeito:"Após 1 turno observando → +10 fixo, ignora cobertura parcial", dado:0, fixo:10},
+        ];
+        let habSelecionadas = [];   // ids escolhidos
+        let habTab = 'geral';       // aba ativa do buscador
+        let habView = 'ver';        // modo aberto: 'ver' | 'add' | null
+
+        function setHabView(v) {
+            habView = (habView === v) ? null : v;   // clicar no aberto fecha
+            document.querySelectorAll('.hab-mode').forEach(b => b.classList.toggle('ativo', b.dataset.view === habView));
+            document.getElementById('hab-painel-add').style.display = (habView === 'add') ? 'block' : 'none';
+            document.getElementById('hab-painel-ver').style.display = (habView === 'ver') ? 'block' : 'none';
+            if (habView === 'add') document.getElementById('hab-busca').focus();
+        }
+        function setHabTab(tipo) {
+            habTab = tipo;
+            document.querySelectorAll('.hab-tab').forEach(b => b.classList.toggle('ativo', b.dataset.tipo === tipo));
+            renderHabResultados();
+        }
+        function renderHabResultados() {
+            const el = document.getElementById('hab-resultados');
+            if (!el) return;
+            const termo = (document.getElementById('hab-busca').value || '').trim().toLowerCase();
+            const itens = HAB_CATALOGO.filter(h =>
+                h.tipo === habTab &&
+                !habSelecionadas.includes(h.id) &&
+                (!termo || h.nome.toLowerCase().includes(termo))
+            );
+            if (!itens.length) {
+                el.innerHTML = `<p class="hab-empty">${termo ? 'Nada encontrado.' : 'Tudo dessa aba já foi escolhido.'}</p>`;
+                return;
+            }
+            el.innerHTML = itens.map(h => `
+                <div class="hab-add-row" onclick="addHab('${h.id}')">
+                    <span class="nome">${h.nome} <span class="cat">${HAB_CAT_LABEL[h.cat]}</span></span>
+                    <span class="plus">＋</span>
+                </div>`).join("");
+        }
+        function addHab(id) {
+            if (!id || habSelecionadas.includes(id)) return;
+            habSelecionadas.push(id);
+            salvarHabs();
+            renderHabSelecionadas();
+            renderHabResultados();
+        }
+        function removeHab(id) {
+            habSelecionadas = habSelecionadas.filter(x => x !== id);
+            salvarHabs();
+            renderHabSelecionadas();
+            renderHabResultados();
+        }
+        function renderHabSelecionadas() {
+            const el = document.getElementById('hab-selecionadas');
+            if (!el) return;
+            const cont = document.getElementById('hab-conta');
+            if (cont) cont.textContent = habSelecionadas.length ? `(${habSelecionadas.length})` : '';
+            if (!habSelecionadas.length) {
+                el.innerHTML = `<p class="hab-empty">Nenhuma ainda — toque em ＋ Adicionar.</p>`;
+                return;
+            }
+            const cards = habSelecionadas.map(id => {
+                const h = HAB_CATALOGO.find(x => x.id === id);
+                if (!h) return '';
+                const catCls = (h.tipo === 'origem') ? 'origem' : h.cat;   // skill-card .fisico/.mental/.social/.origem
+                const acoes = [
+                    h.dado ? `<button class="hab-quick" onclick="addBonusDados(${h.dado})">+${h.dado}d10</button>` : '',
+                    h.fixo ? `<button class="hab-quick" onclick="stepExtrasFicha(${h.fixo})">+${h.fixo} fixo</button>` : '',
+                ].filter(Boolean).join('');
+                return `
+                    <div class="c-xs-12 c-sm-6 c-md-4">
+                        <div class="skill-card ${catCls} h-100 p-10-all d-flex f-col">
+                            <div class="d-flex f-justify-between f-items-start f-gap-5">
+                                <span class="fs-7 fw-700">${h.nome}</span>
+                                <button class="hab-remove" aria-label="Remover" onclick="removeHab('${h.id}')">✕</button>
+                            </div>
+                            <div class="fs-5 m-10-t f-grow-1">${h.efeito}</div>
+                            ${h.custo && h.custo !== '—' ? `<div class="fs-4 m-5-t hab-custo">${h.custo}</div>` : ''}
+                            ${acoes ? `<div class="d-flex f-gap-5 f-wrap m-10-t">${acoes}</div>` : ''}
+                        </div>
+                    </div>`;
+            }).join("");
+            el.innerHTML = `<div class="row gap-10">${cards}</div>`;
+        }
+        function salvarHabs() {
+            localStorage.setItem('scar-habs', JSON.stringify(habSelecionadas));
+        }
+        function carregarHabs() {
+            try {
+                const raw = localStorage.getItem('scar-habs');
+                if (raw) habSelecionadas = JSON.parse(raw).filter(id => HAB_CATALOGO.some(h => h.id === id));
+            } catch (e) {}
+            renderHabSelecionadas();
+            renderHabResultados();
         }
         function salvarFichaLocal() {
             const f = { nome: document.getElementById('ficha-nome').value };
@@ -2008,15 +2232,20 @@
         }
         async function rolarFicha(attr) {
             const base = parseInt(document.getElementById('ficha-attr-' + attr).value) || 0;
-            let extraDados = 0, fontes = [];
-            FICHA_BUFFS.forEach((b, i) => {
-                const q = fichaBuffsQtd[i] || 0;
-                if (q > 0) { const d = q * b.dados; extraDados += d; fontes.push(`${q}× ${b.nome}`); }
-            });
+            const extraDados = fichaBonusDados;
             const qtd = Math.max(1, base + extraDados);
+
+            // Troca Equivalente — Limite do Dobro: o bônus em d10 pode chegar a 2× o atributo.
+            // Cada d10 de bônus além disso: +5 fixo no resultado e +2 Stress a pagar (estado Sobrecarregado).
+            const bonusMax = base * 2;                              // teto do bônus: 2× atributo
+            const excedente = Math.max(0, extraDados - bonusMax);   // d10 de bônus além do teto do corpo
+            const fixoSobrecarga = excedente * 5;
+            const stressSobrecarga = excedente * 2;
+            const sobrecarregado = excedente > 0;
+
             const resultados = rolarMultiplos(qtd, 10);
             const somaDados = soma(resultados);
-            const total = somaDados + fichaExtras;
+            const total = somaDados + fichaExtras + fixoSobrecarga;
             const personagem = (document.getElementById('ficha-nome').value || '').trim();
 
             const destino = efeitoDestino(resultados);   // primeiro dado: 10 = crítico, 1 = desastre
@@ -2024,27 +2253,36 @@
             const container = document.getElementById('ficha-resultado');
             await renderDados(container, resultados);
 
-            const detalhe = `${base}d10 (${attr})${extraDados ? ` + ${extraDados}d10 (${fontes.join(", ")})` : ""} = ${qtd}d10${fichaExtras ? ` , +${fichaExtras} no total` : ""}`;
+            const detalhe = `${base}d10 (${attr})${extraDados ? ` + ${extraDados}d10 (bônus)` : ""} = ${qtd}d10 · bônus máx ${bonusMax}d10${fichaExtras ? ` , +${fichaExtras} no total` : ""}${fixoSobrecarga ? ` , +${fixoSobrecarga} fixo (sobrecarga)` : ""}`;
+            const somaBreak = (fichaExtras || fixoSobrecarga) ? ` &nbsp;${somaDados}${fichaExtras ? `+${fichaExtras}` : ""}${fixoSobrecarga ? `+${fixoSobrecarga}` : ""}` : "";
+            const statusBanners = [
+                destino === 'critico' ? `<div class="status-banner status-crit"><span class="sb-icon">🔥</span><div class="sb-body"><span class="sb-title">Crítico!</span><span class="sb-desc">Dado Marcado = 10 · sucesso espetacular</span></div></div>` : '',
+                destino === 'desastre' ? `<div class="status-banner status-disaster"><span class="sb-icon">💀</span><div class="sb-body"><span class="sb-title">Desastre</span><span class="sb-desc">Dado Marcado = 1</span></div></div>` : '',
+                sobrecarregado ? `<div class="status-banner status-overload"><span class="sb-icon">⚠️</span><div class="sb-body"><span class="sb-title">Sobrecarregado</span><span class="sb-desc">${excedente}d10 além do teto (máx ${bonusMax}d10) · +${fixoSobrecarga} fixo já somado · <b>pague +${stressSobrecarga} Stress</b></span></div></div>` : '',
+            ].filter(Boolean).join('');
             container.innerHTML += `
-                <div class="result-total">${total}</div>
-                <p class="fs-6 opacity-6 m-10-t">${detalhe}</p>
-                <p class="fs-5 opacity-5 m-5-t">[${resultados.join(", ")}]${fichaExtras ? ` &nbsp;${somaDados}+${fichaExtras}` : ""}</p>
-                ${destino === 'critico' ? `<div class="crit-banner"><p class="fs-9 fw-700" style="color:#fff">CRÍTICO! (Dado Marcado = 10)</p><p class="fs-6 m-5-t" style="color:rgba(255,255,255,0.9)">Sucesso espetacular</p></div>` : destino === 'desastre' ? `<p class="fs-7 m-10-t" style="color:var(--red)">DESASTRE — Dado Marcado = 1</p>` : ''}
+                <div class="ficha-rollout">
+                    <div class="result-total">${total}</div>
+                    <div class="roll-meta">${detalhe}</div>
+                    <div class="roll-rawdice">[${resultados.join(", ")}]${somaBreak}</div>
+                    ${statusBanners ? `<div class="roll-status">${statusBanners}</div>` : ''}
+                </div>
             `;
 
             // Transmite (Owlbear/online): nome do personagem + qtd de dados + valores crus + total = anti-trapaça
             const tipo = personagem ? `${attr} · ${personagem}` : attr;
-            const descricao = `${qtd}d10${fichaExtras ? ` +${fichaExtras}` : ""} = [${resultados.join(", ")}]`;
+            const descricao = `${qtd}d10${fichaExtras ? ` +${fichaExtras}` : ""}${fixoSobrecarga ? ` +${fixoSobrecarga}fx` : ""} = [${resultados.join(", ")}]`;
             let extraTxt = '';
             if (destino === 'critico') extraTxt += 'CRÍTICO ';
             else if (destino === 'desastre') extraTxt += 'DESASTRE ';
+            if (sobrecarregado) extraTxt += `SOBRECARGA(+${stressSobrecarga} Stress) `;
             addHistorico(tipo, descricao, total, extraTxt.trim());
         }
 
         // Inicializa a aba Ficha
         montarFichaAttrs();
-        montarFichaBuffs();
         carregarFichaLocal();
+        carregarHabs();
     </script>
 
     <!-- ========== INTEGRACAO OWLBEAR RODEO (notificacao para todos) ========== -->
