@@ -861,18 +861,21 @@
         .skill-card.aberto .hab-ef { display:block; overflow:visible; }
         #hab-selecionadas { max-height:55vh; overflow-y:auto; }
         .ficha-stepper > span { min-width:34px; text-align:center; font-family:'Bebas Neue',sans-serif; color:var(--cor-gold); font-size:1.1rem; }
-        /* Modo compacto quando rodando dentro do Owlbear (popover): esconde moldura de site e aperta margens */
-        body.obr { padding: 8px !important; }
+        /* Modo compacto quando rodando dentro do Owlbear (popover): esconde moldura de site */
         body.obr .obr-hide { display: none !important; }
-        /* Faz o CONTEÚDO rolar dentro da altura do popover (no mobile o iframe do Owlbear não rola sozinho) */
-        body.obr {
-            height: 100vh;
-            min-height: 0 !important;
+        /* O documento não rola no iframe do Owlbear mobile — então o .container vira a área de scroll por toque */
+        body.obr { overflow: hidden; height: 100vh; min-height: 0 !important; padding: 0 !important; }
+        body.obr .container {
+            position: fixed;
+            inset: 0;
+            max-width: none;
+            margin: 0;
+            padding: 10px;
             overflow-y: auto;
-            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
-        /* evita "scroll trap": no popover, listas rolam junto com a página, não separadas */
+        /* listas rolam junto com a página (evita scroll-trap no popover) */
         body.obr .hab-resultados { max-height: none; }
         body.obr #hab-selecionadas { max-height: none; overflow: visible; }
     </style>
@@ -2568,6 +2571,10 @@
             if (sobrecarregado) extraTxt += `SOBRECARGA(+${stressSobrecarga} Stress) `;
             addHistorico(tipo, descricao, total, extraTxt.trim());
         }
+
+        // Dentro do Owlbear o rolador roda num iframe (popover) → ativa modo compacto + scroll por toque.
+        // Detecta por iframe (não depende do SDK do Owlbear carregar).
+        if (window.self !== window.top) document.body.classList.add('obr');
 
         // Inicializa a aba Ficha
         montarFichaAttrs();
