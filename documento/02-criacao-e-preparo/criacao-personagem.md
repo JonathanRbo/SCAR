@@ -119,7 +119,7 @@ FICHA DE PERSONAGEM — DEMÔNIO PURO
 NOME: /
 CONCEITO DO MEDO: 
 CATEGORIA DE MEDO: (Incomum / Social-Sistêmico / Bíblico-Arquetípico / Conceitual-Abstrato / Primordial)
-IDADE: (Recém-Nascido / Jovem / Maduro / Veterano / Ancião / Primevo)
+IDADE: (Recém-Nascido / Jovem / Maduro / Veterano / Ancião / Milenar / Imemorial / Primevo)
 FALHA CENTRAL: (obrigatória — o que apaga o demônio do mundo)
 
 ═══ ATRIBUTOS (22 PONTOS — TETO 10) ═══
@@ -157,7 +157,7 @@ STRESS: (varia pela Categoria de Medo)
   (+2 Stress por ponto gasto em Resistência)
   STRESS FINAL: 
 
-DT BASE — TESTE DE MEDO: [ ]   (15/20/25/30/35/40 conforme idade)
+DT BASE — TESTE DE MEDO: [ ]   (15/20/25/30/35/40/45/50+ conforme idade)
 
 MOVIMENTO: Coordenação × 2 m   (correr: +2 m por 1 Stress)
 AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação   (+1 ação extra: 3 Stress, 1×/rodada)

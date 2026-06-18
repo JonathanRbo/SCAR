@@ -176,7 +176,7 @@ PM: 0
 ▸ Físicos — Força 7 · Vigor 8 · Coordenação 3
 ▸ Táticos — Malandragem 1 · Tecnologia 0 · Percepção 2
 ▸ Mentais — Investigação 0 · Negociação 0 · Autoridade 1 · Vínculo 0
-PONTOS DE IDADE (Primevo, 6): Resistência ×2 (regen passiva + Grave) · Força ×2 (poder combate) · Sabedoria ×2 (utilidade)
+PONTOS DE IDADE (Primevo, 20): Resistência ×10 (regen passiva + Graves + Stress + Leves) · Força ×6 (poderes de combate + Vigor) · Sabedoria ×4 (utilidade)
 
 ═══ RECURSOS ═══
 STRESS: 21 *(Primordial: 6 + Vigor + Força)*

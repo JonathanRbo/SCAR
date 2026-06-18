@@ -364,7 +364,7 @@ O *mesmo* teste muda de estado conforme a cena: arrombar fechadura sozinho de ma
 > *É o espelho da Brecha: estudar o alvo acumula bônus a teu favor; insistir num teste acumula dificuldade contra você.*
 
 ## Teste de Medo
-Quando você encara algo que sua cabeça não tava pronta. Rola **Xd10 contra DT** baseada na idade do demônio + Escala de Medo (Recém-Nascido 15 → Primevo 40). Você escolhe **com qual atributo enfrenta**, cada um conta uma história diferente de como seu personagem aguenta (ou não):
+Quando você encara algo que sua cabeça não tava pronta. Rola **Xd10 contra DT** baseada na idade do demônio + Escala de Medo (Recém-Nascido 15 → Primevo 50+, sem teto). Você escolhe **com qual atributo enfrenta**, cada um conta uma história diferente de como seu personagem aguenta (ou não):
 
 > **Força**: peita pelo músculo, passa por cima do pavor. *Suc:* +2 Stress (queima em adrenalina). *Falha:* -Xd10 em testes físicos por 1 rodada
 > **Vigor**: engole no fôlego, segura o tremor. *Suc:* não entra em pânico. *Falha:* -1 movimento, não consegue fugir
@@ -618,13 +618,19 @@ Demônio acumula poder pelo tempo que existe. Pontos extras pra distribuir entre
 |---|---|---|---|
 | Recém-Nascido | 0-10 | 0 | 15 |
 | Jovem | 11-50 | 2 | 20 |
-| Maduro | 51-200 | 3 | 25 |
-| Veterano | 201-500 | 4 | 30 |
-| Ancião | 501-1000 | 5 | 35 |
-| Primevo | 1000+ | 6 | 40 |
+| Maduro | 51-200 | 4 | 25 |
+| Veterano | 201-500 | 6 | 30 |
+| Ancião | 501-1.000 | 9 | 35 |
+| Milenar | 1.001-5.000 | 12 | 40 |
+| Imemorial | 5.001-50.000 | 16 | 45 |
+| Primevo | 50.000+ | 20 | 50 |
+
+> **Sem teto:** Primevo é só o tier nomeado mais alto. Acima dele, a cada **×10** na idade vem **+2 Pontos de Idade e +5 na DT Base**. Como quase todo demônio é antigo, a Idade já o coloca acima dos caçadores antes do Medo entrar na conta.
+
+> **Como gastar:** cada ponto rende **todos** os efeitos de "cada ponto" do tópico (acumulam — 2 pontos = o dobro deles). Os itens marcados ***2 pontos*** são bônus que destravam quando você soma esse total no tópico.
 
 **FORÇA** *(combate, poder bruto)*, cada ponto:
-- +1 em Força ou Vigor (atributo)
+- +1 em qualquer atributo **Físico** — Força, Vigor ou Coordenação
 - +1 Ferimento Leve máximo
 - *2 pontos:* +1 Poder Demoníaco de combate
 
@@ -635,7 +641,7 @@ Demônio acumula poder pelo tempo que existe. Pontos extras pra distribuir entre
 - *2 pontos:* Regeneração passiva (1 Leve por cena)
 
 **SABEDORIA** *(conhecimento, controle)*, cada ponto:
-- +1 em Malandragem, Tecnologia ou Autoridade (atributo)
+- +1 em qualquer outro atributo — **Tático, Mental ou Social** (Malandragem, Tecnologia, Percepção, Investigação, Negociação, Autoridade ou Vínculo)
 - -1 custo de Stress em 1 poder
 - *2 pontos:* +1 Poder Demoníaco de utilidade
 - *2 pontos:* +1 Habilidade Geral
@@ -643,7 +649,26 @@ Demônio acumula poder pelo tempo que existe. Pontos extras pra distribuir entre
 > **Regra do Mestre:** A distribuição deve ser coerente com a lore do demônio. O Mestre tem palavra final.
 
 ## Escala de Medo
-A relevância do demônio na cabeça do mundo. Vai de **-5 (Esquecido)** a **+5 (Incompreensível)**. Cada nível dá ou tira d10 dos testes. Demônio não tem ego, é mídia.
+Quanto mais o mundo teme o demônio, mais forte ele fica *agora*. Vai de **-5 (Esquecido)** a **+5 (Incompreensível)** — **demônio não tem ego, é mídia**. A **Idade** dá o teto de poder; o **Medo** decide quanto desse teto está ligado.
+
+Cada nível mexe **±20% nos status** — os 10 atributos do demônio, em cascata: pool de dados (Xd10), Stress máx e a DT que ele impõe:
+
+| Escala de Medo | Mundo | Multiplicador nos status |
+|---|---|---|
+| **+5** Incompreensível | todos o temem | **×2,0** (+100%) |
+| +4 | | ×1,8 |
+| +3 | | ×1,6 |
+| +2 | | ×1,4 |
+| +1 | | ×1,2 |
+| **0** Neutro | medo comum | ×1,0 |
+| -1 | | ×0,8 |
+| -2 | | ×0,6 |
+| -3 | | ×0,4 |
+| -4 | | ×0,2 |
+| **-5** Esquecido | ninguém o teme | **×0,0 — Dormente** |
+
+> Arredonda pra baixo, **mínimo 1 por atributo** enquanto não estiver Dormente.
+> **Dormente (-5):** o demônio não age — entra em sono conceitual até alguém voltar a temê-lo. **Não morre**; desperta no instante em que o Medo sobe. É assim que demônios antigos "adormecem" (o Demônio Solar sob o Japão é exatamente isso).
 
 **Sobe** quando causa Crítica, mata gente importante, age com crueldade.
 **Desce** quando protege humano, é ridicularizado, é derrotado em público.
