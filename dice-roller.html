@@ -866,6 +866,15 @@
         /* Atalho que só aparece dentro do Owlbear */
         .obr-only { display: none; }
         body.obr .obr-only { display: block; }
+        /* Ficha compacta no popover: atributos 2-col + caixas/fontes menores pra caber sem scroll */
+        body.obr .section-box { padding: 12px !important; margin-bottom: 10px !important; }
+        body.obr .section-title { font-size: 1rem; margin-bottom: 8px; }
+        body.obr #ficha-resultado { padding: 14px !important; }
+        body.obr .ficha-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px; }
+        body.obr .ficha-attr-row { padding: 5px 7px; gap: 5px; }
+        body.obr .ficha-attr-row .nome { font-size: 0.76rem; letter-spacing: 0; line-height: 1.05; }
+        body.obr .ficha-attr-row input { width: 36px; padding: 3px; }
+        body.obr .ficha-attr-row button { padding: 6px 8px !important; font-size: 0.72rem !important; }
         /* O documento não rola no iframe do Owlbear mobile — então o .container vira a área de scroll por toque */
         body.obr { overflow: hidden; height: 100vh; min-height: 0 !important; padding: 0 !important; }
         body.obr .container {
@@ -1094,16 +1103,16 @@
             <div class="tab-content" id="tab-ficha">
                 <div class="section-title">Ficha & Rolagem</div>
 
-                <div class="section-box">
+                <div class="section-box obr-hide">
                     <label class="field-label">Nome do Personagem</label>
                     <input type="text" id="ficha-nome" placeholder="Ex: Yelena" class="border-rd-10 p-14-all w-100 fs-8">
                 </div>
 
                 <div class="section-box">
-                    <label class="field-label m-15-b">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
+                    <label class="field-label m-15-b obr-hide">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
                     <div id="ficha-attrs" class="ficha-grid"></div>
-                    <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
-                    <p class="fs-5 opacity-5 m-10-t" id="ficha-save-hint"></p>
+                    <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t obr-hide" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
+                    <p class="fs-5 opacity-5 m-10-t obr-hide" id="ficha-save-hint"></p>
                 </div>
 
                 <div class="section-box">
@@ -1130,7 +1139,7 @@
                     </div>
                 </div>
 
-                <div class="section-box">
+                <div class="section-box obr-hide" id="ficha-habilidades-box">
                     <label class="field-label m-15-b">Minhas Habilidades <span class="opacity-5 fs-5">· 195 no catálogo</span></label>
                     <div class="hab-modes">
                         <button type="button" class="hab-mode ativo" data-view="ver" onclick="setHabView('ver')">📋 Minhas <span id="hab-conta"></span></button>
@@ -2587,9 +2596,13 @@
             addHistorico(tipo, descricao, total, extraTxt.trim());
         }
 
-        // Dentro do Owlbear o rolador roda num iframe (popover) → ativa modo compacto + scroll por toque.
+        // Dentro do Owlbear o rolador roda num iframe (popover) → ativa modo compacto e abre na Ficha.
         // Detecta por iframe (não depende do SDK do Owlbear carregar).
-        if (window.self !== window.top) document.body.classList.add('obr');
+        if (window.self !== window.top) {
+            document.body.classList.add('obr');
+            document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === 'ficha'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab-ficha'));
+        }
 
         // Inicializa a aba Ficha
         montarFichaAttrs();
