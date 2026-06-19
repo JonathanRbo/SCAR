@@ -877,11 +877,21 @@
         /* Atalho que só aparece dentro do Owlbear */
         .obr-only { display: none; }
         body.obr .obr-only { display: block; }
-        /* Estilo de Luta + Ficha completa (export) — só o que não há classe Squeleton */
-        .estilo-efeitos { display:none; border-left:3px solid var(--cor-secundaria); padding-left:12px; }
-        .estilo-efeitos.show { display:block; }
-        .estilo-efeitos ul { margin:4px 0 0; padding-left:16px; }
-        .estilo-efeitos li { margin-bottom:4px; color:var(--cor-texto-soft); }
+        /* Estilo de Luta + Armamento (efeitos colapsáveis pra caber no popover) */
+        .ef-det { display:none; border-left:3px solid var(--cor-secundaria); padding-left:10px; margin-top:8px; }
+        .ef-det.tem { display:block; }
+        .ef-det > summary {
+            cursor:pointer; list-style:none; font-size:0.76rem; letter-spacing:0.5px;
+            color:var(--cor-texto-soft); padding:2px 0; user-select:none;
+        }
+        .ef-det > summary::-webkit-details-marker { display:none; }
+        .ef-det > summary::before { content:'▸ '; opacity:0.8; }
+        .ef-det[open] > summary::before { content:'▾ '; }
+        .ef-body ul { margin:5px 0 2px; padding-left:16px; }
+        .ef-body li { margin-bottom:4px; color:var(--cor-texto-soft); }
+        /* Chips de buff ativável (habilidades com bônus) — acesso rápido na visão Rolar */
+        .ficha-buff-chips { display:flex; flex-wrap:wrap; gap:6px; }
+        .ficha-buff-chips:empty { display:none; }
         /* Buff consolidado (embaixo dos atributos): soma de arma + habilidades ligadas + bônus manual */
         .ficha-buff-sumario {
             display:flex; flex-wrap:wrap; align-items:center; gap:8px;
@@ -1189,6 +1199,7 @@
                     <label class="field-label m-15-b obr-hide">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
                     <div id="ficha-attrs" class="ficha-grid"></div>
                     <div id="ficha-buff-sumario" class="ficha-buff-sumario m-12-t"></div>
+                    <div id="ficha-buff-chips" class="ficha-buff-chips m-10-t"></div>
                     <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t obr-hide" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
                     <p class="fs-5 opacity-5 m-10-t obr-hide" id="ficha-save-hint"></p>
                 </div>
@@ -1198,7 +1209,10 @@
                     <select id="ficha-estilo" class="border-rd-10 p-14-all w-100 fs-7" onchange="renderEstilo(); salvarFichaLocal();">
                         <option value="">— nenhum —</option>
                     </select>
-                    <div id="ficha-estilo-efeitos" class="estilo-efeitos fs-6 m-10-t"></div>
+                    <details id="ficha-estilo-det" class="ef-det fs-6">
+                        <summary>efeitos do estilo</summary>
+                        <div id="ficha-estilo-efeitos" class="ef-body"></div>
+                    </details>
                 </div>
 
                 <div class="section-box" id="ficha-arma-box">
@@ -1206,7 +1220,10 @@
                     <select id="ficha-arma" class="border-rd-10 p-14-all w-100 fs-7" onchange="renderArma(); renderBuffSumario(); salvarFichaLocal();">
                         <option value="">— desarmado —</option>
                     </select>
-                    <div id="ficha-arma-efeitos" class="estilo-efeitos fs-6 m-10-t"></div>
+                    <details id="ficha-arma-det" class="ef-det fs-6">
+                        <summary>dano e efeitos</summary>
+                        <div id="ficha-arma-efeitos" class="ef-body"></div>
+                    </details>
                 </div>
 
                 <div class="section-box" id="ficha-bonus-box">
@@ -2314,11 +2331,13 @@
         function renderEstilo() {
             const sel = document.getElementById('ficha-estilo');
             const box = document.getElementById('ficha-estilo-efeitos');
-            if (!sel || !box) return;
+            const det = document.getElementById('ficha-estilo-det');
+            if (!sel || !box || !det) return;
             const efeitos = ESTILOS_LUTA[sel.value];
-            if (!efeitos) { box.classList.remove('show'); box.innerHTML = ''; return; }
+            if (!efeitos) { det.classList.remove('tem'); det.open = false; box.innerHTML = ''; return; }
             box.innerHTML = '<ul>' + efeitos.map(e => `<li>${e}</li>`).join('') + '</ul>';
-            box.classList.add('show');
+            det.classList.add('tem');
+            det.open = !document.body.classList.contains('obr');   // popover abre fechado; site aberto
         }
 
         // ===== Armamentos (catálogo da Vendinha do Seu Bento) =====
@@ -2358,16 +2377,18 @@
         function renderArma() {
             const sel = document.getElementById('ficha-arma');
             const box = document.getElementById('ficha-arma-efeitos');
-            if (!sel || !box) return;
+            const det = document.getElementById('ficha-arma-det');
+            if (!sel || !box || !det) return;
             const a = ARMAMENTOS.find(x => x.id === sel.value);
-            if (!a) { box.classList.remove('show'); box.innerHTML = ''; return; }
+            if (!a) { det.classList.remove('tem'); det.open = false; box.innerHTML = ''; return; }
             box.innerHTML = '<ul>' + [
                 `<li><b>Dano:</b> ${a.dado ? '+' + a.dado + 'd10' : '+0'} · ${a.nivel}</li>`,
                 a.crit ? `<li><b>Crítico:</b> ${a.crit}</li>` : '',
                 `<li><b>Alcance:</b> ${a.alcance}</li>`,
                 a.efeito && a.efeito !== '—' ? `<li>${a.efeito}</li>` : '',
             ].filter(Boolean).join('') + '</ul>';
-            box.classList.add('show');
+            det.classList.add('tem');
+            det.open = !document.body.classList.contains('obr');
         }
         // Buff consolidado: bônus manual + arma equipada + habilidades ligadas
         function getBuff() {
@@ -2388,6 +2409,7 @@
             return { dados, fixo, marcas, janela, arma, fontes };
         }
         function renderBuffSumario() {
+            renderBuffChips();
             const el = document.getElementById('ficha-buff-sumario');
             if (!el) return;
             const b = getBuff();
@@ -2403,6 +2425,26 @@
                 return;
             }
             el.innerHTML = `<span class="buff-badge">⚡ Buff: ${partes.join(' · ')}</span><span class="buff-fontes">${b.fontes.join(' · ')}</span>`;
+        }
+        // Chips de acesso rápido: só as habilidades COM bônus numérico (poucas), pra ligar/desligar
+        // sem rolar a lista inteira — resolve o caso de ter muitas habilidades.
+        function renderBuffChips() {
+            const el = document.getElementById('ficha-buff-chips');
+            if (!el) return;
+            const ativaveis = habSelecionadas
+                .map(id => HAB_CATALOGO.find(h => h.id === id))
+                .filter(h => h && temBuff(h));
+            if (!ativaveis.length) { el.innerHTML = ''; return; }
+            el.innerHTML = ativaveis.map(h => {
+                const on = habAtivas.includes(h.id);
+                const ef = [
+                    h.dado ? `+${h.dado}d10` : '',
+                    h.fixo ? `+${h.fixo}` : '',
+                    h.marca ? `🎯+${h.marca}` : '',
+                    h.janela ? `jan+${h.janela}` : '',
+                ].filter(Boolean).join(' ');
+                return `<button class="hab-buff-toggle${on ? ' on' : ''}" onclick="toggleHabAtiva('${h.id}')">${on ? '✓' : '+'} ${h.nome} <span style="opacity:.75">${ef}</span></button>`;
+            }).join('');
         }
 
         function addBonusDados(delta) {
@@ -2737,6 +2779,7 @@
             salvarHabs();
             renderHabSelecionadas();
             renderHabResultados();
+            renderBuffSumario();
         }
         function removeHab(id) {
             habSelecionadas = habSelecionadas.filter(x => x !== id);
