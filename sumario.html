@@ -315,6 +315,7 @@
         #sec-8 h2::before  { content: '🛏️'; }
         #sec-9 h2::before  { content: '💴'; }
         #sec-10 h2::before { content: '✍️'; }
+        #sec-11 h2::before { content: '⚖️'; }
         .sumario-section h2::before {
             display: inline-block;
             margin-right: 15px;
@@ -580,6 +581,7 @@
                 <button class="sumario-tab" data-tab="sec-8"><span class="tab-icon">🛏️</span>8. Descanso</button>
                 <button class="sumario-tab" data-tab="sec-9"><span class="tab-icon">💴</span>9. Economia</button>
                 <button class="sumario-tab" data-tab="sec-10"><span class="tab-icon">✍️</span>10. Criação</button>
+                <button class="sumario-tab" data-tab="sec-11"><span class="tab-icon">⚖️</span>11. Regras & Custo</button>
             </div>
         </div>
 
@@ -1156,7 +1158,7 @@
             <h3>Stress Máximo</h3>
             <ul>
                 <li><strong>Humano/Infernal/Híbrido:</strong> 6 + Vigor + Vínculo</li>
-                <li><strong>Demônio Puro:</strong> 4 + Vigor + atributo da Categoria de Medo</li>
+                <li><strong>Demônio Puro:</strong> 4 + Vigor + atributo da Categoria de Medo (<strong>Primordial: 6</strong> + Vigor + Força)</li>
             </ul>
             <p>Stress é o quanto sua cabeça aguenta antes de quebrar.</p>
 
@@ -1210,7 +1212,7 @@
             <p><strong>Física</strong> (membro quebrado, hemorragia, cegueira temporária) ou <strong>Mental</strong> (pânico, alucinação, fúria descontrolada). Rola <strong>1d100</strong> na tabela apropriada pra ver qual te pegou.</p>
 
             <h3>Duração & Efeitos</h3>
-            <p>Aflição dura <strong>1d3 rodadas</strong> em combate, mais em narrativa pesada. Cada uma tem debuff específico aplicado automático. Crítico de 4×10 pode dar aflição <strong>permanente</strong>, algo que vira parte do personagem pra sempre.</p>
+            <p>Aflição dura <strong>1d3 rodadas</strong> em combate, mais em narrativa pesada. Cada uma tem debuff específico aplicado automático. Vira <strong>permanente</strong> quando nasce de um momento extremo — <strong>Injúria Crítica, Colapso, ou Desastre (Dado Marcado = 1) em situação de vida ou morte</strong> — aí passa a fazer parte do personagem pra sempre.</p>
 
             <div class="quote-block">Tabela completa d100 → <a href="aflicoes.html" style="color: var(--cor-secundaria);">aflicoes</a></div>
 
@@ -1690,6 +1692,96 @@ Lugares (corrompidos):</pre>
                     </div>
                 </div>
             </div>
+
+            <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
+        </section>
+
+        <!-- SEÇÃO 11 — REGRAS & CUSTO -->
+        <section id="sec-11" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">11. Regras & Custo</h2>
+
+            <div class="quote-block">
+                Em SCAR o limite raramente é "não pode" — é o <strong>preço</strong>. Quanto mais um efeito foge do que o corpo e a cena permitem, mais ele cobra: em <strong>Stress, PM, dados ou sorte</strong>. Improviso não é proibido.
+            </div>
+
+            <h3>Os 4 Eixos de Custo</h3>
+            <p>Pra precificar qualquer poder, contrato improvisado ou manobra maluca, o Mestre soma os eixos que se aplicam. Cada degrau ≈ <strong>+1 nível de preço</strong> (mais Stress, +1 PM no contrato, ou passa a exigir Brecha/teste em vez de sair de graça).</p>
+
+            <h4>1. Distância <span style="font-weight: normal; opacity: 0.7;">— alcançar longe é caro</span></h4>
+            <table class="stat-table">
+                <thead><tr><th>Faixa</th><th>Distância</th><th>Custo</th></tr></thead>
+                <tbody>
+                    <tr><td>Corpo a corpo</td><td>0–2 m</td><td>base</td></tr>
+                    <tr><td>Curto</td><td>3–10 m</td><td>base</td></tr>
+                    <tr><td>Médio</td><td>11–30 m</td><td>+1 Stress · −1d10</td></tr>
+                    <tr><td>Longo</td><td>31–100 m</td><td>+2 Stress · −2d10</td></tr>
+                    <tr><td>Extremo</td><td>100 m+</td><td>só com arma/poder feito pra isso</td></tr>
+                </tbody>
+            </table>
+            <div class="quote-block">Mira à distância usa <strong>Coordenação ou Percepção</strong>. A arma define o alcance "natural"; atacar além dele paga a faixa acima.</div>
+
+            <div class="row gap-20 m-20-t">
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4>2. Criar do Nada</h4>
+                        <ul style="padding-left: 18px;">
+                            <li>Usar/dobrar algo presente (faca, sombra, sangue, medo na sala): <strong>base</strong></li>
+                            <li>Transformar uma coisa em outra: <strong>+1</strong></li>
+                            <li>Criar do nada (arma de osso, fogo sem fonte): <strong>+2</strong>, dura 1 cena</li>
+                            <li>Criar permanente ou vivo: <strong>não é rolagem</strong> — Contrato ou evento</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4>3. Audácia <span style="font-weight: normal; opacity: 0.7;">(o mirabolante)</span></h4>
+                        <ul style="padding-left: 18px;">
+                            <li>Plausível pro conceito: <strong>base</strong></li>
+                            <li>Exagerado, mas dentro do conceito: <strong>+1 e +Stress</strong></li>
+                            <li>Reescreve a cena (parar tempo, apagar, teleporte): <strong>caro</strong> — Stress alto + Brecha, 1×/cena, nunca de graça</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="info-card">
+                        <h4>4. Negar a Ação Alheia</h4>
+                        <ul style="padding-left: 18px;">
+                            <li>Atrapalhar (−1d10, deslocar, expor): <strong>base</strong></li>
+                            <li>Impedir 1 ação: exige <strong>vencer rolagem oposta</strong> + custo</li>
+                            <li>"Você não pode agir" (atordoar, prender, dominar): só com <strong>vitória por 10+</strong> ou Contrato, dura 1 rodada, e o alvo <strong>sempre tem saída</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="quote-block"><strong>Regra de ouro:</strong> descreveu algo que o sistema não cobre? O Mestre soma os eixos, define o preço e deixa rolar.</div>
+
+            <h3>Linhas-Duras <span style="font-weight: normal; opacity: 0.7;">(as poucas paredes)</span></h3>
+            <ul>
+                <li><strong>Crítico precisa conectar.</strong> Dado Marcado 10 só vira Crítico se você vence o confronto. 10 num golpe que erra é só um 10.</li>
+                <li><strong>Sem ressurreição fora de Contrato.</strong> Morte não se desfaz com Stress ou PM. Só preço demoníaco traz alguém de volta — e cobra caro.</li>
+                <li><strong>Não existe HP.</strong> Cura reduz nível de Injúria pelas regras de descanso/sangue. Ninguém "se enche de vida" no meio da luta sem um efeito que diga isso.</li>
+                <li><strong>Atributo de mortal nunca passa de 10.</strong> Quem rompe o teto é o Medo (demônio) — mais ninguém.</li>
+                <li><strong>Ninguém perde o controle do personagem sem chance de reagir</strong> — exceção: Grilhões/possessão (preço já pago na ficha do Híbrido).</li>
+            </ul>
+
+            <h3>"Não Funciona Assim" <span style="font-weight: normal; opacity: 0.7;">(anti-furo)</span></h3>
+            <ul>
+                <li><strong>Forçar o Dado não escolhe o melhor.</strong> Rerola e fica com o novo, mesmo pior, e cada uso te empurra pro Colapso.</li>
+                <li><strong>Estudar/Brecha não é de graça.</strong> Acumula, mas cada rodada estudando é uma rodada sem agir, e o alvo reage ou foge.</li>
+                <li><strong>PM de combate é 1× por sessão</strong> (o feito mais alto) — não soma inimigo por inimigo.</li>
+                <li><strong>Regen de sangue precisa de sangue novo:</strong> 1 grau por Reação, 1 fonte por turno. Sala sem ninguém sangrando = acabou. (Demônio Puro é a exceção brutal — por isso carrega Falha Central.)</li>
+                <li><strong>Sobrecarga cobra Stress real.</strong> Bônus além de 2× o atributo vira +5 fixo mas custa +2 Stress por dado.</li>
+                <li><strong>Mesmo gatilho não acumula.</strong> Dois estilos/habilidades na mesma deixa: escolhe um. Fontes diferentes somam, respeitando o teto 2× em dados.</li>
+            </ul>
+
+            <h3>Lacunas Comuns <span style="font-weight: normal; opacity: 0.7;">— ruling rápido</span></h3>
+            <ul>
+                <li><strong>Queda/colisão:</strong> 3–5 m = Leve · 6–9 m = Grave · 10 m+ = Crítica. Rola Vigor pra baixar 1 nível.</li>
+                <li><strong>Dano contínuo (fogo, veneno, sangramento):</strong> +1 Injúria Leve ou +2–3 Stress por rodada até apagar/tratar (1 ação ou teste de Vigor).</li>
+                <li><strong>Ataque em área:</strong> pega todos na faixa; cada alvo rola a própria defesa. Raio padrão: explosão ~Médio, controle/teia ~Curto. Maior = eixo Audácia.</li>
+                <li><strong>Vários contra um:</strong> o defensor só tem 1 Reação por rodada — do 2º ataque em diante no mesmo turno ele está Sem Defesa (defesa 0). Estar cercado é mortal, de propósito.</li>
+                <li><strong>Cobertura:</strong> leve −1d10 no atacante · pesada −2d10 · total = sem linha de tiro, não dá pra mirar.</li>
+            </ul>
 
             <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
         </section>

@@ -278,10 +278,10 @@ Gaste cada Ponto em **uma das três trilhas**
 
 ---
 
-### INVOCAÇÃO: DEMÔNIO MENOR FAMILIAR
+### INVOCAÇÃO: DEMÔNIO MENOR
 - **Categoria:** Invocação
 - **Demônio:** = idade do invocado (DT do invocado)
-- **Poder:** Invoque 1 demônio menor que luta ao seu lado (atributos 2 em tudo, 3 Injúrias Leves)
+- **Poder:** Invoque 1 demônio menor que luta ao seu lado (atributos 2 em tudo, 3 Injúrias Leves). *Temporário e mais fraco que o **Familiar** (habilidade permanente, atrib 3) — aqui você convoca na hora, ali você tem um companheiro fixo.*
 - **Atributo:** Vínculo
 - **Custo:** 4 Stress por invocação (dura até ser derrotado ou 1 cena)
 - **Aflição:** Vozes sussurrando constantemente

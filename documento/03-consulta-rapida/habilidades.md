@@ -758,7 +758,7 @@
 **Requisito:** Vínculo 3
 **Como funciona:** Você tem um companheiro de verdade — bicho ou demônio menor — que anda com você e te ajuda.
 **Efeito:** 1 companheiro permanente. **Animal** (cão, corvo, rato, gato): 2 Injúrias Leves, vigia/rastreia/alerta. **Demoníaco** *(3 PM)*: demônio menor, atributos 3, 3 Leves + 1 Grave, 1 habilidade simples (requer contrato demoníaco)
-**Custo:** Animal = passivo; Demoníaco = 2 Stress por cena ativa · **Nota:** animal morto volta após 1 arco, demoníaco após 1d3 sessões; 1 familiar ativo por vez
+**Custo:** Animal = passivo; Demoníaco = 2 Stress por cena ativa · **Nota:** animal morto volta após 1 arco, demoníaco após 1d3 sessões; 1 familiar ativo por vez · **≠ Invocação:** o Familiar é **permanente e mais forte** (atrib 3); a *Invocação: Demônio Menor* (contrato) é **temporária e mais fraca** (atrib 2).
 
 ### Familiar de Combate
 **Requisito:** Autoridade 3, Vínculo 3 · **Requer:** Familiar

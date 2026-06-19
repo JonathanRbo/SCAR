@@ -87,6 +87,12 @@
 - **__10. CRIAÇÃO DE PERSONAGEM __**
 > - [Checklist final]()
 
+- **__11. REGRAS DE BORDA & CUSTO POR AMBIÇÃO __**
+> - [Os 4 Eixos de Custo (distância, criar do nada, audácia, negar ação)]()
+> - [Linhas-Duras]()
+> - [Não Funciona Assim (anti-furo)]()
+> - [Lacunas Comuns (queda, dano contínuo, área, cercado, cobertura)]()
+
 ═══════════════════════════════════════
 
 # 1. PERSONAGEM & NATUREZA
@@ -147,7 +153,7 @@ São **10 eixos** que medem do que seu personagem é capaz, organizados em três
 ---
 
 ## Distribuição de Pontos
-Humano e parentes ganham **16-22 pontos** pra distribuir entre os 10 atributos. Demônio Puro ganha **22 pontos livres** com **teto de 10 por atributo** (ver seção DEMÔNIOS PUROS). Não dá pra deixar atributo em 0 sem consequência: quem tenta otimizar zerando alguma coisa sofre +1 Stress automático em toda falha relacionada.
+Humano e parentes ganham **16-22 pontos** pra distribuir entre os 10 atributos. Demônio Puro ganha **22 pontos livres** com **teto de 10 por atributo** (ver seção DEMÔNIOS PUROS). Não dá pra deixar atributo em 0 sem consequência: **atributo 0 = falha automática** em todo teste relacionado, **+1 Stress** (ver Atributo 0 em Testes & Ações).
 
 ---
 
@@ -556,7 +562,7 @@ Aposta tudo. Soma os atributos restantes num único teste. Perde, dobra a conseq
 # 5. STRESS
 
 ## Stress Máximo
-**Humano/Infernal/Híbrido:** 6 + Vigor + Vínculo. **Demônio Puro:** 4 + Vigor + atributo da Categoria de Medo. Stress é o quanto sua cabeça aguenta antes de quebrar.
+**Humano/Infernal/Híbrido:** 6 + Vigor + Vínculo. **Demônio Puro:** 4 + Vigor + atributo da Categoria de Medo (**Primordial: 6** + Vigor + Força). Stress é o quanto sua cabeça aguenta antes de quebrar.
 
 ## Gasto de Stress
 Stress não é só dano mental, é **moeda de buff**. Você queima Stress pra fazer coisa que o corpo não daria sozinho:
@@ -585,7 +591,7 @@ Aflição entra automática quando você: sofre **Injúria Grave**, leva **+40% 
 **Física** (membro quebrado, hemorragia, cegueira temporária) ou **Mental** (pânico, alucinação, fúria descontrolada). Rola **1d100** na tabela apropriada pra ver qual te pegou.
 
 ## Duração & Efeitos
-Aflição dura **1d3 rodadas** em combate, mais em narrativa pesada. Cada uma tem debuff específico aplicado automático. Crítico de 4×10 pode dar aflição **permanente**, algo que vira parte do personagem pra sempre.
+Aflição dura **1d3 rodadas** em combate, mais em narrativa pesada. Cada uma tem debuff específico aplicado automático. Vira **permanente** quando nasce de um momento extremo — **Injúria Crítica, Colapso, ou Desastre (Dado Marcado = 1) em situação de vida ou morte** — aí passa a fazer parte do personagem pra sempre.
 
 ═══════════════════════════════════════
 
@@ -829,5 +835,67 @@ Fecha o personagem como pessoa: passado, vínculos, motivações, o que ainda pe
 - **Infernal** — define o disfarce humano e o que escapa quando ele falha
 - **Híbrido** — define o gatilho da transformação e como o demônio interno se manifesta
 - **Demônio Puro** — pula Talismã/Sonhos. Define **Falha Central**, **Categoria de Medo** e distribui **Pontos de Idade** entre Força/Resistência/Sabedoria
+
+═══════════════════════════════════════
+
+# 11. REGRAS & CUSTO
+
+> *Em SCAR o limite raramente é "não pode" — é o **preço**. Quanto mais um efeito foge do que o corpo e a cena permitem, mais ele cobra: em **Stress, PM, dados ou sorte**. Improviso não é proibido.*
+
+## Os 4 Eixos de Custo
+Pra precificar qualquer poder, contrato improvisado ou manobra maluca, o Mestre soma os eixos que se aplicam. Cada degrau ≈ **+1 nível de preço** (mais Stress, +1 PM no contrato, ou passa a exigir Brecha/teste em vez de sair de graça).
+
+**1. Distância** — alcançar longe é caro.
+
+| Faixa | Distância | Custo |
+|---|---|---|
+| Corpo a corpo | 0–2 m | base |
+| Curto | 3–10 m | base |
+| Médio | 11–30 m | +1 Stress · −1d10 |
+| Longo | 31–100 m | +2 Stress · −2d10 |
+| Extremo | 100 m+ | só com arma/poder feito pra isso |
+
+> Mira à distância usa **Coordenação ou Percepção**. A arma define o alcance "natural"; atacar além dele paga a faixa acima.
+
+**2. Criar do Nada** — mexer no que existe é barato; inventar matéria/energia é caro.
+- Usar/dobrar algo já presente (a faca, a sombra, o sangue, o medo na sala): **base**
+- Transformar uma coisa em outra: **+1**
+- Criar do nada (arma de osso, fogo sem fonte, parede de carne): **+2**, dura no máx **1 cena**
+- Criar algo permanente ou vivo: **não é rolagem** — é Contrato ou evento narrativo
+
+**3. Audácia ("o mirabolante")** — quanto mais dobra a realidade, mais cobra.
+- Plausível pro conceito: **base**
+- Exagerado, mas dentro do conceito: **+1 e +Stress**
+- Reescreve a cena (parar o tempo, apagar, teletransportar): **caro de verdade** — Stress alto **+ Brecha/condição**, 1× por cena, nunca de graça
+
+**4. Negar a Ação Alheia** — tirar o turno/escolha de alguém é o mais caro de todos.
+- Atrapalhar (−1d10, deslocar, expor, marcar): **base**
+- Impedir 1 ação específica: exige **vencer rolagem oposta** (nunca automático) + custo
+- "Você não pode agir" (atordoar, prender, calar, dominar): só com **vitória por 10+** ou Contrato, dura **1 rodada**, e o alvo **sempre tem saída** (Forçar o Dado, Teste de Medo, gastar Stress)
+
+> **Regra de ouro:** descreveu algo que o sistema não cobre? O Mestre soma os eixos, define o preço e deixa rolar.
+
+## Linhas-Duras *(as poucas paredes)*
+- **Crítico precisa conectar.** Dado Marcado 10 só vira Crítico se você **vence o confronto**. 10 num golpe que erra é só um 10.
+- **Sem ressurreição fora de Contrato.** Morte não se desfaz com Stress ou PM. Só preço demoníaco traz alguém de volta — e cobra caro.
+- **Não existe HP.** Cura reduz **nível de Injúria** pelas regras de descanso/sangue. Ninguém "se enche de vida" no meio da luta sem um efeito que diga isso.
+- **Atributo de mortal nunca passa de 10.** Quem rompe o teto é o **Medo** (demônio) — mais ninguém.
+- **Ninguém perde o controle do personagem sem chance de reagir** — a única exceção são **Grilhões/possessão** (preço já pago na ficha do Híbrido).
+
+## "Não Funciona Assim" *(anti-furo)*
+- **Forçar o Dado não escolhe o melhor.** Rerola e fica com o novo, **mesmo pior**, e cada uso te empurra pro Colapso. Não é botão grátis só porque sobrou Stress.
+- **Estudar/Brecha não é de graça.** Acumula, mas cada rodada estudando é uma rodada **sem agir**, e o alvo reage ou foge. Não existe "o grupo inteiro fica 3 turnos olhando" com o inimigo parado.
+- **PM de combate é 1× por sessão** (o feito mais alto) — não soma inimigo por inimigo.
+- **Regen de sangue precisa de sangue novo:** 1 grau por Reação, **1 fonte por turno**. Sala sem ninguém sangrando = acabou a mamata. *(Demônio Puro é a exceção brutal — por isso carrega Falha Central.)*
+- **Sobrecarga cobra Stress real.** Bônus em dado além de **2× o atributo** vira +5 fixo mas custa +2 Stress por dado — não é atalho grátis.
+- **Mesmo gatilho não acumula.** Dois estilos/habilidades que disparam na mesma deixa: escolhe **um**. Fontes diferentes (estilo + arma + habilidade) somam, mas respeitam o teto 2× em dados.
+
+## Lacunas Comuns — Ruling Rápido
+*Pra não travar a mesa quando aparecer o caso que o livro não detalhou:*
+- **Queda/colisão:** 3–5 m = Leve · 6–9 m = Grave · 10 m+ = Crítica. Rola **Vigor** pra baixar 1 nível.
+- **Dano contínuo (fogo, veneno, sangramento):** +1 Injúria Leve **ou** +2–3 Stress por rodada até apagar/tratar (gasta 1 ação ou passa num teste de Vigor).
+- **Ataque em área:** pega todos na faixa; **cada alvo rola a própria defesa**. Raio padrão: explosão/granada ~Médio, controle/teia ~Curto. Querer área maior = eixo **Audácia**.
+- **Vários contra um:** o defensor só tem **1 Reação por rodada** — do **2º ataque em diante no mesmo turno** ele está **Sem Defesa (defesa 0)**. Estar cercado é mortal, de propósito.
+- **Cobertura:** leve **−1d10** no atacante · pesada **−2d10** · total = sem linha de tiro, não dá pra mirar.
 
 ═══════════════════════════════════════
