@@ -877,6 +877,16 @@
         /* Atalho que só aparece dentro do Owlbear */
         .obr-only { display: none; }
         body.obr .obr-only { display: block; }
+        /* Estilo de Luta + Ficha completa (export) — só o que não há classe Squeleton */
+        .estilo-efeitos { display:none; border-left:3px solid var(--cor-secundaria); padding-left:12px; }
+        .estilo-efeitos.show { display:block; }
+        .estilo-efeitos ul { margin:4px 0 0; padding-left:16px; }
+        .estilo-efeitos li { margin-bottom:4px; color:var(--cor-texto-soft); }
+        #ficha-completa textarea { min-height:58px; resize:vertical; font-family:'Roboto',sans-serif; }
+        #ficha-completa summary { cursor:pointer; list-style:none; }
+        #ficha-completa summary::-webkit-details-marker { display:none; }
+        #ficha-completa[open] summary { margin-bottom:6px; }
+
         /* Ficha compacta no popover: atributos 2-col + caixas/fontes menores pra caber sem scroll */
         body.obr .section-box { padding: 12px !important; margin-bottom: 10px !important; }
         body.obr .section-title { font-size: 1rem; margin-bottom: 8px; }
@@ -1135,6 +1145,23 @@
                 <div class="section-box obr-hide">
                     <label class="field-label">Nome do Personagem</label>
                     <input type="text" id="ficha-nome" placeholder="Ex: Yelena" class="border-rd-10 p-14-all w-100 fs-8">
+                    <div class="d-flex f-gap-10 m-12-t">
+                        <div class="f-grow-1">
+                            <label class="field-label">Natureza</label>
+                            <select id="ficha-natureza" class="border-rd-10 p-14-all w-100 fs-7" onchange="onNaturezaChange()">
+                                <option value="">—</option>
+                                <option value="Humano">Humano</option>
+                                <option value="Infernal">Infernal</option>
+                                <option value="Híbrido">Híbrido</option>
+                                <option value="Demônio Puro">Demônio Puro</option>
+                            </select>
+                        </div>
+                        <div class="w-100px">
+                            <label class="field-label">PM</label>
+                            <input type="number" id="ficha-pm" value="0" class="border-rd-10 p-14-all w-100 fs-7" onchange="salvarFichaLocal()">
+                        </div>
+                    </div>
+                    <p class="fs-5 opacity-5 m-8-t">PM inicial pelo passado: comum 3 · violência 5 · trauma 7 · extremo 9. Demônio Puro = 0.</p>
                 </div>
 
                 <div class="section-box" id="ficha-attrs-box">
@@ -1142,6 +1169,14 @@
                     <div id="ficha-attrs" class="ficha-grid"></div>
                     <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t obr-hide" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
                     <p class="fs-5 opacity-5 m-10-t obr-hide" id="ficha-save-hint"></p>
+                </div>
+
+                <div class="section-box obr-hide" id="ficha-estilo-box">
+                    <label class="field-label m-15-b">⚔️ Estilo de Luta <span class="opacity-5 fs-5">· passivo, sempre ativo</span></label>
+                    <select id="ficha-estilo" class="border-rd-10 p-14-all w-100 fs-7" onchange="renderEstilo(); salvarFichaLocal();">
+                        <option value="">— nenhum —</option>
+                    </select>
+                    <div id="ficha-estilo-efeitos" class="estilo-efeitos fs-6 m-10-t"></div>
                 </div>
 
                 <div class="section-box" id="ficha-bonus-box">
@@ -1193,6 +1228,16 @@
                         <div class="obr-only field-label m-10-b" style="opacity:.7">✓ Minhas (toque no botão pra usar na rolagem)</div>
                         <div id="hab-selecionadas"></div>
                     </div>
+                </div>
+
+                <div class="section-box obr-hide" id="ficha-export-box">
+                    <label class="field-label m-10-b">📋 Exportar Ficha</label>
+                    <p class="fs-5 opacity-5 m-10-b">Gera a ficha pronta no modelo SCAR com o que o rolador já sabe: <strong>nome, atributos, Stress/Movimento (calculados), estilo e habilidades</strong>. O resto (idade, conceito, injúrias, armamento, talismã, poderes…) vem <strong>em branco pra você editar no arquivo</strong>.</p>
+                    <div class="d-flex f-gap-10">
+                        <button class="btn btn-primary border-rd-10 p-12-tb f-grow-1 fs-7" onclick="exportarFicha('txt')">⬇️ .txt</button>
+                        <button class="btn btn-primary border-rd-10 p-12-tb f-grow-1 fs-7" onclick="exportarFicha('md')">⬇️ .md</button>
+                    </div>
+                    <p class="fs-5 opacity-5 m-10-t" id="ficha-export-hint"></p>
                 </div>
 
                 <div id="ficha-resultado" class="section-box text-center p-35-all">
@@ -2211,6 +2256,39 @@
                 </div>
             `).join("");
         }
+        // ===== Estilos de Luta (12 — passivos, da vendinha) =====
+        const ESTILOS_LUTA = {
+            "Boxe": ["Jab — alvo falhou a defesa? repete o ataque com metade dos dados (arred. p/ cima)","Pode defender com Percepção ou Vínculo em curto alcance","Esquiva natural — defendeu por 5+? próximo ataque +1d10","Resistência de ringue — 1ª Injúria Leve por combate não gera penalidade"],
+            "Estilo Livre": ["Pode usar Malandragem pra atacar 1x/rd ou pra defender","Injúrias causadas podem gerar efeito (queda, deslocamento, desarme)","Ambiente ajudando, defensor rola -1d10"],
+            "Espadachim": ["Diferença 5+ → Injúria Leve vira sangramento","Pode defender com Percepção ou Tecnologia","Em 1x1, ignora armamento defensivo do alvo"],
+            "Atirador": ["Ataques criam zona de perigo — quem atravessa sofre -1d10 em toda ação","Diferença 10+ pode aumentar a Injúria em 1 grau"],
+            "Armas Pesadas": ["Armaduras não reduzem o dano","Injúrias Graves criam Aflição Física automática","Alvos menores fazem Teste de Medo DT 20 ao serem atacados"],
+            "Caçador": ["Por rodada observando, ignora 1d10 defensivo do alvo na próxima ação (máx 3 rodadas = 3d10)","Ataques armados podem usar Investigação ou Negociação","Pode trocar dano por condição (marcado, exposto, sangrando, deslocado)","Pode avisar aliados sem gastar ação"],
+            "Instintivo": ["Sempre que causar Injúria → +2 Stress no alvo","Pode atacar usando Percepção ou Investigação no lugar de Força"],
+            "Spetsnaz": ["1º ataque da cena contra um alvo: se causar Injúria, aumenta 1 grau","Pode usar Coordenação ou Autoridade pra ataques corpo a corpo armados","Atacar alvo desatento/imobilizado/ferido ignora a redução de defesa"],
+            "Wrestling": ["Pode usar Força ou Vigor pra agarrar, derrubar ou imobilizar","Agarrados sofrem penalidade crescente em ações físicas (-1/-2/-3d10)","Agarrados não fogem nem lutam com outra coisa sem vencer o teste","Pode não causar Injúria pra drenar +2 Stress OU causar Aflição leve"],
+            "Judô": ["Contra-ataque — inimigo errou corpo a corpo? contra-ataca Coord vs Vigor (1x/rd)","Pode defender com Coordenação, Vigor ou Vínculo","Defesa por 5+ → pode derrubar ou deslocar o alvo","Atacante com Força maior → +1d10 no contra-ataque E na defesa","Fluxo — derrubou? próximo ataque de aliado contra ele +1d10"],
+            "Executor": ["Contra alvos com Autoridade maior: +1d10 geral","Injúria Grave → alvo não pode conceder bônus ou liderar","Pode trocar dano por Aflição"],
+            "Mãos da Guerra": ["Toda arma improvisada vira armamento leve ou médio (+1d10 ou +2d10)","Empunhando armamento demoníaco: ganha apenas +10 em dano"],
+        };
+        function montarEstilos() {
+            const sel = document.getElementById('ficha-estilo');
+            if (!sel) return;
+            Object.keys(ESTILOS_LUTA).forEach(nome => {
+                const o = document.createElement('option');
+                o.value = nome; o.textContent = nome; sel.appendChild(o);
+            });
+        }
+        function renderEstilo() {
+            const sel = document.getElementById('ficha-estilo');
+            const box = document.getElementById('ficha-estilo-efeitos');
+            if (!sel || !box) return;
+            const efeitos = ESTILOS_LUTA[sel.value];
+            if (!efeitos) { box.classList.remove('show'); box.innerHTML = ''; return; }
+            box.innerHTML = '<ul>' + efeitos.map(e => `<li>${e}</li>`).join('') + '</ul>';
+            box.classList.add('show');
+        }
+
         function addBonusDados(delta) {
             fichaBonusDados = Math.max(0, fichaBonusDados + delta);
             document.getElementById('ficha-bonus-dados-lbl').textContent = '+' + fichaBonusDados + 'd10';
@@ -2460,6 +2538,11 @@
             origem: [["humano","Humano"],["infernal","Infernal"],["hibrido","Híbrido"],["demonio","Demônio"]],
         };
 
+        // Natureza escolhida → categoria de Origem (filtra o catálogo: só aparece a sua natureza)
+        const NAT_CAT = { 'Humano':'humano', 'Infernal':'infernal', 'Híbrido':'hibrido', 'Demônio Puro':'demonio' };
+        function natCat() { const el = document.getElementById('ficha-natureza'); return el ? (NAT_CAT[el.value] || null) : null; }
+        function onNaturezaChange() { salvarFichaLocal(); montarHabChips(); renderHabResultados(); }
+
         function setHabView(v) {
             habView = (habView === v) ? null : v;   // clicar no aberto fecha
             document.querySelectorAll('.hab-mode').forEach(b => b.classList.toggle('ativo', b.dataset.view === habView));
@@ -2470,9 +2553,13 @@
         function montarHabChips() {
             const el = document.getElementById('hab-chips');
             if (!el) return;
-            const totalTab = HAB_CATALOGO.filter(h => h.tipo === habTab).length;
+            const nc = natCat();
+            let chips = HAB_CHIPS[habTab];
+            if (habTab === 'origem' && nc) chips = chips.filter(([c]) => c === nc);   // só a natureza escolhida
+            const naAba = h => h.tipo === habTab && (habTab !== 'origem' || !nc || h.cat === nc);
+            const totalTab = HAB_CATALOGO.filter(naAba).length;
             let html = `<button class="hab-filtro${habCatFiltro === null ? ' ativo' : ''}" onclick="setHabCat(null)">Todas (${totalTab})</button>`;
-            html += HAB_CHIPS[habTab].map(([c, lbl]) => {
+            html += chips.map(([c, lbl]) => {
                 const n = HAB_CATALOGO.filter(h => h.tipo === habTab && h.cat === c).length;
                 return `<button class="hab-filtro${habCatFiltro === c ? ' ativo' : ''}" onclick="setHabCat('${c}')">${lbl} (${n})</button>`;
             }).join('');
@@ -2498,6 +2585,8 @@
             // busca casa por NOME ou por TIPO/CATEGORIA (ex: "demonio", "fisico", "origem")
             const bate = h => !termo || h.nome.toLowerCase().includes(termo) || h.cat.includes(termo) || h.tipo.includes(termo);
             let itens = HAB_CATALOGO.filter(h => !habSelecionadas.includes(h.id) && bate(h));
+            const nc = natCat();
+            if (nc) itens = itens.filter(h => h.tipo !== 'origem' || h.cat === nc);   // escolheu natureza → esconde Origem das outras
             if (obr) {
                 // no popover: busca o catálogo inteiro, exige termo e limita pra caber sem rolar
                 if (!termo) { el.innerHTML = `<p class="hab-empty">Busque pelo nome ou pelo tipo (ex: demonio, fisico, social).</p>`; return; }
@@ -2606,24 +2695,155 @@
             renderHabSelecionadas();
             renderHabResultados();
         }
+        // Campos de texto persistidos (id = 'ficha-' + chave). O resto da ficha sai em branco no export pra editar no arquivo.
+        const FICHA_CAMPOS = ['nome','natureza','pm','estilo'];
         function salvarFichaLocal() {
-            const f = { nome: document.getElementById('ficha-nome').value };
-            FICHA_ATRIBUTOS.forEach(a => f[a] = document.getElementById('ficha-attr-' + a).value);
+            const f = {};
+            FICHA_CAMPOS.forEach(c => { const el = document.getElementById('ficha-' + c); if (el) f[c] = el.value; });
+            FICHA_ATRIBUTOS.forEach(a => { const el = document.getElementById('ficha-attr-' + a); if (el) f['attr-' + a] = el.value; });
             localStorage.setItem('scar-ficha', JSON.stringify(f));
-            document.getElementById('ficha-save-hint').textContent = '✓ Ficha salva! Abre preenchida da próxima vez.';
+            const h1 = document.getElementById('ficha-save-hint'); if (h1) h1.textContent = '✓ Ficha salva! Abre preenchida da próxima vez.';
+            const h2 = document.getElementById('ficha-export-hint'); if (h2) h2.textContent = '✓ Salvo neste navegador.';
         }
         function carregarFichaLocal() {
             const raw = localStorage.getItem('scar-ficha');
             if (!raw) return;
             try {
                 const f = JSON.parse(raw);
-                const nomeEl = document.getElementById('ficha-nome');
-                if (nomeEl) nomeEl.value = f.nome || '';
+                FICHA_CAMPOS.forEach(c => { const el = document.getElementById('ficha-' + c); if (el && f[c] !== undefined) el.value = f[c]; });
                 FICHA_ATRIBUTOS.forEach(a => {
                     const el = document.getElementById('ficha-attr-' + a);
-                    if (el && f[a] !== undefined) el.value = f[a];
+                    if (!el) return;
+                    if (f['attr-' + a] !== undefined) el.value = f['attr-' + a];
+                    else if (f[a] !== undefined) el.value = f[a];   // retrocompat (formato antigo)
                 });
+                renderEstilo();
             } catch (e) {}
+        }
+        // ===== Exportar ficha (.txt / .md) no modelo SCAR =====
+        function _vficha(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+        function exportarFicha(formato) {
+            const at = {};
+            FICHA_ATRIBUTOS.forEach(a => at[a] = parseInt((document.getElementById('ficha-attr-' + a) || {}).value) || 0);
+            const vig = at['Vigor'];
+            const mov = at['Coordenação'] * 2;
+            const nome = _vficha('ficha-nome') || 'Sem Nome';
+            const estilo = _vficha('ficha-estilo') || '—';
+            const natureza = _vficha('ficha-natureza') || '—';
+            const ehDemonio = natureza === 'Demônio Puro';
+
+            // Injúrias — slots por Vigor
+            const injLeves = 2 + Math.floor(vig / 2);
+            const injGraves = 1 + Math.floor(vig / 3);
+            const injCritica = 1;
+
+            // Stress por natureza
+            const stressLinha = ehDemonio
+                ? 'STRESS: 4 + Vigor + atributo da Categoria de Medo = (defina pelo Medo)'
+                : 'STRESS: 6 + Vigor + Vínculo = ' + (6 + vig + at['Vínculo']);
+
+            // Habilidades + custo de PM (2 PM cada)
+            const habIds = (typeof habSelecionadas !== 'undefined' ? habSelecionadas : []);
+            const habs = habIds.map(id => {
+                const h = HAB_CATALOGO.find(x => x.id === id);
+                if (!h) return null;
+                const tipoLbl = h.tipo === 'origem' ? 'Origem' : 'Geral';
+                const cat = HAB_CAT_LABEL[h.cat] || h.cat || '';
+                // passivo é detectado e vira tag única — sem repetir "(passivo)" na descrição
+                const isPassivo = /passivo/i.test(h.custo || '') || /passivo/i.test(h.efeito || '');
+                const custoParts = (h.custo || '').split('·').map(s => s.trim()).filter(s => s && s !== '—' && !/^passivo$/i.test(s));
+                const desc = (h.efeito || '').trim().replace(/\s*\(passivo\)\s*$/i, '').replace(/\s*passivo\s*$/i, '').trim();
+                const tag = `[${tipoLbl}${cat ? ' · ' + cat : ''}${isPassivo ? ' · passivo' : ''}]`;
+                const custoStr = custoParts.length ? ' — ' + custoParts.join(' · ') : '';
+                return `  • ${h.nome} ${tag}${custoStr}` + (desc ? `\n      ${desc}` : '');
+            }).filter(Boolean).join('\n') || '  —';
+            const habCost = habIds.length * 2;
+            const pmDisp = parseInt(_vficha('ficha-pm')) || 0;
+            let pmLinha;
+            if (ehDemonio) {
+                pmLinha = 'PM: 0  (Demônio Puro — pré-montado; habilidades vêm de Pontos de Idade/Sabedoria)';
+            } else {
+                const rest = pmDisp - habCost;
+                pmLinha = `PM: ${pmDisp}  ·  Habilidades: ${habIds.length}×2 = ${habCost} PM  ·  Restante: ${rest}${rest < 0 ? '  ⚠ estourou o PM' : ''}`;
+            }
+
+            const L = [
+                '════════════════════════',
+                'FICHA DE PERSONAGEM',
+                '════════════════════════',
+                '',
+                '═══ DADOS BÁSICOS ═══',
+                '',
+                'NOME: ' + nome,
+                'NATUREZA: ' + natureza,
+                'IDADE: ' + _vficha('ficha-idade'),
+                'CONCEITO/RESUMO: ' + _vficha('ficha-conceito'),
+                'LIGAÇÃO COM DEMÔNIOS|seres: ' + _vficha('ficha-ligacao'),
+                'FALHA CENTRAL: ' + _vficha('ficha-falha'),
+                pmLinha,
+                '',
+                '═══ ATRIBUTOS (16-22 PONTOS) ═══',
+                '',
+                '▸ Físicos',
+                '  Força: ' + at['Força'],
+                '  Vigor: ' + at['Vigor'],
+                '  Coordenação: ' + at['Coordenação'],
+                '',
+                '▸ Táticos / Técnicos',
+                '  Malandragem: ' + at['Malandragem'],
+                '  Tecnologia: ' + at['Tecnologia'],
+                '  Percepção: ' + at['Percepção'],
+                '',
+                '▸ Mentais / Sociais',
+                '  Investigação: ' + at['Investigação'],
+                '  Negociação: ' + at['Negociação'],
+                '  Autoridade: ' + at['Autoridade'],
+                '  Vínculo: ' + at['Vínculo'],
+                '',
+                '═══ RECURSOS ═══',
+                '',
+                stressLinha,
+                '¥ (IENE): ' + (_vficha('ficha-iene') || '0'),
+                'MOVIMENTO: Coordenação × 2 m = ' + mov + ' m',
+                'AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação',
+                '',
+                'INJÚRIAS',
+                '  Leves: ' + injLeves,
+                '  Graves: ' + injGraves,
+                '  Crítica: ' + injCritica,
+                '',
+                '═══ EQUIPAMENTO ═══',
+                '',
+                'ARMAMENTO:',
+                _vficha('ficha-armamento'),
+                '',
+                'AFLIÇÕES:',
+                _vficha('ficha-aflicoes'),
+                '',
+                '═══ ESPECIAL ═══',
+                '',
+                'TALISMÃ: ' + _vficha('ficha-talisma'),
+                'ESTILO DE LUTA: ' + estilo,
+                'MARCA DO DEMÔNIO: ' + _vficha('ficha-marca'),
+                '',
+                '═══ HABILIDADES/G-O ═══',
+                habs,
+                '',
+                '═══ PODERES/CONTRATOS ═══',
+                _vficha('ficha-poderes'),
+                '',
+            ];
+            let txt = L.join('\n');
+            let mime = 'text/plain', ext = 'txt';
+            if (formato === 'md') { txt = '```\n' + txt + '\n```\n'; mime = 'text/markdown'; ext = 'md'; }
+            const slug = nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'ficha';
+            const blob = new Blob([txt], { type: mime + ';charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'ficha-' + slug + '.' + ext;
+            document.body.appendChild(a); a.click();
+            setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+            const hint = document.getElementById('ficha-export-hint'); if (hint) hint.textContent = '✓ Exportado: ficha-' + slug + '.' + ext;
         }
         async function rolarFicha(attr) {
             const base = parseInt(document.getElementById('ficha-attr-' + attr).value) || 0;
@@ -2687,6 +2907,7 @@
 
         // Inicializa a aba Ficha
         montarFichaAttrs();
+        montarEstilos();
         carregarFichaLocal();
         montarHabChips();
         carregarHabs();
