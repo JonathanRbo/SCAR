@@ -889,21 +889,15 @@
         .ef-det[open] > summary::before { content:'▾ '; }
         .ef-body ul { margin:5px 0 2px; padding-left:16px; }
         .ef-body li { margin-bottom:4px; color:var(--cor-texto-soft); }
-        /* Chips de buff ativável (habilidades com bônus) — acesso rápido na visão Rolar */
-        .ficha-buff-chips { display:flex; flex-wrap:wrap; gap:6px; }
-        .ficha-buff-chips:empty { display:none; }
-        /* Buff consolidado (embaixo dos atributos): soma de arma + habilidades ligadas + bônus manual */
+        /* Indicador de buff na visão Rolar — discreto, só o resumo (totais). Detalhe vai pra visão Bônus. */
         .ficha-buff-sumario {
-            display:flex; flex-wrap:wrap; align-items:center; gap:8px;
-            background:rgba(0,0,0,0.25); border:1px solid var(--cor-borda); border-left:3px solid var(--cor-gold);
-            border-radius:10px; padding:9px 12px; line-height:1.35;
+            font-family:'Bebas Neue',sans-serif; letter-spacing:1px; font-size:0.9rem;
+            color:var(--cor-gold); opacity:0.92; padding:2px 0;
         }
-        .ficha-buff-sumario.ativo { border-left-color:var(--cor-secundaria); background:rgba(220,20,60,0.07); }
-        .buff-badge {
-            font-family:'Bebas Neue',sans-serif; letter-spacing:1px; font-size:0.95rem; color:var(--cor-gold);
-            background:rgba(212,175,55,0.12); padding:3px 10px; border-radius:6px; flex-shrink:0;
-        }
-        .buff-fontes { font-size:0.72rem; opacity:0.6; }
+        /* Detalhe das fontes do buff (visão Bônus): lista o que está compondo */
+        .buff-detalhe { font-size:0.74rem; line-height:1.4; color:var(--cor-texto-soft); }
+        .buff-detalhe:empty { display:none; }
+        .buff-detalhe b { color:var(--cor-gold); font-family:'Bebas Neue',sans-serif; letter-spacing:0.5px; }
         /* Interruptor de buff da habilidade (liga/desliga o que soma na rolagem) */
         .hab-buff-toggle {
             border:1px solid var(--cor-borda); background:rgba(0,0,0,0.3); color:var(--cor-texto-soft);
@@ -952,6 +946,7 @@
             margin: 0;
             padding: 10px;
             overflow-y: auto;
+            scrollbar-gutter: stable;   /* reserva espaço da barra → some o "tremido" de reflow no hover */
             -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
             touch-action: pan-y;   /* declara que esta área trata o arrasto vertical */
@@ -1198,11 +1193,10 @@
                 <div class="section-box" id="ficha-attrs-box">
                     <label class="field-label m-15-b obr-hide">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
                     <div id="ficha-attrs" class="ficha-grid"></div>
-                    <div id="ficha-buff-sumario" class="ficha-buff-sumario m-12-t"></div>
-                    <select id="ficha-buff-add" class="border-rd-10 p-12-all w-100 fs-6 m-10-t" onchange="ativarHab(this.value)" style="display:none">
-                        <option value="">＋ Ligar habilidade no buff…</option>
+                    <div id="ficha-buff-sumario" class="ficha-buff-sumario m-10-t"></div>
+                    <select id="ficha-buff-add" class="border-rd-10 p-12-all w-100 fs-6 m-8-t" onchange="aoEscolherBuff(this.value)" style="display:none">
+                        <option value="">＋ Ligar / desligar habilidade…</option>
                     </select>
-                    <div id="ficha-buff-chips" class="ficha-buff-chips m-10-t"></div>
                     <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t obr-hide" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
                     <p class="fs-5 opacity-5 m-10-t obr-hide" id="ficha-save-hint"></p>
                 </div>
@@ -1231,6 +1225,7 @@
 
                 <div class="section-box" id="ficha-bonus-box">
                     <label class="field-label m-15-b">Bônus da rolagem</label>
+                    <div id="ficha-buff-detalhe" class="buff-detalhe m-12-b"></div>
                     <div class="ficha-buff-row" id="ficha-bonus-row">
                         <span class="fs-7">Dados de bônus <span id="ficha-bonus-dados-lbl" class="opacity-5 fs-5">+0d10</span></span>
                         <div class="ficha-stepper">
@@ -1275,7 +1270,7 @@
                     </div>
 
                     <div id="hab-painel-ver" class="hab-painel m-12-t">
-                        <div class="obr-only field-label m-10-b" style="opacity:.7">✓ Minhas (toque no botão pra usar na rolagem)</div>
+                        <div class="obr-only field-label m-10-b" style="opacity:.7">✓ Minhas — toque numa pra remover (volta pro Adicionar). Pra usar na rolagem, é na aba Rolar.</div>
                         <div id="hab-selecionadas"></div>
                     </div>
                 </div>
@@ -2411,8 +2406,10 @@
             const marcas = Math.max(1, 1 + marcasExtra);
             return { dados, fixo, marcas, janela, arma, fontes };
         }
+        // Indicador discreto na visão Rolar: só os totais (sem a lista de nomes, que vai pro Bônus)
         function renderBuffSumario() {
-            renderBuffChips();
+            renderBuffSelect();
+            renderBuffDetalhe();
             const el = document.getElementById('ficha-buff-sumario');
             if (!el) return;
             const b = getBuff();
@@ -2420,14 +2417,18 @@
             const partes = [];
             if (b.dados) partes.push(`+${b.dados}d10`);
             if (b.fixo) partes.push(`+${b.fixo} fixo`);
-            if (b.marcas > 1) partes.push(`🎯 ${b.marcas} marcados`);
-            if (b.janela > 0) partes.push(`janela ${critMin}-10 / 1-${desMax}`);
-            el.classList.toggle('ativo', partes.length > 0);
-            if (!partes.length) {
-                el.innerHTML = `<span class="opacity-4 fs-5">Sem buff ativo — a rolagem usa só o atributo.</span>`;
-                return;
-            }
-            el.innerHTML = `<span class="buff-badge">⚡ Buff: ${partes.join(' · ')}</span><span class="buff-fontes">${b.fontes.join(' · ')}</span>`;
+            if (b.marcas > 1) partes.push(`🎯${b.marcas}`);
+            if (b.janela > 0) partes.push(`jan ${critMin}-10/1-${desMax}`);
+            if (!partes.length) { el.style.display = 'none'; el.innerHTML = ''; return; }
+            el.style.display = '';
+            el.innerHTML = `⚡ Buff: ${partes.join(' · ')}`;
+        }
+        // Detalhe completo (visão Bônus): o que está compondo o buff agora
+        function renderBuffDetalhe() {
+            const el = document.getElementById('ficha-buff-detalhe');
+            if (!el) return;
+            const b = getBuff();
+            el.innerHTML = b.fontes.length ? `<b>Compondo o buff:</b> ${b.fontes.join(' · ')}` : '';
         }
         function buffResumo(h) {
             return [
@@ -2437,33 +2438,37 @@
                 h.janela ? `jan+${h.janela}` : '',
             ].filter(Boolean).join(' ');
         }
-        // Liga uma habilidade no buff via select (igual escolha do Combate — funciona no celular sem arrastar)
-        function ativarHab(id) {
-            if (!id || habAtivas.includes(id)) return;
-            habAtivas.push(id);
-            salvarHabs();
-            renderHabSelecionadas();
-            renderBuffSumario();
+        // Select liga/desliga (igual escolha do Combate — funciona no celular sem arrastar).
+        // Escolher uma opção alterna o estado dela; o select se reconstrói e volta pro placeholder.
+        function aoEscolherBuff(id) {
+            if (!id) return;
+            toggleHabAtiva(id);
         }
-        // Ativação por select (escolhe a habilidade) + chips das ligadas (toque ✕ desliga).
-        // Só as habilidades COM bônus numérico entram aqui — resolve ter muitas habilidades no celular.
-        function renderBuffChips() {
+        // Lista no <select> nativo TODAS as minhas habilidades (com OU sem buff), estado ○ liga / ● desliga.
+        // As sem bônus (ex: Golpe Decisivo) entram como lembrete — ligar marca "estou usando", soma 0 dado.
+        // Nativo = o picker do celular rola sozinho dentro do Owlbear (sem depender de arrastar).
+        function renderBuffSelect() {
             const sel = document.getElementById('ficha-buff-add');
-            const el = document.getElementById('ficha-buff-chips');
-            const ativaveis = habSelecionadas
+            if (!sel) return;
+            const minhas = habSelecionadas
                 .map(id => HAB_CATALOGO.find(h => h.id === id))
-                .filter(h => h && temBuff(h));
-            if (sel) {
-                const inativas = ativaveis.filter(h => !habAtivas.includes(h.id));
-                sel.innerHTML = `<option value="">＋ Ligar habilidade no buff…</option>` +
-                    inativas.map(h => `<option value="${h.id}">${h.nome} · ${buffResumo(h)}</option>`).join('');
-                sel.style.display = ativaveis.length ? '' : 'none';
+                .filter(Boolean);
+            if (!minhas.length) {
+                sel.style.display = 'none';
+                sel.innerHTML = `<option value="">＋ Ligar / desligar habilidade…</option>`;
+                return;
             }
-            if (el) {
-                const ligadas = ativaveis.filter(h => habAtivas.includes(h.id));
-                el.innerHTML = ligadas.map(h =>
-                    `<button class="hab-buff-toggle on" onclick="toggleHabAtiva('${h.id}')">● ${h.nome} <span style="opacity:.75">${buffResumo(h)}</span> ✕</button>`).join('');
-            }
+            sel.style.display = '';
+            // Opção auto-descritiva: estado (○/●) · nome · bônus (se tiver) · custo/quando · o que faz
+            sel.innerHTML = `<option value="">＋ Ligar / desligar habilidade (○ liga · ● desliga)…</option>` +
+                minhas.map(h => {
+                    const on = habAtivas.includes(h.id);
+                    const resumo = buffResumo(h);
+                    const buff = resumo ? ` · ${resumo}` : '';
+                    const custo = h.custo && h.custo !== '—' ? ` · ${h.custo}` : '';
+                    const ef = h.efeito ? ` — ${h.efeito}` : '';
+                    return `<option value="${h.id}">${on ? '● ' : '○ '}${h.nome}${buff}${custo}${ef}</option>`;
+                }).join('');
         }
 
         function addBonusDados(delta) {
@@ -2808,6 +2813,8 @@
             renderHabResultados();
             renderBuffSumario();
         }
+        // Remover via select da visão Minhas (popover): tirar de Minhas devolve pro Adicionar
+        function removeHabSel(id) { if (id) removeHab(id); }
         function temBuff(h) { return !!((h.dado || 0) || (h.fixo || 0) || (h.marca || 0) || (h.janela || 0)); }
         function toggleHabAtiva(id) {
             if (habAtivas.includes(id)) habAtivas = habAtivas.filter(x => x !== id);
@@ -2843,23 +2850,19 @@
                 return `<button class="hab-buff-toggle${on ? ' on' : ''}" onclick="toggleHabAtiva('${h.id}')">${on ? '●' : '○'} ${ef}</button>`;
             };
 
-            // No popover: linha simples (nome + efeito curto + botões) pra caber mais escolhidas
+            // No popover: select nativo (rola sozinho no celular). Tocar numa habilidade REMOVE ela
+            // (sai de Minhas e volta pro Adicionar). Ligar/desligar pra rolagem é no select da visão Rolar.
             if (document.body.classList.contains('obr')) {
-                el.innerHTML = habSelecionadas.map(id => {
-                    const h = HAB_CATALOGO.find(x => x.id === id);
-                    if (!h) return '';
-                    const catCls = (h.tipo === 'origem') ? 'origem' : h.cat;
-                    const acoes = acoesDe(h);
-                    return `
-                        <div class="hab-min cat-${catCls}">
-                            <div class="hab-min-head">
-                                <span class="hab-min-nome">${h.nome}</span>
-                                ${acoes}
-                                <button class="hab-remove" aria-label="Remover" onclick="removeHab('${h.id}')">✕</button>
-                            </div>
-                            <div class="hab-min-ef">${h.efeito}</div>
-                        </div>`;
-                }).join("");
+                el.innerHTML = `
+                    <select class="border-rd-10 p-12-all w-100 fs-6" onchange="removeHabSel(this.value)">
+                        <option value="">Minhas (${habSelecionadas.length}) — toque pra remover…</option>
+                        ${habSelecionadas.map(id => {
+                            const h = HAB_CATALOGO.find(x => x.id === id);
+                            if (!h) return '';
+                            const ef = h.efeito ? ` — ${h.efeito}` : '';
+                            return `<option value="${h.id}">${h.nome}${ef}</option>`;
+                        }).join('')}
+                    </select>`;
                 return;
             }
 
