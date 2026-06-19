@@ -882,6 +882,26 @@
         .estilo-efeitos.show { display:block; }
         .estilo-efeitos ul { margin:4px 0 0; padding-left:16px; }
         .estilo-efeitos li { margin-bottom:4px; color:var(--cor-texto-soft); }
+        /* Buff consolidado (embaixo dos atributos): soma de arma + habilidades ligadas + bônus manual */
+        .ficha-buff-sumario {
+            display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+            background:rgba(0,0,0,0.25); border:1px solid var(--cor-borda); border-left:3px solid var(--cor-gold);
+            border-radius:10px; padding:9px 12px; line-height:1.35;
+        }
+        .ficha-buff-sumario.ativo { border-left-color:var(--cor-secundaria); background:rgba(220,20,60,0.07); }
+        .buff-badge {
+            font-family:'Bebas Neue',sans-serif; letter-spacing:1px; font-size:0.95rem; color:var(--cor-gold);
+            background:rgba(212,175,55,0.12); padding:3px 10px; border-radius:6px; flex-shrink:0;
+        }
+        .buff-fontes { font-size:0.72rem; opacity:0.6; }
+        /* Interruptor de buff da habilidade (liga/desliga o que soma na rolagem) */
+        .hab-buff-toggle {
+            border:1px solid var(--cor-borda); background:rgba(0,0,0,0.3); color:var(--cor-texto-soft);
+            border-radius:20px; padding:3px 10px; font-size:0.72rem; cursor:pointer;
+            font-family:'Bebas Neue',sans-serif; letter-spacing:0.5px; white-space:nowrap; transition:all 0.2s ease;
+        }
+        .hab-buff-toggle:hover { border-color:var(--cor-secundaria); }
+        .hab-buff-toggle.on { background:var(--gradient-blood); color:#fff; border-color:var(--cor-secundaria); }
         #ficha-completa textarea { min-height:58px; resize:vertical; font-family:'Roboto',sans-serif; }
         #ficha-completa summary { cursor:pointer; list-style:none; }
         #ficha-completa summary::-webkit-details-marker { display:none; }
@@ -1138,6 +1158,7 @@
                 <!-- Popover Owlbear: troca de visão por toque (sem precisar rolar a tela) -->
                 <div class="ficha-switch m-12-b">
                     <button type="button" class="ficha-view-btn active" data-view="rolar" onclick="setFichaView('rolar')">🎲 Rolar</button>
+                    <button type="button" class="ficha-view-btn" data-view="combate" onclick="setFichaView('combate')">⚔️ Combate</button>
                     <button type="button" class="ficha-view-btn" data-view="bonus" onclick="setFichaView('bonus')">✨ Bônus</button>
                     <button type="button" class="ficha-view-btn" data-view="hab" onclick="setFichaView('hab')">📖 Habilidades</button>
                 </div>
@@ -1167,16 +1188,25 @@
                 <div class="section-box" id="ficha-attrs-box">
                     <label class="field-label m-15-b obr-hide">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
                     <div id="ficha-attrs" class="ficha-grid"></div>
+                    <div id="ficha-buff-sumario" class="ficha-buff-sumario m-12-t"></div>
                     <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t obr-hide" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
                     <p class="fs-5 opacity-5 m-10-t obr-hide" id="ficha-save-hint"></p>
                 </div>
 
-                <div class="section-box obr-hide" id="ficha-estilo-box">
+                <div class="section-box" id="ficha-estilo-box">
                     <label class="field-label m-15-b">⚔️ Estilo de Luta <span class="opacity-5 fs-5">· passivo, sempre ativo</span></label>
                     <select id="ficha-estilo" class="border-rd-10 p-14-all w-100 fs-7" onchange="renderEstilo(); salvarFichaLocal();">
                         <option value="">— nenhum —</option>
                     </select>
                     <div id="ficha-estilo-efeitos" class="estilo-efeitos fs-6 m-10-t"></div>
+                </div>
+
+                <div class="section-box" id="ficha-arma-box">
+                    <label class="field-label m-15-b">🗡️ Armamento <span class="opacity-5 fs-5">· soma no buff da rolagem</span></label>
+                    <select id="ficha-arma" class="border-rd-10 p-14-all w-100 fs-7" onchange="renderArma(); renderBuffSumario(); salvarFichaLocal();">
+                        <option value="">— desarmado —</option>
+                    </select>
+                    <div id="ficha-arma-efeitos" class="estilo-efeitos fs-6 m-10-t"></div>
                 </div>
 
                 <div class="section-box" id="ficha-bonus-box">
@@ -1232,7 +1262,7 @@
 
                 <div class="section-box obr-hide" id="ficha-export-box">
                     <label class="field-label m-10-b">📋 Exportar Ficha</label>
-                    <p class="fs-5 opacity-5 m-10-b">Gera a ficha pronta no modelo SCAR com o que o rolador já sabe: <strong>nome, atributos, Stress/Movimento (calculados), estilo e habilidades</strong>. O resto (idade, conceito, injúrias, armamento, talismã, poderes…) vem <strong>em branco pra você editar no arquivo</strong>.</p>
+                    <p class="fs-5 opacity-5 m-10-b">Gera a ficha pronta no modelo SCAR com o que o rolador já sabe: <strong>nome, atributos, Stress/Movimento (calculados), estilo, armamento e habilidades</strong>. O resto (idade, conceito, injúrias, talismã, poderes…) vem <strong>em branco pra você editar no arquivo</strong>.</p>
                     <div class="d-flex f-gap-10">
                         <button class="btn btn-primary border-rd-10 p-12-tb f-grow-1 fs-7" onclick="exportarFicha('txt')">⬇️ .txt</button>
                         <button class="btn btn-primary border-rd-10 p-12-tb f-grow-1 fs-7" onclick="exportarFicha('md')">⬇️ .md</button>
@@ -1331,7 +1361,7 @@
         }
 
         // ========== HISTÓRICO ==========
-        function addHistorico(tipo, descricao, total, extra = '', transmitir = true, estilo = '') {
+        function addHistorico(tipo, descricao, total, extra = '', transmitir = true, estilo = '', arma = '') {
             const hora = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
             historico.unshift({ hora, tipo, descricao, total, extra });
             if (historico.length > 50) historico.pop();
@@ -1340,7 +1370,7 @@
 
             // Owlbear: transmite a rolagem para todos da sala (notificacao nativa)
             if (transmitir && typeof window.enviarRolagemOBR === 'function') {
-                window.enviarRolagemOBR({ tipo, descricao, total, extra, estilo });
+                window.enviarRolagemOBR({ tipo, descricao, total, extra, estilo, arma });
             }
         }
 
@@ -2237,6 +2267,8 @@
             const vis = {
                 'ficha-attrs-box': v === 'rolar',
                 'ficha-resultado': v === 'rolar',
+                'ficha-estilo-box': v === 'combate',
+                'ficha-arma-box': v === 'combate',
                 'ficha-bonus-box': v === 'bonus',
                 'ficha-habilidades-box': v === 'hab',
             };
@@ -2289,14 +2321,100 @@
             box.classList.add('show');
         }
 
+        // ===== Armamentos (catálogo da Vendinha do Seu Bento) =====
+        // dado = d10 de bônus que soma no buff · nivel = grau de dano-base · crit = efeito do crítico
+        const ARMAMENTOS = [
+            { id:'faca', nome:'Faca', dado:0, nivel:'Leve', alcance:'Curto', crit:'Sangramento (+2 Stress/rd)', efeito:'Ocultável, Perfurante (ignora 1 proteção), +2d10 contra alvo desprevenido' },
+            { id:'soco-ingles', nome:'Soco Inglês', dado:1, nivel:'Leve', alcance:'Curto', crit:'Atordoar (-1 ação)', efeito:'Ocultável' },
+            { id:'bastao', nome:'Bastão/Taco', dado:1, nivel:'Leve', alcance:'Curto', crit:'Atordoar (-1 ação)', efeito:'—' },
+            { id:'katana', nome:'Katana', dado:1, nivel:'Grave', alcance:'Curto', crit:'Sangramento (+3 Stress/rd)', efeito:'Alcance estendido' },
+            { id:'machado', nome:'Machado', dado:2, nivel:'Grave', alcance:'Curto', crit:'Execução (morte em indefeso)', efeito:'Pesada (-1d10 esquiva)' },
+            { id:'marreta', nome:'Marreta', dado:2, nivel:'Grave', alcance:'Curto', crit:'Derrubar', efeito:'Pesada (-1d10 esquiva), Lenta' },
+            { id:'motosserra', nome:'Motosserra', dado:3, nivel:'Grave', alcance:'Curto', crit:'Brutal (+1 nível de Injúria)', efeito:'Pesada, Barulhenta, requer combustível' },
+            { id:'lanca', nome:'Lança', dado:1, nivel:'Grave', alcance:'Curto', crit:'Perfurante (ignora 1 proteção)', efeito:'Alcance estendido, pode arremessar (1x)' },
+            { id:'revolver', nome:'Revólver', dado:1, nivel:'Grave', alcance:'Médio', crit:'+1 nível de Injúria', efeito:'Confiável (nunca falha), 6 tiros' },
+            { id:'pistola-9mm', nome:'Pistola 9mm', dado:1, nivel:'Grave', alcance:'Médio', crit:'+1 nível de Injúria', efeito:'Rápida (atira 2x), 3 rajadas' },
+            { id:'pistola-45', nome:'Pistola .45', dado:2, nivel:'Grave', alcance:'Médio', crit:'Perfurante', efeito:'Recuo (-1d10 no 2º tiro seguido), 4 tiros' },
+            { id:'smg', nome:'Submetralhadora', dado:2, nivel:'Grave', alcance:'Médio', crit:'Supressão (alvo não avança)', efeito:'Área (até 2 alvos), 2 rajadas' },
+            { id:'rifle-caca', nome:'Rifle de Caça', dado:2, nivel:'Crítica', alcance:'Longo', crit:'Execução', efeito:'Precisa (+2d10 se preparar), 3 tiros' },
+            { id:'rifle-tatico', nome:'Rifle Tático', dado:2, nivel:'Crítica', alcance:'Longo', crit:'+1 nível de Injúria', efeito:'Rápido (não precisa preparar), 5 tiros' },
+            { id:'sniper', nome:'Sniper', dado:3, nivel:'Crítica', alcance:'Longo', crit:'Execução (se alvo não souber)', efeito:'Requer preparo (1 ação), Silencioso (1º tiro), 1 tiro' },
+            { id:'granada', nome:'Granada', dado:2, nivel:'Grave', alcance:'Especial', crit:'', efeito:'Arremesso, área grande, 1 uso' },
+            { id:'molotov', nome:'Coquetel Molotov', dado:1, nivel:'Grave', alcance:'Especial', crit:'', efeito:'Arremesso, área média, Queimadura (+3 Stress/rd), 1 uso' },
+            { id:'arco', nome:'Arco Composto', dado:1, nivel:'Grave', alcance:'Longo', crit:'', efeito:'Silencioso, munição ilimitada (flechas recuperáveis)' },
+        ];
+        function montarArmas() {
+            const sel = document.getElementById('ficha-arma');
+            if (!sel) return;
+            const grupos = {};
+            ARMAMENTOS.forEach(a => { (grupos[a.alcance] = grupos[a.alcance] || []).push(a); });
+            let html = '<option value="">— desarmado —</option>';
+            for (const g in grupos) {
+                html += `<optgroup label="${g} alcance">` + grupos[g].map(a =>
+                    `<option value="${a.id}">${a.nome} · ${a.dado ? '+' + a.dado + 'd10' : '+0'} ${a.nivel}</option>`).join('') + '</optgroup>';
+            }
+            sel.innerHTML = html;
+        }
+        function renderArma() {
+            const sel = document.getElementById('ficha-arma');
+            const box = document.getElementById('ficha-arma-efeitos');
+            if (!sel || !box) return;
+            const a = ARMAMENTOS.find(x => x.id === sel.value);
+            if (!a) { box.classList.remove('show'); box.innerHTML = ''; return; }
+            box.innerHTML = '<ul>' + [
+                `<li><b>Dano:</b> ${a.dado ? '+' + a.dado + 'd10' : '+0'} · ${a.nivel}</li>`,
+                a.crit ? `<li><b>Crítico:</b> ${a.crit}</li>` : '',
+                `<li><b>Alcance:</b> ${a.alcance}</li>`,
+                a.efeito && a.efeito !== '—' ? `<li>${a.efeito}</li>` : '',
+            ].filter(Boolean).join('') + '</ul>';
+            box.classList.add('show');
+        }
+        // Buff consolidado: bônus manual + arma equipada + habilidades ligadas
+        function getBuff() {
+            let dados = fichaBonusDados, fixo = fichaExtras, marcasExtra = fichaMarcas - 1, janela = fichaJanela;
+            const fontes = [];
+            if (fichaBonusDados) fontes.push(`+${fichaBonusDados}d10 manual`);
+            if (fichaExtras) fontes.push(`+${fichaExtras} fixo`);
+            const armaSel = document.getElementById('ficha-arma');
+            const arma = armaSel ? ARMAMENTOS.find(a => a.id === armaSel.value) : null;
+            if (arma) { dados += arma.dado; fontes.push(`🗡️ ${arma.nome}${arma.dado ? ' +' + arma.dado + 'd10' : ''}`); }
+            habAtivas.forEach(id => {
+                const h = HAB_CATALOGO.find(x => x.id === id);
+                if (!h) return;
+                dados += h.dado || 0; fixo += h.fixo || 0; marcasExtra += h.marca || 0; janela += h.janela || 0;
+                fontes.push(`⚡ ${h.nome}`);
+            });
+            const marcas = Math.max(1, 1 + marcasExtra);
+            return { dados, fixo, marcas, janela, arma, fontes };
+        }
+        function renderBuffSumario() {
+            const el = document.getElementById('ficha-buff-sumario');
+            if (!el) return;
+            const b = getBuff();
+            const critMin = Math.max(5, 10 - b.janela), desMax = Math.min(4, 1 + b.janela);
+            const partes = [];
+            if (b.dados) partes.push(`+${b.dados}d10`);
+            if (b.fixo) partes.push(`+${b.fixo} fixo`);
+            if (b.marcas > 1) partes.push(`🎯 ${b.marcas} marcados`);
+            if (b.janela > 0) partes.push(`janela ${critMin}-10 / 1-${desMax}`);
+            el.classList.toggle('ativo', partes.length > 0);
+            if (!partes.length) {
+                el.innerHTML = `<span class="opacity-4 fs-5">Sem buff ativo — a rolagem usa só o atributo.</span>`;
+                return;
+            }
+            el.innerHTML = `<span class="buff-badge">⚡ Buff: ${partes.join(' · ')}</span><span class="buff-fontes">${b.fontes.join(' · ')}</span>`;
+        }
+
         function addBonusDados(delta) {
             fichaBonusDados = Math.max(0, fichaBonusDados + delta);
             document.getElementById('ficha-bonus-dados-lbl').textContent = '+' + fichaBonusDados + 'd10';
             document.getElementById('ficha-bonus-row').classList.toggle('ativo', fichaBonusDados > 0);
+            renderBuffSumario();
         }
         function stepExtrasFicha(delta) {
             fichaExtras = Math.max(0, fichaExtras + delta);
             document.getElementById('ficha-extras-qtd').textContent = "+" + fichaExtras;
+            renderBuffSumario();
         }
         function addMarca(n) { fichaMarcas = Math.min(6, Math.max(1, fichaMarcas + n)); atualizarMarcaRow(); }
         function addJanela(n) { fichaJanela = Math.min(5, Math.max(0, fichaJanela + n)); atualizarMarcaRow(); }
@@ -2315,6 +2433,7 @@
                     lbl.textContent = '';
                 }
             }
+            renderBuffSumario();
         }
 
         // ===== Catálogo de Habilidades (195 — extraído de habilidades.html) =====
@@ -2529,6 +2648,7 @@
             {"id":"sussurro-demoniaco","nome":"Sussurro Demoníaco","tipo":"origem","cat":"demonio","custo":"3 Stress · Negociação","efeito":"Planta uma ideia na mente do alvo (Negociação vs Vínculo); o alvo age conforme por 1 rd.","dado":0,"fixo":0},
         ];
         let habSelecionadas = [];   // ids escolhidos
+        let habAtivas = [];         // ids LIGADOS no buff (subconjunto de habSelecionadas)
         let habTab = 'geral';       // aba ativa do buscador
         let habView = 'ver';        // modo aberto: 'ver' | 'add' | null
         let habCatFiltro = null;    // filtro de categoria/natureza ativo (null = todas)
@@ -2620,9 +2740,19 @@
         }
         function removeHab(id) {
             habSelecionadas = habSelecionadas.filter(x => x !== id);
+            habAtivas = habAtivas.filter(x => x !== id);   // tirar da ficha também desliga o buff
             salvarHabs();
             renderHabSelecionadas();
             renderHabResultados();
+            renderBuffSumario();
+        }
+        function temBuff(h) { return !!((h.dado || 0) || (h.fixo || 0) || (h.marca || 0) || (h.janela || 0)); }
+        function toggleHabAtiva(id) {
+            if (habAtivas.includes(id)) habAtivas = habAtivas.filter(x => x !== id);
+            else habAtivas.push(id);
+            salvarHabs();
+            renderHabSelecionadas();
+            renderBuffSumario();
         }
         function toggleHabCard(id) {
             const c = document.getElementById('habcard-' + id);
@@ -2637,12 +2767,19 @@
                 el.innerHTML = `<p class="hab-empty">Nenhuma ainda — busque acima e toque pra pegar.</p>`;
                 return;
             }
-            const acoesDe = h => [
-                h.dado ? `<button class="hab-quick" onclick="addBonusDados(${h.dado})">+${h.dado}d10</button>` : '',
-                h.fixo ? `<button class="hab-quick" onclick="stepExtrasFicha(${h.fixo})">+${h.fixo} fixo</button>` : '',
-                h.marca ? `<button class="hab-quick" onclick="addMarca(${h.marca})">+${h.marca} marcado</button>` : '',
-                h.janela ? `<button class="hab-quick" onclick="addJanela(${h.janela})">janela +${h.janela}</button>` : '',
-            ].filter(Boolean).join('');
+            // Interruptor de buff: liga/desliga o que a habilidade soma na rolagem.
+            // Só habilidades com bônus numérico têm interruptor; as qualitativas ficam só como lembrete.
+            const acoesDe = h => {
+                if (!temBuff(h)) return '';
+                const on = habAtivas.includes(h.id);
+                const ef = [
+                    h.dado ? `+${h.dado}d10` : '',
+                    h.fixo ? `+${h.fixo} fixo` : '',
+                    h.marca ? `🎯+${h.marca}` : '',
+                    h.janela ? `janela+${h.janela}` : '',
+                ].filter(Boolean).join(' ');
+                return `<button class="hab-buff-toggle${on ? ' on' : ''}" onclick="toggleHabAtiva('${h.id}')">${on ? '✓' : '+'} ${ef}</button>`;
+            };
 
             // No popover: linha simples (nome + efeito curto + botões) pra caber mais escolhidas
             if (document.body.classList.contains('obr')) {
@@ -2686,17 +2823,21 @@
         }
         function salvarHabs() {
             localStorage.setItem('scar-habs', JSON.stringify(habSelecionadas));
+            localStorage.setItem('scar-habs-ativas', JSON.stringify(habAtivas));
         }
         function carregarHabs() {
             try {
                 const raw = localStorage.getItem('scar-habs');
                 if (raw) habSelecionadas = JSON.parse(raw).filter(id => HAB_CATALOGO.some(h => h.id === id));
+                const rawA = localStorage.getItem('scar-habs-ativas');
+                if (rawA) habAtivas = JSON.parse(rawA).filter(id => habSelecionadas.includes(id));
             } catch (e) {}
             renderHabSelecionadas();
             renderHabResultados();
+            renderBuffSumario();
         }
         // Campos de texto persistidos (id = 'ficha-' + chave). O resto da ficha sai em branco no export pra editar no arquivo.
-        const FICHA_CAMPOS = ['nome','natureza','pm','estilo'];
+        const FICHA_CAMPOS = ['nome','natureza','pm','estilo','arma'];
         function salvarFichaLocal() {
             const f = {};
             FICHA_CAMPOS.forEach(c => { const el = document.getElementById('ficha-' + c); if (el) f[c] = el.value; });
@@ -2718,6 +2859,8 @@
                     else if (f[a] !== undefined) el.value = f[a];   // retrocompat (formato antigo)
                 });
                 renderEstilo();
+                renderArma();
+                renderBuffSumario();
             } catch (e) {}
         }
         // ===== Exportar ficha (.txt / .md) no modelo SCAR =====
@@ -2729,6 +2872,8 @@
             const mov = at['Coordenação'] * 2;
             const nome = _vficha('ficha-nome') || 'Sem Nome';
             const estilo = _vficha('ficha-estilo') || '—';
+            const armaEquip = ARMAMENTOS.find(a => a.id === _vficha('ficha-arma'));
+            const armaExport = armaEquip ? `${armaEquip.nome} — ${armaEquip.dado ? '+' + armaEquip.dado + 'd10' : '+0'} ${armaEquip.nivel}${armaEquip.crit ? ` · crít: ${armaEquip.crit}` : ''}` : '';
             const natureza = _vficha('ficha-natureza') || '—';
             const ehDemonio = natureza === 'Demônio Puro';
 
@@ -2815,7 +2960,7 @@
                 '═══ EQUIPAMENTO ═══',
                 '',
                 'ARMAMENTO:',
-                _vficha('ficha-armamento'),
+                armaExport || _vficha('ficha-armamento'),
                 '',
                 'AFLIÇÕES:',
                 _vficha('ficha-aflicoes'),
@@ -2847,7 +2992,12 @@
         }
         async function rolarFicha(attr) {
             const base = parseInt(document.getElementById('ficha-attr-' + attr).value) || 0;
-            const extraDados = fichaBonusDados;
+            // Buff consolidado: bônus manual + arma equipada + habilidades ligadas
+            const buff = getBuff();
+            const extraDados = buff.dados;
+            const extrasFixos = buff.fixo;
+            const marcas = buff.marcas;
+            const janela = buff.janela;
             const qtd = Math.max(1, base + extraDados);
 
             // Troca Equivalente — Limite do Dobro: o bônus em d10 pode chegar a 2× o atributo.
@@ -2860,18 +3010,19 @@
 
             const resultados = rolarMultiplos(qtd, 10);
             const somaDados = soma(resultados);
-            const total = somaDados + fichaExtras + fixoSobrecarga;
+            const total = somaDados + extrasFixos + fixoSobrecarga;
             const personagem = (document.getElementById('ficha-nome').value || '').trim();
 
-            const destino = efeitoDestino(resultados, 10, fichaMarcas, fichaJanela);
-            const marcado = fichaMarcas > 1 || fichaJanela > 0;   // Dado Marcado modificado?
-            const critMin = Math.max(5, 10 - fichaJanela), desMax = Math.min(4, 1 + fichaJanela);
+            const destino = efeitoDestino(resultados, 10, marcas, janela);
+            const marcado = marcas > 1 || janela > 0;   // Dado Marcado modificado?
+            const critMin = Math.max(5, 10 - janela), desMax = Math.min(4, 1 + janela);
 
             const container = document.getElementById('ficha-resultado');
-            await renderDados(container, resultados, 10, fichaMarcas);
+            await renderDados(container, resultados, 10, marcas);
 
-            const detalhe = `${base}d10 (${attr})${extraDados ? ` + ${extraDados}d10 (bônus)` : ""} = ${qtd}d10 · bônus máx ${bonusMax}d10${fichaExtras ? ` , +${fichaExtras} no total` : ""}${fixoSobrecarga ? ` , +${fixoSobrecarga} fixo (sobrecarga)` : ""}${marcado ? ` · 🎯 ${fichaMarcas} marcado(s), janela ${critMin}-10 / 1-${desMax}` : ""}`;
-            const somaBreak = (fichaExtras || fixoSobrecarga) ? ` &nbsp;${somaDados}${fichaExtras ? `+${fichaExtras}` : ""}${fixoSobrecarga ? `+${fixoSobrecarga}` : ""}` : "";
+            const buffTxt = buff.fontes.length ? ` · buff: ${buff.fontes.join(', ')}` : '';
+            const detalhe = `${base}d10 (${attr})${extraDados ? ` + ${extraDados}d10 (bônus)` : ""} = ${qtd}d10 · bônus máx ${bonusMax}d10${extrasFixos ? ` , +${extrasFixos} no total` : ""}${fixoSobrecarga ? ` , +${fixoSobrecarga} fixo (sobrecarga)` : ""}${marcado ? ` · 🎯 ${marcas} marcado(s), janela ${critMin}-10 / 1-${desMax}` : ""}${buffTxt}`;
+            const somaBreak = (extrasFixos || fixoSobrecarga) ? ` &nbsp;${somaDados}${extrasFixos ? `+${extrasFixos}` : ""}${fixoSobrecarga ? `+${fixoSobrecarga}` : ""}` : "";
             const statusBanners = [
                 destino === 'critico' ? `<div class="status-banner status-crit"><span class="sb-icon">🔥</span><div class="sb-body"><span class="sb-title">Crítico!</span><span class="sb-desc">${marcado ? `Dado Marcado ≥ ${critMin} · sucesso espetacular` : 'Dado Marcado = 10 · sucesso espetacular'}</span></div></div>` : '',
                 destino === 'desastre' ? `<div class="status-banner status-disaster"><span class="sb-icon">💀</span><div class="sb-body"><span class="sb-title">Desastre</span><span class="sb-desc">${marcado ? `Dado Marcado ≤ ${desMax}` : 'Dado Marcado = 1'}</span></div></div>` : '',
@@ -2888,13 +3039,14 @@
 
             // Transmite (Owlbear/online): nome do personagem + qtd de dados + valores crus + total = anti-trapaça
             const tipo = personagem ? `${attr} · ${personagem}` : attr;
-            const descricao = `${qtd}d10${fichaExtras ? ` +${fichaExtras}` : ""}${fixoSobrecarga ? ` +${fixoSobrecarga}fx` : ""} = [${resultados.join(", ")}]`;
+            const descricao = `${qtd}d10${extrasFixos ? ` +${extrasFixos}` : ""}${fixoSobrecarga ? ` +${fixoSobrecarga}fx` : ""} = [${resultados.join(", ")}]`;
             let extraTxt = '';
             if (destino === 'critico') extraTxt += 'CRÍTICO ';
             else if (destino === 'desastre') extraTxt += 'DESASTRE ';
             if (sobrecarregado) extraTxt += `SOBRECARGA(+${stressSobrecarga} Stress) `;
             const estilo = (document.getElementById('ficha-estilo')?.value || '').trim();
-            addHistorico(tipo, descricao, total, extraTxt.trim(), true, estilo);
+            const armaTxt = buff.arma ? `${buff.arma.nome} (${buff.arma.nivel}${buff.arma.dado ? ` +${buff.arma.dado}d10` : ''})` : '';
+            addHistorico(tipo, descricao, total, extraTxt.trim(), true, estilo, armaTxt);
         }
 
         // Dentro do Owlbear o rolador roda num iframe (popover) → ativa modo compacto e abre na Ficha.
@@ -2909,10 +3061,12 @@
         // Inicializa a aba Ficha
         montarFichaAttrs();
         montarEstilos();
+        montarArmas();
         carregarFichaLocal();
         montarHabChips();
         carregarHabs();
         atualizarMarcaRow();
+        renderBuffSumario();
     </script>
 
     <!-- ========== INTEGRACAO OWLBEAR RODEO (notificacao para todos) ========== -->
@@ -2933,6 +3087,7 @@
             if (isCrit) flags.push("🔥 CRÍTICO");
             if (isDes) flags.push("💀 DESASTRE");
             if (isSobre) flags.push("⚠️ SOBRECARGA");
+            if (r.arma) flags.push(`🗡️ ${r.arma}`);
             if (r.estilo) flags.push(`⚔️ ${r.estilo}`);
             if (flags.length) txt += `  ·  ${flags.join(" · ")}`;
             let variant = "DEFAULT";
