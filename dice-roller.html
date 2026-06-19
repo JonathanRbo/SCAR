@@ -1331,7 +1331,7 @@
         }
 
         // ========== HISTÓRICO ==========
-        function addHistorico(tipo, descricao, total, extra = '', transmitir = true) {
+        function addHistorico(tipo, descricao, total, extra = '', transmitir = true, estilo = '') {
             const hora = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
             historico.unshift({ hora, tipo, descricao, total, extra });
             if (historico.length > 50) historico.pop();
@@ -1340,7 +1340,7 @@
 
             // Owlbear: transmite a rolagem para todos da sala (notificacao nativa)
             if (transmitir && typeof window.enviarRolagemOBR === 'function') {
-                window.enviarRolagemOBR({ tipo, descricao, total, extra });
+                window.enviarRolagemOBR({ tipo, descricao, total, extra, estilo });
             }
         }
 
@@ -1379,11 +1379,11 @@
 
         let diceIdCounter = 0;
 
-        function renderDados(container, resultados, lados = 10) {
+        function renderDados(container, resultados, lados = 10, marcas = 1) {
             const baseId = ++diceIdCounter;
             container.innerHTML = `
                 <div class="dice-pool m-20-b" id="dice-pool-${baseId}">
-                    ${resultados.map((r, i) => `<div class="die rolling border-rd-8${i === 0 ? ' destino' : ''}" id="die-${baseId}-${i}">?</div>`).join('')}
+                    ${resultados.map((r, i) => `<div class="die rolling border-rd-8${i < marcas ? ' destino' : ''}" id="die-${baseId}-${i}">?</div>`).join('')}
                 </div>
             `;
 
@@ -2868,7 +2868,7 @@
             const critMin = Math.max(5, 10 - fichaJanela), desMax = Math.min(4, 1 + fichaJanela);
 
             const container = document.getElementById('ficha-resultado');
-            await renderDados(container, resultados);
+            await renderDados(container, resultados, 10, fichaMarcas);
 
             const detalhe = `${base}d10 (${attr})${extraDados ? ` + ${extraDados}d10 (bônus)` : ""} = ${qtd}d10 · bônus máx ${bonusMax}d10${fichaExtras ? ` , +${fichaExtras} no total` : ""}${fixoSobrecarga ? ` , +${fixoSobrecarga} fixo (sobrecarga)` : ""}${marcado ? ` · 🎯 ${fichaMarcas} marcado(s), janela ${critMin}-10 / 1-${desMax}` : ""}`;
             const somaBreak = (fichaExtras || fixoSobrecarga) ? ` &nbsp;${somaDados}${fichaExtras ? `+${fichaExtras}` : ""}${fixoSobrecarga ? `+${fixoSobrecarga}` : ""}` : "";
@@ -2893,7 +2893,8 @@
             if (destino === 'critico') extraTxt += 'CRÍTICO ';
             else if (destino === 'desastre') extraTxt += 'DESASTRE ';
             if (sobrecarregado) extraTxt += `SOBRECARGA(+${stressSobrecarga} Stress) `;
-            addHistorico(tipo, descricao, total, extraTxt.trim());
+            const estilo = (document.getElementById('ficha-estilo')?.value || '').trim();
+            addHistorico(tipo, descricao, total, extraTxt.trim(), true, estilo);
         }
 
         // Dentro do Owlbear o rolador roda num iframe (popover) → ativa modo compacto e abre na Ficha.
@@ -2923,7 +2924,8 @@
         let meuNomeOBR = "Jogador";
 
         function montarTexto(r) {
-            const ex = r.extra || "";
+            // Normaliza acentos: "CRÍTICO" vira "CRITICO" pra /crit/i casar (senão o Í quebra o teste)
+            const ex = (r.extra || "").normalize("NFD").replace(/\p{Diacritic}/gu, "");
             const isCrit = /crit/i.test(ex), isDes = /desastre/i.test(ex), isSobre = /sobrecarga/i.test(ex);
             // resultado na frente, sem amontoar: nome — tipo: TOTAL (detalhe/dados ficam no histórico)
             let txt = `🎲 ${r.nome || "Jogador"} — ${r.tipo}: ${r.total}`;
@@ -2931,6 +2933,7 @@
             if (isCrit) flags.push("🔥 CRÍTICO");
             if (isDes) flags.push("💀 DESASTRE");
             if (isSobre) flags.push("⚠️ SOBRECARGA");
+            if (r.estilo) flags.push(`⚔️ ${r.estilo}`);
             if (flags.length) txt += `  ·  ${flags.join(" · ")}`;
             let variant = "DEFAULT";
             if (isDes) variant = "ERROR";          // vermelho
