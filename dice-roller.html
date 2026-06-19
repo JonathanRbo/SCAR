@@ -2430,6 +2430,11 @@
             const b = getBuff();
             el.innerHTML = b.fontes.length ? `<b>Compondo o buff:</b> ${b.fontes.join(' · ')}` : '';
         }
+        // Custo sem o "PM" — PM é controlado no Discord, não no rolador; só polui a opção
+        function custoSemPM(custo) {
+            if (!custo || custo === '—') return '';
+            return custo.split('·').map(s => s.trim()).filter(s => s && !/\bPM\b/i.test(s)).join(' · ');
+        }
         function buffResumo(h) {
             return [
                 h.dado ? `+${h.dado}d10` : '',
@@ -2465,9 +2470,9 @@
                     const on = habAtivas.includes(h.id);
                     const resumo = buffResumo(h);
                     const buff = resumo ? ` · ${resumo}` : '';
-                    const custo = h.custo && h.custo !== '—' ? ` · ${h.custo}` : '';
-                    const ef = h.efeito ? ` — ${h.efeito}` : '';
-                    return `<option value="${h.id}">${on ? '● ' : '○ '}${h.nome}${buff}${custo}${ef}</option>`;
+                    const cRaw = custoSemPM(h.custo);
+                    const custo = cRaw ? ` · ${cRaw}` : '';
+                    return `<option value="${h.id}">${on ? '● ' : '○ '}${h.nome}${buff}${custo}</option>`;
                 }).join('');
         }
 
@@ -2836,55 +2841,19 @@
                 el.innerHTML = `<p class="hab-empty">Nenhuma ainda — busque acima e toque pra pegar.</p>`;
                 return;
             }
-            // Interruptor de buff: liga/desliga o que a habilidade soma na rolagem.
-            // Só habilidades com bônus numérico têm interruptor; as qualitativas ficam só como lembrete.
-            const acoesDe = h => {
-                if (!temBuff(h)) return '';
-                const on = habAtivas.includes(h.id);
-                const ef = [
-                    h.dado ? `+${h.dado}d10` : '',
-                    h.fixo ? `+${h.fixo} fixo` : '',
-                    h.marca ? `🎯+${h.marca}` : '',
-                    h.janela ? `janela+${h.janela}` : '',
-                ].filter(Boolean).join(' ');
-                return `<button class="hab-buff-toggle${on ? ' on' : ''}" onclick="toggleHabAtiva('${h.id}')">${on ? '●' : '○'} ${ef}</button>`;
-            };
-
-            // No popover: select nativo (rola sozinho no celular). Tocar numa habilidade REMOVE ela
-            // (sai de Minhas e volta pro Adicionar). Ligar/desligar pra rolagem é no select da visão Rolar.
-            if (document.body.classList.contains('obr')) {
-                el.innerHTML = `
-                    <select class="border-rd-10 p-12-all w-100 fs-6" onchange="removeHabSel(this.value)">
-                        <option value="">Minhas (${habSelecionadas.length}) — toque pra remover…</option>
-                        ${habSelecionadas.map(id => {
-                            const h = HAB_CATALOGO.find(x => x.id === id);
-                            if (!h) return '';
-                            const ef = h.efeito ? ` — ${h.efeito}` : '';
-                            return `<option value="${h.id}">${h.nome}${ef}</option>`;
-                        }).join('')}
-                    </select>`;
-                return;
-            }
-
-            const cards = habSelecionadas.map(id => {
-                const h = HAB_CATALOGO.find(x => x.id === id);
-                if (!h) return '';
-                const catCls = (h.tipo === 'origem') ? 'origem' : h.cat;   // skill-card .fisico/.mental/.social/.origem
-                const acoes = acoesDe(h);
-                return `
-                    <div class="c-xs-12 c-sm-6 c-md-4">
-                        <div class="skill-card ${catCls} h-100 p-10-all d-flex f-col" id="habcard-${h.id}">
-                            <div class="d-flex f-justify-between f-items-start f-gap-5">
-                                <span class="fs-7 fw-700 hab-toggle" onclick="toggleHabCard('${h.id}')">${h.nome}</span>
-                                <button class="hab-remove" aria-label="Remover" onclick="removeHab('${h.id}')">✕</button>
-                            </div>
-                            <div class="fs-5 m-10-t f-grow-1 hab-ef" onclick="toggleHabCard('${h.id}')">${h.efeito}</div>
-                            ${h.custo && h.custo !== '—' ? `<div class="fs-4 m-5-t hab-custo">${h.custo}</div>` : ''}
-                            ${acoes ? `<div class="d-flex f-gap-5 f-wrap m-10-t">${acoes}</div>` : ''}
-                        </div>
-                    </div>`;
-            }).join("");
-            el.innerHTML = `<div class="row gap-10">${cards}</div>`;
+            // Select nativo (site E Owlbear): pra VER as habilidades (nome + efeito).
+            // Tocar numa REMOVE ela (sai de Minhas e volta pro Adicionar).
+            // Ligar/desligar pra rolagem é no select da visão Rolar.
+            el.innerHTML = `
+                <select class="border-rd-10 p-12-all w-100 fs-6" onchange="removeHabSel(this.value)">
+                    <option value="">Minhas (${habSelecionadas.length}) — toque pra remover…</option>
+                    ${habSelecionadas.map(id => {
+                        const h = HAB_CATALOGO.find(x => x.id === id);
+                        if (!h) return '';
+                        const ef = h.efeito ? ` — ${h.efeito}` : '';
+                        return `<option value="${h.id}">${h.nome}${ef}</option>`;
+                    }).join('')}
+                </select>`;
         }
         function salvarHabs() {
             localStorage.setItem('scar-habs', JSON.stringify(habSelecionadas));
