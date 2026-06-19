@@ -1199,6 +1199,9 @@
                     <label class="field-label m-15-b obr-hide">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
                     <div id="ficha-attrs" class="ficha-grid"></div>
                     <div id="ficha-buff-sumario" class="ficha-buff-sumario m-12-t"></div>
+                    <select id="ficha-buff-add" class="border-rd-10 p-12-all w-100 fs-6 m-10-t" onchange="ativarHab(this.value)" style="display:none">
+                        <option value="">＋ Ligar habilidade no buff…</option>
+                    </select>
                     <div id="ficha-buff-chips" class="ficha-buff-chips m-10-t"></div>
                     <button class="btn btn-secondary border-rd-10 p-12-tb w-100 fs-7 m-15-t obr-hide" onclick="salvarFichaLocal()">💾 Salvar Ficha neste navegador</button>
                     <p class="fs-5 opacity-5 m-10-t obr-hide" id="ficha-save-hint"></p>
@@ -2426,25 +2429,41 @@
             }
             el.innerHTML = `<span class="buff-badge">⚡ Buff: ${partes.join(' · ')}</span><span class="buff-fontes">${b.fontes.join(' · ')}</span>`;
         }
-        // Chips de acesso rápido: só as habilidades COM bônus numérico (poucas), pra ligar/desligar
-        // sem rolar a lista inteira — resolve o caso de ter muitas habilidades.
+        function buffResumo(h) {
+            return [
+                h.dado ? `+${h.dado}d10` : '',
+                h.fixo ? `+${h.fixo}` : '',
+                h.marca ? `🎯+${h.marca}` : '',
+                h.janela ? `jan+${h.janela}` : '',
+            ].filter(Boolean).join(' ');
+        }
+        // Liga uma habilidade no buff via select (igual escolha do Combate — funciona no celular sem arrastar)
+        function ativarHab(id) {
+            if (!id || habAtivas.includes(id)) return;
+            habAtivas.push(id);
+            salvarHabs();
+            renderHabSelecionadas();
+            renderBuffSumario();
+        }
+        // Ativação por select (escolhe a habilidade) + chips das ligadas (toque ✕ desliga).
+        // Só as habilidades COM bônus numérico entram aqui — resolve ter muitas habilidades no celular.
         function renderBuffChips() {
+            const sel = document.getElementById('ficha-buff-add');
             const el = document.getElementById('ficha-buff-chips');
-            if (!el) return;
             const ativaveis = habSelecionadas
                 .map(id => HAB_CATALOGO.find(h => h.id === id))
                 .filter(h => h && temBuff(h));
-            if (!ativaveis.length) { el.innerHTML = ''; return; }
-            el.innerHTML = ativaveis.map(h => {
-                const on = habAtivas.includes(h.id);
-                const ef = [
-                    h.dado ? `+${h.dado}d10` : '',
-                    h.fixo ? `+${h.fixo}` : '',
-                    h.marca ? `🎯+${h.marca}` : '',
-                    h.janela ? `jan+${h.janela}` : '',
-                ].filter(Boolean).join(' ');
-                return `<button class="hab-buff-toggle${on ? ' on' : ''}" onclick="toggleHabAtiva('${h.id}')">${on ? '✓' : '+'} ${h.nome} <span style="opacity:.75">${ef}</span></button>`;
-            }).join('');
+            if (sel) {
+                const inativas = ativaveis.filter(h => !habAtivas.includes(h.id));
+                sel.innerHTML = `<option value="">＋ Ligar habilidade no buff…</option>` +
+                    inativas.map(h => `<option value="${h.id}">${h.nome} · ${buffResumo(h)}</option>`).join('');
+                sel.style.display = ativaveis.length ? '' : 'none';
+            }
+            if (el) {
+                const ligadas = ativaveis.filter(h => habAtivas.includes(h.id));
+                el.innerHTML = ligadas.map(h =>
+                    `<button class="hab-buff-toggle on" onclick="toggleHabAtiva('${h.id}')">● ${h.nome} <span style="opacity:.75">${buffResumo(h)}</span> ✕</button>`).join('');
+            }
         }
 
         function addBonusDados(delta) {
@@ -2821,7 +2840,7 @@
                     h.marca ? `🎯+${h.marca}` : '',
                     h.janela ? `janela+${h.janela}` : '',
                 ].filter(Boolean).join(' ');
-                return `<button class="hab-buff-toggle${on ? ' on' : ''}" onclick="toggleHabAtiva('${h.id}')">${on ? '✓' : '+'} ${ef}</button>`;
+                return `<button class="hab-buff-toggle${on ? ' on' : ''}" onclick="toggleHabAtiva('${h.id}')">${on ? '●' : '○'} ${ef}</button>`;
             };
 
             // No popover: linha simples (nome + efeito curto + botões) pra caber mais escolhidas
