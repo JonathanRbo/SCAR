@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aparencias - SCAR RPG</title>
+    <title>Bestiário - SCAR RPG</title>
     <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/page-styles.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
 
@@ -14,294 +15,174 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            animation: pageLoad 0.5s ease-out forwards;
-        }
-
-        body.page-exit {
-            animation: pageLoad 0.3s ease-in reverse forwards;
-        }
-
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 120px 20px 60px;
-            background:
-                radial-gradient(ellipse at center top, rgba(139,0,0,0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 30% 50%, rgba(220,20,60,0.08) 0%, transparent 50%);
-            position: relative;
-        }
-
+        /* ===== HERO + ABAS DE PÁGINA ===== */
+        .hero { text-align: center; padding: 100px 20px 30px; background: radial-gradient(ellipse at center top, rgba(220,20,60,0.22) 0%, transparent 62%), radial-gradient(ellipse at 30% 45%, rgba(220,20,60,0.12) 0%, transparent 55%); position: relative; }
         .hero h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-            color: var(--cor-secundaria);
-            text-shadow: 0 0 40px rgba(220,20,60,0.4);
+            font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.6rem, 6.2vw, 4.2rem); letter-spacing: 10px; margin-bottom: 14px;
+            background: linear-gradient(180deg, #ff5e77 0%, #ec1f44 55%, #b00f2c 100%);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #ec1f44;
+            filter: drop-shadow(0 0 22px rgba(220,20,60,0.55));
         }
+        .hero p { color: var(--cor-texto); opacity: 0.82; max-width: 620px; margin: 0 auto; font-size: 0.98rem; }
+        .back-link { display: inline-block; color: var(--cor-texto-soft); text-decoration: none; font-size: 0.85rem; margin-bottom: 18px; transition: color 0.3s; }
+        .back-link:hover { color: var(--cor-secundaria); }
 
-        .hero p {
-            color: var(--cor-texto-soft);
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1rem;
+        .page-tabs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+        .page-tab { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; font-size: 1.05rem; padding: 11px 30px; border-radius: 30px; border: 1px solid #6a6a6a; background: #2a2a2a; color: #f3f3f3; cursor: pointer; transition: all 0.3s ease; }
+        .page-tab:hover { border-color: var(--cor-secundaria); background: #333; color: #fff; }
+        .page-tab.active { background: var(--gradient-blood); border-color: transparent; color: #fff; box-shadow: 0 0 26px rgba(220,20,60,0.6); }
+
+        /* grade dos 10 atributos (ficha completa de monstro) */
+        .attr10 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin: 11px 0; }
+        .attr10 .a { text-align: center; border: 1px solid var(--cor-borda); border-radius: 6px; padding: 5px 2px; background: rgba(0,0,0,0.25); }
+        .attr10 .a .n { display: block; font-size: 0.55rem; letter-spacing: 0.5px; color: var(--cor-texto-secundario); text-transform: uppercase; }
+        .attr10 .a .v { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--cor-texto); line-height: 1.1; }
+        .attr10 .a.hi { border-color: var(--ac); background: rgba(0,0,0,0.4); }
+        .attr10 .a.hi .v { color: var(--ac); }
+
+        /* ficha de monstro: abre/fecha com transição suave */
+        .ser-detail { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.4s ease; }
+        .ser-detail-inner { overflow: hidden; min-height: 0; transition: opacity 0.3s ease; }
+        .ser.collapsed .ser-detail { grid-template-rows: 0fr; }
+        .ser.collapsed .ser-detail-inner { opacity: 0; }
+        .ser-figure img { transition: none; }
+        .ficha-toggle {
+            align-self: flex-start; margin-top: 11px;
+            font-family: 'Bebas Neue', sans-serif; letter-spacing: 1.5px; font-size: 0.82rem;
+            background: transparent; color: var(--ac);
+            border: 1px solid var(--ac); border-radius: 20px; padding: 5px 16px; cursor: pointer;
+            transition: all 0.25s ease;
         }
+        .ficha-toggle:hover { background: var(--ac); color: #0a0a0a; }
+        .page-pane[hidden] { display: none; }
 
-        /* Filter Tabs */
-        .filter-tabs {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        /* ===== BESTIÁRIO ===== */
+        .regras-box { max-width: 1000px; margin: 0 auto; border: 1px solid var(--cor-borda); border-left: 4px solid var(--cor-principal); border-radius: 10px; background: linear-gradient(180deg, rgba(139,0,0,0.08) 0%, transparent 100%); padding: 18px 22px; }
+        .regras-box h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 3px; color: var(--cor-secundaria); margin: 0 0 10px; font-size: 1.2rem; }
+        .regras-box ul { margin: 0; padding-left: 18px; }
+        .regras-box li { margin-bottom: 7px; line-height: 1.5; color: var(--cor-texto-secundario); font-size: 0.86rem; }
+        .regras-box li strong { color: var(--cor-texto); }
 
-        .filter-tab {
-            padding: 10px 24px;
-            border-radius: 30px;
-            border: 1px solid var(--cor-borda);
-            background: var(--cor-card);
-            color: var(--cor-texto-soft);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 500;
-            font-family: 'Roboto', sans-serif;
-        }
+        .secao-titulo { text-align: center; font-family: 'Bebas Neue', sans-serif; letter-spacing: 5px; color: var(--cor-secundaria); font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin: 0 0 6px; }
+        .secao-sub { text-align: center; color: var(--cor-texto-secundario); font-style: italic; max-width: 640px; margin: 0 auto 26px; line-height: 1.5; font-size: 0.88rem; }
 
-        .filter-tab:hover {
-            border-color: var(--cor-secundaria);
-            color: var(--cor-texto);
-        }
+        .ser-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 1000px; margin: 0 auto; align-items: stretch; }
+        @media (max-width: 760px) { .ser-grid { grid-template-columns: 1fr; } }
+        .ser { --ac: var(--cor-secundaria); background: var(--cor-fundo-card); border: 1px solid var(--cor-borda); border-top: 3px solid var(--ac); border-radius: 13px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+        .ser::after { content: attr(data-tier); position: absolute; top: 10px; right: 12px; font-family: 'Bebas Neue', sans-serif; font-size: 0.74rem; letter-spacing: 1.5px; color: var(--ac); border: 1px solid var(--ac); border-radius: 30px; padding: 2px 11px; background: rgba(0,0,0,0.5); z-index: 3; }
+        .ser-body { display: grid; grid-template-columns: 150px 1fr; min-height: 100%; flex: 1; }
+        @media (max-width: 460px) { .ser-body { grid-template-columns: 1fr; } }
+        .ser-figure { position: relative; background: #0c0c0c; overflow: hidden; border-right: 1px solid var(--cor-borda); min-height: 215px; }
+        @media (max-width: 460px) { .ser-figure { border-right: none; border-bottom: 1px solid var(--cor-borda); height: 200px; } }
+        .ser-figure img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; filter: saturate(1.05) contrast(1.03); }
+        .ser-figure::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(10,10,10,0.6) 100%); pointer-events: none; }
+        .ser-figure .cap { position: absolute; bottom: 7px; left: 0; right: 0; text-align: center; font-size: 0.63rem; letter-spacing: 0.5px; color: #ccc; font-style: italic; z-index: 2; text-shadow: 0 2px 6px #000; padding: 0 8px; }
+        .ser-content { padding: 15px 18px 17px; display: flex; flex-direction: column; }
+        .ser h2 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; font-size: 1.4rem; color: var(--cor-texto); margin: 0 0 1px; }
+        .ser .nat { color: var(--ac); font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+        .ser .lore { color: var(--cor-texto-secundario); line-height: 1.6; font-style: italic; margin: 9px 0; font-size: 0.84rem; }
+        .ser .lore strong { color: var(--cor-texto); font-style: normal; }
+        .statline { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; align-items: center; }
+        .pill { font-size: 0.71rem; background: rgba(255,255,255,0.03); border: 1px solid var(--cor-borda); border-radius: 6px; padding: 3px 8px; color: var(--cor-texto-secundario); }
+        .pill b { color: var(--cor-texto); font-weight: 700; }
+        .pill.k { border-color: var(--ac); color: var(--ac); }
+        .vlabel { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; font-size: 0.76rem; color: var(--ac); border: 1px solid var(--ac); border-radius: 6px; padding: 2px 9px; background: rgba(0,0,0,0.3); }
+        .bloco { margin-top: 8px; }
+        .bloco p { color: var(--cor-texto-secundario); line-height: 1.48; font-size: 0.82rem; margin: 0 0 5px; }
+        .bloco p strong, .bloco p .hn { color: var(--cor-texto); font-weight: 700; }
+        .bloco .key { color: var(--ac); font-weight: 700; }
+        .fraqueza { margin-top: auto; padding-top: 10px; }
+        .fraqueza .fx { border-left: 3px solid var(--gold); background: rgba(212,175,55,0.05); border-radius: 0 7px 7px 0; padding: 8px 12px; }
+        .fraqueza .fx b { color: var(--gold); font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+        .fraqueza .fx span { color: var(--cor-texto-secundario); font-size: 0.8rem; line-height: 1.45; }
+        .evolui { margin-top: 9px; font-size: 0.78rem; color: var(--cor-texto-secundario); line-height: 1.45; }
+        .evolui .up { color: var(--ac); font-weight: 700; }
+        .ser.wide { grid-column: 1 / -1; }
+        .ser.wide .ser-body { grid-template-columns: 230px 1fr; }
+        @media (max-width: 460px) { .ser.wide .ser-body { grid-template-columns: 1fr; } }
+        .variantes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+        @media (max-width: 600px) { .variantes { grid-template-columns: 1fr; } }
+        .variante { border: 1px solid var(--cor-borda); border-radius: 10px; padding: 13px 15px; background: rgba(255,255,255,0.015); }
+        .variante h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; font-size: 1.05rem; color: var(--cor-texto); margin: 0 0 2px; }
+        .variante .vt { font-size: 0.66rem; color: var(--ac); letter-spacing: 1px; text-transform: uppercase; }
+        .variante .vimg { width: 100%; height: 120px; object-fit: cover; object-position: top center; border-radius: 6px; margin: 8px 0; border: 1px solid var(--cor-borda); }
+        .fcard { --ac: var(--gold); max-width: 1000px; margin: 0 auto; background: var(--cor-fundo-card); border: 1px solid var(--ac); border-top: 3px solid var(--ac); border-radius: 14px; overflow: hidden; }
+        .fcard-body { display: grid; grid-template-columns: 250px 1fr; }
+        @media (max-width: 680px) { .fcard-body { grid-template-columns: 1fr; } }
+        .fcard-fig { position: relative; min-height: 100%; background: #0c0c0c; border-right: 1px solid var(--cor-borda); }
+        @media (max-width: 680px) { .fcard-fig { height: 250px; border-right: none; border-bottom: 1px solid var(--cor-borda); } }
+        .fcard-fig img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+        .fcard-fig::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(10,10,10,0.5) 100%); pointer-events: none; }
+        .fcard-fig .cap { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 0.66rem; color: #ccc; font-style: italic; text-shadow: 0 2px 6px #000; z-index: 2; }
+        .fcard-content { padding: 16px 20px 18px; }
+        .fcard-content h2 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; font-size: 1.55rem; color: var(--cor-texto); margin: 0 0 1px; }
+        .fcard-content .nat { color: var(--ac); font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+        .fcard-content .lore { color: var(--cor-texto-secundario); line-height: 1.55; font-style: italic; margin: 10px 0 0; font-size: 0.84rem; }
+        .fcard-content .lore strong { color: var(--cor-texto); font-style: normal; }
+        .fichas-list { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+        .cf { border: 1px solid var(--cor-borda); border-radius: 10px; padding: 11px 13px; background: rgba(0,0,0,0.25); }
+        .cf-row { display: flex; align-items: center; gap: 10px; }
+        .cf .cf-tier { font-family: 'Bebas Neue', sans-serif; font-size: 0.68rem; letter-spacing: 1px; color: var(--ac); border: 1px solid var(--ac); border-radius: 20px; padding: 1px 9px; white-space: nowrap; }
+        .cf h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; font-size: 1.1rem; color: var(--cor-texto); margin: 0; }
+        .cf .statline { margin: 7px 0 0; }
+        .cf .cf-note { font-size: 0.73rem; color: var(--cor-texto-secundario); font-style: italic; line-height: 1.4; margin: 6px 0 0; }
+        .cf.elite { border-color: var(--ac); background: rgba(255,255,255,0.045); }
+        .best-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .best-stats .sc { min-width: 120px; padding: 13px 18px; border: 1px solid var(--cor-borda); border-radius: 12px; background: var(--cor-fundo-card); }
+        .best-stats .sc .bn { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; color: var(--cor-secundaria); display: block; }
+        .best-stats .sc h4 { margin: 4px 0 0; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--cor-texto-secundario); font-weight: 500; }
 
-        .filter-tab.active {
-            background: var(--gradient-blood);
-            border-color: transparent;
-            color: #fff;
-        }
-
-        .filter-tab[data-filter="humanos"].active {
-            background: linear-gradient(135deg, #1a3a5c, #5DADE2);
-        }
-
-        .filter-tab[data-filter="infernais"].active {
-            background: linear-gradient(135deg, #5c1a1a, #E74C3C);
-        }
-
-        .filter-tab[data-filter="hibridos"].active {
-            background: linear-gradient(135deg, #3d1a5c, #9B59B6);
-        }
-
-        .filter-tab[data-filter="demonios"].active {
-            background: linear-gradient(135deg, #1a1a1a, #555);
-        }
-
-        /* Type Section */
-        .type-section {
-            margin-bottom: 50px;
-        }
-
-        .type-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--cor-borda);
-        }
-
-        .type-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .type-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 4px;
-        }
-
-        /* Zoom individual para compensar o espaco vazio de cada desenho */
+        /* ===== GALERIA DE APARÊNCIAS ===== */
+        .filter-tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .filter-tab { padding: 10px 24px; border-radius: 30px; border: 1px solid var(--cor-borda); background: var(--cor-card); color: var(--cor-texto-soft); cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; font-weight: 500; font-family: 'Roboto', sans-serif; }
+        .filter-tab:hover { border-color: var(--cor-secundaria); color: var(--cor-texto); }
+        .filter-tab.active { background: var(--gradient-blood); border-color: transparent; color: #fff; }
+        .filter-tab[data-filter="humanos"].active { background: linear-gradient(135deg, #1a3a5c, #5DADE2); }
+        .filter-tab[data-filter="infernais"].active { background: linear-gradient(135deg, #5c1a1a, #E74C3C); }
+        .filter-tab[data-filter="hibridos"].active { background: linear-gradient(135deg, #3d1a5c, #9B59B6); }
+        .filter-tab[data-filter="demonios"].active { background: linear-gradient(135deg, #1a1a1a, #555); }
+        .type-section { margin-bottom: 50px; }
+        .type-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--cor-borda); }
+        .type-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; overflow: hidden; }
+        .type-icon img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
         .type-icon.humanos img { transform: scale(1.25); }
         .type-icon.hibridos img { transform: scale(1.3); }
         .type-icon.infernais img { transform: scale(1.55); }
-
         .type-icon.humanos { background: linear-gradient(135deg, #1a3a5c, #5DADE2); }
         .type-icon.infernais { background: linear-gradient(135deg, #5c1a1a, #E74C3C); }
         .type-icon.hibridos { background: linear-gradient(135deg, #3d1a5c, #9B59B6); }
         .type-icon.demonios { background: linear-gradient(135deg, #1a1a1a, #555); }
-
-        .type-header h2 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            letter-spacing: 3px;
-            margin: 0;
-        }
-
-        .type-header .type-count {
-            margin-left: auto;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
+        .type-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 3px; margin: 0; }
+        .type-header .type-count { margin-left: auto; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
         .type-count.humanos { background: rgba(93,173,226,0.15); color: #5DADE2; }
         .type-count.infernais { background: rgba(231,76,60,0.15); color: #E74C3C; }
         .type-count.hibridos { background: rgba(155,89,182,0.15); color: #9B59B6; }
         .type-count.demonios { background: rgba(100,100,100,0.15); color: #999; }
-
-        .type-header .type-desc {
-            color: var(--cor-texto-soft);
-            font-size: 0.85rem;
-            margin: 0;
-        }
-
-        .type-header-text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        /* Image Card */
-        .img-card {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--cor-borda);
-            background: var(--cor-card);
-            transition: all 0.3s ease;
-        }
-
-        .img-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-        }
-
-        .img-card img {
-            width: 100%;
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .img-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .img-card .img-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 15px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.85));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-        }
-
-        .img-card:hover .img-overlay {
-            opacity: 1;
-        }
-
-        .img-overlay .zoom-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: #fff;
-        }
-
-        /* Type border accent */
+        .type-header .type-desc { color: var(--cor-texto-soft); font-size: 0.85rem; margin: 0; }
+        .type-header-text { display: flex; flex-direction: column; gap: 4px; }
+        .img-card { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--cor-borda); background: var(--cor-card); transition: all 0.3s ease; }
+        .img-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        .img-card img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; transition: transform 0.4s ease; }
+        .img-card:hover img { transform: scale(1.05); }
+        .img-card .img-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 15px; background: linear-gradient(transparent, rgba(0,0,0,0.85)); opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: flex-end; justify-content: center; }
+        .img-card:hover .img-overlay { opacity: 1; }
+        .img-overlay .zoom-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #fff; }
         .img-card.humanos { border-bottom: 3px solid #5DADE2; }
         .img-card.infernais { border-bottom: 3px solid #E74C3C; }
         .img-card.hibridos { border-bottom: 3px solid #9B59B6; }
         .img-card.demonios { border-bottom: 3px solid #555; }
-
-        /* Type label */
-        .img-card .type-label {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            backdrop-filter: blur(5px);
-        }
-
+        .img-card .type-label { position: absolute; top: 10px; right: 10px; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; backdrop-filter: blur(5px); }
         .type-label.humanos { background: rgba(93,173,226,0.25); color: #5DADE2; }
         .type-label.infernais { background: rgba(231,76,60,0.25); color: #E74C3C; }
         .type-label.hibridos { background: rgba(155,89,182,0.25); color: #9B59B6; }
         .type-label.demonios { background: rgba(100,100,100,0.25); color: #ccc; }
-
-        /* Back link */
-        .back-link {
-            display: inline-block;
-            color: var(--cor-texto-soft);
-            text-decoration: none;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            transition: color 0.3s;
-        }
-
-        .back-link:hover {
-            color: var(--cor-secundaria);
-        }
-
-        /* No results */
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            display: none;
-        }
-
-        .no-results .icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        /* Disclaimer */
-        .disclaimer {
-            border-left: 3px solid var(--cor-borda);
-            padding-left: 15px;
-            color: var(--cor-texto-soft);
-            font-size: 0.8rem;
-            line-height: 1.6;
-        }
-
+        .no-results { text-align: center; padding: 60px 20px; display: none; }
+        .no-results .icon { font-size: 3rem; margin-bottom: 15px; }
+        .disclaimer { border-left: 3px solid var(--cor-borda); padding-left: 15px; color: var(--cor-texto-soft); font-size: 0.8rem; line-height: 1.6; }
         @media (max-width: 639px) {
-            .type-header {
-                flex-wrap: wrap;
-            }
-
-            .type-header .type-count {
-                margin-left: 0;
-            }
-
-            .filter-tab {
-                padding: 8px 16px;
-                font-size: 0.8rem;
-            }
+            .type-header { flex-wrap: wrap; }
+            .type-header .type-count { margin-left: 0; }
+            .filter-tab { padding: 8px 16px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -312,19 +193,15 @@
         <div class="container">
             <div class="d-flex f-items-center f-justify-between">
                 <a href="index.html" class="logo-text">SCAR</a>
-
                 <nav class="nav-desktop d-flex f-items-center f-gap-10">
                     <a href="sumario.html" class="nav-link">Sumário</a>
                     <a href="habilidades.html" class="nav-link">Habilidades</a>
                     <a href="vendinha.html" class="nav-link">Vendinha</a>
                     <a href="aflicoes.html" class="nav-link">Aflições</a>
                     <a href="historia.html" class="nav-link">História</a>
-                    <a href="aparencias.html" class="nav-link active">Aparências</a>
+                    <a href="aparencias.html" class="nav-link active">Bestiário</a>
                 </nav>
-
-                <button class="mobile-menu-btn" data-modal-show="mobile-menu">
-                    <span>&#9776;</span>
-                </button>
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu"><span>&#9776;</span></button>
             </div>
         </div>
     </header>
@@ -344,34 +221,16 @@
                         <div class="mobile-menu-divider"></div>
                     </div>
                     <nav class="mobile-menu-nav">
-                        <a href="sumario.html" class="mobile-nav-link" data-modal-hide>
-                            <span class="link-icon">📚</span>
-                            <span class="link-text">Sumário</span>
-                        </a>
-                        <a href="habilidades.html" class="mobile-nav-link" data-modal-hide>
-                            <span class="link-icon">🎯</span>
-                            <span class="link-text">Habilidades</span>
-                        </a>
-                        <a href="vendinha.html" class="mobile-nav-link" data-modal-hide>
-                            <span class="link-icon">🏪</span>
-                            <span class="link-text">Vendinha</span>
-                        </a>
-                        <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide>
-                            <span class="link-icon">💀</span>
-                            <span class="link-text">Aflições</span>
-                        </a>
+                        <a href="sumario.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">📚</span><span class="link-text">Sumário</span></a>
+                        <a href="habilidades.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">🎯</span><span class="link-text">Habilidades</span></a>
+                        <a href="vendinha.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">🏪</span><span class="link-text">Vendinha</span></a>
+                        <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">💀</span><span class="link-text">Aflições</span></a>
                     </nav>
                     <div class="mobile-menu-section-divider"></div>
                     <nav class="mobile-menu-nav mobile-menu-nav-secondary">
-                        <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide>
-                            <span class="link-text">História</span>
-                        </a>
-                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide>
-                            <span class="link-text">Aparências</span>
-                        </a>
-                        <a href="index.html" class="mobile-nav-link secondary" data-modal-hide>
-                            <span class="link-text">Home</span>
-                        </a>
+                        <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">História</span></a>
+                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Bestiário</span></a>
+                        <a href="index.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Home</span></a>
                     </nav>
                     <div class="mobile-menu-footer">
                         <p>"Todo contrato tem um preco"</p>
@@ -383,467 +242,822 @@
 
     <main>
 
-        <!-- Hero -->
+        <!-- HERO + ABAS -->
         <section class="hero">
             <div class="container">
-                <a href="index.html" class="back-link wow fadeIn">&larr; Voltar ao inicio</a>
-                <h1 class="wow fadeInUp">APARENCIAS</h1>
-                <p class="wow fadeInUp" data-wow-delay="0.1s">Galeria de referencias visuais para inspirar a criacao do seu personagem em SCAR.</p>
+                <a href="index.html" class="back-link">&larr; Voltar ao início</a>
+                <h1>BESTIÁRIO</h1>
+                <p>Os seres de SCAR — fichas prontas pra jogar na mesa e uma galeria de referências visuais pra inspirar seu personagem.</p>
+                <div class="page-tabs">
+                    <button class="page-tab active" data-pane="bestiario">Bestiário</button>
+                    <button class="page-tab" data-pane="chefes">Monstros</button>
+                    <button class="page-tab" data-pane="galeria">Galeria de Aparências</button>
+                </div>
             </div>
         </section>
 
-        <!-- Info + Filters -->
-        <section class="p-0-tb">
-            <div class="container p-40-tb xs-p-20-tb">
+        <!-- =========================================================
+             ABA 1 — BESTIÁRIO (fichas)
+             ========================================================= -->
+        <div class="page-pane" id="pane-bestiario">
 
-                <!-- Info Box -->
-                <div class="wow fadeInUp" data-wow-delay="0.2s" style="background: var(--cor-card); border: 1px solid var(--cor-borda); border-radius: 12px; padding: 25px 30px; margin-bottom: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
-                    <div class="d-flex f-gap-30 f-wrap">
-                        <div class="f-grow-1" style="min-width: 180px;">
-                            <h4 style="font-family: 'Bebas Neue', sans-serif; color: var(--cor-secundaria); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 8px; font-weight: 400;">TOTAL DE REFERENCIAS</h4>
-                            <p style="color: var(--cor-texto-soft); font-size: 0.9rem; margin: 0;">34 imagens em 4 categorias</p>
+            <section class="container p-15-tb">
+                <div class="best-stats">
+                    <div class="sc"><span class="bn">6</span><h4>Fichas prontas</h4></div>
+                    <div class="sc"><span class="bn">4</span><h4>Degraus de Caçador</h4></div>
+                    <div class="sc"><span class="bn">6</span><h4>Idades de Demônio</h4></div>
+                    <div class="sc"><span class="bn">1→10</span><h4>Faixa de Tier</h4></div>
+                </div>
+            </section>
+
+            <section class="container p-15-tb">
+                <div class="regras-box">
+                    <h3>📐 Como ler</h3>
+                    <ul>
+                        <li><strong>Demônio é a representação física de um medo.</strong> As pessoas normais são o piso (fracas de propósito); tudo que veio do inferno bate <em>muito</em> mais forte — é pra sentir o degrau.</li>
+                        <li><strong>Atributos vêm em faixas</strong> (ex.: 5-7). Pegue o ponto da faixa pro tier do seu grupo. Stress = 6 + Vigor + Vínculo · Injúrias em estágios · Mov = Coord × 2 m.</li>
+                        <li><strong>Tier:</strong> 1-2 comum · 3-4 treinado · 5-6 sobre-humano · 7-8 monstruoso · 9-10 primordial.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="container p-25-t">
+                <h2 class="secao-titulo">As Fichas</h2>
+                <p class="secao-sub">Blocos prontos pra jogar na mesa — é só pegar, escolher o tier e adaptar. Pra qualquer pessoa que luta, use o Caçador como base; pro lado infernal, a Evolução Demônio.</p>
+            </section>
+
+            <section class="container">
+                <div class="ser-grid">
+
+                    <!-- PESSOAS NORMAIS -->
+                    <article class="ser wide" data-tier="TIER 1-2" style="--ac:#bdbdbd">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/minions/humano-2-civil.jpg" alt="Pessoas Normais"><span class="cap">operário · civil · xerife</span></div>
+                            <div class="ser-content">
+                                <h2>Pessoas Normais</h2>
+                                <span class="nat">Gente comum · sem poder de berço</span>
+                                <p class="lore">A maioria do mundo: gente comum que compensa a falta de poder com adaptação, engenho e teimosia. É <strong>o piso</strong> — e a usina invisível que, de tanto temer, dá carne aos demônios. O rosto que se cruza na rua e esquece: o operário, a civil, o xerife.</p>
+                                <div class="statline">
+                                    <span class="pill"><b>FOR</b> 1-2</span><span class="pill"><b>VIG</b> 1-2</span><span class="pill"><b>COO</b> 1-2</span><span class="pill"><b>PER</b> 2</span>
+                                    <span class="pill k"><b>Stress</b> 8</span><span class="pill k"><b>Inj</b> 2/1/1</span><span class="pill"><b>Mov</b> 4 m</span>
+                                </div>
+                                <div class="bloco"><p><span class="key">Frágil.</span> Uma Injúria Grave já o tira da luta. Pode fechar contrato pra ganhar poder — sempre com um preço.</p></div>
+                                <div class="fraqueza"><div class="fx"><b>Medo —</b> <span>diante de um demônio, teste de Medo: falha = −2d10 e foge ou trava. Não foi feito pra encarar isso.</span></div></div>
+                                <p class="evolui"><span class="up">▲ Sobe de nível:</span> quem encosta no inferno e sobrevive vira <strong>Caçador</strong> — ou, em contato profundo, Infernal ou Híbrido.</p>
+                            </div>
                         </div>
-                        <div class="f-grow-1" style="min-width: 180px;">
-                            <h4 style="font-family: 'Bebas Neue', sans-serif; color: var(--cor-secundaria); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 8px; font-weight: 400;">COMO USAR</h4>
-                            <p style="color: var(--cor-texto-soft); font-size: 0.9rem; margin: 0;">Clique em qualquer imagem para ampliar. Use os filtros para navegar por tipo.</p>
+                    </article>
+
+                    <!-- ZUMBI -->
+                    <article class="ser wide" data-tier="TIER 2 · 5" style="--ac:var(--green)">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/minions/zumbi-1-comum.jpg" alt="Zumbi"><span class="cap">o morto que voltou a andar</span></div>
+                            <div class="ser-content">
+                                <h2>Zumbi</h2>
+                                <span class="nat">Morto reanimado</span>
+                                <p class="lore">Gente que já morreu e voltou a andar pela corrupção demoníaca — o cadáver de filme. Às vezes a consciência segue <strong>presa acordada por dentro</strong>, e há demônios que os fazem só por isso, <strong>como tortura</strong>. Os outros os querem frios: não sentem dor nem medo, e nunca vêm sozinhos. O número é a arma.</p>
+                                <div class="variantes">
+                                    <div class="variante">
+                                        <span class="vt">Tier 2 · horda</span>
+                                        <h3>Comum</h3>
+                                        <img class="vimg" src="assets/images/minions/zumbi-1-comum.jpg" alt="Zumbi Comum">
+                                        <div class="statline"><span class="pill"><b>VIG</b> 3-4</span><span class="pill"><b>FOR</b> 2-3</span><span class="pill"><b>COO</b> 1</span></div>
+                                        <div class="bloco"><p><span class="hn">Vence pelo número.</span> Não Sente Dor (Graves contam como Leves) e +1d10 por zumbi extra no alvo (máx +3d10). Sozinho é fraco — o perigo é a horda.</p></div>
+                                        <div class="fraqueza"><div class="fx"><b>Lerdo —</b> <span>Coord 1; cabeça ou fogo encerra. Isolado, é saco de pancada.</span></div></div>
+                                    </div>
+                                    <div class="variante">
+                                        <span class="vt">Tier 5 · mini-chefe</span>
+                                        <h3>Arauto</h3>
+                                        <img class="vimg" src="assets/images/minions/zumbi-2-arauto.jpg" alt="Zumbi Arauto">
+                                        <div class="statline"><span class="pill k"><b>FOR</b> 5-6</span><span class="pill k"><b>VIG</b> 6</span><span class="pill"><b>AUT</b> 4</span><span class="pill"><b>Arm</b> 5</span></div>
+                                        <div class="bloco"><p><span class="hn">Maça + Halo.</span> Pesada +2d10 (10+ Derruba); coordena a horda (Coord 3, +1d10).</p></div>
+                                        <div class="fraqueza"><div class="fx"><b>Âncora —</b> <span>mate-o e a horda volta a ser burra.</span></div></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="f-grow-1" style="min-width: 180px;">
-                            <h4 style="font-family: 'Bebas Neue', sans-serif; color: var(--cor-secundaria); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 8px; font-weight: 400;">FONTE</h4>
-                            <p style="color: var(--cor-texto-soft); font-size: 0.9rem; margin: 0;">Imagens coletadas do Pinterest para uso como referencia.</p>
+                    </article>
+
+                    <!-- CRIADO -->
+                    <article class="ser wide" data-tier="TIER 4 · 6" style="--ac:#c0392b">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/minions/criado-2-carniceiro.jpg" alt="Demônio Criado"><span class="cap">a casca de demônio que não cola</span></div>
+                            <div class="ser-content">
+                                <h2>Demônio Criado</h2>
+                                <span class="nat">Demônio sem ser demônio</span>
+                                <p class="lore">Tem cara, garra e fome de demônio, mas é <strong>vazio por dentro</strong> — não nasceu do medo de ninguém, foi feito. A <strong>pele descasca</strong> e mostra o vermelho-vivo: um disfarce que não cola. Todo demônio pode criá-los, mas quase nenhum gosta — encher o mundo de cópias ocas é admitir que sozinho não basta.</p>
+                                <div class="variantes">
+                                    <div class="variante">
+                                        <span class="vt">Tier 4 · recém-nascido</span>
+                                        <h3>Filhote</h3>
+                                        <img class="vimg" src="assets/images/minions/criado-1-filhote.jpg" alt="Criado Filhote">
+                                        <div class="statline"><span class="pill"><b>COO/FOR/VIG</b> 4</span><span class="pill k"><b>Medo</b> DT 15</span></div>
+                                        <div class="bloco"><p><span class="hn">Garras + Trepa-Paredes.</span> Leve +1d10; anda por tetos e ataca de cima. Vai no alvo mais próximo.</p></div>
+                                        <div class="fraqueza"><div class="fx"><b>Corpo Novo —</b> <span>sem um demônio maior por perto, dispersa.</span></div></div>
+                                    </div>
+                                    <div class="variante">
+                                        <span class="vt">Tier 6 · massa de carne</span>
+                                        <h3>Carniceiro</h3>
+                                        <img class="vimg" src="assets/images/minions/criado-2-carniceiro.jpg" alt="Criado Carniceiro">
+                                        <div class="statline"><span class="pill k"><b>FOR</b> 6-7</span><span class="pill k"><b>VIG</b> 7</span><span class="pill"><b>COO</b> 5</span><span class="pill"><b>Medo</b> DT 25</span></div>
+                                        <div class="bloco"><p><span class="hn">Tentáculos + Regeneração Voraz.</span> Agarra e puxa; cura 1 Leve/turno se feriu alguém antes.</p></div>
+                                        <div class="fraqueza"><div class="fx"><b>Sede —</b> <span>segure-o longe de alvos e a cura seca. Fogo cancela.</span></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CONSTRUTO -->
+                    <article class="ser wide" data-tier="TIER 5-6" style="--ac:var(--purple)">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/minions/construto.jpg" alt="Construto"><span class="cap">sem consciência · firme · vários olhos</span></div>
+                            <div class="ser-content">
+                                <h2>Construto</h2>
+                                <span class="nat">Demônio-construto · sentinela</span>
+                                <p class="lore">Não nasce — é <strong>construído</strong>. Cada um sai diferente, mas todos repetem três coisas: o olhar <strong>sem consciência</strong>, o corpo <strong>firme</strong> e imóvel como uma estátua que vigia, e os <strong>vários olhos</strong> espalhados pela carne. É um amálgama de carne ou matéria bruta que fala línguas mortas — daí a lenda de que são quimeras de mitos antigos.</p>
+                                <div class="statline">
+                                    <span class="pill k"><b>PER</b> 6-7</span><span class="pill"><b>COO</b> 5-6</span><span class="pill"><b>VIG</b> 6</span><span class="pill"><b>FOR</b> 4-5</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 25</span>
+                                </div>
+                                <div class="bloco"><p><span class="key">Visão Total (360°) + Marcação.</span> Não pode ser flanqueado nem pego de surpresa; vê no escuro e na fumaça; fixa um olho num alvo e dá +5 fixo pra ele e aliados acertarem.</p></div>
+                                <div class="fraqueza"><div class="fx"><b>Cego ao que não vê —</b> <span>tudo nele é visão. Cegue os olhos (fumaça densa, escuro total, dano nos olhos laranja) e ele desaba pra Percepção 2 e ataca no chute.</span></div></div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- CAÇADOR -->
+            <section class="container p-30-t">
+                <div class="fcard" style="--ac:var(--gold)">
+                    <div class="fcard-body">
+                        <div class="fcard-fig">
+                            <img src="assets/images/minions/cacador.jpg" alt="Caçador de Demônios">
+                            <span class="cap">cabelo branco · espada que arde</span>
+                        </div>
+                        <div class="fcard-content">
+                            <h2>Caçador de Demônios</h2>
+                            <span class="nat">Base pra qualquer um que luta · humano · infernal · híbrido</span>
+                            <p class="lore">Ninguém começa forte. Cada caçada sobrevivida deixa uma cicatriz e um pouco mais de técnica — é assim que o caçador <strong>evolui no mundo</strong>: enfrentando o que devia tê-lo matado e voltando mais duro. Use os quatro degraus como base pra <strong>qualquer pessoa que pega em arma</strong> e pra <strong>se basear no nível em que cada um está</strong> <em>(resto dos atributos = 1-2)</em>.</p>
+                            <div class="fichas-list">
+                                <div class="cf">
+                                    <div class="cf-row"><span class="cf-tier">TIER 3</span><h4>Novato</h4></div>
+                                    <div class="statline"><span class="pill"><b>COO</b> 3</span><span class="pill"><b>FOR</b> 2-3</span><span class="pill"><b>VIG</b> 3</span><span class="pill"><b>PER</b> 3</span><span class="pill k"><b>Stress</b> 9</span></div>
+                                    <p class="cf-note">Sobreviveu à 1ª caçada. Mata criado e zumbi comum — corre de qualquer coisa maior.</p>
+                                </div>
+                                <div class="cf">
+                                    <div class="cf-row"><span class="cf-tier">TIER 4</span><h4>Treinado</h4></div>
+                                    <div class="statline"><span class="pill"><b>COO</b> 4-5</span><span class="pill"><b>FOR</b> 4</span><span class="pill"><b>VIG</b> 4</span><span class="pill"><b>PER</b> 4</span><span class="pill k"><b>Stress</b> 11</span></div>
+                                    <p class="cf-note">Caçador de carteira assinada. Aguenta um Infernal fraco e segura um Construto.</p>
+                                </div>
+                                <div class="cf">
+                                    <div class="cf-row"><span class="cf-tier">TIER 5-6</span><h4>Veterano</h4></div>
+                                    <div class="statline"><span class="pill k"><b>COO</b> 6-7</span><span class="pill"><b>FOR</b> 5-6</span><span class="pill"><b>VIG</b> 6</span><span class="pill"><b>PER</b> 5-6</span><span class="pill k"><b>Stress</b> 14</span></div>
+                                    <p class="cf-note">Beira o sobre-humano. Encara Infernal e Carniceiro de frente; mira a Falha.</p>
+                                </div>
+                                <div class="cf elite">
+                                    <div class="cf-row"><span class="cf-tier">TIER 7</span><h4>Lendário</h4></div>
+                                    <div class="statline"><span class="pill k"><b>COO</b> 8-9</span><span class="pill k"><b>FOR</b> 7-8</span><span class="pill k"><b>VIG</b> 8-9</span><span class="pill k"><b>PER</b> 7-8</span><span class="pill k"><b>Stress</b> 18</span></div>
+                                    <p class="cf-note">O da arte: cabelo branco, espada flamejante, contrato maior. Encara demônio monstruoso de igual pra igual.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Filters -->
-                <div class="filter-tabs m-30-b wow fadeInUp" data-wow-delay="0.3s">
-                    <button class="filter-tab active" data-filter="todos">Todos</button>
-                    <button class="filter-tab" data-filter="humanos">Humanos</button>
-                    <button class="filter-tab" data-filter="infernais">Infernais</button>
-                    <button class="filter-tab" data-filter="hibridos">Hibridos</button>
-                    <button class="filter-tab" data-filter="demonios">Demonios</button>
-                </div>
-
-                <!-- ============================
-                     HUMANOS (3)
-                     ============================ -->
-                <div class="type-section wow fadeInUp" data-type="humanos">
-                    <div class="type-header">
-                        <div class="type-icon humanos"><img src="assets/images/icones/humano.png" alt="Humanos"></div>
-                        <div class="type-header-text">
-                            <h2>HUMANOS</h2>
-                            <p class="type-desc">Cacadores comuns que enfrentam demonios com coragem e determinacao.</p>
+            <!-- EVOLUÇÃO DEMÔNIO -->
+            <section class="container p-30-t">
+                <div class="fcard" style="--ac:var(--cor-secundaria)">
+                    <div class="fcard-body">
+                        <div class="fcard-fig">
+                            <img src="assets/images/exemplos/demonios/colossus-abissal.jpg" alt="Demônio">
+                            <span class="cap">do recém-nascido ao primevo</span>
                         </div>
-                        <span class="type-count humanos">6 imagens</span>
-                    </div>
-                    <div class="row gap-15">
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/humanos/cacador-insone.jpg" data-gall="humanos" data-title="Caçador Insone">
-                                <div class="img-card humanos">
-                                    <img src="assets/images/exemplos/humanos/cacador-insone.jpg" alt="Caçador de terno com olhar exausto e cabelo selvagem" loading="lazy">
-                                    <span class="type-label humanos">Humano</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                        <div class="fcard-content">
+                            <h2>Evolução Demônio</h2>
+                            <span class="nat">Base pro lado infernal · o medo que cresce</span>
+                            <p class="lore">Demônio também evolui no mundo: cada susto que espalha, cada caçador que sobrevive a ele, alimenta o medo e o torna mais forte. Com o tempo e os desafios vencidos ele sobe de idade — e a <strong>DT de Medo</strong> e os atributos sobem junto. Use os degraus como base pra <strong>Demônio Puro e Infernal</strong> e pra <strong>se basear no nível em que cada um está</strong> <em>(2 Poderes + Falha Central)</em>.</p>
+                            <div class="fichas-list">
+                                <div class="cf">
+                                    <div class="cf-row"><span class="cf-tier">TIER 3</span><h4>Recém-Nascido</h4></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 15</span><span class="pill"><b>Atrib.</b> 3-4</span></div>
+                                    <p class="cf-note">Mal saiu da Porta — instinto puro, quase um criado. O conceito ainda é fraco.</p>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/humanos/agente-prateado.jpg" data-gall="humanos" data-title="Agente Prateado">
-                                <div class="img-card humanos">
-                                    <img src="assets/images/exemplos/humanos/agente-prateado.jpg" alt="Agente de cabelo prateado com sobretudo e dois cães" loading="lazy">
-                                    <span class="type-label humanos">Humano</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="cf">
+                                    <div class="cf-row"><span class="cf-tier">TIER 5</span><h4>Jovem</h4></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 20</span><span class="pill"><b>Atrib.</b> 4-6</span></div>
+                                    <p class="cf-note">Já entende o que é. Usa os 2 Poderes com jeito; ameaça de verdade pra um grupo.</p>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/humanos/pistoleira-sardenta.jpg" data-gall="humanos" data-title="Pistoleira Sardenta">
-                                <div class="img-card humanos">
-                                    <img src="assets/images/exemplos/humanos/pistoleira-sardenta.jpg" alt="Caçadora sardenta com revólveres e sobretudo negro" loading="lazy">
-                                    <span class="type-label humanos">Humano</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="cf">
+                                    <div class="cf-row"><span class="cf-tier">TIER 7</span><h4>Maduro</h4></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 30</span><span class="pill"><b>Atrib.</b> 6-8</span></div>
+                                    <p class="cf-note">O medo firmado. Chefe de arco — exige plano e a Falha na mira.</p>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/humanos/cacadora-destemida.jpg" data-gall="humanos" data-title="Cacadora Destemida">
-                                <div class="img-card humanos">
-                                    <img src="assets/images/exemplos/humanos/cacadora-destemida.jpg" alt="Cacadora destemida de gravata e saia" loading="lazy">
-                                    <span class="type-label humanos">Humano</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="cf">
+                                    <div class="cf-row"><span class="cf-tier">TIER 8</span><h4>Veterano</h4></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Atrib.</b> 7-9</span></div>
+                                    <p class="cf-note">Décadas se alimentando; domina território e tem nome conhecido.</p>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/humanos/veterano-ensanguentado.jpg" data-gall="humanos" data-title="Veterano Ensanguentado">
-                                <div class="img-card humanos">
-                                    <img src="assets/images/exemplos/humanos/veterano-ensanguentado.jpg" alt="Veterano de sobretudo com sangue na camisa" loading="lazy">
-                                    <span class="type-label humanos">Humano</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="cf">
+                                    <div class="cf-row"><span class="cf-tier">TIER 9</span><h4>Ancião</h4></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 40-45</span><span class="pill"><b>Atrib.</b> 8-10</span></div>
+                                    <p class="cf-note">Séculos de pavor acumulado. Beira o primordial — quase intocável sem a Falha.</p>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/humanos/lunatico-sorridente.jpg" data-gall="humanos" data-title="Lunatico Sorridente">
-                                <div class="img-card humanos">
-                                    <img src="assets/images/exemplos/humanos/lunatico-sorridente.jpg" alt="Homem de cabelo prateado com sorriso sinistro" loading="lazy">
-                                    <span class="type-label humanos">Humano</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="cf elite">
+                                    <div class="cf-row"><span class="cf-tier">TIER 10</span><h4>Primevo</h4></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 50</span><span class="pill k"><b>Atrib.</b> 10 (teto)</span></div>
+                                    <p class="cf-note">O medo original, par de Cavaleiro. Limite do sistema — fim de campanha.</p>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- ============================
-                     INFERNAIS (6)
-                     ============================ -->
-                <div class="type-section wow fadeInUp" data-type="infernais">
-                    <div class="type-header">
-                        <div class="type-icon infernais"><img src="assets/images/icones/infernal.png" alt="Infernais"></div>
-                        <div class="type-header-text">
-                            <h2>INFERNAIS</h2>
-                            <p class="type-desc">Demonios que habitam um corpo sem vida, seja um humano morto ou um objeto. A consciencia humana ja cessou: nao ha humano como no Hibrido, resta so o demonio na carne.</p>
-                        </div>
-                        <span class="type-count infernais">6 imagens</span>
-                    </div>
-                    <div class="row gap-15">
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/infernais/guerreiro-flamejante.jpg" data-gall="infernais" data-title="Guerreiro Flamejante">
-                                <div class="img-card infernais">
-                                    <img src="assets/images/exemplos/infernais/guerreiro-flamejante.jpg" alt="Guerreiro com corpo em chamas e armadura" loading="lazy">
-                                    <span class="type-label infernais">Infernal</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+            <section class="container p-30-tb text-center">
+                <p style="margin: 0 auto; max-width: 620px; font-style: italic; color: var(--cor-texto-secundario); font-size: 0.9rem;">
+                    "Os números são média, a arte é exemplo, a Falha é certeira —
+                    <strong style="color: var(--cor-secundaria);">o resto é o medo fazendo o que faz com quem não é o medo</strong>."
+                </p>
+            </section>
+
+        </div>
+
+        <!-- =========================================================
+             ABA 2 — CHEFES (bosses, ficha completa)
+             ========================================================= -->
+        <div class="page-pane" id="pane-chefes" hidden>
+
+            <section class="container p-25-t">
+                <h2 class="secao-titulo">Os Monstros</h2>
+                <p class="secao-sub">Seres que não se importam com vida nenhuma — nem com a da própria espécie. Se dependesse deles, o <strong style="color:var(--cor-texto)">MUNDO</strong> cairia. Cada um é o ápice do que é — humano, infernal, híbrido ou demônio: ficha completa do sistema e a <strong style="color:var(--gold)">Falha Central</strong>, o único jeito de apagá-lo do mundo.</p>
+            </section>
+
+            <section class="container">
+                <div class="ser-grid">
+
+                    <!-- CARA FELIZ (humano · Trilha Sombra) -->
+                    <article class="ser wide" data-tier="TIER 4-5" style="--ac:#b14a4a">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/monstros/cara-feliz.jpg" alt="Cara Feliz"><span class="cap">ele sorri embaixo da máscara</span></div>
+                            <div class="ser-content">
+                                <h2>Cara Feliz</h2>
+                                <span class="nat">Humano · sem poder de berço · o sorriso que você não vê</span>
+                                <p class="lore">Moleque de rosto marcado e sorriso fácil; na rua, um capuz preto e uma máscara de oni vermelho. Não caça demônio — caça gente, pela faca, pelo prazer do susto. Sem poder nenhum: só uma lâmina, paciência e a calma de quem já decidiu que você não vai ver o golpe chegar.</p>
+                                <div class="attr10">
+                                    <div class="a"><span class="n">For</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Vig</span><span class="v">4</span></div>
+                                    <div class="a hi"><span class="n">Coo</span><span class="v">6</span></div>
+                                    <div class="a hi"><span class="n">Mal</span><span class="v">6</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">3</span></div>
+                                    <div class="a hi"><span class="n">Per</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Aut</span><span class="v">2</span></div>
+                                    <div class="a hi"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/infernais/corpo-fragmentado.jpg" data-gall="infernais" data-title="Corpo Fragmentado">
-                                <div class="img-card infernais">
-                                    <img src="assets/images/exemplos/infernais/corpo-fragmentado.jpg" alt="Corpo coberto de band-aids e rachaduras" loading="lazy">
-                                    <span class="type-label infernais">Infernal</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Trilha</b> Sombra · 12 PM</span><span class="pill k"><b>Stress</b> 11</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 12 m</span><span class="pill"><b>Contrato</b> menor</span>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/infernais/possesso-sombrio.jpg" data-gall="infernais" data-title="Possesso Sombrio">
-                                <div class="img-card infernais">
-                                    <img src="assets/images/exemplos/infernais/possesso-sombrio.jpg" alt="Figura sombria com olhos multiplos e boca costurada" loading="lazy">
-                                    <span class="type-label infernais">Infernal</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="bloco">
+                                    <p><span class="key">Trilha — SOMBRA (12 PM) · o alvo cai antes de saber que você chegou.</span></p>
+                                    <p><span class="hn">Furtividade Adaptativa (2 PM).</span> +1d10 de furtividade em qualquer terreno.</p>
+                                    <p><span class="hn">Fantasma (4 PM).</span> Invisível pra quem tem Percepção menor que a Malandragem dele (6); o <strong>1º ataque ganha +10 fixo</strong>.</p>
+                                    <p><span class="hn">Golpe Decisivo (2 PM).</span> Vencer o confronto por 10+ → Injúria <strong>+1 estágio</strong>.</p>
+                                    <p><span class="hn">Movimento Calculado (2 PM) · Combate Sujo (2 PM · Humano).</span> Reposiciona sem gerar reação e <strong>ataca usando Malandragem (6)</strong> — o mesmo atributo da furtividade.</p>
+                                    <p><span class="key">🗡️ Faca (50 ¥):</span> Perfurante (ignora 1 nível de proteção) · <strong>+2d10 contra desprevenido/imobilizado</strong> · Sangramento.</p>
+                                    <p><span class="key">⚡ O Encaixe — "Trava e Abate":</span> alvo desprevenido/preso = <strong>Sem Defesa (rola 0)</strong>. Faca +2d10 + Fantasma +10 fixo + dados de Malandragem 6, contra zero, passa fácil de <strong>diferença 40+ = Morte Instantânea</strong> (o que sobrar vira Grave por Golpe Decisivo). Ele deleta um alvo <strong>antes da iniciativa</strong> e some na multidão.</p>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/infernais/olhos-profanos.jpg" data-gall="infernais" data-title="Olhos Profanos">
-                                <div class="img-card infernais">
-                                    <img src="assets/images/exemplos/infernais/olhos-profanos.jpg" alt="Figura com olhos rosas e aureola dourada" loading="lazy">
-                                    <span class="type-label infernais">Infernal</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="fraqueza"><div class="fx"><b>Falha — É só carne.</b> <span>Se o primeiro golpe não derruba e ele é visto, vira presa: uma Grave o tira da luta. Sem furtividade, perde metade do combo. Sozinho por opção (Vínculo 1) — não tem quem o cubra.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Rastro deixado —</span> corpos com um talho em forma de sorriso; uma máscara vermelha largada na cena, sempre de propósito.</p>
                                 </div>
-                            </a>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> contrato maior na faca (corta o sobrenatural, ignora armadura leve), ou vira Infernal/Híbrido se encostar fundo no inferno.</p>
+                            </div>
                         </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/infernais/furia-estelar.jpg" data-gall="infernais" data-title="Furia Estelar">
-                                <div class="img-card infernais">
-                                    <img src="assets/images/exemplos/infernais/furia-estelar.jpg" alt="Criatura vibrante com presas e estrelas" loading="lazy">
-                                    <span class="type-label infernais">Infernal</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                    </article>
+
+                    <!-- O SÓCIO (infernal · Fuzileiro calculista) -->
+                    <article class="ser wide" data-tier="TIER 5-6" style="--ac:#2f9c9c">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/monstros/o-socio.jpg" alt="O Sócio"><span class="cap">calmo do outro lado do vidro</span></div>
+                            <div class="ser-content">
+                                <h2>O Sócio</h2>
+                                <span class="nat">Infernal (Fiend) · demônio em cadáver humano</span>
+                                <p class="lore">Terno impecável, cigarro aceso e uma cabeça que é um aquário — um peixinho dourado nadando onde devia haver rosto. Nunca se apressa, nunca levanta a voz, nunca erra. O homem que foi virou recipiente; o demônio lá dentro só observa, do outro lado do vidro, e decide quem cai.</p>
+                                <div class="attr10">
+                                    <div class="a"><span class="n">For</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Vig</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Coo</span><span class="v">7</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">4</span></div>
+                                    <div class="a hi"><span class="n">Per</span><span class="v">7</span></div>
+                                    <div class="a hi"><span class="n">Inv</span><span class="v">6</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Aut</span><span class="v">3</span></div>
+                                    <div class="a hi"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/infernais/encapuzado-olho-vermelho.jpg" data-gall="infernais" data-title="Encapuzado de Olho Vermelho">
-                                <div class="img-card infernais">
-                                    <img src="assets/images/exemplos/infernais/encapuzado-olho-vermelho.jpg" alt="Figura encapuzada com olho vermelho brilhante" loading="lazy">
-                                    <span class="type-label infernais">Infernal</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Trilha</b> Fuzileiro · 8 PM</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 20</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 9 m</span>
                                 </div>
-                            </a>
+                                <div class="bloco">
+                                    <p><span class="key">Trilha — FUZILEIRO (núcleo 8 PM) · dano por tiro garantido, sem chegar perto.</span></p>
+                                    <p><span class="hn">Atirador (2 PM).</span> <strong>+10 fixo</strong> em ataques à distância.</p>
+                                    <p><span class="hn">Tiro de Precisão (3 PM).</span> Ignora armadura parcial e cobertura leve.</p>
+                                    <p><span class="hn">Tiro de Supressão (2 PM).</span> Cobre uma área: inimigos nela sofrem −1d10.</p>
+                                    <p><span class="hn">Poder · Água Parada (Infernal).</span> Imóvel mirando, soma <strong>+1d10 por rodada até o teto 2× Coordenação (+14)</strong> — a versão de berço do Caçador Paciente; não pode ser apressado.</p>
+                                    <p><span class="hn">Sentido · Percepção do Medo.</span> Sente todos num raio de 100 m = mira perfeita; pré-mira o ponto pra onde o alvo vai.</p>
+                                    <p><span class="key">🗡️ Sniper (8.000 ¥):</span> +3d10 · Crítica · <strong>Execução</strong> se o alvo não sabe que está na mira.</p>
+                                    <p><span class="key">⚡ O Encaixe:</span> Água Parada empilhada (até +14) + Atirador +10 fixo + Sniper +3d10, <strong>ignorando cobertura e armadura</strong> (Tiro de Precisão). Contra alvo desprevenido (defesa 0), a soma é <strong>morte no 1º tiro</strong> — e ele Executa quem nem sabe que ele está lá. Sozinho, tranca um corredor inteiro.</p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha — Imóvel pra mirar.</b> <span>Parado empilhando = alvo fácil: feche a distância, force o movimento ou quebre a linha de visão e todo o acúmulo zera. Estourar o aquário (a "cabeça") o cega. Malefício infernal: poder custa +1 Stress e o vidro é frágil. Calcula tudo — blefe e caos o atrapalham.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Demônio de origem —</span> o Demônio do Observador (o medo de estar sempre sob mira, de ser só uma peça no plano de alguém).</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> 2º poder de "água" (afogar à distância) ou um atirador Tier 6-7 que mira através de paredes.</p>
+                            </div>
                         </div>
-                    </div>
+                    </article>
+
+                    <!-- O ESPANTALHO (infernal · Trilha Maestro) -->
+                    <article class="ser wide" data-tier="TIER 5-6" style="--ac:#9a7b3c">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/monstros/o-espantalho.jpg" alt="O Espantalho"><span class="cap">prega o medo no chão e espera</span></div>
+                            <div class="ser-content">
+                                <h2>O Espantalho</h2>
+                                <span class="nat">Infernal (Fiend) · demônio em cadáver humano</span>
+                                <p class="lore">Terno cinza, cartola, e uma máscara de estopa costurada com botões no lugar dos olhos e um sorriso de linha. Um corvo no ombro que enxerga por ele. Não corre atrás de ninguém: planta medo no chão e espera os "passarinhos" congelarem. Onde ele fica de pé, ninguém ousa avançar.</p>
+                                <div class="attr10">
+                                    <div class="a"><span class="n">For</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Vig</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Coo</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">1</span></div>
+                                    <div class="a hi"><span class="n">Per</span><span class="v">6</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Aut</span><span class="v">6</span></div>
+                                    <div class="a hi"><span class="n">Vín</span><span class="v">1</span></div>
+                                </div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Trilha</b> Maestro · 14 PM</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 25</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 9 m</span>
+                                </div>
+                                <div class="bloco">
+                                    <p><span class="key">Trilha — MAESTRO (14 PM) · não bate forte: faz a revoada inteira bater junto.</span></p>
+                                    <p><span class="hn">Abertura Tática (2 PM).</span> O corvo marca 1 alvo: ele e os corvos ganham <strong>+5 fixo</strong> contra o marcado.</p>
+                                    <p><span class="hn">Coordenação de Equipe (2 PM).</span> Corvos que agem depois dele: <strong>+5 fixo</strong>.</p>
+                                    <p><span class="hn">Mestre Estrategista (4 PM).</span> Início do combate: distribui <strong>+10</strong> e reordena a iniciativa pra todos baterem juntos.</p>
+                                    <p><span class="hn">Voz de Comando (2 PM) · Inspirar (2 PM) · Aura de Proteção (2 PM).</span> Um corvo repete um teste falho; a revoada não Colapsa de Medo.</p>
+                                    <p><span class="hn">Poder · Campo do Espantalho.</span> Aura de pavor (Teste de Medo DT 25): falha = −2d10 e o alvo fica <strong>"pregado"</strong>, sem avançar — preso pra revoada.</p>
+                                    <p><span class="key">👥 Revoada (Familiares demoníacos):</span> o bando de corvos sob comando — os corpos extras que despejam o dano.</p>
+                                    <p><span class="key">⚡ O Encaixe:</span> marca o alvo (+5 fixo pra todos), o Campo o prende no lugar, a iniciativa é reordenada e a <strong>revoada inteira despeja com +5/+10 fixo empilhado</strong> no mesmo alvo numa só rodada. O alvo <strong>evapora antes de agir</strong> — e ele nunca encosta a mão.</p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha — O Corvo e o Medo.</b> <span>Depende do corvo (mate-o e ele perde a visão e metade do controle) e do medo: quem não teme o espantalho — coragem pura, ou simplesmente não olhar os botões — ignora o Campo e fura tudo. Fraquíssimo no corpo a corpo.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Demônio de origem —</span> o Demônio do Espantalho (o medo primitivo de ser observado e cercado no escuro do campo).</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> os corvos viram um único enxame-corpo (chefe de área), ou Tier 6-7 controlando todos os "pregados" como marionetes.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- AURÉLIO, O COMEDIDO (híbrido · Trilha Demolidor) -->
+                    <article class="ser wide" data-tier="TIER 6-7" style="--ac:#7d5ba6">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/monstros/o-comedido.jpg" alt="Aurélio, o Comedido"><span class="cap">deixa o demônio sair só um fio</span></div>
+                            <div class="ser-content">
+                                <h2>Aurélio, o Comedido</h2>
+                                <span class="nat">Híbrido · humano fundido a um demônio · o que segura a coleira</span>
+                                <p class="lore">Sobretudo preto, cabelo penteado, bigode aparado — e uma máscara de músculo exposto no rosto, o único pedaço de demônio que ele permite à mostra. O oposto da Apodrecida: domou os Grilhões. Transforma só o necessário, vence, e volta a ser gente antes que o demônio prove o gosto. A disciplina é a arma dele.</p>
+                                <div class="attr10">
+                                    <div class="a hi"><span class="n">For</span><span class="v">6</span></div>
+                                    <div class="a hi"><span class="n">Vig</span><span class="v">7</span></div>
+                                    <div class="a"><span class="n">Coo</span><span class="v">6</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Per</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Aut</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Vín</span><span class="v">4</span></div>
+                                </div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Trilha</b> Demolidor · 11 PM</span><span class="pill k"><b>Stress</b> alto</span><span class="pill"><b>Injúrias</b> 4/3/2</span><span class="pill"><b>Mov</b> 10 m</span><span class="pill k"><b>Regen</b> por sangue</span>
+                                </div>
+                                <div class="bloco">
+                                    <p><span class="key">Trilha — DEMOLIDOR (11 PM) · cada golpe abre mais fundo; um basta.</span></p>
+                                    <p><span class="hn">Maestria em Combate (3 PM).</span> <strong>+10 fixo</strong> em todos os ataques corpo a corpo.</p>
+                                    <p><span class="hn">Golpe Decisivo (2 PM).</span> Vencer por 10+ → Injúria +1 estágio.</p>
+                                    <p><span class="hn">Técnica Mortal (4 PM).</span> 1x/combate: declara um golpe que causa <strong>+2 estágios</strong>.</p>
+                                    <p><span class="hn">Sequência Devastadora (2 PM).</span> 2 acertos seguidos no mesmo alvo → o 3º +10 fixo.</p>
+                                    <p><span class="hn">Harmonia Instável (3 PM) · Limite do Ser (3 PM) · Híbrido.</span> Dispara <strong>poder + contrato na MESMA ação</strong> e ganha <strong>+1d10 em tudo físico</strong> por 1 cena.</p>
+                                    <p><span class="key">🥊 Estilo Spetsnaz + Punhos da Forma:</span> 1º ataque que ferir sobe +1 grau; atacar alvo ferido/imobilizado ignora a defesa. Punhos transformados = arma pesada, crítico <strong>Brutal (+1 nível)</strong>.</p>
+                                    <p><span class="key">⚡ O Encaixe — "Golpe Único":</span> ele segura, escolhe a hora e descarrega tudo num soco só: <strong>Spetsnaz +1 · Golpe Decisivo +1 · Técnica Mortal +2 · Brutal +1 = 5 estágios</strong>. A trilha de Injúria só tem 3 degraus (Leve → Grave → Crítica → Morte) → <strong>Leve vira Morte direto</strong>, com +10 fixo e +1d10 garantindo o acerto. Disciplina é não precisar de um segundo golpe.</p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha — Tudo num golpe.</b> <span>A Técnica Mortal é 1x/combate e o alpha depende de <em>acertar o golpe armado</em>: armadura pesada (−níveis) e Vigor alto comem estágios, e quem esquiva ou foge do alcance dele anula o estouro. Gastou o golpe e não derrubou? Vira um brigão forte, mas comum. E a disciplina é orgulho: não luta sujo nem recua de um duelo aceito.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Gatilho &amp; Grilhões —</span> a transformação dispara por um gesto contido (apertar o próprio punho); mantém os Grilhões baixos de propósito. No dia que perder a calma, a Forma toma conta — e aí ele vira o monstro descontrolado que passou a vida inteira segurando.</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> libera a Forma completa por 1 cena (Força/Vigor 8-9) aceitando subir os Grilhões — risco de perder o controle; ou um Bigorna que reflete dano à distância também.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ANTOFOBIA -->
+                    <article class="ser wide" data-tier="TIER 7 · DT 30" style="--ac:#c2b21a">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/chefes/antofobia.jpg" alt="Antofobia"><span class="cap">o florescer que apodrece</span></div>
+                            <div class="ser-content">
+                                <h2>Antofobia</h2>
+                                <span class="nat">Conceitual-Abstrato · Maduro · o belo que abre e contamina</span>
+                                <p class="lore">Humanoide pálido de braços longos demais, halo amarelo doente e uma coroa de galhos negros. A boca rasga o rosto de orelha a orelha. Onde passa, brota — e o que brota não devia.</p>
+                                <div class="attr10">
+                                    <div class="a"><span class="n">For</span><span class="v">3</span></div>
+                                    <div class="a hi"><span class="n">Vig</span><span class="v">6</span></div>
+                                    <div class="a hi"><span class="n">Coo</span><span class="v">6</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">1</span></div>
+                                    <div class="a hi"><span class="n">Per</span><span class="v">7</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">4</span></div>
+                                    <div class="a hi"><span class="n">Neg</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Aut</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
+                                </div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Stress</b> 17</span><span class="pill k"><b>Medo</b> DT 30</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 12 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (4)</b> Sab2·Res2</span>
+                                </div>
+                                <div class="bloco">
+                                    <p><span class="key">Ataque —</span> <strong>Galhos-Lâmina</strong> (Coordenação, alcance médio, +1d10); o que corta começa a brotar espinhos (Sangramento).</p>
+                                    <p><span class="hn">Poder 1 · Pólen do Pavor (área).</span> Nuvem de esporos: quem respira faz Teste de Medo DT 30 — falha = flores na visão e na pele, −2d10 e alucinação por 1 rodada.</p>
+                                    <p><span class="hn">Poder 2 · Floração.</span> Toca um ferido e força um broto na Injúria: sobe +1 estágio e fica intratável até arrancarem a flor (ação + Vigor DT 20).</p>
+                                    <p><span class="hn">Poder 3 · Raízes Famintas <em>(utilidade · idade)</em>.</span> Raízes brotam numa área e prendem quem está nela (Coordenação DT 18 pra soltar); enquanto seguram alguém vivo, devolvem 1 Injúria Leve curada a Antofobia.</p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — Precisa do Solo.</b> <span>Só floresce onde há vida pra corromper. Em terreno estéril (concreto, metal, sal, fogo que queima o pólen) ele murcha: −2d10 e perde a Floração. Arrancar o halo amarelo corta o pólen pela cena.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Marcas deixadas —</span> jardins que brotam onde dorme; gente com flores nascendo na pele, sem cura comum.</p>
+                                    <p><span class="key">Porta / medo —</span> o belo que abre e contamina: estufas, velórios floridos, jardins abandonados.</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> Idade Veterano (DT 35) + 3º poder "Jardim" — transforma a sala num domínio onde regenera todo turno.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CAVALEIRO-CORVO -->
+                    <article class="ser wide" data-tier="TIER 8 · DT 35" style="--ac:#9b8fb5">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/chefes/cavaleiro-corvo.jpg" alt="Cavaleiro-Corvo"><span class="cap">a guerra que não esquece os mortos</span></div>
+                            <div class="ser-content">
+                                <h2>Cavaleiro-Corvo</h2>
+                                <span class="nat">Bíblico-Arquetípico · Veterano · o massacre, a morte com honra</span>
+                                <p class="lore">Armadura cinza-violácea de placas, coroa de espinhos de marfim, garras de aço, uma caveira de pássaro no peito e um corvo vivo no ombro. Anda devagar porque não precisa correr — o que ele alcança, encerra.</p>
+                                <div class="attr10">
+                                    <div class="a hi"><span class="n">For</span><span class="v">8</span></div>
+                                    <div class="a hi"><span class="n">Vig</span><span class="v">8</span></div>
+                                    <div class="a"><span class="n">Coo</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">1</span></div>
+                                    <div class="a"><span class="n">Per</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">2</span></div>
+                                    <div class="a hi"><span class="n">Aut</span><span class="v">6</span></div>
+                                    <div class="a"><span class="n">Vín</span><span class="v">2</span></div>
+                                </div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Stress</b> 18</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Injúrias</b> 4/3/2</span><span class="pill"><b>Armadura</b> 10</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res2·Sab2</span>
+                                </div>
+                                <div class="bloco">
+                                    <p><span class="key">Ataque —</span> <strong>Garras de Carniça</strong> (Força, pesada +2d10); acerto por 10+ sobe a Injúria +1 estágio (Golpe Decisivo).</p>
+                                    <p><span class="hn">Poder 1 · Revoada.</span> O corvo cega e corta uma área (−1d10, marca os alvos) e o avisa de tudo num raio amplo — não pode ser surpreendido.</p>
+                                    <p><span class="hn">Poder 2 · Sentença do Cavaleiro.</span> Declara um alvo "condenado": contra ele ignora metade da armadura/cobertura e ganha +1d10, até um dos dois cair.</p>
+                                    <p><span class="hn">Poder 3 · Lança de Marfim <em>(combate · idade)</em>.</span> Arranca um espinho da própria coroa e arremessa: ataque à distância, +2d10, perfura armadura leve.</p>
+                                    <p><span class="hn">Poder 4 · Chamado da Murder <em>(utilidade · idade)</em>.</span> Invoca um bando de corvos — enxame que cega e atrasa uma área (−1d10) e vira os olhos dele por todo o campo.</p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — Código.</b> <span>É cavaleiro, não açougueiro: não recua de um duelo aceito nem ataca pelas costas quem o desafiou de frente, e despreza quem luta sujo — dá pra virar isso contra ele. Mate o <strong>corvo</strong> e ele perde a Revoada e a antevisão.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Marcas deixadas —</span> campos de batalha onde os corvos nunca partem; guerreiros que juram lealdade até depois de mortos.</p>
+                                    <p><span class="key">Porta / medo —</span> o massacre com honra: frentes de guerra, memoriais, valas comuns.</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> tire o código (vira um Açougueiro sem honra, brutal) ou suba pra Tier 9 como Cavaleiro de verdade — fim de campanha.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- FERA DE MARFIM -->
+                    <article class="ser wide" data-tier="TIER 8 · DT 35" style="--ac:#cdbb8a">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/chefes/fera-de-marfim.jpg" alt="Fera de Marfim"><span class="cap">o dono do bosque morto</span></div>
+                            <div class="ser-content">
+                                <h2>Fera de Marfim</h2>
+                                <span class="nat">Primordial · Veterano · ser caçado na mata</span>
+                                <p class="lore">Besta quadrúpede do tamanho de um carro, casca branca e dourada como osso esmaltado, um olho amarelo único numa máscara sem rosto, fileira de dentes que não fecha e espinhos pelas costas. Vive entre as árvores secas que ela mesma matou.</p>
+                                <div class="attr10">
+                                    <div class="a hi"><span class="n">For</span><span class="v">8</span></div>
+                                    <div class="a hi"><span class="n">Vig</span><span class="v">9</span></div>
+                                    <div class="a"><span class="n">Coo</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">1</span></div>
+                                    <div class="a hi"><span class="n">Per</span><span class="v">7</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">1</span></div>
+                                    <div class="a"><span class="n">Aut</span><span class="v">5</span></div>
+                                    <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
+                                </div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Stress</b> 23</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Injúrias</b> 5/4/2</span><span class="pill"><b>Armadura</b> 5</span><span class="pill"><b>Mov</b> 14 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res4</span>
+                                </div>
+                                <div class="bloco">
+                                    <p><span class="key">Ataque —</span> <strong>Mordida Trituradora</strong> (Força +2d10, agarra; preso sofre dano todo turno até escapar, Força DT 22) e <strong>Investida</strong> (atropela: Derruba e empurra, +2d10).</p>
+                                    <p><span class="hn">Poder 1 · Domínio do Bosque.</span> No seu território regenera 1 Leve/turno <em>extra</em>, move-se sem ruído e sente cada passo (Percepção efetiva 10). Fora dele, perde isso.</p>
+                                    <p><span class="hn">Poder 2 · Rugido do Olho.</span> O olho único trava num alvo e ela ruge: Teste de Medo DT 35 — falha = paralisado de pavor por 1 rodada.</p>
+                                    <p><span class="hn">Poder 3 · Dilaceração <em>(combate · idade)</em>.</span> Com algo preso na Mordida, ela rasga: a Injúria do preso sobe +1 estágio automático por turno até soltar-se — e carne na boca vira cura na hora. <em>(Poucos poderes, mas brutais: a Fera é um tanque que não solta.)</em></p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — Território.</b> <span>Deusa no bosque, bicho comum fora dele. Tire-a da mata morta (isca, fogo, bloqueio de rota) e perde o Domínio e a regeneração. O olho único é ponto cego total: ataque pela traseira-oposta ao olho anula o Rugido.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Marcas deixadas —</span> bosques que secam à sua passagem; trilhas que ninguém atravessa duas vezes.</p>
+                                    <p><span class="key">Porta / medo —</span> ser caçado na mata: florestas mortas, matagais, o som de algo grande te seguindo.</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> faça o bosque inteiro ser o corpo dela (as árvores atacam) — chefe de mapa; ou ninhada com 2-3 criados-filhote.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- DELIRIUM -->
+                    <article class="ser wide" data-tier="TIER 8 · DT 40" style="--ac:var(--purple)">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/chefes/delirium.jpg" alt="Delirium"><span class="cap">o hóspede cortês na sua cabeça</span></div>
+                            <div class="ser-content">
+                                <h2>Delirium</h2>
+                                <span class="nat">Conceitual-Abstrato · Ancião · a loucura educada</span>
+                                <p class="lore">Vulto de chapéu de aba larga e capa que vira fumaça, rosto pálido de sorriso largo demais e olhos vermelhos que se multiplicam. Fala baixo, arrastado, sempre educado. Quase não bate: faz você bater em si mesmo.</p>
+                                <div class="attr10">
+                                    <div class="a"><span class="n">For</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Vig</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Coo</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Mal</span><span class="v">8</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">2</span></div>
+                                    <div class="a hi"><span class="n">Per</span><span class="v">7</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Neg</span><span class="v">7</span></div>
+                                    <div class="a hi"><span class="n">Aut</span><span class="v">8</span></div>
+                                    <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
+                                </div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Stress</b> 16</span><span class="pill k"><b>Medo</b> DT 40</span><span class="pill"><b>Injúrias</b> 2/2/1</span><span class="pill"><b>Mov</b> 10 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (9)</b> Sab6·Res2·For1</span>
+                                </div>
+                                <div class="bloco">
+                                    <p><span class="key">Ataque —</span> <strong>Toque do Delírio</strong> (Autoridade vs Mente do alvo; em vez de dano, −2d10 e alucinação curta).</p>
+                                    <p><span class="hn">Poder 1 · Hipnose Cortês.</span> Olhando nos olhos, dá uma ordem (Negociação/Autoridade vs Medo DT 40): "durma", "solte a arma", "ataque seu aliado". Vale 1 rodada.</p>
+                                    <p><span class="hn">Poder 2 · Realidade Torta + Paralisia do Sono.</span> Ilusões que machucam por convicção, troca aliado por inimigo aos olhos do alvo, e prende um alvo Imobilizado e mudo.</p>
+                                    <p><span class="hn">Poder 3 · Mil Faces <em>(utilidade · idade)</em>.</span> Cria cópias ilusórias de si pela cena — só uma é real; bater nas falsas não faz nada. Achar a verdadeira exige acerto contra a ilusão (Percepção/Investigação vs Malandragem).</p>
+                                    <p><span class="hn">Poder 4 · Insônia <em>(utilidade · idade)</em>.</span> Marca um alvo: ele não recupera Stress e leva −1d10 crescente por rodada enquanto não sair do "jogo" dele.</p>
+                                    <p><span class="hn">Poder 5 · Passo de Sombra <em>(utilidade · idade)</em>.</span> Some numa sombra e reaparece em outra à vista — impossível de encurralar. <em>(Muitos poderes, todos leves: ele é mil truques, não força.)</em></p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — Etiqueta.</b> <span>Trickster preso às próprias regras: não quebra a palavra dada nem age contra quem joga o jogo dele direito. Quem recusa a fantasia — foco brutal, dor real, descrença — fura tudo. E o corpo é fraquíssimo (Vigor 4): um golpe sério que pegue de verdade resolve rápido.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Marcas deixadas —</span> pessoas que não distinguem mais sonho de vigília; insones que veem olhos vermelhos no escuro.</p>
+                                    <p><span class="key">Porta / medo —</span> perder a razão e a paralisia do sono: quartos no escuro, manicômios, a hora morta da madrugada.</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> Idade Imemorial (DT 45) e um domínio onírico onde a mesa "acorda" dentro da cabeça dele — arco inteiro de pesadelo.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- JUGGERNAUT INFERNAL -->
+                    <article class="ser wide" data-tier="TIER 8 · DT 35" style="--ac:#c0392b">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/chefes/juggernaut-infernal.jpg" alt="Juggernaut Infernal"><span class="cap">a máquina de guerra com alma presa</span></div>
+                            <div class="ser-content">
+                                <h2>Juggernaut Infernal</h2>
+                                <span class="nat">Primordial · Veterano · a usina que anda</span>
+                                <p class="lore">Coloso de placas de metal negro com uma caveira no topo, um núcleo vermelho pulsando no peito como uma fornalha, fumaça escapando das juntas e garras industriais. Um demônio forjado — ou aprisionado — dentro de ferro. Avança. Sempre avança.</p>
+                                <div class="attr10">
+                                    <div class="a hi"><span class="n">For</span><span class="v">9</span></div>
+                                    <div class="a hi"><span class="n">Vig</span><span class="v">9</span></div>
+                                    <div class="a"><span class="n">Coo</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">1</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Per</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">1</span></div>
+                                    <div class="a hi"><span class="n">Aut</span><span class="v">6</span></div>
+                                    <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
+                                </div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Stress</b> 24</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Injúrias</b> 5/4/2</span><span class="pill"><b>Armadura</b> 10</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Auto-reparo</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res4</span>
+                                </div>
+                                <div class="bloco">
+                                    <p><span class="key">Ataque —</span> <strong>Esmagamento</strong> (Força, pesada +2d10, ignora cobertura leve) e <strong>Punho-Foguete</strong> (garra à distância média, +10 fixo no dano).</p>
+                                    <p><span class="hn">Poder 1 · Cortina de Fumaça.</span> Solta fumaça quente das juntas: área de −2d10 de visão pra todos, menos pra ele (sente calor/vibração).</p>
+                                    <p><span class="hn">Poder 2 · Sobrecarga do Núcleo (área · dois gumes).</span> O núcleo superaquece e libera uma onda: Injúria Grave em área (Coordenação pra metade) — mas cada Sobrecarga expõe o núcleo por 1 rodada.</p>
+                                    <p><span class="hn">Poder 3 · Rolo Compressor <em>(combate · idade)</em>.</span> Avança em linha reta atropelando tudo: +2d10, Derruba e empurra todos na faixa, e não pode ser interrompido por dano comum. <em>(Poucos poderes, mas é uma muralha que anda — quase impossível de parar ou derrubar.)</em></p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — O Núcleo.</b> <span>A blindagem é quase intransponível, mas o núcleo vermelho é a alma exposta: ataques contra ele ignoram a armadura, e durante a Sobrecarga fica descoberto. Mire o brilho em vez de bater no ferro. Lerdo (Coord 3) — ágeis flanqueiam.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Marcas deixadas —</span> trilhas de destruição em linha reta; fábricas e usinas que não desligam mais.</p>
+                                    <p><span class="key">Porta / medo —</span> a coisa imparável: linhas de frente, complexos industriais, o estrondo que se aproxima sem parar.</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> esconda o núcleo (comporta que só abre na Sobrecarga) = quebra-cabeça de timing; Tier 9 com canhões nos ombros = chefe de cerco.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- CONTROLE -->
+                    <article class="ser wide" data-tier="TIER 9 · DT 45" style="--ac:var(--cor-secundaria)">
+                        <div class="ser-body">
+                            <div class="ser-figure"><img src="assets/images/chefes/controle.jpg" alt="Controle"><span class="cap">a coleira que você não vê</span></div>
+                            <div class="ser-content">
+                                <h2>Controle</h2>
+                                <span class="nat">Social-Sistêmico · Ancião · a hierarquia que esmaga</span>
+                                <p class="lore">Silhueta calma de sobretudo e gravata, rosto na sombra, só dois olhos vermelhos em espiral acesos. Nunca levanta a voz. Não precisa lutar — tem gente, demônios e instituições inteiras pra lutar por ela. Considera todo mundo abaixo de si um cão, e cães obedecem.</p>
+                                <div class="attr10">
+                                    <div class="a"><span class="n">For</span><span class="v">7</span></div>
+                                    <div class="a hi"><span class="n">Vig</span><span class="v">10</span></div>
+                                    <div class="a"><span class="n">Coo</span><span class="v">6</span></div>
+                                    <div class="a hi"><span class="n">Mal</span><span class="v">9</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">3</span></div>
+                                    <div class="a hi"><span class="n">Per</span><span class="v">10</span></div>
+                                    <div class="a hi"><span class="n">Inv</span><span class="v">9</span></div>
+                                    <div class="a hi"><span class="n">Neg</span><span class="v">10</span></div>
+                                    <div class="a hi"><span class="n">Aut</span><span class="v">10</span></div>
+                                    <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
+                                </div>
+                                <div class="statline">
+                                    <span class="pill k"><b>Stress</b> 17</span><span class="pill k"><b>Medo</b> DT 45</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Imortal</b> contrato</span><span class="pill"><b>Idade (9)</b> Sab6·Res2·For1</span>
+                                </div>
+                                <div class="bloco">
+                                    <p><span class="key">Poderes Divinos (hierarquia) —</span> a força dela cresce com tudo que considera abaixo de si. Raramente ataca em pessoa: aponta e algo simplesmente <strong>acontece</strong> ao alvo (Percepção/Autoridade vs Medo DT 45).</p>
+                                    <p><span class="hn">Poder 1 · Domínio.</span> Controla qualquer ser que julgue inferior (quase todos): ordem que o corpo obedece antes da mente (Autoridade vs Medo DT 45) — comanda hordas, vira aliados contra a mesa, faz largarem armas.</p>
+                                    <p><span class="hn">Poder 2 · A Coleira Invisível.</span> Mata e fere através de quem está "abaixo": sacrifica subordinados pra causar dano à distância no alvo real, sem se expor.</p>
+                                    <p><span class="hn">Poder 3 · Arsenal Emprestado <em>(idade)</em>.</span> Usa as habilidades de qualquer demônio subordinado a ela como se fossem suas — quanto mais peças na coleira, maior o leque de poderes na mão dela.</p>
+                                    <p><span class="hn">Poder 4 · Decreto sobre a Carne e a Mente <em>(idade)</em>.</span> Manipula a biologia e a mente do alvo: para corações, fecha bocas e refaz feridas; apaga e reescreve lembranças, instala ordens permanentes.</p>
+                                    <p><span class="hn">Poder 5 · Ordem em Massa <em>(idade)</em>.</span> Uma única ordem que cai sobre todos os "inferiores" numa área de uma vez — multidões, exércitos, uma cidade inteira.</p>
+                                    <p><span class="key">Imortalidade (Contrato) —</span> tem um contrato de imortalidade com o primeiro-ministro japonês: o dano que a mataria é transferido a sacrifícios (cidadãos escolhidos). <strong>Ferimento não a mata</strong> — enquanto o contrato durar, ela volta.</p>
+                                </div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — Vínculo 1 & o Contrato.</b> <span>Dano não a mata: a imortalidade joga tudo nos sacrifícios — força bruta é inútil. Ela cai por dois caminhos que se cruzam: <strong>cortar o contrato</strong> (tirar o primeiro-ministro / a fonte dos sacrifícios do tabuleiro) e o que <strong>nenhuma coleira explica</strong> — conexão real, sacrifício por amor, lealdade que não vem do medo. Incapaz de prever isso (Vínculo 1), e sempre subestima o "inferior": esse é o ângulo morto dela.</span></div></div>
+                                <div class="bloco">
+                                    <p><span class="key">Marcas deixadas —</span> contratos por toda parte; pessoas, demônios e instituições inteiras na coleira sem saberem.</p>
+                                    <p><span class="key">Porta / medo —</span> ser usado e perder a vontade própria: hierarquias, governos, todo lugar onde alguém manda e alguém obedece.</p>
+                                </div>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> Tier 10 / Primordial (par de Cavaleiro) — aí Controle não é inimigo de combate, é a estrutura do arco inteiro: a mesa luta contra tudo que ela controla antes de chegar nela.</p>
+                            </div>
+                        </div>
+                    </article>
+
                 </div>
+            </section>
 
-                <!-- ============================
-                     HIBRIDOS (8)
-                     ============================ -->
-                <div class="type-section wow fadeInUp" data-type="hibridos">
-                    <div class="type-header">
-                        <div class="type-icon hibridos"><img src="assets/images/icones/hibrido.png" alt="Hibridos"></div>
-                        <div class="type-header-text">
-                            <h2>HIBRIDOS</h2>
-                            <p class="type-desc">Seres que fundiram sua essencia com um demonio, ganhando poderes sobre-humanos.</p>
-                        </div>
-                        <span class="type-count hibridos">8 imagens</span>
-                    </div>
-                    <div class="row gap-15">
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/hibridos/cacador-transformado.jpg" data-gall="hibridos" data-title="Cacador Transformado">
-                                <div class="img-card hibridos">
-                                    <img src="assets/images/exemplos/hibridos/cacador-transformado.jpg" alt="Cacador com forma humana e demonaca" loading="lazy">
-                                    <span class="type-label hibridos">Hibrido</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/hibridos/garota-olhos-carmesim.jpg" data-gall="hibridos" data-title="Garota de Olhos Carmesim">
-                                <div class="img-card hibridos">
-                                    <img src="assets/images/exemplos/hibridos/garota-olhos-carmesim.jpg" alt="Garota com olhos carmesim e corpo vermelho" loading="lazy">
-                                    <span class="type-label hibridos">Hibrido</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/hibridos/espinhos-corporais.jpg" data-gall="hibridos" data-title="Espinhos Corporais">
-                                <div class="img-card hibridos">
-                                    <img src="assets/images/exemplos/hibridos/espinhos-corporais.jpg" alt="Hibrido com espinhos e galhos brotando do corpo" loading="lazy">
-                                    <span class="type-label hibridos">Hibrido</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/hibridos/braco-demonizado.jpg" data-gall="hibridos" data-title="Braco Demonizado">
-                                <div class="img-card hibridos">
-                                    <img src="assets/images/exemplos/hibridos/braco-demonizado.jpg" alt="Homem com braco demonaco e criatura no ombro" loading="lazy">
-                                    <span class="type-label hibridos">Hibrido</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/hibridos/corpo-fungico.jpg" data-gall="hibridos" data-title="Corpo Fungico">
-                                <div class="img-card hibridos">
-                                    <img src="assets/images/exemplos/hibridos/corpo-fungico.jpg" alt="Corpo tomado por fungos e cogumelos" loading="lazy">
-                                    <span class="type-label hibridos">Hibrido</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/hibridos/flora-cadaverica.jpg" data-gall="hibridos" data-title="Flora Cadaverica">
-                                <div class="img-card hibridos">
-                                    <img src="assets/images/exemplos/hibridos/flora-cadaverica.jpg" alt="Corpo com flores e costelas expostas" loading="lazy">
-                                    <span class="type-label hibridos">Hibrido</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/hibridos/rosto-decomposto.jpg" data-gall="hibridos" data-title="Rosto Decomposto">
-                                <div class="img-card hibridos">
-                                    <img src="assets/images/exemplos/hibridos/rosto-decomposto.jpg" alt="Cabelo branco com metade do rosto decomposto" loading="lazy">
-                                    <span class="type-label hibridos">Hibrido</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/hibridos/dupla-bandagens.jpg" data-gall="hibridos" data-title="Dupla de Bandagens">
-                                <div class="img-card hibridos">
-                                    <img src="assets/images/exemplos/hibridos/dupla-bandagens.jpg" alt="Dupla com bandagens e aparencia sobrenatural" loading="lazy">
-                                    <span class="type-label hibridos">Hibrido</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
+        </div>
+
+        <!-- =========================================================
+             ABA 3 — GALERIA DE APARÊNCIAS
+             ========================================================= -->
+        <div class="page-pane" id="pane-galeria" hidden>
+            <section class="p-0-tb">
+                <div class="container p-30-tb xs-p-20-tb">
+
+                    <!-- Info Box -->
+                    <div style="background: var(--cor-card); border: 1px solid var(--cor-borda); border-radius: 12px; padding: 25px 30px; margin-bottom: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+                        <div class="d-flex f-gap-30 f-wrap">
+                            <div class="f-grow-1" style="min-width: 180px;">
+                                <h4 style="font-family: 'Bebas Neue', sans-serif; color: var(--cor-secundaria); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 8px; font-weight: 400;">TOTAL DE REFERÊNCIAS</h4>
+                                <p style="color: var(--cor-texto-soft); font-size: 0.9rem; margin: 0;">37 imagens em 4 categorias</p>
+                            </div>
+                            <div class="f-grow-1" style="min-width: 180px;">
+                                <h4 style="font-family: 'Bebas Neue', sans-serif; color: var(--cor-secundaria); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 8px; font-weight: 400;">COMO USAR</h4>
+                                <p style="color: var(--cor-texto-soft); font-size: 0.9rem; margin: 0;">Clique em qualquer imagem para ampliar. Use os filtros para navegar por tipo.</p>
+                            </div>
+                            <div class="f-grow-1" style="min-width: 180px;">
+                                <h4 style="font-family: 'Bebas Neue', sans-serif; color: var(--cor-secundaria); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 8px; font-weight: 400;">FONTE</h4>
+                                <p style="color: var(--cor-texto-soft); font-size: 0.9rem; margin: 0;">Imagens coletadas do Pinterest para uso como referência.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- ============================
-                     DEMONIOS (17)
-                     ============================ -->
-                <div class="type-section wow fadeInUp" data-type="demonios">
-                    <div class="type-header">
-                        <div class="type-icon demonios"><img src="assets/images/icones/demonio.png" alt="Demonios"></div>
-                        <div class="type-header-text">
-                            <h2>DEMONIOS</h2>
-                            <p class="type-desc">Entidades sobrenaturais nascidas dos medos e desejos da humanidade.</p>
-                        </div>
-                        <span class="type-count demonios">17 imagens</span>
+                    <!-- Filters -->
+                    <div class="filter-tabs m-30-b">
+                        <button class="filter-tab active" data-filter="todos">Todos</button>
+                        <button class="filter-tab" data-filter="humanos">Humanos</button>
+                        <button class="filter-tab" data-filter="infernais">Infernais</button>
+                        <button class="filter-tab" data-filter="hibridos">Híbridos</button>
+                        <button class="filter-tab" data-filter="demonios">Demônios</button>
                     </div>
-                    <div class="row gap-15">
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/rei-dos-cranios.jpg" data-gall="demonios" data-title="Rei dos Cranios">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/rei-dos-cranios.jpg" alt="Entidade com coroa de espinhos e colares de cranios" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
+
+                    <!-- HUMANOS -->
+                    <div class="type-section" data-type="humanos">
+                        <div class="type-header">
+                            <div class="type-icon humanos"><img src="assets/images/icones/humano.png" alt="Humanos"></div>
+                            <div class="type-header-text">
+                                <h2>HUMANOS</h2>
+                                <p class="type-desc">Caçadores comuns que enfrentam demônios com coragem e determinação.</p>
+                            </div>
+                            <span class="type-count humanos">6 imagens</span>
                         </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/anjo-esqueletico.jpg" data-gall="demonios" data-title="Anjo Esqueletico">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/anjo-esqueletico.jpg" alt="Esqueleto alado com aureola e anjos" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/besta-espinhosa.jpg" data-gall="demonios" data-title="Besta Espinhosa">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/besta-espinhosa.jpg" alt="Criatura com espinhos e dentes afiados" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/urso-mecanico.jpg" data-gall="demonios" data-title="Urso Mecanico">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/urso-mecanico.jpg" alt="Urso com serra circular mecanica" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/criatura-costurada.jpg" data-gall="demonios" data-title="Criatura Costurada">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/criatura-costurada.jpg" alt="Criatura com corpo costurado de pregos" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/predador-sombrio.jpg" data-gall="demonios" data-title="Predador Sombrio">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/predador-sombrio.jpg" alt="Criatura sombria com chifres e sino" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/colossus-abissal.jpg" data-gall="demonios" data-title="Colossus Abissal">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/colossus-abissal.jpg" alt="Gigante com manto rasgado e runas" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/entidade-das-cruzes.jpg" data-gall="demonios" data-title="Entidade das Cruzes">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/entidade-das-cruzes.jpg" alt="Massa sombria com cruzes e olho central" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/esfera-ocular.jpg" data-gall="demonios" data-title="Esfera Ocular">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/esfera-ocular.jpg" alt="Esfera coberta de olhos com coroa" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/legiao-ossea.jpg" data-gall="demonios" data-title="Legiao Ossea">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/legiao-ossea.jpg" alt="Demonio de ossos com multiplos corpos fundidos" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/sacerdote-monolito.jpg" data-gall="demonios" data-title="Sacerdote Monolito">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/sacerdote-monolito.jpg" alt="Sacerdote com cabeca de monolito e olhos orbitantes" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/ceifador-carmesim.jpg" data-gall="demonios" data-title="Ceifador Carmesim">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/ceifador-carmesim.jpg" alt="Esqueleto alado em ceu vermelho sangrento" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/passaro-seringa.jpg" data-gall="demonios" data-title="Passaro Seringa">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/passaro-seringa.jpg" alt="Passaro com bico de seringa" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/coelho-abissal.jpg" data-gall="demonios" data-title="Coelho Abissal">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/coelho-abissal.jpg" alt="Coelho com orelha transformada em boca de dentes" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/toupeira-serra.jpg" data-gall="demonios" data-title="Toupeira Serra">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/toupeira-serra.jpg" alt="Toupeira com serra mecanica acoplada" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/enfermeira-macabra.jpg" data-gall="demonios" data-title="Enfermeira Macabra">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/enfermeira-macabra.jpg" alt="Enfermeira com mascara de gas e instrumentos cirurgicos" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="c-xs-6 c-sm-4 c-md-3">
-                            <a class="open-gallery" href="assets/images/exemplos/demonios/demonio-manico.jpg" data-gall="demonios" data-title="Demonio Manico">
-                                <div class="img-card demonios">
-                                    <img src="assets/images/exemplos/demonios/demonio-manico.jpg" alt="Criatura de camisa de forca com olho brilhante" loading="lazy">
-                                    <span class="type-label demonios">Demonio</span>
-                                    <div class="img-overlay"><span class="zoom-icon">&#128269;</span></div>
-                                </div>
-                            </a>
+                        <div class="row gap-15">
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/humanos/cacador-insone.jpg" data-gall="humanos" data-title="Caçador Insone"><div class="img-card humanos"><img src="assets/images/exemplos/humanos/cacador-insone.jpg" alt="Caçador de terno com olhar exausto" loading="lazy"><span class="type-label humanos">Humano</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/humanos/agente-prateado.jpg" data-gall="humanos" data-title="Agente Prateado"><div class="img-card humanos"><img src="assets/images/exemplos/humanos/agente-prateado.jpg" alt="Agente de cabelo prateado com dois cães" loading="lazy"><span class="type-label humanos">Humano</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/humanos/pistoleira-sardenta.jpg" data-gall="humanos" data-title="Pistoleira Sardenta"><div class="img-card humanos"><img src="assets/images/exemplos/humanos/pistoleira-sardenta.jpg" alt="Caçadora sardenta com revólveres" loading="lazy"><span class="type-label humanos">Humano</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/humanos/cacadora-destemida.jpg" data-gall="humanos" data-title="Caçadora Destemida"><div class="img-card humanos"><img src="assets/images/exemplos/humanos/cacadora-destemida.jpg" alt="Caçadora destemida de gravata" loading="lazy"><span class="type-label humanos">Humano</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/humanos/veterano-ensanguentado.jpg" data-gall="humanos" data-title="Veterano Ensanguentado"><div class="img-card humanos"><img src="assets/images/exemplos/humanos/veterano-ensanguentado.jpg" alt="Veterano de sobretudo com sangue" loading="lazy"><span class="type-label humanos">Humano</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/humanos/lunatico-sorridente.jpg" data-gall="humanos" data-title="Lunático Sorridente"><div class="img-card humanos"><img src="assets/images/exemplos/humanos/lunatico-sorridente.jpg" alt="Homem com sorriso sinistro" loading="lazy"><span class="type-label humanos">Humano</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
                         </div>
                     </div>
-                </div>
 
-                <!-- No results -->
-                <div class="no-results" id="noResults">
-                    <div class="icon">&#128269;</div>
-                    <h3 style="color: var(--cor-texto-secundario);">Nenhuma referencia encontrada</h3>
-                    <p style="color: var(--cor-texto-soft);">Tente selecionar outro filtro.</p>
-                </div>
+                    <!-- INFERNAIS -->
+                    <div class="type-section" data-type="infernais">
+                        <div class="type-header">
+                            <div class="type-icon infernais"><img src="assets/images/icones/infernal.png" alt="Infernais"></div>
+                            <div class="type-header-text">
+                                <h2>INFERNAIS</h2>
+                                <p class="type-desc">Demônios que habitam um corpo sem vida. A consciência humana já cessou: resta só o demônio na carne.</p>
+                            </div>
+                            <span class="type-count infernais">6 imagens</span>
+                        </div>
+                        <div class="row gap-15">
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/infernais/guerreiro-flamejante.jpg" data-gall="infernais" data-title="Guerreiro Flamejante"><div class="img-card infernais"><img src="assets/images/exemplos/infernais/guerreiro-flamejante.jpg" alt="Guerreiro com corpo em chamas" loading="lazy"><span class="type-label infernais">Infernal</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/infernais/corpo-fragmentado.jpg" data-gall="infernais" data-title="Corpo Fragmentado"><div class="img-card infernais"><img src="assets/images/exemplos/infernais/corpo-fragmentado.jpg" alt="Corpo coberto de band-aids" loading="lazy"><span class="type-label infernais">Infernal</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/infernais/possesso-sombrio.jpg" data-gall="infernais" data-title="Possesso Sombrio"><div class="img-card infernais"><img src="assets/images/exemplos/infernais/possesso-sombrio.jpg" alt="Figura sombria com olhos múltiplos" loading="lazy"><span class="type-label infernais">Infernal</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/infernais/olhos-profanos.jpg" data-gall="infernais" data-title="Olhos Profanos"><div class="img-card infernais"><img src="assets/images/exemplos/infernais/olhos-profanos.jpg" alt="Figura com olhos rosas e auréola" loading="lazy"><span class="type-label infernais">Infernal</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/infernais/furia-estelar.jpg" data-gall="infernais" data-title="Fúria Estelar"><div class="img-card infernais"><img src="assets/images/exemplos/infernais/furia-estelar.jpg" alt="Criatura vibrante com presas e estrelas" loading="lazy"><span class="type-label infernais">Infernal</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/infernais/encapuzado-olho-vermelho.jpg" data-gall="infernais" data-title="Encapuzado de Olho Vermelho"><div class="img-card infernais"><img src="assets/images/exemplos/infernais/encapuzado-olho-vermelho.jpg" alt="Figura encapuzada com olho vermelho" loading="lazy"><span class="type-label infernais">Infernal</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                        </div>
+                    </div>
 
-                <!-- Disclaimer -->
-                <div class="disclaimer m-40-t wow fadeInUp">
-                    <p>As imagens desta galeria foram coletadas do Pinterest e sao utilizadas apenas como referencias visuais para fins de inspiracao na criacao de personagens. Todos os direitos pertencem aos seus respectivos autores.</p>
-                </div>
+                    <!-- HÍBRIDOS -->
+                    <div class="type-section" data-type="hibridos">
+                        <div class="type-header">
+                            <div class="type-icon hibridos"><img src="assets/images/icones/hibrido.png" alt="Híbridos"></div>
+                            <div class="type-header-text">
+                                <h2>HÍBRIDOS</h2>
+                                <p class="type-desc">Seres que fundiram sua essência com um demônio, ganhando poderes sobre-humanos.</p>
+                            </div>
+                            <span class="type-count hibridos">8 imagens</span>
+                        </div>
+                        <div class="row gap-15">
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/hibridos/cacador-transformado.jpg" data-gall="hibridos" data-title="Caçador Transformado"><div class="img-card hibridos"><img src="assets/images/exemplos/hibridos/cacador-transformado.jpg" alt="Caçador com forma humana e demoníaca" loading="lazy"><span class="type-label hibridos">Híbrido</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/hibridos/garota-olhos-carmesim.jpg" data-gall="hibridos" data-title="Garota de Olhos Carmesim"><div class="img-card hibridos"><img src="assets/images/exemplos/hibridos/garota-olhos-carmesim.jpg" alt="Garota com olhos carmesim" loading="lazy"><span class="type-label hibridos">Híbrido</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/hibridos/espinhos-corporais.jpg" data-gall="hibridos" data-title="Espinhos Corporais"><div class="img-card hibridos"><img src="assets/images/exemplos/hibridos/espinhos-corporais.jpg" alt="Híbrido com espinhos brotando" loading="lazy"><span class="type-label hibridos">Híbrido</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/hibridos/braco-demonizado.jpg" data-gall="hibridos" data-title="Braço Demonizado"><div class="img-card hibridos"><img src="assets/images/exemplos/hibridos/braco-demonizado.jpg" alt="Homem com braço demoníaco" loading="lazy"><span class="type-label hibridos">Híbrido</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/hibridos/corpo-fungico.jpg" data-gall="hibridos" data-title="Corpo Fúngico"><div class="img-card hibridos"><img src="assets/images/exemplos/hibridos/corpo-fungico.jpg" alt="Corpo tomado por cogumelos" loading="lazy"><span class="type-label hibridos">Híbrido</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/hibridos/flora-cadaverica.jpg" data-gall="hibridos" data-title="Flora Cadavérica"><div class="img-card hibridos"><img src="assets/images/exemplos/hibridos/flora-cadaverica.jpg" alt="Corpo com flores e costelas expostas" loading="lazy"><span class="type-label hibridos">Híbrido</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/hibridos/rosto-decomposto.jpg" data-gall="hibridos" data-title="Rosto Decomposto"><div class="img-card hibridos"><img src="assets/images/exemplos/hibridos/rosto-decomposto.jpg" alt="Metade do rosto decomposto" loading="lazy"><span class="type-label hibridos">Híbrido</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/hibridos/dupla-bandagens.jpg" data-gall="hibridos" data-title="Dupla de Bandagens"><div class="img-card hibridos"><img src="assets/images/exemplos/hibridos/dupla-bandagens.jpg" alt="Dupla com bandagens" loading="lazy"><span class="type-label hibridos">Híbrido</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                        </div>
+                    </div>
 
-            </div>
-        </section>
+                    <!-- DEMÔNIOS -->
+                    <div class="type-section" data-type="demonios">
+                        <div class="type-header">
+                            <div class="type-icon demonios"><img src="assets/images/icones/demonio.png" alt="Demônios"></div>
+                            <div class="type-header-text">
+                                <h2>DEMÔNIOS</h2>
+                                <p class="type-desc">Entidades sobrenaturais nascidas dos medos e desejos da humanidade.</p>
+                            </div>
+                            <span class="type-count demonios">17 imagens</span>
+                        </div>
+                        <div class="row gap-15">
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/rei-dos-cranios.jpg" data-gall="demonios" data-title="Rei dos Crânios"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/rei-dos-cranios.jpg" alt="Entidade com coroa de espinhos" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/anjo-esqueletico.jpg" data-gall="demonios" data-title="Anjo Esquelético"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/anjo-esqueletico.jpg" alt="Esqueleto alado com auréola" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/besta-espinhosa.jpg" data-gall="demonios" data-title="Besta Espinhosa"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/besta-espinhosa.jpg" alt="Criatura com espinhos e dentes" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/urso-mecanico.jpg" data-gall="demonios" data-title="Urso Mecânico"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/urso-mecanico.jpg" alt="Urso com serra circular" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/criatura-costurada.jpg" data-gall="demonios" data-title="Criatura Costurada"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/criatura-costurada.jpg" alt="Criatura costurada de pregos" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/predador-sombrio.jpg" data-gall="demonios" data-title="Predador Sombrio"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/predador-sombrio.jpg" alt="Criatura sombria com chifres" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/colossus-abissal.jpg" data-gall="demonios" data-title="Colossus Abissal"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/colossus-abissal.jpg" alt="Gigante com manto rasgado" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/entidade-das-cruzes.jpg" data-gall="demonios" data-title="Entidade das Cruzes"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/entidade-das-cruzes.jpg" alt="Massa sombria com cruzes" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/esfera-ocular.jpg" data-gall="demonios" data-title="Esfera Ocular"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/esfera-ocular.jpg" alt="Esfera coberta de olhos" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/legiao-ossea.jpg" data-gall="demonios" data-title="Legião Óssea"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/legiao-ossea.jpg" alt="Demônio de ossos fundidos" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/sacerdote-monolito.jpg" data-gall="demonios" data-title="Sacerdote Monólito"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/sacerdote-monolito.jpg" alt="Sacerdote com cabeça de monólito" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/ceifador-carmesim.jpg" data-gall="demonios" data-title="Ceifador Carmesim"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/ceifador-carmesim.jpg" alt="Esqueleto alado em céu vermelho" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/passaro-seringa.jpg" data-gall="demonios" data-title="Pássaro Seringa"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/passaro-seringa.jpg" alt="Pássaro com bico de seringa" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/coelho-abissal.jpg" data-gall="demonios" data-title="Coelho Abissal"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/coelho-abissal.jpg" alt="Coelho com boca de dentes" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/toupeira-serra.jpg" data-gall="demonios" data-title="Toupeira Serra"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/toupeira-serra.jpg" alt="Toupeira com serra mecânica" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/enfermeira-macabra.jpg" data-gall="demonios" data-title="Enfermeira Macabra"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/enfermeira-macabra.jpg" alt="Enfermeira com máscara de gás" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                            <div class="c-xs-6 c-sm-4 c-md-3"><a class="open-gallery" href="assets/images/exemplos/demonios/demonio-manico.jpg" data-gall="demonios" data-title="Demônio Maníaco"><div class="img-card demonios"><img src="assets/images/exemplos/demonios/demonio-manico.jpg" alt="Criatura de camisa de força" loading="lazy"><span class="type-label demonios">Demônio</span><div class="img-overlay"><span class="zoom-icon">&#128269;</span></div></div></a></div>
+                        </div>
+                    </div>
+
+                    <!-- No results -->
+                    <div class="no-results" id="noResults">
+                        <div class="icon">&#128269;</div>
+                        <h3 style="color: var(--cor-texto-secundario);">Nenhuma referência encontrada</h3>
+                        <p style="color: var(--cor-texto-soft);">Tente selecionar outro filtro.</p>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="disclaimer m-40-t">
+                        <p>As imagens desta galeria foram coletadas do Pinterest e são utilizadas apenas como referências visuais para fins de inspiração na criação de personagens. Todos os direitos pertencem aos seus respectivos autores.</p>
+                    </div>
+
+                </div>
+            </section>
+        </div>
 
     </main>
 
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="footer-brand">
-            <a href="index.html">SCAR</a>
-            <span>Sacrificial Contract & Risk</span>
-        </div>
-
+        <div class="footer-brand"><a href="index.html">SCAR</a><span>Sacrificial Contract & Risk</span></div>
         <div class="footer-links">
             <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -854,28 +1068,42 @@
                 Agradecimentos
             </a>
         </div>
-
         <div class="footer-divider-line"></div>
-        <p class="footer-copy">&copy; 2026 SCAR RPG &bull; Feito com &#129656; por fas, para fas</p>
+        <p class="footer-copy">&copy; 2026 SCAR RPG &bull; Feito com &#129656; por fãs, para fãs</p>
     </footer>
 
-    <!-- Squeleton JS -->
     <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
-
-    <!-- SCAR JS -->
     <script src="assets/js/main.js"></script>
 
     <script>
-        // Filter tabs
+        // Header scroll
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // Abas de página (Bestiário / Galeria)
+        document.querySelectorAll('.page-tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.page-tab').forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+                var pane = tab.dataset.pane;
+                document.querySelectorAll('.page-pane').forEach(function(p) {
+                    p.hidden = (p.id !== 'pane-' + pane);
+                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Filtros da galeria
         document.querySelectorAll('.filter-tab').forEach(function(tab) {
             tab.addEventListener('click', function() {
                 document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
                 tab.classList.add('active');
-
                 var filter = tab.dataset.filter;
                 var sections = document.querySelectorAll('.type-section');
                 var visible = 0;
-
                 sections.forEach(function(section) {
                     if (filter === 'todos' || section.dataset.type === filter) {
                         section.style.display = '';
@@ -884,9 +1112,43 @@
                         section.style.display = 'none';
                     }
                 });
-
                 document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
             });
+        });
+
+        // Fichas de monstro: recolhidas por padrão, abre/fecha com transição suave
+        document.querySelectorAll('#pane-chefes .ser').forEach(function(card) {
+            var content = card.querySelector('.ser-content');
+            if (!content) return;
+            var lore = content.querySelector('.lore');
+            var els = Array.prototype.slice.call(content.children);
+            var startIdx = lore ? els.indexOf(lore) + 1 : 0;
+
+            // agrupa tudo depois da descrição num contêiner animável
+            var detail = document.createElement('div');
+            detail.className = 'ser-detail';
+            var inner = document.createElement('div');
+            inner.className = 'ser-detail-inner';
+            detail.appendChild(inner);
+            for (var i = startIdx; i < els.length; i++) { inner.appendChild(els[i]); }
+
+            var btn = document.createElement('button');
+            btn.className = 'ficha-toggle';
+            btn.type = 'button';
+            btn.textContent = '▾ Ver ficha completa';
+            btn.addEventListener('click', function() {
+                var aberto = card.classList.toggle('collapsed') === false;
+                btn.textContent = aberto ? '▴ Recolher ficha' : '▾ Ver ficha completa';
+            });
+
+            if (lore) {
+                lore.insertAdjacentElement('afterend', detail);
+                lore.insertAdjacentElement('afterend', btn);
+            } else {
+                content.insertBefore(detail, content.firstChild);
+                content.insertBefore(btn, detail);
+            }
+            card.classList.add('collapsed');
         });
     </script>
 

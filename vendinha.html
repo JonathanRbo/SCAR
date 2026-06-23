@@ -392,7 +392,7 @@
                     <a href="vendinha.html" class="nav-link">Vendinha</a>
                     <a href="aflicoes.html" class="nav-link">Aflições</a>
                     <a href="historia.html" class="nav-link">História</a>
-                    <a href="aparencias.html" class="nav-link">Aparências</a>
+                    <a href="aparencias.html" class="nav-link">Bestiário</a>
                 </nav>
                 <button class="mobile-menu-btn" data-modal-show="mobile-menu"><span>☰</span></button>
             </div>
@@ -422,7 +422,7 @@
                     <div class="mobile-menu-section-divider"></div>
                     <nav class="mobile-menu-nav mobile-menu-nav-secondary">
                         <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">História</span></a>
-                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Aparências</span></a>
+                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Bestiário</span></a>
                         <a href="index.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Home</span></a>
                     </nav>
                     <div class="mobile-menu-footer">
@@ -1246,23 +1246,10 @@
                 </div>
             </div>
 
-            <h3>Custo por Tier <span style="font-size: 0.5em; opacity: 0.7;">(clique no card pra ver um exemplo)</span></h3>
+            <h3>Custo por Tier</h3>
             <div class="narrativo">
                 O <strong>tier é a idade do demônio</strong> com quem se fecha. O preço (Custo por uso + Aflição + Restrição + Marca) já vem no contrato. Catálogo completo no documento de Contratos.
             </div>
-
-            <!-- "clicar e expandir" o exemplo dentro de cada card de tier -->
-            <style>
-                .tier-example { margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px; }
-                .tier-example > summary { cursor: pointer; list-style: none; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1.5px; font-size: 0.78rem; text-transform: uppercase; color: var(--cor-secundaria); user-select: none; }
-                .tier-example > summary::-webkit-details-marker { display: none; }
-                .tier-example > summary::before { content: '▸ '; }
-                .tier-example[open] > summary::before { content: '▾ '; }
-                .tier-example .ex-flavor { color: var(--cor-texto-secundario); font-size: 0.85rem; font-style: italic; margin: 8px 0 0; }
-                /* cada card com a própria altura — abrir um não estica os vizinhos */
-                .contratos-tier-grid { align-items: flex-start; }
-                .contratos-tier-grid .tier-card { height: auto; }
-            </style>
 
             <div class="row gap-20 contratos-tier-grid">
                 <div class="c-xs-12 c-sm-6 c-md-4">
@@ -1272,18 +1259,6 @@
                             <li>PM: <strong>2 (Humano) / 3 (Híbrido)</strong></li>
                             <li>¥ Apresentação: <span class="price" style="color: var(--gold);">1.000 ¥</span> (campanha)</li>
                         </ul>
-                        <details class="tier-example">
-                            <summary>Exemplo: Demônio do Cigarro</summary>
-                            <ul>
-                                <li><strong>Demônio:</strong> Jovem · DT 20</li>
-                                <li><strong>Poder:</strong> cortina de fumaça (área média) · Percepção</li>
-                                <li><strong>Custo:</strong> 2 Stress por uso</li>
-                                <li><strong>Aflição:</strong> tosse persistente (−1d10 furtividade)</li>
-                                <li><strong>Restrição:</strong> fumar 1 cigarro por dia</li>
-                                <li><strong>Marca:</strong> dedos amarelados</li>
-                            </ul>
-                            <p class="ex-flavor">Um trago e a fumaça engole o beco.</p>
-                        </details>
                     </div>
                 </div>
                 <div class="c-xs-12 c-sm-6 c-md-4">
@@ -1293,18 +1268,6 @@
                             <li>PM: <strong>3 (Humano) / 4 (Híbrido)</strong></li>
                             <li>¥ Apresentação: <span class="price" style="color: var(--gold);">5.000 ¥</span> (campanha)</li>
                         </ul>
-                        <details class="tier-example">
-                            <summary>Exemplo: Demônio do Punho</summary>
-                            <ul>
-                                <li><strong>Demônio:</strong> Maduro · DT 25</li>
-                                <li><strong>Poder:</strong> socos +2d10 e empurram (1 cena) · Força</li>
-                                <li><strong>Custo:</strong> 3 Stress por cena</li>
-                                <li><strong>Aflição:</strong> dores articulares severas</li>
-                                <li><strong>Restrição:</strong> nocautear 1 pessoa por semana</li>
-                                <li><strong>Marca:</strong> punhos inchados</li>
-                            </ul>
-                            <p class="ex-flavor">O soco entra com peso que teu corpo não tem — e cobra nas juntas depois.</p>
-                        </details>
                     </div>
                 </div>
                 <div class="c-xs-12 c-sm-6 c-md-4">
@@ -1314,18 +1277,6 @@
                             <li>PM: <strong>4 (Humano) / 5 (Híbrido)</strong></li>
                             <li>¥ Apresentação: <span class="price" style="color: var(--gold);">15.000 ¥</span> (campanha)</li>
                         </ul>
-                        <details class="tier-example">
-                            <summary>Exemplo: Demônio da Raposa</summary>
-                            <ul>
-                                <li><strong>Demônio:</strong> Primevo · DT 40</li>
-                                <li><strong>Poder:</strong> cabeça de raposa, Injúria Grave automática · Autoridade</li>
-                                <li><strong>Custo:</strong> 5 Stress + 1 Injúria</li>
-                                <li><strong>Aflição:</strong> o olho perdido (−1d10 Percepção visual/mira)</li>
-                                <li><strong>Restrição:</strong> só serve a usuário belo</li>
-                                <li><strong>Marca:</strong> beleza sobrenatural perturbadora</li>
-                            </ul>
-                            <p class="ex-flavor">A raposa não negocia com feio. E cada chamado leva um pedaço de você.</p>
-                        </details>
                     </div>
                 </div>
                 <div class="c-xs-12 c-sm-6 c-md-4">
@@ -1335,18 +1286,6 @@
                             <li>PM: <strong>3 (qualquer)</strong></li>
                             <li>¥ Apresentação: <span class="price" style="color: var(--gold);">8.000 ¥</span> (campanha)</li>
                         </ul>
-                        <details class="tier-example">
-                            <summary>Exemplo: Demônio Menor Familiar</summary>
-                            <ul>
-                                <li><strong>Demônio:</strong> = idade do invocado</li>
-                                <li><strong>Poder:</strong> invoca demônio menor que luta (atrib. 2, 3 Leves) · Vínculo</li>
-                                <li><strong>Custo:</strong> 4 Stress por invocação (até cair ou 1 cena)</li>
-                                <li><strong>Aflição:</strong> vozes sussurrando constantemente</li>
-                                <li><strong>Restrição:</strong> alimentar com sangue próprio toda semana</li>
-                                <li><strong>Marca:</strong> tatuagem demoníaca que pulsa</li>
-                            </ul>
-                            <p class="ex-flavor">Não é um poder seu — é um bicho que você sustenta com o próprio sangue.</p>
-                        </details>
                     </div>
                 </div>
                 <div class="c-xs-12 c-sm-6 c-md-4">
@@ -1356,17 +1295,6 @@
                             <li>PM: <strong>2 (Humano)</strong> por passo</li>
                             <li>¥ Apresentação: <em>sem taxa</em> (porta já tá aberta)</li>
                         </ul>
-                        <details class="tier-example">
-                            <summary>Como funciona</summary>
-                            <ul>
-                                <li>Cada evolução = +1 <strong>Ponto de evolução</strong> numa das 3 trilhas</li>
-                                <li><strong>Poder:</strong> +1 nível de Injúria / +1d10 / dobra área</li>
-                                <li><strong>Fôlego:</strong> −1 Stress no custo por uso</li>
-                                <li><strong>Controle:</strong> abranda Aflição ou afrouxa Restrição</li>
-                                <li><strong>Teto:</strong> Menor 2 · Médio 3 · Maior 4 — depois, cruza de tier</li>
-                            </ul>
-                            <p class="ex-flavor">Martelo: evolui 2× (+1d10, −1 Stress), bate o teto, cruza pra Médio.</p>
-                        </details>
                     </div>
                 </div>
                 <div class="c-xs-12 c-sm-6 c-md-4">
@@ -1376,17 +1304,6 @@
                             <li>PM: <strong>aprovação do mestre</strong></li>
                             <li>¥: <em>não passa pelo Bento — ritual direto com o mestre</em></li>
                         </ul>
-                        <details class="tier-example">
-                            <summary>Exemplo: Poder Máximo</summary>
-                            <ul>
-                                <li><strong>Demônio:</strong> Cavaleiro / conceito · DT 40+</li>
-                                <li><strong>Efeito:</strong> +3d10 em todos os testes por 1 cena</li>
-                                <li><strong>Restrição:</strong> perde 1 sentido permanentemente (aleatório)</li>
-                                <li><strong>Marca:</strong> a área do corpo começa a se demonizar</li>
-                                <li><strong>Morte se:</strong> usar mais de 1 vez por mês</li>
-                            </ul>
-                            <p class="ex-flavor">Tudo de uma vez. O preço é a regra que te mata se quebrar. Não evolui.</p>
-                        </details>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Trilhas &amp; Combos — Material de Mestre (SCAR)</title>
+
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        .t-hero { text-align: center; padding: 80px 20px 24px; position: relative; }
+        .t-hero .eyebrow { font-family: 'Bebas Neue', sans-serif; letter-spacing: 7px; color: var(--gold); font-size: 0.85rem; }
+        .t-hero h1 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 5px; font-size: clamp(2.2rem, 6vw, 3.8rem); margin: 8px 0 6px; color: var(--cor-texto); }
+        .t-hero h1 span { color: var(--cor-secundaria); }
+        .t-hero p { color: var(--cor-texto-soft); max-width: 680px; margin: 12px auto 0; line-height: 1.6; font-size: 0.92rem; }
+
+        .gm-warn { max-width: 940px; margin: 0 auto 8px; border: 1px solid var(--gold); border-radius: 10px; background: rgba(212,175,55,0.08); padding: 12px 18px; color: var(--cor-texto-secundario); font-size: 0.85rem; line-height: 1.5; }
+        .gm-warn b { color: var(--gold); font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+
+        .lei { max-width: 940px; margin: 16px auto; border-left: 4px solid var(--cor-principal); background: linear-gradient(180deg, rgba(139,0,0,0.08), transparent); border-radius: 0 10px 10px 0; padding: 14px 20px; }
+        .lei h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; color: var(--cor-secundaria); margin: 0 0 8px; font-size: 1.15rem; }
+        .lei p { color: var(--cor-texto-secundario); font-size: 0.86rem; line-height: 1.55; margin: 0; }
+        .lei strong { color: var(--cor-texto); }
+
+        .sec-tit { text-align: center; font-family: 'Bebas Neue', sans-serif; letter-spacing: 5px; color: var(--cor-secundaria); font-size: clamp(1.5rem, 3.4vw, 2.1rem); margin: 38px 0 4px; }
+        .sec-sub { text-align: center; color: var(--cor-texto-secundario); font-style: italic; font-size: 0.86rem; max-width: 640px; margin: 0 auto 22px; }
+
+        .grid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+        @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+
+        .trilha { --ac: var(--cor-secundaria); background: var(--cor-fundo-card); border: 1px solid var(--cor-borda); border-top: 3px solid var(--ac); border-radius: 13px; overflow: hidden; }
+        .trilha.full { grid-column: 1 / -1; }
+        .trilha-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--cor-borda); background: rgba(0,0,0,0.2); }
+        .t-emoji { font-size: 1.7rem; line-height: 1; }
+        .trilha-head h2 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; font-size: 1.4rem; color: var(--cor-texto); margin: 0; }
+        .t-role { font-size: 0.74rem; color: var(--ac); font-style: italic; }
+        .t-pm { margin-left: auto; font-family: 'Bebas Neue', sans-serif; font-size: 0.74rem; letter-spacing: 1px; color: var(--ac); border: 1px solid var(--ac); border-radius: 20px; padding: 2px 11px; white-space: nowrap; }
+
+        .t-body { padding: 14px 18px 16px; }
+        .t-sec { margin-bottom: 12px; }
+        .t-sec h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1.5px; font-size: 0.82rem; color: var(--ac); margin: 0 0 6px; }
+        .t-sec p { color: var(--cor-texto-secundario); font-size: 0.82rem; line-height: 1.5; margin: 0 0 4px; }
+        .t-sec p b { color: var(--cor-texto); }
+        .t-sec .star { color: var(--gold); font-weight: 700; }
+        .pm { font-size: 0.68rem; color: var(--gold); border: 1px solid rgba(212,175,55,0.5); border-radius: 5px; padding: 0 5px; white-space: nowrap; }
+        .yen { color: var(--cor-secundaria); font-weight: 700; }
+
+        .t-encaixe { border-left: 3px solid var(--cor-secundaria); background: rgba(220,20,60,0.07); border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 12px 0; }
+        .t-encaixe b { color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+        .t-encaixe span { color: var(--cor-texto-secundario); font-size: 0.84rem; line-height: 1.55; }
+        .t-encaixe strong { color: var(--cor-texto); }
+
+        .coringa-box { max-width: 940px; margin: 0 auto; background: var(--cor-fundo-card); border: 1px solid var(--cor-borda); border-radius: 13px; padding: 18px 22px; }
+        .coringa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 700px) { .coringa-grid { grid-template-columns: 1fr; } }
+        .coringa-grid h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; color: var(--cor-secundaria); font-size: 0.9rem; margin: 0 0 6px; }
+        .coringa-grid p { color: var(--cor-texto-secundario); font-size: 0.82rem; line-height: 1.5; margin: 0 0 4px; }
+        .coringa-grid p b { color: var(--cor-texto); }
+
+        .top5 { --ac: var(--cor-secundaria); }
+        .why { border-left: 3px solid var(--gold); background: rgba(212,175,55,0.06); border-radius: 0 8px 8px 0; padding: 10px 14px; margin-top: 10px; }
+        .why b { color: var(--gold); font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+        .why span { color: var(--cor-texto-secundario); font-size: 0.84rem; line-height: 1.55; }
+        .why strong { color: var(--cor-texto); }
+
+        .fecho { max-width: 760px; margin: 30px auto 10px; text-align: center; color: var(--cor-texto-secundario); font-style: italic; font-size: 0.9rem; line-height: 1.6; }
+        .fecho strong { color: var(--cor-secundaria); }
+        .back { display:inline-block; margin: 6px 0 0; color: var(--cor-texto-soft); text-decoration: none; font-size: 0.85rem; }
+        .back:hover { color: var(--cor-secundaria); }
+    </style>
+</head>
+<body>
+
+    <header class="site-header p-15-tb">
+        <div class="container">
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+                <span style="font-family:'Bebas Neue',sans-serif; letter-spacing:3px; color:var(--gold); font-size:0.9rem;">⚙ MATERIAL DE MESTRE</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="p-100-t xs-p-80-t">
+
+        <section class="t-hero container">
+            <span class="eyebrow">Loucuras do Mestre</span>
+            <h1>TRILHAS <span>&amp; COMBOS</span></h1>
+            <p>O <strong style="color:var(--cor-texto)">teto</strong> de cada foco de build — não o "bom", o <strong style="color:var(--cor-secundaria)">quebrado</strong>. Página de referência só sua: nada no site aponta pra cá.</p>
+            <a href="index.html" class="back">← voltar ao início</a>
+        </section>
+
+        <section class="container p-10-tb">
+            <div class="gm-warn"><b>⚠ Só para o Mestre.</b> Estes são os potenciais máximos do sistema — combos pra você entender o que é possível e responder. Combo quebrado <b>sem resposta</b> (Falha Central, mate-o-líder, controle no lugar de dano) é TPK; <b>com resposta</b>, é a melhor luta da campanha. Não mostre aos jogadores como "build padrão".</div>
+        </section>
+
+        <section class="container">
+            <div class="lei">
+                <h3>📐 Lei do poder</h3>
+                <p><strong>Bônus fixo (+X) não tem teto.</strong> <strong>d10 tem</strong> (≤ 2× atributo; excedente vira Stress / +5 fixo / Sobrecarregado). Os <strong>3 caminhos que furam o sistema</strong> são: <strong>bônus fixo</strong>, <strong>estágio de Injúria</strong> e <strong>loops de recurso</strong>. Todo combo abaixo explora um desses três.</p>
+            </div>
+        </section>
+
+        <!-- CORINGAS -->
+        <h2 class="sec-tit">🧂 Coringas Universais</h2>
+        <p class="sec-sub">Não fazem parte de nenhum combo — mas toda build quer. Cobrem os buracos que sinergia nenhuma cobre (qualquer natureza). Pega 1-2 em qualquer trilha.</p>
+        <section class="container">
+            <div class="coringa-box">
+                <div class="coringa-grid">
+                    <div>
+                        <h4>🧠 Não travar (anti-Stress / Medo)</h4>
+                        <p><b>Frieza Profissional</b> <span class="pm">2 PM</span> — ignora o próximo ganho de Stress psicológico.</p>
+                        <p><b>Ignorar o Medo</b> <span class="pm">2 PM</span> — ignora penalidades de Medo por 1 cena.</p>
+                        <p><b>Plano Rápido</b> <span class="pm">2 PM</span> — declara um plano; ignora 1 falha relacionada.</p>
+                    </div>
+                    <div>
+                        <h4>🛟 Não morrer / salvar</h4>
+                        <p><b>Não Morre Ainda</b> <span class="pm">2 PM</span> — estabiliza aliado em Crítica por 1 cena.</p>
+                        <p><b>Movimento Calculado</b> <span class="pm">2 PM</span> — reposiciona sem gerar reação.</p>
+                        <p><b>🛡 Talismã</b> — 1x/sessão: rerola, −1 Injúria, ignora 1 Aflição, +3d10 temático, resiste a 1 Medo OU recupera Stress.</p>
+                    </div>
+                    <div>
+                        <h4>👁️ Não ser pego de surpresa</h4>
+                        <p><b>Arrepio na Nuca</b> <span class="pm">2 PM</span> — o Mestre te avisa "algo está errado" antes da área perigosa.</p>
+                        <p><b>Leitura de Pessoas</b> <span class="pm">2 PM</span> — detecta mentiras óbvias + lê emoção/medo/motivação.</p>
+                    </div>
+                    <div>
+                        <h4>🧰 Fora de combate</h4>
+                        <p><b>Conheço um Cara</b> <span class="pm">2 PM</span> — acha 1 contato em qualquer cidade.</p>
+                        <p><b>Nunca Esqueço</b> <span class="pm">2 PM</span> — lembra detalhes exatos de qualquer cena/documento/conversa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRILHAS -->
+        <h2 class="sec-tit">As Trilhas — Potencial Máximo</h2>
+        <p class="sec-sub">🧩 Núcleo (qualquer natureza) · 🎒 Equipamento · 🔥 o encaixe (a interação quebrada) · 🧬 por natureza (⭐ = melhor).</p>
+
+        <section class="container">
+            <div class="grid">
+
+                <!-- DEMOLIDOR -->
+                <article class="trilha" style="--ac:#c0392b">
+                    <div class="trilha-head"><span class="t-emoji">⚔️</span><div><h2>Demolidor</h2><span class="t-role">DPS corpo a corpo · cada golpe abre mais fundo</span></div><span class="t-pm">Núcleo 11 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Golpe Decisivo</b> <span class="pm">2 PM</span> — vencer por 10+ → Injúria +1 estágio.</p>
+                            <p><b>Maestria em Combate</b> <span class="pm">3 PM</span> — +10 fixo em todos os ataques corpo a corpo.</p>
+                            <p><b>Sequência Devastadora</b> <span class="pm">2 PM</span> — 2 acertos seguidos → o 3º +10 fixo.</p>
+                            <p><b>Técnica Mortal</b> <span class="pm">4 PM</span> — 1x/combate: golpe com +2 estágios.</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🗡️ <b>Motosserra</b> <span class="yen">1.500 ¥</span> — +3d10; crítico Brutal (+1 nível).</p>
+                            <p>🛡️ <b>Colete + Placas</b> <span class="yen">3.000 ¥</span> — −2 níveis de toda Injúria.</p>
+                            <p>🥊 <b>Estilo Spetsnaz</b> — 1º ataque que ferir +1 grau; atacar ferido/imobilizado ignora defesa.</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>1º golpe: <strong>Spetsnaz +1 · Golpe Decisivo +1 · Técnica Mortal +2 · Brutal +1 = 5 estágios</strong>. A trilha de Injúria só tem 3 degraus → <strong>Leve vira Morte direto</strong>.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Infernal</span> — Essência Primordial (ataque sempre causa ≥ Leve), Dor como Combustível (sofreu Injúria → +5 fixo), Manifestação Maior (+5 fixo transformado).</p>
+                            <p><b>🩸 Híbrido</b> — Harmonia Instável (poder + contrato na mesma ação), Limite do Ser (+1d10 em tudo físico).</p>
+                            <p><b>🧍 Humano</b> — Guerreiro Implacável (Leves sem penalidade), Execução Precisa (15+ → +2 Stress).</p>
+                            <p><b>📜 Contrato Katana</b> (Maior) — cada corte +1 estágio.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- FUZILEIRO -->
+                <article class="trilha" style="--ac:#d98a2b">
+                    <div class="trilha-head"><span class="t-emoji">🎯</span><div><h2>Fuzileiro</h2><span class="t-role">DPS à distância · dano por tiro garantido</span></div><span class="t-pm">Núcleo 8 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Atirador</b> <span class="pm">2 PM</span> — +10 fixo à distância.</p>
+                            <p><b>Tiro de Precisão</b> <span class="pm">3 PM</span> — ignora armadura parcial e cobertura leve.</p>
+                            <p><b>Tiro de Supressão</b> <span class="pm">2 PM</span> — área: inimigos sofrem −1d10.</p>
+                            <p><b>Tiro Duplo</b> <span class="pm">2 PM</span> — 2 alvos adjacentes (−1d10). <em>(opcional)</em></p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🗡️ <b>Sniper</b> <span class="yen">8.000 ¥</span> — +3d10, Crítica; Execução se o alvo não sabe.</p>
+                            <p>🗡️ <b>Rifle Tático</b> <span class="yen">4.000 ¥</span> — +2d10; crítico +1 nível.</p>
+                            <p>🥊 <b>Estilo Atirador</b> — diferença 10+ → +1 grau; zona de perigo (−1d10).</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>Caçador Paciente <strong>+12 fixo</strong> + Atirador <strong>+10 fixo</strong> + Sniper +3d10, ignorando cobertura/armadura. Contra alvo desprevenido (defesa 0) → <strong>morte no 1º tiro</strong>.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Humano</span> — Mira Calculada (+10 fixo), Munição Especial (+1 estágio), Caçador Paciente (+2d10 ou +12 fixo), Atirador de Elite Extremo (1x/missão crítico automático).</p>
+                            <p><b>😈 Demônio Puro</b> — Projétil Demoníaco (+1d10), Percepção do Medo (sente todos em 100m = mira perfeita).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ROLETA -->
+                <article class="trilha" style="--ac:#d4af37">
+                    <div class="trilha-head"><span class="t-emoji">🎲</span><div><h2>Roleta</h2><span class="t-role">Crítico · quando bate, decapita</span></div><span class="t-pm">Núcleo 13 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Carregar o Dado</b> <span class="pm">4 PM</span> <em>(dobra a cada compra)</em> — +1 Dado Marcado.</p>
+                            <p><b>Sorte Afiada</b> <span class="pm">3 PM</span> — alarga a janela do crítico (9-10 → 8-10 → … → 5-10).</p>
+                            <p><b>Golpe Aniquilador</b> <span class="pm">4 PM</span> — crítico sobe +2 níveis (Desastre desce 2).</p>
+                            <p><b>Nada a Perder</b> <span class="pm">2 PM</span> — no Stress máximo, sua falha nunca vira crítica contra você.</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🗡️ <b>Rifle / Revólver</b> — crítico = +1 nível.</p>
+                            <p>🗡️ <b>Machado</b> <span class="yen">300 ¥</span> — +2d10; crítico Execução.</p>
+                            <p>🛡️ <b>Talismã</b> — 1x/sessão rerola o Dado Marcado (salva de Desastre).</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>Crit quase todo turno + cada crit = <strong>Aniquilador +2 · arma +1 · Atirador +1 = 4 níveis num golpe</strong>. Leve → Morte só de cair o Dado. <em>Cuidado: Sorte Afiada alarga o Desastre (1-4) — Nada a Perder + Talismã são o seguro.</em></span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><em>Agnóstica (Sorte do Combate é geral).</em> <span class="star">⭐ Humano</span> — Talismã anula o Desastre. <b>🩸 Híbrido</b> — Recusa da Morte te revive se um Desastre te derrubar.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- BIGORNA -->
+                <article class="trilha" style="--ac:#7f8c8d">
+                    <div class="trilha-head"><span class="t-emoji">🧱</span><div><h2>Bigorna</h2><span class="t-role">Tank que não cai · você aguenta</span></div><span class="t-pm">Núcleo 13 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Dor Conhecida</b> <span class="pm">2 PM</span> — ignora a penalidade da 1ª Injúria da cena.</p>
+                            <p><b>Postura de Impacto</b> <span class="pm">2 PM</span> — 1x/cena: reduz uma Injúria em 1 estágio.</p>
+                            <p><b>Tanque Humano</b> <span class="pm">3 PM</span> — Graves contam como Leves pra penalidade.</p>
+                            <p><b>Indestrutível</b> <span class="pm">4 PM</span> — a 1ª Crítica da missão vira Grave.</p>
+                            <p><b>Muralha Viva</b> <span class="pm">2 PM</span> — bloqueia ataque destinado a aliado adjacente.</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🛡️ <b>Anti-Motim</b> <span class="yen">5.000 ¥</span> — −2 níveis, corpo todo.</p>
+                            <p>🛡️ <b>Escudo Balístico</b> <span class="yen">2.000 ¥</span> — bloqueia 1 ataque frontal/rodada.</p>
+                            <p>🥊 <b>Estilo Judô</b> — defende com Coordenação, Vigor OU Vínculo (o melhor seu).</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>As camadas não se sobrepõem → você reduz <strong>2-4 níveis de TODO golpe</strong> e funciona ferido grave. Com a natureza certa, vira imortal.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Infernal</span> — Imortalidade Menor (não morre de Crítica por 1h), Casca Rígida (1ª Grave vira Leve), Regeneração Profana (cura 1 Injúria), Essência Contaminada (quem te dá Grave sofre +2 Stress).</p>
+                            <p><b>🩸 Híbrido</b> — Recusa da Morte, Cura Forçada (cancela 1 Injúria), Corpo Entre Mundos (Vigor resiste a mental/Medo).</p>
+                            <p><b>🧍 Humano</b> — Instinto de Sobrevivência (Grave vira 2 Leves), Não Vou Cair Aqui (sobrevive à morte certa; rebote: Aflição permanente).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- VENTO -->
+                <article class="trilha" style="--ac:#5dade2">
+                    <div class="trilha-head"><span class="t-emoji">🍃</span><div><h2>Vento</h2><span class="t-role">Esquiva / intocável · não é atingido</span></div><span class="t-pm">Núcleo 16 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Reflexo Antecipado</b> <span class="pm">2 PM</span> — +1d10 esquiva contra o 1º ataque do turno.</p>
+                            <p><b>Reação Extra</b> <span class="pm">2 PM</span> — +1 reação por rodada.</p>
+                            <p><b>Esquiva Perfeita</b> <span class="pm">3 PM</span> — 1x/cena: esquiva automática.</p>
+                            <p><b>Velocidade Cegante</b> <span class="pm">3 PM</span> — mais lentos que você: −1d10 pra te acertar.</p>
+                            <p><b>Reflexos Sobre-Humanos</b> <span class="pm">4 PM</span> — age primeiro sempre.</p>
+                            <p><b>Dança da Morte</b> <span class="pm">2 PM</span> — esquivou → reposiciona de graça.</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🛡️ <b>Colete Oculto</b> <span class="yen">800 ¥</span> — −1 nível, sem penalidade de Coordenação. <em>(evite armadura pesada — ela tira sua defesa)</em></p>
+                            <p>🏍️ <b>Moto-Besta</b> <span class="yen">12.000 ¥</span> — +1d10 em qualquer rolagem.</p>
+                            <p>🥊 <b>Estilo Judô</b> — contra-ataca quando o inimigo erra.</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>Age primeiro → esquiva automática → reposiciona de graça → inimigo mira onde você não está. Na prática, <strong>não toma golpe</strong>.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Híbrido</span> — Transição Suave (transforma de graça) + Forma Intermediária (+5 fixo sem penalidade).</p>
+                            <p><b>😈 Demônio Puro</b> — Forma Etérea (intangível 1 rodada, atravessa parede).</p>
+                            <p><b>🧍 Humano</b> — Reflexos de Combate (+1d10 defesa quando não atacou).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SOMBRA -->
+                <article class="trilha" style="--ac:#6c5ce7">
+                    <div class="trilha-head"><span class="t-emoji">👤</span><div><h2>Sombra</h2><span class="t-role">Assassino · abre matando</span></div><span class="t-pm">Núcleo 10 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Furtividade Adaptativa</b> <span class="pm">2 PM</span> — +1d10 furtividade em qualquer terreno.</p>
+                            <p><b>Movimento Calculado</b> <span class="pm">2 PM</span> — move sem gerar reação.</p>
+                            <p><b>Fantasma</b> <span class="pm">4 PM</span> — invisível p/ Percepção &lt; sua Malandragem; 1º ataque +10 fixo.</p>
+                            <p><b>Golpe Decisivo</b> <span class="pm">2 PM</span> — vencer por 10+ → +1 estágio.</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🗡️ <b>Faca</b> <span class="yen">50 ¥</span> — Perfurante, <strong>+2d10 contra desprevenido/imobilizado</strong>, sangramento.</p>
+                            <p>🥊 <b>Estilo Caçador</b> (observar ignora defesa) ou <b>Espadachim</b> (Leve vira sangramento).</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>Alvo desprevenido = <strong>Sem Defesa (rola 0)</strong> + Faca +2d10 + Fantasma +10 fixo + Golpe Decisivo → diferença <strong>40+ = Morte Instantânea</strong>. Deleta 1 alvo antes da iniciativa.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Demônio Puro</span> — Ilusão do Medo (alvo congela, −2d10), Forma Etérea (atravessa paredes), Sussurro Demoníaco (vira inimigo contra os aliados).</p>
+                            <p><b>🧍 Humano</b> — Combate Sujo (ataca usando Malandragem). <b>👺 Infernal</b> — Marca Rastejante (sabe onde o alvo está) + Existência Errada (nada te para).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- MAESTRO -->
+                <article class="trilha" style="--ac:#e0a000">
+                    <div class="trilha-head"><span class="t-emoji">🎺</span><div><h2>Maestro</h2><span class="t-role">Multiplicador do time · o grupo bate por você</span></div><span class="t-pm">Núcleo 14 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Abertura Tática</b> <span class="pm">2 PM</span> — marca 1 inimigo: você e aliados +5 fixo nele.</p>
+                            <p><b>Voz de Comando</b> <span class="pm">2 PM</span> — um aliado repete um teste falho.</p>
+                            <p><b>Coordenação de Equipe</b> <span class="pm">2 PM</span> — aliados que agem depois: +5 fixo.</p>
+                            <p><b>Mestre Estrategista</b> <span class="pm">4 PM</span> — início: +10 distribuído + reordena a iniciativa.</p>
+                            <p><b>Inspirar Aliados</b> <span class="pm">2 PM</span> — todos recuperam 1d5 Stress.</p>
+                            <p><b>Aura de Proteção</b> <span class="pm">2 PM</span> — aliados −2 Stress de fontes mentais.</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Recursos</h4>
+                            <p>👥 <b>Júnior pronto / Familiar demoníaco</b> <span class="yen">10k-50k ¥</span> — mais corpos pra comandar.</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>Marca 1 alvo → o time inteiro despeja com <strong>+5/+10 fixo empilhado</strong>, numa rodada reordenada pra todos baterem juntos → o alvo <strong>evapora antes de agir</strong>.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Humano</span> — Preparo Tático (+10 distribuído), Postura de Comando (+5 entre 2 aliados), Mestre Tático (aliados que seguem o plano recuperam Stress).</p>
+                            <p><b>🩸 Híbrido</b> — Sincronização Perfeita (+5 fixo lutando junto), Instinto Compartilhado (usam o melhor atributo dos dois).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ANALISTA -->
+                <article class="trilha" style="--ac:#9b59b6">
+                    <div class="trilha-head"><span class="t-emoji">🧠</span><div><h2>Analista</h2><span class="t-role">Debuffer / mata-boss · desmonta o alvo</span></div><span class="t-pm">Núcleo 8 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Já Vi Esse Bicho</b> <span class="pm">2 PM</span> — identifica demônio comum + marca +5 de Brecha.</p>
+                            <p><b>Enciclopédia do Horror</b> <span class="pm">3 PM</span> — identifica demônio forte; até +15 de Brecha de uma vez.</p>
+                            <p><b>Calcanhar de Aquiles</b> <span class="pm">3 PM</span> — converte toda a Brecha em penalidade fixa no demônio (−1d10 + Brecha, escala +5).</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🥊 <b>Estilo Caçador</b> — observar ignora até 3d10 da defesa <strong>e ataca usando Investigação</strong> (o mesmo atributo que abre Brecha).</p>
+                            <p>📜 <b>Contrato da Maldição</b> (Médio) — −2d10 no alvo (empilha com a Brecha).</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>Brecha <strong>não tem teto</strong> → a cada rodada o boss fica −1d10, −5, −10, −15… cravado, e você ignora a defesa dele. Loop que <strong>só cresce</strong>. O mata-boss real do sistema.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Infernal</span> — Memória do Inferno (+1d10 vs demônio conhecido, empilha na Brecha), Instinto Demoníaco (refaz análise falha).</p>
+                            <p><b>🧍 Humano</b> — Treinamento Anti-Demônio (+1d10 vs já enfrentado), Sabe Demais (descobre a Falha Central de bosses regeneradores).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- CURANDEIRO -->
+                <article class="trilha" style="--ac:#27ae60">
+                    <div class="trilha-head"><span class="t-emoji">❤️</span><div><h2>Curandeiro</h2><span class="t-role">Médico anti-wipe · mantém o time de pé</span></div><span class="t-pm">Núcleo 9 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Não Morre Ainda</b> <span class="pm">2 PM</span> — estabiliza aliado em Crítica por 1 cena.</p>
+                            <p><b>Açougueiro de Confiança</b> <span class="pm">3 PM</span> — trata uma Grave → reduz a Leve.</p>
+                            <p><b>Agulha e Vodka</b> <span class="pm">2 PM</span> — trata 1 Injúria Leve no descanso.</p>
+                            <p><b>Inspirar Aliados</b> <span class="pm">2 PM</span> — cura Stress do grupo.</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🩹 <b>Material médico básico</b> — requisito das curas; ande sempre com ele.</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>Ninguém morre na rodada decisiva (Não Morre Ainda) + o time não Colapsa (Inspirar) → você <strong>anula o wipe</strong>.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Infernal</span> — Sangue Demoníaco (curar com sangue → +Stress) + Regeneração Profana (cura própria).</p>
+                            <p><b>🧍 Humano</b> — recuperação emocional eficiente (+5 emocionais) + Sobrevivente Nato.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ENGENHEIRO -->
+                <article class="trilha" style="--ac:#95a5a6">
+                    <div class="trilha-head"><span class="t-emoji">🔧</span><div><h2>Engenheiro / Armeiro</h2><span class="t-role">Sucata e armas · resolve o que combate não resolve</span></div><span class="t-pm">Núcleo 4 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Toque do Especialista</b> <span class="pm">2 PM</span> — ignora penalidade de arma improvisada/danificada.</p>
+                            <p><b>Arma Personalizada</b> <span class="pm">2 PM</span> — escolhe 1 arma: +1d10 numa situação que você define.</p>
+                        </div>
+                        <div class="t-sec"><h4>🌿 Ramos</h4>
+                            <p>🔫 <b>Armeiro · Minha Menina</b> <span class="pm">4 PM</span> — 1 arma sob medida, <strong>+1d10 fixo permanente</strong>.</p>
+                            <p>🧨 <b>Demolição · Mestre em Explosivos</b> <span class="pm">3 PM</span> — improvisado +2d10 em área.</p>
+                            <p>🤖 <b>Inventor · Mestre Inventor</b> <span class="pm">4 PM</span> — gadget único no descanso.</p>
+                            <p>💻 <b>Hacker · Hacker de Campo</b> <span class="pm">3 PM</span> — invade câmera, alarme, fechadura.</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>Minha Menina dá <strong>+1d10 fixo permanente</strong> numa arma → some em qualquer trilha de dano, de graça por turno.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Humano</span> — Uso Criativo de Armas + Arsenal Adaptado (troca de arma de graça) + Tecnologia alta.</p>
+                            <p><b>👺 Infernal</b> — Forma Irreversível (trava 1 poder sempre ativo — "equipa" poder como item).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- MATILHA -->
+                <article class="trilha" style="--ac:#b9770e">
+                    <div class="trilha-head"><span class="t-emoji">🐺</span><div><h2>Matilha</h2><span class="t-role">Você + companheiro · dois agindo como um</span></div><span class="t-pm">Núcleo 10 PM</span></div>
+                    <div class="t-body">
+                        <div class="t-sec"><h4>🧩 Núcleo</h4>
+                            <p><b>Familiar</b> <span class="pm">2 PM</span> <em>(+3 se demoníaco)</em> — companheiro permanente.</p>
+                            <p><b>Familiar de Combate</b> <span class="pm">2 PM</span> — luta; mesmo alvo que você → 2º ataque +1d10.</p>
+                            <p><b>Sexto Sentido Peludo</b> <span class="pm">2 PM</span> — com ele perto, você não pode ser emboscado.</p>
+                            <p><b>Uma Só Mente</b> <span class="pm">4 PM</span> — dividem iniciativa, trocam posição, coordenado +10 fixo.</p>
+                        </div>
+                        <div class="t-sec"><h4>🎒 Equipamento</h4>
+                            <p>🏍️ <b>Moto-Besta</b> <span class="yen">12.000 ¥</span> — montaria demoníaca (Vínculo); +1d10 em qualquer rolagem.</p>
+                        </div>
+                        <div class="t-encaixe"><b>🔥 O Encaixe</b> <span>O familiar age <strong>fora do seu turno</strong> → você tem 2 ações/rodada, e o ataque coordenado dá <strong>+10 fixo</strong>.</span></div>
+                        <div class="t-sec"><h4>🧬 Por natureza</h4>
+                            <p><span class="star">⭐ Humano</span> — +1 Vínculo sustenta o elo. <b>👺 Infernal</b> — Familiar demoníaco mais forte + Aura de Terror cobre o pet. <b>🩸 Híbrido</b> — Instinto Compartilhado com o familiar.</p>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- TOP 5 -->
+        <h2 class="sec-tit">💀 Top 5 — Os Mais Quebrados</h2>
+        <p class="sec-sub">Os combos que furam o sistema de vez. Sempre dê a resposta — ou é TPK.</p>
+
+        <section class="container">
+            <div class="grid">
+
+                <article class="trilha full top5" style="--ac:#e74c3c">
+                    <div class="trilha-head"><span class="t-emoji">🔥</span><div><h2>1 · Motor de Dor</h2><span class="t-role">Infernal · fica mais forte se machucando — e é VOCÊ que controla</span></div></div>
+                    <div class="t-body">
+                        <div class="t-sec">
+                            <p><b>Essência Primordial</b> <span class="pm">3 PM</span> — seu ataque sempre causa ≥ Leve, mesmo perdendo.</p>
+                            <p><b>Speed Blitz</b> <span class="pm">4 PM</span> — ataca vários ignorando reações; ao fim do turno toma 1 Leve automática.</p>
+                            <p><b>Dor como Combustível</b> <span class="pm">2 PM</span> — sofreu Injúria → próximo ataque +5 fixo.</p>
+                        </div>
+                        <div class="why"><b>Por que é roubado</b> <span>Speed Blitz te dá uma Leve <strong>de graça todo turno</strong> → liga o Dor como Combustível sozinho → +5 fixo garantido, sem depender de ninguém. Como fixo não tem teto, soma Manifestação Maior (+5) → <strong>+10 fixo TODO turno, pra sempre</strong>. A Regeneração paga as Leves. Liga sozinho e nunca para.</span></div>
+                    </div>
+                </article>
+
+                <article class="trilha full top5" style="--ac:#9b59b6">
+                    <div class="trilha-head"><span class="t-emoji">🧠</span><div><h2>2 · Brecha Sem Fundo</h2><span class="t-role">Analista · ⭐ Infernal · o único número sem teto, no alvo mais difícil</span></div></div>
+                    <div class="t-body">
+                        <div class="t-sec">
+                            <p><b>Já Vi / Enciclopédia</b> <span class="pm">2-3 PM</span> — identificar marca Brecha (+5, até +15). <strong>Sem teto</strong>; acumula a cena toda.</p>
+                            <p><b>Estilo Caçador</b> — observar ignora até 3d10 da defesa, e ataca usando Investigação.</p>
+                            <p><b>Calcanhar de Aquiles</b> <span class="pm">3 PM</span> — converte toda a Brecha em penalidade fixa no demônio (escala +5).</p>
+                            <p><b>Memória do Inferno</b> — +1d10 vs demônio conhecido.</p>
+                        </div>
+                        <div class="why"><b>Por que é roubado</b> <span>Toda rodada estuda → Brecha +5, +10, +15… <strong>sem limite</strong>, virando penalidade que só cresce no boss (rodada 3 ele tá −15 cravado) enquanto você ignora a defesa. Os outros combos perdem força com o tempo; esse <strong>ganha</strong>. Mata qualquer chefe se a luta durar — e ela sempre dura.</span></div>
+                    </div>
+                </article>
+
+                <article class="trilha full top5" style="--ac:#d98a2b">
+                    <div class="trilha-head"><span class="t-emoji">🩸</span><div><h2>3 · Duplo Disparo</h2><span class="t-role">Híbrido · dois turnos num turno</span></div></div>
+                    <div class="t-body">
+                        <div class="t-sec">
+                            <p><b>Harmonia Instável</b> <span class="pm">3 PM</span> — 1 poder + 1 contrato na MESMA ação (+2 Stress).</p>
+                            <p><b>Limite do Ser</b> <span class="pm">3 PM</span> — +1d10 em TODOS os testes físicos por 1 cena.</p>
+                            <p><b>Contrato da Katana</b> (Maior) — cada corte +1 estágio.</p>
+                        </div>
+                        <div class="why"><b>Por que é roubado</b> <span>Normalmente você escolhe poder OU contrato. Harmonia deixa os dois no mesmo ataque → bate transformado (+1d10 em tudo) E com a Katana (+1 estágio) ao mesmo tempo. Soma Golpe Decisivo e um golpe carrega <strong>2 estágios + 1d10 numa ação só</strong>. Cada golpe rende o que devia custar dois turnos.</span></div>
+                    </div>
+                </article>
+
+                <article class="trilha full top5" style="--ac:#6c5ce7">
+                    <div class="trilha-head"><span class="t-emoji">⛓️</span><div><h2>4 · Trava e Abate</h2><span class="t-role">qualquer · ⭐ Demônio Puro · tira a defesa e a soma bruta mata</span></div></div>
+                    <div class="t-body">
+                        <div class="t-sec">
+                            <p><b>Imobilizar</b> — Contrato da Corrente (prende) ou Ilusão do Medo (congela).</p>
+                            <p><b>Regra Sem Defesa</b> — alvo imobilizado/atordoado/desprevenido <strong>não rola defesa (= 0)</strong>.</p>
+                            <p><b>Faca</b> <span class="yen">50 ¥</span> — Perfurante + +2d10 contra imobilizado/desprevenido.</p>
+                        </div>
+                        <div class="why"><b>Por que é roubado</b> <span>Contra defesa 0, <strong>toda a sua soma vira diferença</strong>. A tabela diz: <strong>diferença 40+ = Morte Instantânea</strong>. Com Faca +2d10 + dados + fixo, passar de 40 contra zero é trivial — pula a atrito de Injúrias inteira, não importa Vigor/armadura. Deleta 1 inimigo por turno. <em>Preço: precisa LANDAR a prisão (boss com Força/Vigor alto resiste).</em></span></div>
+                    </div>
+                </article>
+
+                <article class="trilha full top5" style="--ac:#7f8c8d">
+                    <div class="trilha-head"><span class="t-emoji">💀</span><div><h2>5 · O Imortal</h2><span class="t-role">Infernal · cura mais que leva, e bater nele te machuca</span></div></div>
+                    <div class="t-body">
+                        <div class="t-sec">
+                            <p><b>Imortalidade Menor</b> <span class="pm">4 PM</span> — não morre de Críticas por 1h (só incapacita).</p>
+                            <p><b>Regeneração Profana</b> <span class="pm">3 PM</span> — cura 1 Injúria de qualquer nível (paga Stress), 1/turno.</p>
+                            <p><b>Casca Rígida</b> <span class="pm">3 PM</span> — 1x/cena, a 1ª Grave vira Leve.</p>
+                            <p><b>Essência Contaminada</b> <span class="pm">2 PM</span> — quem te causa Grave sofre +2 Stress.</p>
+                        </div>
+                        <div class="why"><b>Por que é roubado</b> <span>Cura 1 Injúria <strong>todo turno</strong> + a pior ferida é rebaixada + nem Crítica te mata + bater em você custa Stress ao atacante. A <strong>cura por turno passa o dano por turno</strong> do grupo. Numa luta normal ele não morre — só cai pela <strong>Falha Central</strong> (fogo, nome, símbolo). Muro de atrito que não se fura na porrada.</span></div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <p class="fecho">"Pra ferrar os players de volta: monte o Boss com o motor da mesma natureza que eles temem e <strong>SEMPRE dê a resposta</strong> (Falha Central, mate-o-líder, controle no lugar de dano). Combo quebrado sem resposta é TPK; com resposta, é a melhor luta da campanha."</p>
+
+    </main>
+
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -2464,16 +2464,28 @@
                 return;
             }
             sel.style.display = '';
-            // Opção auto-descritiva: estado (○/●) · nome · bônus (se tiver) · custo/quando · o que faz
+            // Igual ao select de armamentos: agrupa por optgroup e texto curto.
+            // Aqui o grupo é a SITUAÇÃO de uso (quando usar), não Físico/Mental/Social.
+            // Opção = estado (○ liga / ● desliga) · nome · bônus (se tiver). Custo/efeito ficam em "Minhas Habilidades".
+            const grupos = {};
+            minhas.forEach(h => { const sit = HAB_SITUACAO[h.id] || 'outras'; (grupos[sit] = grupos[sit] || []).push(h); });
+            const sits = HAB_SIT_ORDEM.filter(s => grupos[s]);
+            const opcao = h => {
+                const on = habAtivas.includes(h.id);
+                let extra;
+                if (temBuff(h)) {
+                    // Dá buff (d10/fixo/marca/janela): mostra o bônus + só as condições (custo, sem PM)
+                    extra = [buffResumo(h), custoSemPM(h.custo)].filter(Boolean).join(' · ');
+                } else {
+                    // Passiva / sem buff numérico: mostra o efeito (lembra o que ela faz)
+                    extra = h.efeito || '';
+                }
+                return `<option value="${h.id}">${on ? '● ' : '○ '}${h.nome}${extra ? ' · ' + extra : ''}</option>`;
+            };
             sel.innerHTML = `<option value="">＋ Ligar / desligar habilidade (○ liga · ● desliga)…</option>` +
-                minhas.map(h => {
-                    const on = habAtivas.includes(h.id);
-                    const resumo = buffResumo(h);
-                    const buff = resumo ? ` · ${resumo}` : '';
-                    const cRaw = custoSemPM(h.custo);
-                    const custo = cRaw ? ` · ${cRaw}` : '';
-                    return `<option value="${h.id}">${on ? '● ' : '○ '}${h.nome}${buff}${custo}</option>`;
-                }).join('');
+                sits.map(sit =>
+                    `<optgroup label="${HAB_SIT_LABEL[sit] || sit}">` + grupos[sit].map(opcao).join('') + '</optgroup>'
+                ).join('');
         }
 
         function addBonusDados(delta) {
@@ -2718,6 +2730,34 @@
             {"id":"forma-eterea","nome":"Forma Etérea","tipo":"origem","cat":"demonio","custo":"4 Stress · 1x/cena · Malandragem","efeito":"Fica intangível por 1 rodada: não pode ser atingido nem atacar, e atravessa paredes.","dado":0,"fixo":0},
             {"id":"sussurro-demoniaco","nome":"Sussurro Demoníaco","tipo":"origem","cat":"demonio","custo":"3 Stress · Negociação","efeito":"Planta uma ideia na mente do alvo (Negociação vs Vínculo); o alvo age conforme por 1 rd.","dado":0,"fixo":0},
         ];
+
+        // ===== Situação de uso (agrupa o select de buff por MOMENTO do combate, não por Físico/Mental/Social) =====
+        // Pra mover uma habilidade de grupo, é só passar o id de uma lista pra outra aqui embaixo.
+        // Qualquer id que não esteja em nenhuma lista cai em "✦ Outras" automaticamente.
+        const HAB_SIT_ORDEM = ['atacar','mirar','defender','ferido','dado','aliados','utilidade','outras'];
+        const HAB_SIT_LABEL = {
+            atacar:    '⚔️ Quando ataco',
+            mirar:     '🎯 Quando miro / preparo',
+            defender:  '🛡️ Quando defendo / reajo',
+            ferido:    '🩸 Quando sou ferido',
+            dado:      '🎲 Dado Marcado / sorte',
+            aliados:   '🤝 Quando ajudo aliados',
+            utilidade: '🔍 Fora da luta / utilidade',
+            outras:    '✦ Outras',
+        };
+        const HAB_SIT_GRUPOS = {
+            atacar: ['golpe-decisivo','atirador','postura-de-combate','tiro-de-precisao','sequencia-devastadora','quebra-ossos','maestria-em-combate','tecnica-mortal','atirador-de-elite-extremo','tiro-duplo','tiro-de-supressao','rajada-controlada','tiro-ricochete','speed-blitz','arma-personalizada','beijo-da-cobra','mestre-em-explosivos','minha-menina','combate-sujo','execucao-precisa','municao-especial','treinamento-anti-demonio','manifestacao-maior','forma-bestial','essencia-primordial','evolucao-forcada','arma-viva','forma-intermediaria','explosao-controlada','limite-do-ser','garras-laminas-corporais','projetil-demoniaco','explosao-de-area','forma-de-combate','devorar','toxina-conceitual','marca-territorial'],
+            mirar: ['cacador-paciente','mira-calculada','abertura-tatica','raio-x-do-inimigo','ja-vi-esse-bicho','enciclopedia-do-horror','calcanhar-de-aquiles'],
+            defender: ['contra-ataque-brutal','reflexo-de-batalha','movimento-calculado','reacao-extra','reflexo-antecipado','defensor-natural','aparagem-mestra','muralha-viva','esquiva-perfeita','esquiva-impossivel','reflexos-sobre-humanos','velocidade-cegante','danca-da-morte','reflexos-de-combate','treinamento-tatico','forma-eterea'],
+            ferido: ['dor-conhecida','corpo-condicionado','pele-dura','postura-de-impacto','adrenalina-pura','recuperacao-acelerada','ficar-de-pe','tanque-humano','indestrutivel','frieza-profissional','vontade-inabalavel','ignorar-o-medo','mente-de-aco','nada-a-perder','guerreiro-implacavel','ultima-bala','nao-vou-cair-aqui','sangue-frio','veterano-de-guerra','corpo-treinado','folego-de-guerra','instinto-de-sobrevivencia','mentalidade-inabalavel','corpo-anomalo','sangue-demoniaco','dor-como-combustivel','corpo-adaptavel','casca-rigida','essencia-contaminada','membros-regenerativos','regeneracao-profana','imortalidade-menor','existencia-errada','fome-controlada','cura-forcada','limite-forcado','natureza-dual-reativa','corpo-entre-mundos','regeneracao-ativa'],
+            dado: ['carregar-o-dado','sorte-afiada','golpe-aniquilador'],
+            aliados: ['nao-morre-ainda','voz-de-comando','coordenacao-de-equipe','inspirar-aliados','plano-de-emergencia','comandante-de-campo','lider-natural','mestre-estrategista','ultima-promessa','lacos-inquebraveis','aura-de-protecao','sem-palavras','juramento-de-sangue','despedida','razao-pra-voltar','nem-a-morte-separa','familiar','familiar-de-combate','vinculo-empatico','sexto-sentido-peludo','mula-de-guerra','rugido-de-guerra','adotar-junior','faz-o-que-eu-mandei','forjado-na-guerra','uma-so-mente','sobrevivente-nato','postura-de-comando','preparo-tatico','mestre-tatico','equilibrio-instavel','instinto-compartilhado','sincronizacao-perfeita','simbiose-forcada'],
+            utilidade: ['rato-de-telhado','pulmao-de-aco','sangue-quente','plano-rapido','insonia-produtiva','toque-do-especialista','agulha-e-vodka','engenheiro-de-campo','hacker-de-campo','acougueiro-de-confianca','mestre-inventor','bussola-interna','arrepio-na-nuca','nariz-de-cao','furtividade-adaptativa','roubei-e-dirigi','sumiu','cheiro-de-medo','fantasma','nunca-esqueco','sabe-demais','cartografo-do-inferno','leitura-de-cicatriz','o-sangue-conta-a-historia','conheco-um-cara','esquizofrenia','mentira-convincente','olhar-que-quebra','negociador-experiente','onde-doi','leitura-de-pessoas','bom-homem','historia-que-assombra','manipulador-mestre','presenca-dominante','uso-criativo-de-armas','arsenal-adaptado','transformacao-parcial-gratuita','carne-mutavel','forma-irreversivel','presenca-antinatural','aura-de-terror','grito-demoniaco','instinto-demoniaco','marca-rastejante','transicao-suave','metamorfose-controlada','adaptacao-rapida','ressonancia-demoniaca','equilibrio-perfeito','harmonia-instavel','essencia-mista','dupla-natureza','sintese-imperfeita','aura-de-medo','percepcao-do-medo','manipulacao-conceitual','ilusao-do-medo','sussurro-demoniaco'],
+        };
+        // Mapa reverso id -> situação (montado uma vez)
+        const HAB_SITUACAO = {};
+        Object.keys(HAB_SIT_GRUPOS).forEach(sit => HAB_SIT_GRUPOS[sit].forEach(id => { HAB_SITUACAO[id] = sit; }));
+
         let habSelecionadas = [];   // ids escolhidos
         let habAtivas = [];         // ids LIGADOS no buff (subconjunto de habSelecionadas)
         let habTab = 'geral';       // aba ativa do buscador
