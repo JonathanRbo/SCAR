@@ -19,6 +19,11 @@
   <a href="#-website">Website</a> -
 </p>
 
+<p align="center">
+  <strong>🚀 Primeira vez?</strong> Comece pelo <a href="documento/01-leia-primeiro/INICIO-RAPIDO.md">INÍCIO RÁPIDO</a> (joga em 20 min) ·
+  Vai mestrar? Leia o <a href="documento/09-guia-do-mestre/COMO-CONDUZIR-SCAR.md">GUIA DO MESTRE</a>
+</p>
+
 ---
 
 ## 🩸 Sobre
@@ -104,7 +109,7 @@ Rola Xd10 (X = atributo), soma os dados e compara com a DT
 ## 📖 Como Jogar
 
 1. **Escolha sua Natureza** — Humano, Infernal, Híbrido ou Demônio
-2. **Distribua Atributos** — 16-22 pontos entre 10 atributos
+2. **Distribua Atributos** — 22 pontos entre 10 atributos (cada ponto não-gasto vira +2 PM)
 3. **Calcule Stress** — 6 + Vigor + Vínculo (Humanos ganham +2 extra)
 4. **Calcule Injúrias** — Leves: 2 + Vigor÷2 | Graves: 1 + Vigor÷3 | Crítica: sempre 1
 5. **Escolha Estilo de Luta** — 12 estilos disponíveis (Boxe, Espadachim, Atirador, etc)

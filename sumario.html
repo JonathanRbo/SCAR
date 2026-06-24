@@ -248,55 +248,141 @@
         /* ============================================
            TABS sticky (navegação por seção)
            ============================================ */
+        /* Barra de abas DO SUMÁRIO — desenhada como um "controle da página",
+           bem diferente do menu do site (que é texto puro no topo). */
         .sumario-tabs {
             position: sticky;
             top: 70px;
-            background: rgba(10,10,10,0.96);
+            background: rgba(6,6,6,0.97);
             backdrop-filter: blur(10px);
-            border-top: 1px solid var(--cor-borda);
-            border-bottom: 2px solid var(--cor-principal);
-            padding: 14px 0;
+            padding: 16px 15px 18px;
             z-index: 50;
-            margin: 20px 0 40px;
+            margin: 0 0 44px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.45);
         }
+        /* painel contido que agrupa o rótulo + as abas */
         .sumario-tabs-inner {
             display: flex;
+            align-items: center;
             justify-content: center;
             flex-wrap: wrap;
             gap: 6px;
-            padding: 0 15px;
-            max-width: 1400px;
+            padding: 8px 10px;
+            max-width: 920px;
             margin: 0 auto;
+            background: rgba(220,20,60,0.06);
+            border: 1px solid var(--cor-borda);
+            border-radius: 14px;
+        }
+        .sumario-tabs-label {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--cor-texto-secundario);
+            opacity: 0.65;
+            padding: 0 10px 0 4px;
+            border-right: 1px solid var(--cor-borda);
+            margin-right: 4px;
+            white-space: nowrap;
         }
         .sumario-tab {
-            background: transparent;
+            background: rgba(0,0,0,0.35);
             color: var(--cor-texto-secundario);
-            border: 1px solid var(--cor-borda);
-            padding: 9px 16px;
+            border: 1px solid transparent;
+            padding: 8px 15px;
             font-family: 'Bebas Neue', sans-serif;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.25s;
             font-size: 0.85rem;
-            border-radius: 6px;
+            border-radius: 8px;
             white-space: nowrap;
         }
         .sumario-tab:hover {
-            border-color: var(--cor-secundaria);
             color: var(--cor-secundaria);
-            transform: translateY(-2px);
+            background: rgba(220,20,60,0.12);
         }
         .sumario-tab.active {
             background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-fundo-card) 100%);
             border-color: var(--cor-secundaria);
             color: var(--cor-texto);
-            box-shadow: 0 0 18px rgba(220,20,60,0.35);
+            box-shadow: 0 0 16px rgba(220,20,60,0.4);
         }
         .sumario-tab .tab-icon {
             margin-right: 6px;
             font-size: 1em;
             vertical-align: middle;
         }
+        @media (max-width: 560px) {
+            .sumario-tabs-label { display: none; }
+        }
+
+        /* ===== Menu suspenso das abas (grupo → capítulos → subtópicos) ===== */
+        .tab-wrap { position: relative; display: inline-flex; }
+        .tab-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 12px;   /* ponte invisível: o hover não cai no vão */
+            z-index: 80;
+        }
+        .tab-wrap.menu-open .tab-menu { display: block; }
+        .tab-menu-panel {
+            min-width: 250px;
+            max-width: 330px;
+            background: rgba(12,12,12,0.98);
+            border: 1px solid var(--cor-secundaria);
+            border-radius: 10px;
+            padding: 8px;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.65);
+            text-align: left;
+            max-height: 72vh;
+            overflow-y: auto;
+        }
+        .menu-chapter + .menu-chapter { border-top: 1px solid var(--cor-borda); margin-top: 4px; padding-top: 4px; }
+        .menu-chapter-title {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            color: var(--cor-secundaria);
+            padding: 7px 10px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.98rem;
+        }
+        .menu-chapter-title:hover { background: rgba(220,20,60,0.15); }
+        .menu-subs { display: block; padding: 2px 0 6px 12px; }
+        .menu-sub {
+            display: block;
+            color: var(--cor-texto-secundario);
+            font-size: 0.82rem;
+            padding: 5px 10px;
+            cursor: pointer;
+            text-decoration: none;
+            border-left: 1px solid var(--cor-borda);
+        }
+        .menu-sub:hover { color: var(--cor-texto); background: rgba(255,255,255,0.05); border-left-color: var(--cor-secundaria); }
+        @media (max-width: 760px) {
+            .tab-menu { display: none !important; }   /* no toque, usa clique na aba + sanfona */
+        }
+
+        /* ===== Sanfona dos subtópicos (h3 abre/fecha · começa fechado) ===== */
+        .sumario-section h3.acc-head { cursor: pointer; padding-right: 40px; scroll-margin-top: 150px; user-select: none; }
+        .sumario-section h3.acc-head::after {
+            content: '▸';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--cor-secundaria);
+            transition: transform 0.2s;
+            font-size: 0.9em;
+        }
+        .sumario-section h3.acc-head.open::after { transform: translateY(-50%) rotate(90deg); }
+        .acc-body { display: none; }
+        .acc-body.open { display: block; }
         /* Esconde sections inativas */
         .sumario-section:not(.tab-active) {
             display: none;
@@ -568,23 +654,71 @@
             </p>
         </section>
 
-        <!-- Tabs sticky -->
+        <!-- Tabs sticky — 4 grupos temáticos + Visão Geral -->
         <div class="sumario-tabs">
             <div class="sumario-tabs-inner">
-                <button class="sumario-tab" data-tab="sec-1"><span class="tab-icon">👤</span>1. Personagem</button>
-                <button class="sumario-tab" data-tab="sec-2"><span class="tab-icon">🎲</span>2. Testes</button>
-                <button class="sumario-tab" data-tab="sec-3"><span class="tab-icon">⚔️</span>3. Combate</button>
-                <button class="sumario-tab" data-tab="sec-4"><span class="tab-icon">🤺</span>4. Duelo</button>
-                <button class="sumario-tab" data-tab="sec-5"><span class="tab-icon">💀</span>5. Stress</button>
-                <button class="sumario-tab" data-tab="sec-6"><span class="tab-icon">🩸</span>6. Aflições</button>
-                <button class="sumario-tab" data-tab="sec-7"><span class="tab-icon">👹</span>7. Demônios Puros</button>
-                <button class="sumario-tab" data-tab="sec-8"><span class="tab-icon">🛏️</span>8. Descanso</button>
-                <button class="sumario-tab" data-tab="sec-9"><span class="tab-icon">💴</span>9. Economia</button>
-                <button class="sumario-tab" data-tab="sec-10"><span class="tab-icon">✍️</span>10. Criação</button>
-                <button class="sumario-tab" data-tab="sec-11"><span class="tab-icon">⚖️</span>11. Regras & Custo</button>
+                <span class="sumario-tabs-label">📑 Seções desta página</span>
+                <button class="sumario-tab" data-tab="inicio"><span class="tab-icon">📖</span>Visão Geral</button>
+                <button class="sumario-tab" data-tab="g-personagem"><span class="tab-icon">👤</span>Personagem</button>
+                <button class="sumario-tab" data-tab="g-jogo"><span class="tab-icon">⚔️</span>Jogo & Combate</button>
+                <button class="sumario-tab" data-tab="g-estado"><span class="tab-icon">💀</span>Estados</button>
+                <button class="sumario-tab" data-tab="g-mundo"><span class="tab-icon">👹</span>Mundo</button>
             </div>
         </div>
 
+
+        <!-- VISÃO GERAL — porta de entrada + referência rápida -->
+        <section id="inicio" class="container p-60-tb sumario-section">
+            <h2 class="fs-13">Visão Geral</h2>
+
+            <div class="quote-block">
+                <strong style="color: var(--cor-secundaria);">Nunca jogou?</strong> Tudo o que você precisa pra sentar e jogar hoje está logo abaixo. Os 11 capítulos nas abas acima são a referência completa, pra consultar quando precisar do detalhe. Não precisa decorar nada, só saber onde olhar.
+            </div>
+
+            <h3>A Regra de Ouro</h3>
+            <p>Tudo se resolve de um jeito só: você rola <strong>Xd10</strong> (X = o atributo), <strong>soma os dados</strong> e compara com um número, a <strong>DT</strong> (dificuldade) que o Mestre define, ou a defesa de um inimigo. Passou da DT, deu certo. Não existe "contar sucessos": é sempre somar. Não gostou do resultado? Pague <strong>2 de Stress</strong> e role tudo de novo (Forçar o Dado), ficando com o novo, mesmo pior.</p>
+
+            <h3>Dificuldade num relance</h3>
+            <table class="stat-table">
+                <thead><tr><th>Situação</th><th>DT</th></tr></thead>
+                <tbody>
+                    <tr><td>Fácil (só rola sob pressão)</td><td>1-15</td></tr>
+                    <tr><td>Precisa de treino e mão firme</td><td>16-30</td></tr>
+                    <tr><td>Coisa de profissional</td><td>31-45</td></tr>
+                    <tr><td>O limite humano</td><td>46-60</td></tr>
+                    <tr><td>Além do humano</td><td>61-75</td></tr>
+                    <tr><td>Monstruoso (demônio forte)</td><td>76-90+</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Combate em 4 passos</h3>
+            <ul>
+                <li><strong>Iniciativa:</strong> cada um rola 1d10 + Coordenação. Maior age primeiro.</li>
+                <li><strong>Atacar:</strong> o atacante soma Xd10 + arma. O alvo não rola: tem a <strong>Defesa Passiva = 5,5 × atributo de defesa</strong> (arred. pra cima). Quer arriscar bloquear? Gaste a <strong>Reação</strong> pra rolar no lugar (aposta 50/50).</li>
+                <li><strong>O estrago</strong> (soma − Defesa): 1-9 Leve · 10-19 Grave · 20-39 Crítica · 40+ Morte. Diferença ≤0 é raspão.</li>
+                <li><strong>Aguentar:</strong> sem "vida", só <strong>slots de Injúria</strong> (Leves 2+⌊Vigor/2⌋ · Graves 1+⌊Vigor/3⌋ · Crítica 1). Encheu, sobe de nível. A Passiva do alvo <strong>cansa</strong>: −5 por ataque extra na rodada e −3/−6/−10 por Injúria já aberta.</li>
+            </ul>
+            <p><strong>Stress</strong> é sanidade e gasolina ao mesmo tempo (máx = 6 + Vigor + Vínculo). Você o queima pra forçar dados e usar poderes. Encheu o teto = <strong>Colapso</strong>: o corpo desliga, toma Injúria e o Stress zera.</p>
+
+            <h3>Como jogar (resumo)</h3>
+            <p>Escolha uma <strong>Natureza</strong> (Humano, Infernal, Híbrido ou Demônio Puro), distribua <strong>22 pontos</strong> entre os 10 atributos (o que sobrar vira PM), calcule os recursos pelas fórmulas acima, escolha um Estilo de Luta e feche a lore. O passo a passo completo está na aba <strong>10. Criação</strong>.</p>
+
+            <h3>Para o Mestre (resumo)</h3>
+            <p>Descreva o horror <em>antes</em> de pedir o dado. Só peça rolagem quando o fracasso muda a cena. Diga sim ao improviso, mas <strong>cobre o preço</strong> (Stress, Injúria, Marca). Telegrafe a morte: o golpe fatal vem anunciado, pra o jogador ter a chance de gastar a Reação. Recompense com PM quem perseguiu o próprio Sonho ou encarou a própria Falha.</p>
+
+            <div class="cards-grid m-30-t" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;">
+                <a class="toc-card" href="documento/01-leia-primeiro/INICIO-RAPIDO.md" download="SCAR - Inicio Rapido.md">
+                    <h3>🚀 Início Rápido ⬇</h3>
+                    <p>Quickstart completo: 3 caçadores prontos e uma cena pronta pra mestrar hoje. <em>(baixa o arquivo)</em></p>
+                </a>
+                <a class="toc-card" href="documento/09-guia-do-mestre/COMO-CONDUZIR-SCAR.md" download="SCAR - Guia do Mestre.md">
+                    <h3>📕 Guia do Mestre ⬇</h3>
+                    <p>Como conduzir SCAR: dosar o Medo, ritmo de combate, exemplo de jogo narrado. <em>(baixa o arquivo)</em></p>
+                </a>
+            </div>
+
+            <p class="m-25-t opacity-7">Pronto pra ir fundo? As abas acima abrem os 11 capítulos completos, um de cada vez.</p>
+        </section>
 
         <!-- SEÇÃO 1 — PERSONAGEM & NATUREZA -->
         <section id="sec-1" class="container p-60-tb sumario-section">
@@ -612,7 +746,7 @@
                     <div class="info-card">
                         <h4 class="nature-color-hibrido">Híbrido</h4>
                         <p>Humano com demônio dormindo dentro. +1 Poder de transformação, ignora 1 consequência por combate, -1 Stress em combate (mín 1), Recusa da Morte.</p>
-                        <p><em>Malefício:</em> <strong>Grilhões</strong> — usar poder demoníaco vai dando controle ao demônio interno.</p>
+                        <p><em>Malefício:</em> os <strong>Grilhões</strong>. Cada uso do poder demoníaco entrega um pouco mais de controle ao demônio interno.</p>
                     </div>
                 </div>
                 <div class="c-xs-12 c-sm-6">
@@ -673,7 +807,7 @@
             </ul>
 
             <h3>Distribuição de Pontos</h3>
-            <p>Humano e parentes ganham <strong>16-22 pontos</strong> pra distribuir entre os 10 atributos. Demônio Puro ganha <strong>22 pontos livres</strong> com <strong>teto de 10 por atributo</strong> (ver seção DEMÔNIOS PUROS). Atributo 0 = <strong>falha automática + 1 Stress</strong> em qualquer teste relacionado.</p>
+            <p>Humano e parentes ganham <strong>22 pontos</strong> pra distribuir entre os 10 atributos (teto 10). Não precisa gastar todos: cada ponto que você abrir mão vira <strong>+2 PM iniciais</strong> (ou 3 pontos = 1 Habilidade Geral grátis). Demônio Puro ganha <strong>22 pontos livres</strong>, sem troca. Atributo 0 = <strong>falha automática + 1 Stress</strong> em qualquer teste relacionado.</p>
 
             <h3>Talismã</h3>
             <p>Objeto físico que segura sua sanidade: corrente, foto, isqueiro do pai morto. Ancora a humanidade. <strong>Só Humano, Infernal e Híbrido têm Talismã.</strong> Demônio Puro não tem âncora, é o próprio abismo.</p>
@@ -756,7 +890,7 @@
             </table>
 
             <h4>Ganho de PM em Combate / Feitos</h4>
-            <p><strong>Ganho único por sessão:</strong> escolha apenas o feito mais alto que aconteceu na sessão — <strong>não soma inimigo por inimigo</strong>. É recompensa de sessão, não de cada batalha (evita farmar PM).</p>
+            <p><strong>Ganho único por sessão:</strong> escolha apenas o feito mais alto que aconteceu na sessão, e <strong>não soma inimigo por inimigo</strong>. É recompensa de sessão, não de cada batalha, justamente para evitar farmar PM.</p>
             <table class="stat-table">
                 <thead><tr><th>Feito mais alto da sessão</th><th>Ganho</th></tr></thead>
                 <tbody>
@@ -839,7 +973,7 @@
             </div>
 
             <h3>Marcos de Cicatriz</h3>
-            <p>A cada <strong>10, 20, 30 PM gastos</strong>, o jogo te cobra: marca visível no corpo, perda de aliado, mudança de comportamento, contrato forçado, dívida com criatura, transformação parcial. <strong>Quanto mais você cresce, mais você muda</strong> — e nem sempre pra coisa boa. Veterano de SCAR não é heroico.</p>
+            <p>A cada <strong>10, 20, 30 PM gastos</strong>, o jogo vem cobrar a sua parte: marca visível no corpo, perda de aliado, mudança de comportamento, contrato forçado, dívida com criatura, transformação parcial. <strong>Quanto mais você cresce, mais você muda</strong>, e quase nunca pra coisa boa. Veterano de SCAR não tem nada de heroico.</p>
             <div class="quote-block">
                 O Mestre escolhe a consequência coerente com a história do personagem. Jogador pode propor, Mestre aprova.
             </div>
@@ -864,10 +998,10 @@
             <h2 class="fs-13">2. Testes & Ações</h2>
 
             <h3>Teste de Ação</h3>
-            <p>Roleta básica. Você rola <strong>Xd10</strong> (X = atributo) contra <strong>DT</strong> ou contra outra pessoa. Conta os dados que passaram. Mais sucessos = melhor resultado. É o teste único que resolve quase tudo: trepar muro, hackear celular, mentir pra policial, atirar no demônio.</p>
+            <p>Roleta básica e <strong>única do sistema</strong>: você rola <strong>Xd10</strong> (X = atributo), <strong>soma todos os dados</strong> e compara o total com a <strong>DT</strong>, ou com a soma do oponente quando o teste é oposto. Passou da DT, é sucesso. <strong>Uma lógica só:</strong> não existe "contar dados que passaram". Combate, perícia, social e Medo usam todos a mesma soma (a única exceção é o Duelo, minijogo de aposta de atributos ocultos). <em>Graus de sucesso:</em> cada +10 acima da DT vale 1 grau a mais. Resolve quase tudo: trepar muro, hackear celular, mentir pro policial, atirar no demônio.</p>
 
             <h3>Tabela de DT (Dificuldade)</h3>
-            <p>Bate o olho na situação, escolhe a DT. (Pra perícia/social/exploração — combate é rolagem oposta, Medo tem escala própria.)</p>
+            <p>Bate o olho na situação e escolhe a DT. Vale pra perícia, social e exploração; no combate o atacante rola contra a Defesa Passiva, e o Medo tem escala própria.</p>
             <table class="stat-table">
                 <thead><tr><th>Faixa</th><th>O que significa</th></tr></thead>
                 <tbody>
@@ -876,14 +1010,14 @@
                     <tr><td><strong>Difícil (31-45)</strong></td><td>Território de profissional. Quem não treinou anos não passa.</td></tr>
                     <tr><td><strong>Muito Difícil (46-60)</strong></td><td>O melhor da área, no limite do que carne humana entrega.</td></tr>
                     <tr><td><strong>Extremo (61-75)</strong></td><td>Humano comum não alcança. Coisa de Infernal, Híbrido ou veterano forjado.</td></tr>
-                    <tr><td><strong>Monstruoso (76-90)</strong></td><td>Só monstro de verdade — demônio forte, poder bruto.</td></tr>
+                    <tr><td><strong>Monstruoso (76-90)</strong></td><td>Só monstro de verdade, demônio forte, poder bruto.</td></tr>
                     <tr><td><strong>Profano (91-100)</strong></td><td>Quase ninguém pisa aqui. É o feito de uma vida só.</td></tr>
                     <tr><td><strong>Imensurável (100+)</strong></td><td>Ninguém rola isso. Resolve na narrativa, no contrato ou no conceito.</td></tr>
                 </tbody>
             </table>
 
             <h3>Insistir no Teste</h3>
-            <p>Falhou num teste de <strong>perícia, social ou exploração</strong>? Dependendo da cena, você <strong>tenta de novo</strong> — só que <strong>cada nova tentativa sobe +5 na DT</strong>. Errou de novo, sobe mais +5. A dificuldade escala até virar inalcançável: aí já é <strong>falha automática</strong>. O limite não é uma regra que diz "não pode" — é a DT subindo até você não passar mais.</p>
+            <p>Falhou num teste de <strong>perícia, social ou exploração</strong>? Dependendo da cena, você <strong>tenta de novo</strong>, só que <strong>cada nova tentativa sobe +5 na DT</strong>. Errou de novo, sobe mais +5. A dificuldade escala até virar inalcançável, e aí já é <strong>falha automática</strong>: você parou de tentar. O limite nunca é uma regra dizendo "não pode", é a DT subindo até você simplesmente não passar mais.</p>
             <p>O Mestre bate o olho na cena e escolhe o estado:</p>
             <table class="stat-table">
                 <thead><tr><th>Estado</th><th>Pode insistir?</th></tr></thead>
@@ -895,11 +1029,11 @@
             </table>
             <p>O mesmo teste muda de estado conforme a cena: arrombar fechadura sozinho de madrugada é <strong>Calmo</strong>; com a guarda chegando é <strong>Sob pressão</strong>; com o prédio pegando fogo é <strong>Uma chance só</strong>.</p>
             <div class="quote-block">
-                Insistir ≠ Forçar o Dado. Forçar o Dado rerola o mesmo teste, na mesma DT, pagando 2 Stress na hora. Insistir é aceitar a falha e tentar de novo do zero — numa DT mais alta. É o espelho da Brecha: estudar o alvo acumula bônus a teu favor; insistir num teste acumula dificuldade contra você.
+                Insistir não é Forçar o Dado. Forçar o Dado rerola o mesmo teste, na mesma DT, pagando 2 Stress na hora. Insistir é aceitar a falha e tentar de novo do zero, numa DT mais alta. É o espelho da Brecha: estudar o alvo acumula bônus a teu favor; insistir num teste acumula dificuldade contra você.
             </div>
 
             <h3>Teste de Medo</h3>
-            <p>Quando você encara algo que sua cabeça não tava pronta. Rola <strong>Xd10 contra DT</strong> baseada na idade do demônio + Escala de Medo (Recém-Nascido 15 → Primevo 50+, sem teto). Você escolhe <strong>com qual atributo enfrenta</strong>:</p>
+            <p>É o que você rola quando encara algo para o qual sua cabeça não estava pronta. Rola <strong>Xd10 e soma contra a DT</strong>, que vem da idade do demônio somada à Escala de Medo (Recém-Nascido 15 → Primevo 50+, sem teto). Você escolhe <strong>com qual atributo enfrenta</strong>, e cada um conta uma história diferente de como seu personagem aguenta, ou não:</p>
 
             <table class="stat-table">
                 <thead><tr><th>Atributo</th><th>Sucesso</th><th>Falha</th></tr></thead>
@@ -912,16 +1046,16 @@
                     <tr><td><strong>Vínculo</strong> (encara pelos seus)</td><td>+1d30 dividido entre aliados</td><td>-Xd10 mentais</td></tr>
                 </tbody>
             </table>
-            <p>Coordenação, Percepção, Investigação e Negociação <strong>não rolam Teste de Medo</strong> — não dá pra contornar pavor com mira fina, observação, dedução ou conversa.</p>
+            <p>Coordenação, Percepção, Investigação e Negociação <strong>não rolam Teste de Medo</strong>. Não dá pra contornar pavor com mira fina, observação, dedução ou conversa.</p>
 
             <h3>Forçar o Dado</h3>
-            <p>Não gostou do resultado? Paga <strong>2 Stress</strong> e <strong>rerola</strong>: fica obrigatoriamente com o novo resultado, mesmo se vier pior. Sem limite por cena, só seu Stress disponível segura quantas vezes você força. Cada uso te leva mais perto do <strong>Colapso</strong>.</p>
+            <p>Não gostou do resultado? Paga <strong>2 Stress</strong> e <strong>rerola</strong>, ficando obrigatoriamente com o novo resultado, mesmo se vier pior. Sem limite por cena: só seu Stress disponível segura quantas vezes você força. É a válvula de escape do sistema, e cada uso te empurra mais perto do <strong>Colapso</strong>.</p>
 
             <h3>Atributo 0</h3>
-            <p>Quem deixa atributo zerado <strong>falha automático</strong> em qualquer teste relacionado <strong>e leva +1 Stress</strong>. Tentou ser esperto colocando tudo em Força e zero em Vínculo? Toda interação social vira humilhação ambulante.</p>
+            <p>Quem deixa um atributo zerado <strong>falha automático</strong> em qualquer teste relacionado <strong>e leva +1 Stress</strong>. Tentou ser esperto despejando tudo em Força e zero em Vínculo? Então toda interação social vira uma humilhação ambulante.</p>
 
             <h3>Críticos & Falhas</h3>
-            <p><strong>Dado Marcado.</strong> Antes de rolar, separe <strong>1 dado</strong> — o primeiro que cair, ou um de cor diferente. Só ele decide crítico e desastre. Tanto faz se você joga 3 ou 20 dados: a chance é sempre <strong>~10% pra cada lado</strong>. Pool grande deixa o golpe mais forte na <em>soma</em>, mas <strong>não crita mais vezes</strong>.</p>
+            <p><strong>Dado Marcado.</strong> Antes de rolar, separe <strong>1 dado</strong>: o primeiro que cair, ou um de cor diferente. Só ele decide crítico e desastre. Tanto faz se você joga 3 ou 20 dados, a chance é sempre <strong>~10% pra cada lado</strong>. Pool grande deixa o golpe mais forte na <em>soma</em>, mas <strong>não crita mais vezes</strong>.</p>
 
             <table class="stat-table">
                 <thead><tr><th>Dado Marcado</th><th>Atacando</th><th>Defendendo</th></tr></thead>
@@ -931,15 +1065,15 @@
                     <tr><td>2 a 9</td><td>rolagem normal</td><td>rolagem normal</td></tr>
                 </tbody>
             </table>
-            <p>Um princípio só: <strong>10 pende a teu favor, 1 pende contra, sempre por 1 nível</strong> (Leve↔Grave↔Crítica↔Morte). O crítico exige <strong>vencer o confronto</strong>. Fora de combate: Dado Marcado em 10 = sucesso espetacular; em 1 = falha automática.</p>
+            <p>O princípio é um só: <strong>10 pende a teu favor, 1 pende contra, sempre por 1 nível</strong> (Leve↔Grave↔Crítica↔Morte). O crítico ainda exige <strong>vencer o confronto</strong>, porque não adianta o Dado Marcado dar 10 se o golpe não conecta. Fora de combate, Dado Marcado em 10 é sucesso espetacular, e em 1 é falha automática.</p>
             <div class="quote-block">
-                O mesmo dado que te coroa é o que te trai. Quem quer torcer a sorte a favor investe em Sorte do Combate (habilidades Físicas) — mas todo Dado Marcado a mais também é um Desastre a mais esperando acontecer.
+                O mesmo dado que te coroa é o que te trai. Quem quer torcer a sorte a favor investe em Sorte do Combate (habilidades Físicas), mas todo Dado Marcado a mais também é um Desastre a mais esperando acontecer.
             </div>
 
             <h3>Brecha — conhecimento que corta</h3>
             <div class="quote-block">Estudar o alvo rende. Quem descobre onde apertar, aperta de novo, mais fundo.</div>
-            <p>Em qualquer teste de <strong>Investigação, Intelecto ou análise narrativa</strong>: a cada <strong>10 pontos no resultado final</strong>, você ganha <strong>+5 no próximo teste sobre o mesmo alvo</strong> (resultado 30 = +15). Bônus <strong>passageiro</strong> — vale pro próximo teste e some no fim da rodada seguinte.</p>
-            <p>Com uma <strong>habilidade de análise</strong> (Já Vi Esse Bicho, Raio-X do Inimigo, Enciclopédia do Horror, Calcanhar de Aquiles…) o bônus <strong>não expira</strong>: vira <strong>Brecha</strong>, fica marcada no alvo e <strong>acumula até o fim da cena</strong> (+5 → +10 → +15…, sem teto). A Brecha soma como bônus fixo nos seus testes contra o alvo; a <strong>Calcanhar de Aquiles</strong> a inverte em penalidade no próprio demônio.</p>
+            <p>Em qualquer teste de <strong>Investigação ou análise narrativa</strong>, a cada <strong>10 pontos no resultado final</strong> você ganha <strong>+5 no próximo teste sobre o mesmo alvo</strong> (resultado 30 = +15). Esse bônus é <strong>passageiro</strong>: vale pro próximo teste relacionado e some no fim da rodada seguinte.</p>
+            <p>Com uma <strong>habilidade de análise</strong> (Já Vi Esse Bicho, Raio-X do Inimigo, Enciclopédia do Horror, Calcanhar de Aquiles…) o bônus <strong>não expira</strong>: vira <strong>Brecha</strong>, fica marcada no alvo e <strong>acumula até o fim da cena</strong> (+5 → +10 → +15…, sem teto). Quanto mais a mesa estuda, mais fundo o corte vai. A Brecha soma como bônus fixo nos seus testes contra o alvo; a <strong>Calcanhar de Aquiles</strong> inverte essa lógica, transformando a Brecha acumulada em penalidade no próprio demônio.</p>
 
             <h3>Companheiros</h3>
             <div class="quote-block">Quem te segue quando você encara o Inferno. Bicho, gente ou demônio.</div>
@@ -997,9 +1131,10 @@
                 <em>Habilidades podem se combinar livremente, dando poder avassalador. <strong style="color: var(--cor-texto);">O corpo é que tem limite, não a ficha.</strong></em>
             </div>
             <ul>
-                <li><strong>Combinação livre:</strong> habilidades stackam de formas variadas, <strong>dano fixo (+X) não tem teto</strong></li>
-                <li><strong>Teto do corpo:</strong> bônus em d10 somados num teste ≤ <strong>2× atributo base</strong></li>
-                <li><strong>Excedente:</strong> para cada d10 que passar do teto, sofre <strong>+2 Stress · +5 fixo no resultado · estado Sobrecarregado</strong></li>
+                <li><strong>Combinação livre:</strong> habilidades stackam de formas variadas, mas existem <strong>dois tetos</strong>, um pra cada tipo de bônus.</li>
+                <li><strong>Teto de dados:</strong> o bônus em d10 somados num teste ≤ <strong>2× atributo base</strong></li>
+                <li><strong>Teto de bônus fixo:</strong> a soma de todo +X fixo (habilidades, Brecha) num teste ≤ <strong>10 + atributo base</strong>. Empilhar +X não é infinito: bate no teto, não soma pro infinito.</li>
+                <li><strong>Excedente:</strong> para cada d10 ou +5 fixo que passar do teto, sofre <strong>+2 Stress · só metade do excedente vira número · estado Sobrecarregado</strong></li>
             </ul>
 
             <h4>🩸 Estado: Sobrecarregado</h4>
@@ -1020,7 +1155,7 @@
             <h2 class="fs-13">3. Combate</h2>
 
             <h3>Iniciativa</h3>
-            <p><strong>1d10 + Coordenação.</strong> Maior age primeiro. Empate no dado, ganha quem tem mais Coordenação base. Em emboscada o atacante age primeiro de graça na primeira rodada. <strong>Primordial sempre age por último</strong> — ele tem todo o tempo do mundo.</p>
+            <p><strong>1d10 + Coordenação.</strong> O maior age primeiro. Em caso de empate no dado, ganha quem tem mais Coordenação base. Numa emboscada o atacante age primeiro de graça na primeira rodada. O <strong>Primordial sempre age por último</strong>, porque ele tem todo o tempo do mundo.</p>
 
             <h3>Economia de Ação</h3>
             <p>Por turno:</p>
@@ -1032,7 +1167,7 @@
             <p>Pode trocar ação por movimento extra. Pode pagar <strong>3 Stress por +1 ação extra</strong> (1x por rodada). Falar e largar item são livres.</p>
 
             <h3>Ataque & Defesa</h3>
-            <p><strong>Atacante rola Xd10 contra defensor que rola Xd10.</strong> Diferença positiva é injúria:</p>
+            <p>Só o <strong>atacante rola</strong> (soma Xd10 + arma) contra a <strong>Defesa Passiva = 5,5 × atributo de defesa</strong> (arredonda pra cima) do alvo: Coordenação pra esquivar, Vigor pra encaixar (ex.: Coord 5 → 28). Uma rolagem por troca, combate rápido. A <strong>diferença</strong> (soma do atacante − Defesa) vira injúria; <strong>piso:</strong> diferença ≤0 é raspão, ≥1 é no mínimo Leve. A Passiva é a média exata do defensor, então gastar a <strong>Reação</strong> pra rolar <em>Defesa Ativa</em> vira uma aposta de variância (~50/50). Use no golpe grande demais pra arriscar na média, e absorva os pequenos na Passiva.</p>
             <table class="stat-table">
                 <thead><tr><th>Diferença</th><th>Resultado</th></tr></thead>
                 <tbody>
@@ -1045,8 +1180,15 @@
             <p>Não tem "vida" tipo HP, tem <strong>slots de injúria</strong>. Você aguenta poucos golpes, mas cada um pesa.</p>
 
             <h3>Sem Defesa <span class="badge">emboscada, surpresa, sem reação</span></h3>
-            <p>Pegou o inimigo de calça curta — dormindo, surpreso, sem reação disponível, imobilizado? <strong>O defensor não rola</strong> — a defesa vale 0. Toda a soma do atacante vira diferença pela <strong>tabela de Ataque &amp; Defesa acima</strong> (1-9 Leve · 10-19 Grave · 20-39 Crítica · 40+ Morte).</p>
-            <p>Sem rede. Por isso ninguém em SCAR anda relaxado.</p>
+            <p>Pegou o inimigo de calça curta, dormindo, surpreso, imobilizado, ou que <strong>já gastou a Reação</strong>? A <strong>Defesa cai a 0</strong> (nem Passiva nem Ativa), e toda a soma do atacante vira diferença pela <strong>tabela de Ataque &amp; Defesa acima</strong> (1-9 Leve · 10-19 Grave · 20-39 Crítica · 40+ Morte). Não há rede embaixo, por isso ninguém em SCAR anda relaxado.</p>
+
+            <h3>Desgaste da Passiva <span class="badge">o tanque cansa</span></h3>
+            <p>A Passiva começa cheia mas <strong>erode sob pressão</strong>. É assim que o fraco derruba o forte: não num golpe, mas na insistência. A Passiva efetiva é a base menos dois desgastes:</p>
+            <ul>
+                <li><strong>Pressão (reseta a cada rodada):</strong> cada ataque sofrido <strong>depois do 1º na mesma rodada</strong> baixa a Passiva em <strong>−5 cumulativo</strong> (gente cercando ou o mesmo atacante com ação extra). Volta ao cheio no turno do defensor.</li>
+                <li><strong>Ferimento (persistente):</strong> cada Injúria que o alvo carrega rebaixa a Passiva — <strong>Leve −3 · Grave −6 · Crítica −10</strong>. Some quando a Injúria é curada.</li>
+            </ul>
+            <p>A Passiva pode cair até <strong>0</strong>, mas nunca fica negativa. Um tanque de Passiva 50 intacto e sozinho é quase intransponível; o mesmo tanque com uma Grave aberta e cercado por quatro vira alvo (50 − 6 − 15 = <strong>29</strong>). A chance do fraco é a matilha e a paciência.</p>
 
             <h3>Injúrias</h3>
             <p>Slots fixos baseados em Vigor:</p>
@@ -1063,11 +1205,11 @@
             <h3>Sangue</h3>
             <p><strong>Sangue é Poder.</strong> Quando um inimigo sofre Injúria Grave/Crítica ou morre a até <strong>3m</strong> de você, o sangue derramado pode ser absorvido pra fortalecer e regenerar a carne. Gasta <strong>1 Reação</strong>:</p>
             <ul>
-                <li><strong>Demônio Puro:</strong> reduz 1 grau da maior Injúria sua <strong>na hora</strong>. Engorda no que escorre — quanto mais cai ao redor, mais poderoso fica.</li>
-                <li><strong>Híbrido / Infernal:</strong> reduz 1 grau, mas o corpo demora — efeito ativa <strong>no início do seu próximo turno</strong>, e só <strong>1x por cena</strong>.</li>
-                <li><strong>Humano:</strong> sangue é só sangue. Sem efeito.</li>
+                <li><strong>Demônio Puro:</strong> reduz 1 grau da maior Injúria sua <strong>na hora</strong>. Ele engorda no que escorre: quanto mais cai ao redor, mais poderoso fica.</li>
+                <li><strong>Híbrido / Infernal:</strong> reduz 1 grau, mas o corpo demora a responder. O efeito ativa <strong>no início do seu próximo turno</strong>, e só <strong>1x por cena</strong>.</li>
+                <li><strong>Humano:</strong> sangue é só sangue, sem efeito nenhum.</li>
             </ul>
-            <p>É a regra que separa quem é feito de medo de quem só sangra.</p>
+            <p>É a regra que separa quem é feito de medo de quem apenas sangra.</p>
 
             <h3>Armadura</h3>
             <p>Reduz nível da injúria automaticamente. Tiers básicos: <strong>-1 nível</strong> (Roupa Reforçada, Colete Oculto, Tático, Capacete) ou <strong>-2 níveis</strong> (Colete + Placas, Anti-Motim). Escudo bloqueia 1 ataque frontal/rodada.</p>
@@ -1082,7 +1224,21 @@
                 <li><strong>+3d10</strong> (armas pesadas: motosserra, sniper)</li>
             </ul>
             <p>Arma boa não te faz invencível, te faz menos morto.</p>
+            <p><strong>O nível da arma é o teto do golpe:</strong> Leve/Grave/Crítica é o máximo de Injúria por golpe numa troca justa (a diferença manda, mas não passa do teto). Faca (Leve) não crava Crítica de cara; rifle (Crítica) sim. Encheu os slots de um nível, transborda pro de cima. Furam o teto: o crítico da arma, efeitos especiais e ataques contra alvo Sem Defesa.</p>
+            <p><strong>O corpo manda na arma (teto do dobro):</strong> o bônus em dados da arma <strong>conta no teto da Troca Equivalente</strong> (pool em d10 ≤ 2× atributo). Você só aproveita uma arma do tamanho que seu corpo aguenta: um franzino de Força 2 com motosserra +3d10 só extrai +2d10 (o resto vira Sobrecarga). Impede o fraco de virar tanque comprando arma grande.</p>
+            <p><strong>Desarmado:</strong> ataca com o atributo puro (+0 de dado). Como a arma também respeita o teto, atributo alto não fica tão atrás de mãos vazias, e <em>Mãos da Guerra</em> torna o punho uma arma leve (+1d10).</p>
             <div class="quote-block">Catálogo completo (críticos, alcance, efeitos, custo) → <a href="vendinha.html" style="color: var(--cor-secundaria);">vendinha</a></div>
+
+            <h3>Carga & Mãos</h3>
+            <p>Você briga com o que tem na mão. <strong>2 mãos</strong>: arma de duas mãos (rifle, motosserra, marreta) ocupa as duas. <strong>Sacar/trocar</strong> arma guardada = 1 Movimento; largar é livre.</p>
+            <p><strong>Carga = 5 + Força slots.</strong> Leve = 1 slot (faca, pistola, munição, talismã), Médio = 2 (katana, machado, SMG, colete tático), Pesado = 3 (motosserra, sniper, marreta, placas). <strong>Acima do limite:</strong> −1d10 Coordenação, não corre, e −5 na Passiva enquanto sobrecarregado de peso. Largar a tralha resolve na hora.</p>
+
+            <h3>Quebra, Conserto & Munição</h3>
+            <ul>
+                <li><strong>Quebra/Falha:</strong> no <strong>Desastre</strong> (Dado Marcado = 1) a arma cobra: arma branca frágil pode quebrar, arma de fogo emperra (1 ação pra destravar), arma boa/demoníaca só falha o golpe. Aparar Pesado com arma branca também pode quebrá-la.</li>
+                <li><strong>Munição:</strong> tiros contados (ver catálogo). Acabou, recarregar = 1 Movimento.</li>
+                <li><strong>Conserto:</strong> teste de Tecnologia / Engenheiro de Campo no campo; ou Seu Bento por ~30% do preço; arma demoníaca regenera sozinha ou cobra preço do demônio.</li>
+            </ul>
 
             <h3>Automóveis</h3>
             <div class="quote-block">Em SCAR ninguém anda devagar quando demônio tá atrás.</div>
@@ -1212,7 +1368,7 @@
             <p><strong>Física</strong> (membro quebrado, hemorragia, cegueira temporária) ou <strong>Mental</strong> (pânico, alucinação, fúria descontrolada). Rola <strong>1d100</strong> na tabela apropriada pra ver qual te pegou.</p>
 
             <h3>Duração & Efeitos</h3>
-            <p>Aflição dura <strong>1d3 rodadas</strong> em combate, mais em narrativa pesada. Cada uma tem debuff específico aplicado automático. Vira <strong>permanente</strong> quando nasce de um momento extremo — <strong>Injúria Crítica, Colapso, ou Desastre (Dado Marcado = 1) em situação de vida ou morte</strong> — aí passa a fazer parte do personagem pra sempre.</p>
+            <p>Aflição dura <strong>1d3 rodadas</strong> em combate, e mais tempo na narrativa pesada. Cada uma tem um debuff específico aplicado automático. Ela vira <strong>permanente</strong> quando nasce de um momento extremo, como uma <strong>Injúria Crítica, um Colapso ou um Desastre (Dado Marcado = 1) em situação de vida ou morte</strong>, e aí passa a fazer parte do personagem pra sempre.</p>
 
             <div class="quote-block">Tabela completa d100 → <a href="aflicoes.html" style="color: var(--cor-secundaria);">aflicoes</a></div>
 
@@ -1226,7 +1382,7 @@
             <h2 class="fs-13">7. Demônios Puros</h2>
 
             <h3>Visão Geral</h3>
-            <p>Demônio Puro é medo encarnado. <strong>Não é gente, não foi gente, nunca vai ser.</strong> Funciona diferente em quase tudo:</p>
+            <p>O Demônio Puro é o medo encarnado. <strong>Não é gente, nunca foi gente, nunca vai ser.</strong> Funciona diferente em quase tudo:</p>
             <ul>
                 <li><strong>22 atributos livres</strong> com teto de 10 cada</li>
                 <li><strong>Sem Talismã</strong>: não tem âncora, é o próprio abismo</li>
@@ -1251,7 +1407,7 @@
             </table>
 
             <h3>Idade & Pontos de Idade</h3>
-            <p>Demônio acumula poder pelo tempo que existe. Pontos extras pra distribuir entre <strong>Força · Resistência · Sabedoria</strong>. <strong>Cada ponto rende todos os efeitos de "cada ponto" do tópico</strong> (acumulam — 2 pontos = o dobro deles); os itens marcados <em>2 pontos</em> destravam ao somar esse total.</p>
+            <p>O demônio acumula poder pelo simples tempo em que existe, ganhando pontos extras pra distribuir entre <strong>Força · Resistência · Sabedoria</strong>. <strong>Cada ponto rende todos os efeitos de "cada ponto" do tópico</strong> e eles acumulam (2 pontos valem o dobro deles); os itens marcados <em>2 pontos</em> destravam ao somar esse total.</p>
 
             <table class="stat-table">
                 <thead><tr><th>Idade</th><th>Anos</th><th>Pontos</th><th>DT Base (Medo)</th></tr></thead>
@@ -1275,7 +1431,7 @@
                         <p>Cada ponto:</p>
                         <ul style="padding-left: 18px;">
                             <li>+1 em qualquer atributo Físico (Força, Vigor, Coordenação)</li>
-                            <li>+1 Ferimento Leve máximo</li>
+                            <li>+1 Injúria Leve máxima</li>
                             <li><em>2 pontos:</em> +1 Poder Demoníaco de combate</li>
                         </ul>
                     </div>
@@ -1286,8 +1442,8 @@
                         <p>Cada ponto:</p>
                         <ul style="padding-left: 18px;">
                             <li>+2 Stress máximo</li>
-                            <li>+1 Ferimento Leve máximo</li>
-                            <li><em>2 pontos:</em> +1 Ferimento Grave máximo</li>
+                            <li>+1 Injúria Leve máxima</li>
+                            <li><em>2 pontos:</em> +1 Injúria Grave máxima</li>
                             <li><em>2 pontos:</em> Regeneração passiva (1 Leve por cena)</li>
                         </ul>
                     </div>
@@ -1308,8 +1464,8 @@
             <div class="quote-block"><strong>Regra do Mestre:</strong> A distribuição deve ser coerente com a lore do demônio. O Mestre tem palavra final.</div>
 
             <h3>Escala de Medo</h3>
-            <p>Quanto mais o mundo teme o demônio, mais forte ele fica <em>agora</em>. Vai de <strong>-5 (Esquecido)</strong> a <strong>+5 (Incompreensível)</strong> — <strong>demônio não tem ego, é mídia</strong>. A <strong>Idade</strong> dá o teto de poder; o <strong>Medo</strong> decide quanto desse teto está ligado.</p>
-            <p>Cada nível mexe <strong>±20% nos status</strong> — os 10 atributos do demônio, em cascata: pool de dados (Xd10), Stress máx e a DT que ele impõe:</p>
+            <p>Quanto mais o mundo teme o demônio, mais forte ele fica <em>agora</em>. Vai de <strong>-5 (Esquecido)</strong> a <strong>+5 (Incompreensível)</strong>, porque <strong>demônio não tem ego, é mídia</strong>. A <strong>Idade</strong> dá o teto de poder; o <strong>Medo</strong> decide quanto desse teto está realmente ligado.</p>
+            <p>Cada nível mexe <strong>±20% nos status</strong> em cascata: os 10 atributos do demônio, o pool de dados (Xd10), o Stress máx e a DT que ele impõe:</p>
             <table class="stat-table">
                 <thead><tr><th>Escala de Medo</th><th>Mundo</th><th>Multiplicador nos status</th></tr></thead>
                 <tbody>
@@ -1326,18 +1482,18 @@
                     <tr><td><strong>-5</strong> Esquecido</td><td>ninguém o teme</td><td><strong>×0,0 — Dormente</strong></td></tr>
                 </tbody>
             </table>
-            <div class="quote-block">Arredonda pra baixo, <strong>mínimo 1 por atributo</strong> enquanto não estiver Dormente.<br><strong>Dormente (-5):</strong> o demônio não age, entra em sono conceitual até alguém voltar a temê-lo. <strong>Não morre</strong> — desperta no instante em que o Medo sobe. É assim que demônios antigos "adormecem" (o Demônio Solar sob o Japão é exatamente isso).</div>
+            <div class="quote-block">Arredonda pra baixo, <strong>mínimo 1 por atributo</strong> enquanto não estiver Dormente.<br><strong>Dormente (-5):</strong> o demônio não age, entra num sono conceitual até alguém voltar a temê-lo. <strong>Não morre</strong>, e desperta no instante em que o Medo sobe. É assim que demônios antigos "adormecem" (o Demônio Solar sob o Japão é exatamente isso).</div>
             <ul>
                 <li><strong>Sobe</strong> quando causa Crítica, mata gente importante, age com crueldade</li>
                 <li><strong>Desce</strong> quando protege humano, é ridicularizado, é derrotado em público</li>
             </ul>
 
             <h3>Falha Central</h3>
-            <p>Toda Demônio Puro tem <strong>uma fraqueza obrigatória</strong> definida na criação. É a coisa que pode apagar o demônio do mundo: luz do sol, nome verdadeiro, dogma quebrado, oposto conceitual, símbolo certo. <strong>Sem Falha Central, ficha de Demônio não fecha.</strong></p>
+            <p>Todo Demônio Puro carrega <strong>uma fraqueza obrigatória</strong> definida na criação. É a coisa capaz de apagar o demônio do mundo: a luz do sol, o nome verdadeiro, o dogma quebrado, o oposto conceitual, o símbolo certo. <strong>Sem Falha Central, a ficha de Demônio não fecha.</strong> Quanto mais poderoso o conceito, mais específica costuma ser a falha.</p>
 
             <h3>Marca do Demônio <span style="font-weight: normal; opacity: 0.7;">(o demônio marca)</span></h3>
             <div class="quote-block"><strong>O Demônio não é marcado, ele marca.</strong></div>
-            <p>Diferente de humanos, que recebem Marca, Demônios deixam marcas em:</p>
+            <p>Diferente dos humanos, que recebem a Marca, os Demônios deixam marcas em:</p>
             <ul>
                 <li><strong>Pessoas com contratos:</strong> quem fechou negócio carrega o sinal</li>
                 <li><strong>Lugares corrompidos:</strong> território que o demônio reivindicou</li>
@@ -1345,7 +1501,7 @@
             <p><strong>Efeitos:</strong> criam novos medos, alimentam o demônio, deixam consequências permanentes em quem/onde foi marcado.</p>
 
             <h3>Armas + Poderes</h3>
-            <p>Demônio Puro pode misturar armamento com poder demoníaco. Não é só "ataca" ou "usa poder", é os dois acontecendo juntos.</p>
+            <p>O Demônio Puro pode misturar armamento com poder demoníaco. Não é só "ataca" ou "usa poder", são os dois acontecendo ao mesmo tempo.</p>
 
             <div class="row gap-20 m-20-t">
                 <div class="c-xs-12 c-md-6">
@@ -1371,9 +1527,9 @@
             </div>
 
             <h3>Portas para o Inferno</h3>
-            <p>Portas literais que ligam o mundo humano ao Inferno. <strong>Demônio Puro usa com frequência</strong>. Híbrido e Infernal conseguem mas raramente fazem (custa demais à cabeça).</p>
-            <p><strong>Como abre:</strong> quem pode usa a mente pra imaginar e abrir a sua porta. A porta surge perto do usuário, sobrepondo o que existe (chão, parede, céu). Nem todos conseguem — é um terror que poucos aceitam encarar.</p>
-            <p><strong>Quem encontra uma porta:</strong> reza e se afasta. Grandes chances de algo sair, ou de um demônio estar próximo. <strong>Encontrar Porta nunca é boa notícia.</strong></p>
+            <p>São portas literais que ligam o mundo humano ao Inferno, um lugar vasto e cheio de portas, cada uma representando um medo humano. <strong>O Demônio Puro usa com frequência</strong>, porque abrir uma Porta é parte da existência dele. Híbrido e Infernal conseguem, mas raramente o fazem, já que custa demais à cabeça.</p>
+            <p><strong>Como abre:</strong> quem pode usa a mente pra imaginar e abrir a sua própria porta. Ela surge perto do usuário, sobrepondo o que já existe ali, seja chão, parede ou céu. Nem todos conseguem, porque é um terror que poucos aceitam encarar.</p>
+            <p><strong>Quem encontra uma porta:</strong> reza e se afasta. As chances são grandes de algo sair dela, ou de haver um demônio por perto. <strong>Encontrar uma Porta nunca é boa notícia.</strong></p>
 
             <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
         </section>
@@ -1438,6 +1594,20 @@
             <h3>O Que É</h3>
             <p>A moeda do mundo: <strong>Iene (¥)</strong>. SCAR se passa no Japão. Caçadores não são ricos, são funcionários descartáveis, mercenários de esquina, sobreviventes que roubam dos mortos. <strong>Dinheiro aqui não é luxo, é prazo de validade</strong>: enquanto você tem, dura mais um pouco.</p>
 
+            <h3>Dinheiro Inicial <span class="badge">¥ na criação</span></h3>
+            <p>O PM mede o quanto você já sangrou; o ¥ mede o quanto ainda tem pra gastar. São eixos separados (trauma não te deixa rico). <strong>Base: 2.000 ¥</strong> (o equipamento básico vem da organização). Some a <strong>Procedência</strong> e os ganchos de lore:</p>
+            <table class="stat-table">
+                <thead><tr><th>Procedência (de onde vem o dinheiro)</th><th>Bônus</th></tr></thead>
+                <tbody>
+                    <tr><td>Veio do nada, fugitivo, endividado</td><td>+0</td></tr>
+                    <tr><td>Bico fixo, trabalha muito (segurança, mecânico, entrega)</td><td>+2.000</td></tr>
+                    <tr><td>Carreira sólida antes da caça (ex-policial, médico, militar)</td><td>+4.000</td></tr>
+                    <tr><td>Conexão com grana (família rica, herança, crime organizado)</td><td>+8.000</td></tr>
+                </tbody>
+            </table>
+            <p><strong>+ Ganchos de lore</strong> (o Mestre concede, +500 a +2.000 cada): Sonho/Vínculo ligado a dinheiro, contato no mercado negro, espólio de uma caçada antiga, reputação que adianta pagamento.</p>
+            <p><strong>Por natureza:</strong> Humano/Híbrido normal · <strong>Infernal −1.000</strong> (mín 1.000) · <strong>Demônio Puro começa em 0</strong> (fica com o que rouba/herda). <em>Teto de bom senso: acima de ~15.000 ¥ na criação, só com aprovação do Mestre e lore que justifique.</em></p>
+
             <h3>Pra Que Serve</h3>
             <ul>
                 <li><strong>Equipar-se</strong>: comprar arma, armadura, munição, ferramenta (catálogo: <a href="vendinha.html" style="color: var(--cor-secundaria);">vendinha</a>)</li>
@@ -1500,7 +1670,7 @@
                         <h4>2. Atributos</h4>
                         <p>Distribui pontos entre os 10 atributos:</p>
                         <ul style="padding-left: 18px;">
-                            <li>Humano/Infernal/Híbrido: <strong>16-22 pontos</strong></li>
+                            <li>Humano/Infernal/Híbrido: <strong>22 pontos</strong> (sobra vira +2 PM cada)</li>
                             <li>Demônio Puro: <strong>22 pontos livres</strong> (teto 10 por atributo). A Categoria de Medo define só o atributo que entra no Stress, não trava distribuição</li>
                         </ul>
                         <p style="color: var(--cor-secundaria); font-size: 0.9rem;">⚠️ Atributo 0 = falha automática + 1 Stress.</p>
@@ -1553,7 +1723,7 @@
 
             <h3>Variações por Natureza</h3>
             <ul>
-                <li><strong>Humano:</strong> PM inicial pelo passado — vida comum 3 / violência 5 / trauma 7 / extremo 9</li>
+                <li><strong>Humano:</strong> PM inicial pelo passado, sendo vida comum 3 / violência 5 / trauma 7 / extremo 9</li>
                 <li><strong>Infernal:</strong> define o disfarce humano e o que escapa quando ele falha</li>
                 <li><strong>Híbrido:</strong> define o gatilho da transformação e como o demônio interno se manifesta</li>
                 <li><strong>Demônio Puro:</strong> pula Talismã/Sonhos. Define <strong>Falha Central</strong>, <strong>Categoria de Medo</strong> e distribui <strong>Pontos de Idade</strong></li>
@@ -1572,65 +1742,72 @@
                             </div>
                             <button class="ficha-copy-btn" data-copy-target="ficha-padrao">COPIAR</button>
                         </div>
-<pre class="ficha-pre" id="ficha-padrao">═══ FICHA PADRÃO — SCAR ═══
+<pre class="ficha-pre" id="ficha-padrao">═══ DADOS BÁSICOS ═══
 
 NOME:
 IDADE:
-NATUREZA:           (Humano · Infernal · Híbrido)
-APARÊNCIA:
-PERSONALIDADE:
 CONCEITO/RESUMO:
-BACKGROUND:
-
-LIGAÇÃO C/ DEMÔNIOS:
+LIGAÇÃO COM DEMÔNIOS|seres:
 FALHA CENTRAL:
+PM: 0
+
+═══ ATRIBUTOS (22 PONTOS) ═══
+(teto 10 · o que sobrar vira +2 PM cada, ou 3 pontos = 1 habilidade)
+
+▸ Físicos
+  Força: [ ]
+  Vigor: [ ]
+  Coordenação: [ ]
+
+▸ Táticos / Técnicos
+  Malandragem: [ ]
+  Tecnologia: [ ]
+  Percepção: [ ]
+
+▸ Mentais / Sociais
+  Investigação: [ ]
+  Negociação: [ ]
+  Autoridade: [ ]
+  Vínculo: [ ]
+
+═══ RECURSOS ═══
+
+STRESS:            (6 + Vigor + Vínculo · Humano +2)
+¥ (IENE):          (base 2.000 + procedência)
+DEFESA PASSIVA:    (5,5 × Coord ou Vigor, arred. p/ cima)
+MOVIMENTO:         (Coordenação × 2 m)
+CARGA:      / (5 + Força)
+GRILHÕES:          (só Híbrido · começa em 0)
+AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação   (+1 por 3 Stress)
+
+INJÚRIAS
+  Leves:    (2 + ⌊Vigor/2⌋)
+  Graves:   (1 + ⌊Vigor/3⌋)
+  Crítica: 1
+
+═══ EQUIPAMENTO ═══
+
+ARMAMENTO:
+  1)
+  2)
+ARMADURA:
+  1)
+
+AFLIÇÕES:
+  1)
+  2)
+
+═══ ESPECIAL ═══
+
 TALISMÃ:
-
-── ATRIBUTOS (16-22 pts · teto 5) ──
-Físicos      Táticos        Mentais/Sociais
-Força:       Malandragem:   Investigação:
-Vigor:       Tecnologia:    Negociação:
-Coord:       Percepção:     Autoridade:
-                            Vínculo:
-
-── RECURSOS ──
-Stress máx: ___ / ___   (6 + Vigor + Vínculo · Humano +2)
-PM: ___
-¥ (Iene): ___
-Grilhões: ___           (só Híbrido)
-
-Injúrias:  Leve ___  Grave ___  Crítica ___
-
-── COMBATE ──
-Estilo de Luta:
-Armamento:
-Armadura:
-Movimento: Coord × 2 m   (correr: +2 m por 1 Stress)
-Ações/rodada: 1 Principal · 1 Movimento · 1 Reação   (+1 por 3 Stress)
-
-── PODERES / CONTRATOS ──
-1)
-2)
-
-── HABILIDADES ──
-Origem:
-Gerais:
-
-── SONHOS (1-3) ──
-1)
-2)
-3)
-
-── AFLIÇÕES ──
-1)
-2)
-
-── VÍNCULOS ──
-1)
-2)
-3)
-
-── MARCAS DO DEMÔNIO ──</pre>
+ESTILO DE LUTA:
+PODERES / CONTRATOS:
+  1)
+  2)
+HABILIDADES (Origem / Gerais):
+SONHOS (1-3):
+MARCA DO DEMÔNIO:
+</pre>
                     </div>
                 </div>
 
@@ -1643,52 +1820,75 @@ Gerais:
                             </div>
                             <button class="ficha-copy-btn" data-copy-target="ficha-demonio">COPIAR</button>
                         </div>
-<pre class="ficha-pre" id="ficha-demonio">═══ FICHA DEMÔNIO PURO — SCAR ═══
+<pre class="ficha-pre" id="ficha-demonio">═══ DADOS BÁSICOS ═══
 
 NOME:
 CONCEITO / MEDO QUE ENCARNA:
-APARÊNCIA:
-PERSONALIDADE:
+CATEGORIA DE MEDO: (Incomum · Social · Bíblico · Conceitual · Primordial)
+IDADE / TIER: (estreia: Maduro · Mestre ajusta pela lore)
+FALHA CENTRAL: (obrigatória — o que apaga o demônio do mundo)
 
-CATEGORIA DE MEDO:  (Incomum · Social · Bíblico · Conceitual · Primordial)
-IDADE / TIER:       (Recém-Nascido → Primevo)
-FALHA CENTRAL:
+═══ ATRIBUTOS (22 PONTOS LIVRES) ═══
+(teto 10 · sem troca por PM)
 
-── ATRIBUTOS (22 pontos livres · teto 10) ──
-Físicos      Táticos        Mentais/Sociais
-Força:       Malandragem:   Investigação:
-Vigor:       Tecnologia:    Negociação:
-Coord:       Percepção:     Autoridade:
-                            Vínculo:
+▸ Físicos
+  Força: [ ]
+  Vigor: [ ]
+  Coordenação: [ ]
 
-── RECURSOS ──
-Stress máx: ___ / ___
-PM: ___
-Escala de Medo:  0      (-5 a +5 · ×status: ×0 a ×2)
+▸ Táticos / Técnicos
+  Malandragem: [ ]
+  Tecnologia: [ ]
+  Percepção: [ ]
 
-Injúrias:  Leve ___  Grave ___  Crítica ___
+▸ Mentais / Sociais
+  Investigação: [ ]
+  Negociação: [ ]
+  Autoridade: [ ]
+  Vínculo: [ ]
 
-── COMBATE ──
-Estilo de Luta:
-Armamento:
-Movimento: Coord × 2 m   (correr: +2 m por 1 Stress)
-Ações/rodada: 1 Principal · 1 Movimento · 1 Reação   (+1 por 3 Stress)
+═══ PONTOS DE IDADE (pela Idade · Maduro = 4) ═══
 
-── PODERES (2 ligados ao medo) ──
-1)
-2)
+  Força: [ ]        (+atrib. físico · +Injúria Leve)
+  Resistência: [ ]  (+2 Stress · +Injúria · regeneração)
+  Sabedoria: [ ]    (+atrib. mental/social · −custo de poder)
 
-── HABILIDADES ──
-Origem:
-Gerais:
+═══ RECURSOS ═══
 
-── AFLIÇÕES ──
-1)
-2)
+STRESS:            (4 + Vigor + atrib. da Categoria · Primordial 6+Vigor+Força)
+DT BASE DE MEDO:   (pela Idade · 15 → 50+)
+ESCALA DE MEDO: 0  (−5 a +5 · status ×0 a ×2)
+DEFESA PASSIVA:    (5,5 × Coord ou Vigor, arred. p/ cima)
+MOVIMENTO:         (Coordenação × 2 m)
+CARGA:      / (5 + Força)
+AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação   (+1 por 3 Stress)
 
-── MARCAS NO MUNDO ──
-Pessoas (contratos):
-Lugares (corrompidos):</pre>
+INJÚRIAS
+  Leves:    (2 + ⌊Vigor/2⌋ + Idade)
+  Graves:   (1 + ⌊Vigor/3⌋ + Idade)
+  Crítica: 1
+
+═══ EQUIPAMENTO ═══
+
+ARMAMENTO / GARRAS / FORMA DE ATAQUE:
+  1)
+  2)
+
+AFLIÇÕES:
+  1)
+  2)
+
+═══ ESPECIAL ═══
+
+PODERES (2 ligados ao medo):
+  1)
+  2)
+HABILIDADES (Origem / Gerais):
+MARCAS NO MUNDO:
+  Pessoas (contratos):
+  Lugares (corrompidos):
+PORTAS PARA O INFERNO:
+</pre>
                     </div>
                 </div>
             </div>
@@ -1701,7 +1901,7 @@ Lugares (corrompidos):</pre>
             <h2 class="fs-13">11. Regras & Custo</h2>
 
             <div class="quote-block">
-                Em SCAR o limite raramente é "não pode" — é o <strong>preço</strong>. Quanto mais um efeito foge do que o corpo e a cena permitem, mais ele cobra: em <strong>Stress, PM, dados ou sorte</strong>. Improviso não é proibido.
+                Em SCAR o limite raramente é "não pode", é o <strong>preço</strong>. Quanto mais um efeito foge do que o corpo e a cena permitem, mais ele cobra, seja em <strong>Stress, PM, dados ou sorte</strong>. O improviso nunca é proibido.
             </div>
 
             <h3>Os 4 Eixos de Custo</h3>
@@ -1728,7 +1928,7 @@ Lugares (corrompidos):</pre>
                             <li>Usar/dobrar algo presente (faca, sombra, sangue, medo na sala): <strong>base</strong></li>
                             <li>Transformar uma coisa em outra: <strong>+1</strong></li>
                             <li>Criar do nada (arma de osso, fogo sem fonte): <strong>+2</strong>, dura 1 cena</li>
-                            <li>Criar permanente ou vivo: <strong>não é rolagem</strong> — Contrato ou evento</li>
+                            <li>Criar permanente ou vivo: <strong>não é rolagem</strong>, é Contrato ou evento</li>
                         </ul>
                     </div>
                 </div>
@@ -1738,7 +1938,7 @@ Lugares (corrompidos):</pre>
                         <ul style="padding-left: 18px;">
                             <li>Plausível pro conceito: <strong>base</strong></li>
                             <li>Exagerado, mas dentro do conceito: <strong>+1 e +Stress</strong></li>
-                            <li>Reescreve a cena (parar tempo, apagar, teleporte): <strong>caro</strong> — Stress alto + Brecha, 1×/cena, nunca de graça</li>
+                            <li>Reescreve a cena (parar tempo, apagar, teleporte): <strong>caro de verdade</strong>, com Stress alto + Brecha, 1×/cena, nunca de graça</li>
                         </ul>
                     </div>
                 </div>
@@ -1758,29 +1958,29 @@ Lugares (corrompidos):</pre>
             <h3>Linhas-Duras <span style="font-weight: normal; opacity: 0.7;">(as poucas paredes)</span></h3>
             <ul>
                 <li><strong>Crítico precisa conectar.</strong> Dado Marcado 10 só vira Crítico se você vence o confronto. 10 num golpe que erra é só um 10.</li>
-                <li><strong>Sem ressurreição fora de Contrato.</strong> Morte não se desfaz com Stress ou PM. Só preço demoníaco traz alguém de volta — e cobra caro.</li>
-                <li><strong>Não existe HP.</strong> Cura reduz nível de Injúria pelas regras de descanso/sangue. Ninguém "se enche de vida" no meio da luta sem um efeito que diga isso.</li>
-                <li><strong>Atributo de mortal nunca passa de 10.</strong> Quem rompe o teto é o Medo (demônio) — mais ninguém.</li>
-                <li><strong>Ninguém perde o controle do personagem sem chance de reagir</strong> — exceção: Grilhões/possessão (preço já pago na ficha do Híbrido).</li>
+                <li><strong>Sem ressurreição fora de Contrato.</strong> A morte não se desfaz com Stress ou PM. Só o preço demoníaco traz alguém de volta, e cobra caro.</li>
+                <li><strong>Não existe HP.</strong> A cura reduz nível de Injúria pelas regras de descanso e sangue. Ninguém "se enche de vida" no meio da luta sem um efeito que diga isso.</li>
+                <li><strong>Atributo de mortal nunca passa de 10.</strong> Quem rompe o teto é o Medo do demônio, mais ninguém.</li>
+                <li><strong>Ninguém perde o controle do personagem sem chance de reagir.</strong> A única exceção são os Grilhões e a possessão, cujo preço já está pago na ficha do Híbrido.</li>
             </ul>
 
             <h3>"Não Funciona Assim" <span style="font-weight: normal; opacity: 0.7;">(anti-furo)</span></h3>
             <ul>
-                <li><strong>Forçar o Dado não escolhe o melhor.</strong> Rerola e fica com o novo, mesmo pior, e cada uso te empurra pro Colapso.</li>
-                <li><strong>Estudar/Brecha não é de graça.</strong> Acumula, mas cada rodada estudando é uma rodada sem agir, e o alvo reage ou foge.</li>
-                <li><strong>PM de combate é 1× por sessão</strong> (o feito mais alto) — não soma inimigo por inimigo.</li>
-                <li><strong>Regen de sangue precisa de sangue novo:</strong> 1 grau por Reação, 1 fonte por turno. Sala sem ninguém sangrando = acabou. (Demônio Puro é a exceção brutal — por isso carrega Falha Central.)</li>
-                <li><strong>Sobrecarga cobra Stress real.</strong> Bônus além de 2× o atributo vira +5 fixo mas custa +2 Stress por dado.</li>
-                <li><strong>Mesmo gatilho não acumula.</strong> Dois estilos/habilidades na mesma deixa: escolhe um. Fontes diferentes somam, respeitando o teto 2× em dados.</li>
+                <li><strong>Forçar o Dado não escolhe o melhor.</strong> Você rerola e fica com o novo resultado, mesmo se for pior, e cada uso te empurra pro Colapso.</li>
+                <li><strong>Estudar e usar Brecha não é de graça.</strong> Acumula, sim, mas cada rodada estudando é uma rodada sem agir, e o alvo reage ou foge.</li>
+                <li><strong>PM de combate é 1× por sessão</strong> (o feito mais alto), e não soma inimigo por inimigo.</li>
+                <li><strong>Regen de sangue precisa de sangue novo:</strong> 1 grau por Reação, 1 fonte por turno. Sala sem ninguém sangrando significa que acabou a mamata. (O Demônio Puro é a exceção brutal, e é por isso que ele carrega uma Falha Central.)</li>
+                <li><strong>Sobrecarga cobra Stress real.</strong> Bônus além de 2× o atributo vira +5 fixo, mas custa +2 Stress por dado.</li>
+                <li><strong>Mesmo gatilho não acumula.</strong> Dois estilos ou habilidades na mesma deixa: você escolhe um. Fontes diferentes somam, respeitando o teto de 2× em dados.</li>
             </ul>
 
             <h3>Lacunas Comuns <span style="font-weight: normal; opacity: 0.7;">— ruling rápido</span></h3>
             <ul>
                 <li><strong>Queda/colisão:</strong> 3–5 m = Leve · 6–9 m = Grave · 10 m+ = Crítica. Rola Vigor pra baixar 1 nível.</li>
                 <li><strong>Dano contínuo (fogo, veneno, sangramento):</strong> +1 Injúria Leve ou +2–3 Stress por rodada até apagar/tratar (1 ação ou teste de Vigor).</li>
-                <li><strong>Ataque em área:</strong> pega todos na faixa; cada alvo rola a própria defesa. Raio padrão: explosão ~Médio, controle/teia ~Curto. Maior = eixo Audácia.</li>
-                <li><strong>Vários contra um:</strong> o defensor só tem 1 Reação por rodada — do 2º ataque em diante no mesmo turno ele está Sem Defesa (defesa 0). Estar cercado é mortal, de propósito.</li>
-                <li><strong>Cobertura:</strong> leve −1d10 no atacante · pesada −2d10 · total = sem linha de tiro, não dá pra mirar.</li>
+                <li><strong>Ataque em área:</strong> pega todos na faixa, e cada alvo rola a própria defesa. Raio padrão: explosão ~Médio, controle/teia ~Curto. Querer uma área maior cai no eixo Audácia.</li>
+                <li><strong>Vários contra um:</strong> o defensor usa a Passiva contra todos e só defende Ativo 1 vez (1 Reação). O resto entra pelo <strong>Desgaste da Passiva</strong> (−5 por ataque após o 1º na rodada + desgaste por Injúria aberta). Estar cercado é mortal, de propósito.</li>
+                <li><strong>Cobertura:</strong> leve −1d10 no atacante · pesada −2d10 · total significa sem linha de tiro, não dá pra mirar.</li>
             </ul>
 
             <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
@@ -1863,28 +2063,148 @@ Lugares (corrompidos):</pre>
             if (adj) hr.style.display = 'none';
         });
 
-        // ===== TABS — uma section por vez =====
+        // ===== TABS — grupos temáticos (cada aba abre seus capítulos juntos) =====
+        const GRUPOS = {
+            'inicio':        ['inicio'],
+            'g-personagem':  ['sec-1', 'sec-10'],
+            'g-jogo':        ['sec-2', 'sec-3', 'sec-4', 'sec-11'],
+            'g-estado':      ['sec-5', 'sec-6', 'sec-8'],
+            'g-mundo':       ['sec-7', 'sec-9'],
+        };
         const sumarioTabs = document.querySelectorAll('.sumario-tab');
         const sumarioSections = document.querySelectorAll('.sumario-section');
 
         function activateSumarioTab(tabId) {
+            const ids = GRUPOS[tabId] || ['inicio'];
             sumarioTabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabId));
-            sumarioSections.forEach(s => s.classList.toggle('tab-active', s.id === tabId));
+            sumarioSections.forEach(s => s.classList.toggle('tab-active', ids.includes(s.id)));
         }
 
+        // Acha qual grupo contém uma seção (pra link direto #sec-X)
+        function grupoDaSecao(secId) {
+            return Object.keys(GRUPOS).find(g => GRUPOS[g].includes(secId));
+        }
+
+        // ===== Sanfona: cada subtópico (h3) abre/fecha · começa fechado =====
+        function montarSanfonas() {
+            sumarioSections.forEach(sec => {
+                if (sec.id === 'inicio') return;   // Visão Geral fica aberta
+                sec.querySelectorAll(':scope > h3').forEach(h3 => {
+                    const body = document.createElement('div');
+                    body.className = 'acc-body';
+                    let el = h3.nextElementSibling;
+                    while (el && el.tagName !== 'H3') { const n = el.nextElementSibling; body.appendChild(el); el = n; }
+                    h3.after(body);
+                    h3.classList.add('acc-head', 'open');   // começa aberto; clica pra fechar se quiser
+                    body.classList.add('open');
+                    h3.addEventListener('click', () => {
+                        h3.classList.toggle('open');
+                        body.classList.toggle('open');
+                    });
+                });
+            });
+        }
+
+        // ===== Ir para um tópico: ativa o grupo, abre a sanfona e rola até lá =====
+        function fecharTodosMenus() {
+            document.querySelectorAll('.tab-wrap.menu-open').forEach(w => w.classList.remove('menu-open'));
+        }
+        function irParaTopico(grupoId, secId, h3el) {
+            fecharTodosMenus();
+            activateSumarioTab(grupoId);
+            if (h3el) {
+                const body = h3el.nextElementSibling;
+                h3el.classList.add('open');
+                if (body && body.classList.contains('acc-body')) body.classList.add('open');
+                setTimeout(() => h3el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 70);
+            } else {
+                const sec = document.getElementById(secId);
+                if (sec) setTimeout(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 70);
+            }
+        }
+
+        // ===== Menus suspensos das abas: grupo → capítulos → subtópicos =====
+        function montarMenusDasAbas() {
+            sumarioTabs.forEach(tab => {
+                const grupoId = tab.dataset.tab;
+                if (grupoId === 'inicio') return;   // Visão Geral não tem submenu
+                const secIds = GRUPOS[grupoId] || [];
+                const wrap = document.createElement('span');
+                wrap.className = 'tab-wrap';
+                tab.parentNode.insertBefore(wrap, tab);
+                wrap.appendChild(tab);
+                const menu = document.createElement('div');
+                menu.className = 'tab-menu';
+                const panel = document.createElement('div');
+                panel.className = 'tab-menu-panel';
+                secIds.forEach(secId => {
+                    const sec = document.getElementById(secId);
+                    if (!sec) return;
+                    const h2 = sec.querySelector('h2');
+                    const chap = document.createElement('div');
+                    chap.className = 'menu-chapter';
+                    const ct = document.createElement('div');
+                    ct.className = 'menu-chapter-title';
+                    ct.textContent = h2 ? h2.textContent.trim() : secId;
+                    ct.addEventListener('click', e => { e.stopPropagation(); irParaTopico(grupoId, secId, null); });
+                    chap.appendChild(ct);
+                    const subs = document.createElement('div');
+                    subs.className = 'menu-subs';
+                    sec.querySelectorAll(':scope > h3').forEach(h3 => {
+                        const it = document.createElement('a');
+                        it.className = 'menu-sub';
+                        it.href = '#';
+                        it.textContent = h3.textContent.trim();
+                        it.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); irParaTopico(grupoId, secId, h3); });
+                        subs.appendChild(it);
+                    });
+                    if (subs.children.length) chap.appendChild(subs);
+                    panel.appendChild(chap);
+                });
+                menu.appendChild(panel);
+                wrap.appendChild(menu);
+
+                // abre/fecha com folga de tempo — não some quando o mouse passeia
+                let timer;
+                const abrir = () => {
+                    clearTimeout(timer);
+                    document.querySelectorAll('.tab-wrap.menu-open').forEach(w => { if (w !== wrap) w.classList.remove('menu-open'); });
+                    wrap.classList.add('menu-open');
+                };
+                const fecharComFolga = () => { clearTimeout(timer); timer = setTimeout(() => wrap.classList.remove('menu-open'), 400); };
+                wrap.addEventListener('mouseenter', abrir);
+                wrap.addEventListener('mouseleave', fecharComFolga);
+                tab.addEventListener('click', abrir);   // no toque/clique também abre
+            });
+        }
+
+        // Clique na aba: abre o grupo e rola pro topo dele
         sumarioTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 activateSumarioTab(tab.dataset.tab);
-                // Scroll suave até a seção
-                const target = document.getElementById(tab.dataset.tab);
-                if (target) {
-                    setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-                }
+                const target = document.getElementById(GRUPOS[tab.dataset.tab][0]);
+                if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
             });
         });
 
-        // Estado inicial: 1. Personagem
-        activateSumarioTab('sec-1');
+        // Clicar fora fecha qualquer menu aberto
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.tab-wrap')) fecharTodosMenus();
+        });
+
+        montarSanfonas();
+        montarMenusDasAbas();
+
+        // Estado inicial: link direto (#sec-X → abre o grupo) ou Visão Geral
+        (function () {
+            const hashId = (location.hash || '').replace('#', '');
+            const grupo = hashId ? grupoDaSecao(hashId) : null;
+            activateSumarioTab(grupo || 'inicio');
+            if (grupo && hashId !== grupo) {
+                const alvo = document.getElementById(hashId);
+                if (alvo) setTimeout(() => alvo.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+            }
+        })();
 
         // Copiar fichas
         document.querySelectorAll('.ficha-copy-btn').forEach(btn => {

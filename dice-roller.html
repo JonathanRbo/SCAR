@@ -787,6 +787,9 @@
         }
 
         /* ========== FICHA ========== */
+        .ficha-pontos { background:rgba(0,0,0,0.3); border:1px solid var(--cor-borda); border-radius:10px; padding:10px 12px; }
+        .ficha-attr-row.attr-zero { border-color:#e6b800; background:rgba(230,184,0,0.08); }
+        .ficha-attr-row.attr-zero input { color:#e6b800; }
         .ficha-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
         @media (max-width:560px) { .ficha-grid { grid-template-columns:1fr; } }
         .ficha-attr-row, .ficha-buff-row {
@@ -1040,8 +1043,19 @@
                 </div>
 
                 <div class="section-box">
-                    <label class="field-label m-15-b">Injúria pela diferença entre as duas rolagens</label>
-                    <p class="fs-5 opacity-5 m-12-b">Cada um rola a sua. A diferença entre os dois totais define a injúria do perdedor:</p>
+                    <label class="field-label m-15-b">⚔️ Injúria pela diferença (Defesa Passiva)</label>
+                    <p class="fs-5 opacity-5 m-12-b">Só o <b>atacante rola</b> (soma Xd10 + arma) contra a <b>Defesa Passiva</b> do alvo. Diferença = soma do atacante − Defesa (≤0 raspão · ≥1 no mínimo Leve). Defesa Ativa: gastar <b>Reação</b> pra rolar no lugar da Passiva (aposta ~50/50, pra anular golpe grande).</p>
+                    <div class="d-flex f-gap-12 f-items-end m-12-b">
+                        <div>
+                            <label class="field-label">Atributo de defesa</label>
+                            <input type="number" id="passiva-attr" value="5" min="0" max="10" class="border-rd-10 p-14-all w-90px text-center fs-9" oninput="calcPassiva()">
+                        </div>
+                        <div class="f-grow-1">
+                            <label class="field-label">Defesa Passiva (5,5× ↑)</label>
+                            <div id="passiva-valor" style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--cor-gold);padding:6px 0">28</div>
+                        </div>
+                    </div>
+                    <p class="fs-5 opacity-5 m-10-b">Cercado: −5 na Passiva por atacante além do 1º na rodada. Sem reação/surpreso = Defesa 0.</p>
                     <div class="fs-7">
                         <div class="injury-table-row">
                             <span class="opacity-6">Diferença 1-9</span>
@@ -1052,8 +1066,12 @@
                             <span class="injury-badge injury-grave">Grave</span>
                         </div>
                         <div class="injury-table-row">
-                            <span class="opacity-6">Diferença 20+</span>
+                            <span class="opacity-6">Diferença 20-39</span>
                             <span class="injury-badge injury-critica">Crítica</span>
+                        </div>
+                        <div class="injury-table-row">
+                            <span class="opacity-6">Diferença 40+</span>
+                            <span class="injury-badge injury-critica">Morte</span>
                         </div>
                     </div>
                 </div>
@@ -1187,11 +1205,14 @@
                             <input type="number" id="ficha-pm" value="0" class="border-rd-10 p-14-all w-100 fs-7" onchange="salvarFichaLocal()">
                         </div>
                     </div>
-                    <p class="fs-5 opacity-5 m-8-t">PM inicial pelo passado: comum 3 · violência 5 · trauma 7 · extremo 9. Demônio Puro = 0.</p>
+                    <p class="fs-5 opacity-5 m-8-t">PM inicial pelo passado: comum 3 · violência 5 · trauma 7 · extremo 9 (guardado pra evoluir — não precisa gastar na criação). Demônio Puro = 0.</p>
+                    <p class="fs-5 opacity-5 m-4-t">¥ inicial: base 2.000 + Procedência (bico +2.000 · carreira +4.000 · grana +8.000) + ganchos de lore. Infernal −1.000 · Demônio Puro 0.</p>
+                    <p class="fs-6 m-8-t" id="ficha-partida-hint" style="color:var(--cor-gold)"></p>
                 </div>
 
                 <div class="section-box" id="ficha-attrs-box">
                     <label class="field-label m-15-b obr-hide">Atributos — clique pra rolar (o rolador já sabe a quantidade de dados)</label>
+                    <div id="ficha-pontos" class="ficha-pontos m-12-b obr-hide"></div>
                     <div id="ficha-attrs" class="ficha-grid"></div>
                     <div id="ficha-buff-sumario" class="ficha-buff-sumario m-10-t"></div>
                     <select id="ficha-buff-add" class="border-rd-10 p-12-all w-100 fs-6 m-8-t" onchange="aoEscolherBuff(this.value)" style="display:none">
@@ -1550,6 +1571,14 @@
         }
 
         // ========== COMBATE ==========
+        // Defesa Passiva = 5,5 × atributo de defesa, arred. p/ cima (número fixo; rolar é só se gastar Reação)
+        function calcPassiva() {
+            const el = document.getElementById('passiva-attr');
+            const out = document.getElementById('passiva-valor');
+            if (!el || !out) return;
+            let v = parseInt(el.value, 10); if (isNaN(v) || v < 0) v = 0; if (v > 10) { v = 10; el.value = 10; }
+            out.textContent = Math.ceil(v * 5.5);
+        }
         async function rolarCombate() {
             const atkDados = parseInt(document.getElementById('atacante-dados').value) || 1;
             const defDados = parseInt(document.getElementById('defensor-dados').value) || 1;
@@ -2296,27 +2325,67 @@
             const compacto = document.body.classList.contains('obr');   // no popover, botão vira 🎲 (cabe na largura)
             const rotulo = compacto ? '🎲' : 'ROLAR';
             el.innerHTML = FICHA_ATRIBUTOS.map(a => `
-                <div class="ficha-attr-row">
+                <div class="ficha-attr-row" id="ficha-attr-row-${a}">
                     <span class="nome" title="${a}">${a}</span>
-                    <input type="number" min="0" max="10" value="2" id="ficha-attr-${a}">
+                    <input type="number" min="0" max="10" value="2" id="ficha-attr-${a}" oninput="recalcPontos(); salvarFichaLocal();">
                     <button class="btn btn-primary border-rd-8 p-10-tb p-18-lr fs-6" onclick="rolarFicha('${a}')">${rotulo}</button>
                 </div>
             `).join("");
+            recalcPontos();
+        }
+
+        // ===== Wizard: orçamento de pontos de atributo (ao vivo) =====
+        // Todos: 22 pontos, teto 10. Mortais podem abrir mão de pontos → +2 PM cada (ou 3 pts = 1 habilidade).
+        // Demônio Puro: 22 fixos, sem troca.
+        function alvoPontos() {
+            const nat = (document.getElementById('ficha-natureza') || {}).value || '';
+            const ehDemonio = nat === 'Demônio Puro';
+            return { max: 22, ehDemonio, label: ehDemonio ? '22 fixos (Demônio Puro)' : '22 · sobra vira PM' };
+        }
+        function recalcPontos() {
+            const cont = document.getElementById('ficha-pontos');
+            if (!cont) return;
+            let total = 0, zeros = [];
+            FICHA_ATRIBUTOS.forEach(a => {
+                const inp = document.getElementById('ficha-attr-' + a);
+                let v = inp ? parseInt(inp.value, 10) : 0;
+                if (isNaN(v)) v = 0;
+                if (v > 10 && inp) { v = 10; inp.value = 10; }   // trava o teto 10
+                if (v < 0 && inp) { v = 0; inp.value = 0; }
+                total += v;
+                const row = document.getElementById('ficha-attr-row-' + a);
+                if (row) row.classList.toggle('attr-zero', v === 0);
+                if (v === 0) zeros.push(a);
+            });
+            const { max, ehDemonio, label } = alvoPontos();
+            let estado, cor;
+            const sobra = max - total;
+            if (total > max) { estado = `acima do limite (${total - max} a remover)`; cor = '#e74c3c'; }
+            else if (sobra > 0 && ehDemonio) { estado = `faltam ${sobra} (Demônio Puro usa os 22)`; cor = '#e6b800'; }
+            else if (sobra > 0) { estado = `${sobra} ponto(s) sobrando → +${sobra * 2} PM inicial (ou ${Math.floor(sobra / 3)} habilidade grátis)`; cor = '#2ecc71'; }
+            else { estado = 'distribuição completa ✓'; cor = '#2ecc71'; }
+            let aviso = '';
+            if (zeros.length) aviso = `<div class="fs-5" style="color:#e6b800;margin-top:4px">⚠️ Atributo 0 (${zeros.join(', ')}): falha automática + 1 Stress nos testes ligados.</div>`;
+            cont.innerHTML = `<div class="d-flex" style="justify-content:space-between;align-items:center;gap:8px">
+                    <span class="fs-6">Pontos de atributo <span class="opacity-5">(${label})</span></span>
+                    <span style="font-family:'Bebas Neue',sans-serif;font-size:1.25rem;color:${cor}">${total} / ${max}</span>
+                </div>
+                <div class="fs-5" style="color:${cor};margin-top:2px">${estado}</div>${aviso}`;
         }
         // ===== Estilos de Luta (12 — passivos, da vendinha) =====
         const ESTILOS_LUTA = {
-            "Boxe": ["Jab — alvo falhou a defesa? repete o ataque com metade dos dados (arred. p/ cima)","Pode defender com Percepção ou Vínculo em curto alcance","Esquiva natural — defendeu por 5+? próximo ataque +1d10","Resistência de ringue — 1ª Injúria Leve por combate não gera penalidade"],
+            "Boxe": ["Jab — alvo falhou a defesa? repete o ataque com metade dos dados (arred. p/ cima)","Combinação — 2 acertos no mesmo alvo na rodada? o 2º sobe 1 nível de Injúria","Pode defender com Percepção ou Vínculo em curto alcance","Esquiva natural — defendeu por 5+? próximo ataque +1d10","Resistência de ringue — 1ª Injúria Leve por combate não gera penalidade"],
             "Estilo Livre": ["Pode usar Malandragem pra atacar 1x/rd ou pra defender","Injúrias causadas podem gerar efeito (queda, deslocamento, desarme)","Ambiente ajudando, defensor rola -1d10"],
             "Espadachim": ["Diferença 5+ → Injúria Leve vira sangramento","Pode defender com Percepção ou Tecnologia","Em 1x1, ignora armamento defensivo do alvo"],
             "Atirador": ["Ataques criam zona de perigo — quem atravessa sofre -1d10 em toda ação","Diferença 10+ pode aumentar a Injúria em 1 grau"],
-            "Armas Pesadas": ["Armaduras não reduzem o dano","Injúrias Graves criam Aflição Física automática","Alvos menores fazem Teste de Medo DT 20 ao serem atacados"],
+            "Armas Pesadas": ["Ignora 1 nível de proteção do alvo (fura armadura, não anula)","Injúrias Críticas criam Aflição Física automática (1× por alvo)","Alvos de Tier 2+ abaixo do seu fazem Teste de Medo DT 20 ao serem atacados"],
             "Caçador": ["Por rodada observando, ignora 1d10 defensivo do alvo na próxima ação (máx 3 rodadas = 3d10)","Ataques armados podem usar Investigação ou Negociação","Pode trocar dano por condição (marcado, exposto, sangrando, deslocado)","Pode avisar aliados sem gastar ação"],
             "Instintivo": ["Sempre que causar Injúria → +2 Stress no alvo","Pode atacar usando Percepção ou Investigação no lugar de Força"],
             "Spetsnaz": ["1º ataque da cena contra um alvo: se causar Injúria, aumenta 1 grau","Pode usar Coordenação ou Autoridade pra ataques corpo a corpo armados","Atacar alvo desatento/imobilizado/ferido ignora a redução de defesa"],
             "Wrestling": ["Pode usar Força ou Vigor pra agarrar, derrubar ou imobilizar","Agarrados sofrem penalidade crescente em ações físicas (-1/-2/-3d10)","Agarrados não fogem nem lutam com outra coisa sem vencer o teste","Pode não causar Injúria pra drenar +2 Stress OU causar Aflição leve"],
             "Judô": ["Contra-ataque — inimigo errou corpo a corpo? contra-ataca Coord vs Vigor (1x/rd)","Pode defender com Coordenação, Vigor ou Vínculo","Defesa por 5+ → pode derrubar ou deslocar o alvo","Atacante com Força maior → +1d10 no contra-ataque E na defesa","Fluxo — derrubou? próximo ataque de aliado contra ele +1d10"],
             "Executor": ["Contra alvos com Autoridade maior: +1d10 geral","Injúria Grave → alvo não pode conceder bônus ou liderar","Pode trocar dano por Aflição"],
-            "Mãos da Guerra": ["Toda arma improvisada vira armamento leve ou médio (+1d10 ou +2d10)","Empunhando armamento demoníaco: ganha apenas +10 em dano"],
+            "Mãos da Guerra": ["Toda arma improvisada vira armamento leve ou médio (+1d10 ou +2d10)","Nunca está desarmado: de mãos vazias ataca como armamento leve (+1d10)","Empunhando arma de verdade ou demoníaca: ganha +1d10 adicional"],
         };
         function montarEstilos() {
             const sel = document.getElementById('ficha-estilo');
@@ -2772,7 +2841,20 @@
         // Natureza escolhida → categoria de Origem (filtra o catálogo: só aparece a sua natureza)
         const NAT_CAT = { 'Humano':'humano', 'Infernal':'infernal', 'Híbrido':'hibrido', 'Demônio Puro':'demonio' };
         function natCat() { const el = document.getElementById('ficha-natureza'); return el ? (NAT_CAT[el.value] || null) : null; }
-        function onNaturezaChange() { salvarFichaLocal(); montarHabChips(); renderHabResultados(); }
+        function onNaturezaChange() { recalcPontos(); atualizarDicaPartida(); salvarFichaLocal(); montarHabChips(); renderHabResultados(); }
+        // Mostra o "Ponto de Partida" (habilidades grátis + PM) conforme a natureza escolhida
+        function atualizarDicaPartida() {
+            const el = document.getElementById('ficha-partida-hint');
+            if (!el) return;
+            const nat = (document.getElementById('ficha-natureza') || {}).value || '';
+            const gratis = {
+                'Humano':       '🎁 Grátis na criação: 2 Habilidades Gerais + 1 de Origem (Humano). Sem poder de berço (pode fechar Contrato).',
+                'Infernal':     '🎁 Grátis na criação: 1 Geral + 1 de Origem (Infernal) + 1 Poder Demoníaco + 1 Sentido Sobrenatural.',
+                'Híbrido':      '🎁 Grátis na criação: 1 Geral + 1 de Origem (Híbrida) + 1 Forma de transformação. Grilhões começam em 0.',
+                'Demônio Puro': '🎁 Grátis na criação: 2 Poderes ligados ao conceito do medo (+ extras dos Pontos de Idade). Sem Talismã/Sonhos.',
+            };
+            el.innerHTML = gratis[nat] || '';
+        }
 
         function setHabView(v) {
             habView = (habView === v) ? null : v;   // clicar no aberto fecha
@@ -2935,6 +3017,8 @@
                 renderEstilo();
                 renderArma();
                 renderBuffSumario();
+                recalcPontos();
+                atualizarDicaPartida();
             } catch (e) {}
         }
         // ===== Exportar ficha (.txt / .md) no modelo SCAR =====
@@ -3001,7 +3085,7 @@
                 'FALHA CENTRAL: ' + _vficha('ficha-falha'),
                 pmLinha,
                 '',
-                '═══ ATRIBUTOS (16-22 PONTOS) ═══',
+                '═══ ATRIBUTOS (22 PONTOS' + (ehDemonio ? ' · Demônio Puro' : '') + ', teto 10) — total: ' + FICHA_ATRIBUTOS.reduce((s,a)=>s+at[a],0) + ' ═══',
                 '',
                 '▸ Físicos',
                 '  Força: ' + at['Força'],
@@ -3024,6 +3108,7 @@
                 stressLinha,
                 '¥ (IENE): ' + (_vficha('ficha-iene') || '0'),
                 'MOVIMENTO: Coordenação × 2 m = ' + mov + ' m',
+                'DEFESA PASSIVA: 5,5 × atributo (arred. ↑) — esquiva = ' + Math.ceil(at['Coordenação'] * 5.5) + ' · encaixar = ' + Math.ceil(vig * 5.5) + '  (rolar Ativo = gastar Reação, aposta ~50/50)',
                 'AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação',
                 '',
                 'INJÚRIAS',
@@ -3141,6 +3226,7 @@
         carregarHabs();
         atualizarMarcaRow();
         renderBuffSumario();
+        calcPassiva();
     </script>
 
     <!-- ========== INTEGRACAO OWLBEAR RODEO (notificacao para todos) ========== -->
