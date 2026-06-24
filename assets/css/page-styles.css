@@ -1,0 +1,218 @@
+/* ============================================
+   SCAR Index - Estilos Especificos da Pagina
+   Estilos comuns estao em assets/css/main.css
+   ============================================ */
+
+/* Hero Section */
+.hero {
+    background: url('../images/chainsaw-horror.jpeg') center center / cover no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg,
+        rgba(0,0,0,0.4) 0%,
+        rgba(10,10,10,0.6) 50%,
+        rgba(10,10,10,0.8) 100%);
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(10,10,10,0.5) 100%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-logo {
+    max-width: min(550px, 85vw);
+    height: auto;
+    border-radius: 12px;
+    filter: drop-shadow(0 0 40px rgba(220,20,60,0.4)) drop-shadow(0 10px 30px rgba(0,0,0,0.6));
+    transition: filter 0.5s ease;
+}
+
+.hero-logo:hover {
+    filter: drop-shadow(0 0 60px rgba(220,20,60,0.6)) drop-shadow(0 10px 30px rgba(0,0,0,0.6));
+}
+
+.hero-title-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.hero-title {
+    font-size: clamp(5rem, 18vw, 12rem);
+    color: var(--cor-secundaria);
+    text-shadow:
+        0 0 40px rgba(220,20,60,0.3),
+        0 4px 0 #5a0000,
+        0 8px 20px rgba(0,0,0,0.8);
+    line-height: 0.85;
+    letter-spacing: -2px;
+    animation: title-glow 3s ease-in-out infinite alternate;
+    position: relative;
+}
+
+@keyframes title-glow {
+    from { text-shadow: 0 0 30px rgba(220,20,60,0.2), 0 4px 0 #5a0000; }
+    to { text-shadow: 0 0 50px rgba(220,20,60,0.4), 0 4px 0 #5a0000; }
+}
+
+.hero-subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(0.7rem, 1.8vw, 1rem);
+    letter-spacing: 12px;
+    color: var(--cor-texto-secundario);
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.hero-tagline {
+    font-style: italic;
+    color: var(--cor-accent);
+    font-size: 1.3rem;
+    position: relative;
+    display: inline-block;
+}
+
+.hero-tagline::before,
+.hero-tagline::after {
+    content: '—';
+    margin: 0 15px;
+    color: var(--cor-principal);
+}
+
+/* Estilo de Luta Card */
+.estilo-card {
+    background: var(--cor-fundo-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: 14px;
+    padding: 28px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.estilo-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.estilo-card:hover {
+    border-color: var(--cor-principal);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-glow), var(--shadow-card);
+}
+
+.estilo-card:hover::before {
+    opacity: 1;
+}
+
+/* CTA Section */
+.cta-section {
+    position: relative;
+    background: url('../images/banner-footer.jpeg') center center / cover no-repeat;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.6) 100%);
+    pointer-events: none;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--cor-texto);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.cta-title span {
+    color: var(--cor-secundaria);
+}
+
+/* Footer Simples */
+.site-footer {
+    background: var(--cor-fundo);
+    border-top: 1px solid var(--cor-borda);
+    padding: 40px 0 30px;
+}
+
+/* Modal Styling */
+.modal-popup {
+    scrollbar-width: thin;
+    scrollbar-color: var(--cor-principal) var(--cor-fundo-card);
+}
+
+.modal-popup::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-popup::-webkit-scrollbar-track {
+    background: var(--cor-fundo-card);
+}
+
+.modal-popup::-webkit-scrollbar-thumb {
+    background: var(--cor-principal);
+    border-radius: 3px;
+}
+
+.dialog-close {
+    color: var(--cor-texto);
+    font-size: 1.5rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.dialog-close:hover {
+    opacity: 1;
+}
+
+/* Cards hover */
+.card:hover .card-title,
+.card:hover h4 {
+    color: var(--cor-secundaria);
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+    background: var(--cor-principal);
+    color: white;
+}
