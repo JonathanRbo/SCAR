@@ -957,6 +957,27 @@
         /* listas rolam junto com a página (evita scroll-trap no popover) */
         body.obr .hab-resultados { max-height: none; }
         body.obr #hab-selecionadas { max-height: none; overflow: visible; }
+
+        /* ===== Owlbear: compactação extra (ocupa menos tela, fica limpo) ===== */
+        body.obr .container { padding: 8px; }
+        body.obr .section-box { padding: 9px !important; margin-bottom: 7px !important; }
+        body.obr .section-title { font-size: 0.95rem; margin-bottom: 6px; }
+        body.obr .field-label { font-size: 0.66rem; margin-bottom: 3px; }
+        /* dados e total menores no popover */
+        body.obr .die { width: 38px; height: 38px; font-size: 16px; border-radius: 7px; border-width: 1px; }
+        body.obr .dice-pool { gap: 6px; }
+        body.obr .result-total { font-size: 2.1rem; letter-spacing: 1px; text-shadow: 0 0 18px rgba(212,175,55,0.4); }
+        body.obr .injury-badge { padding: 5px 12px; font-size: 0.8rem; }
+        /* switch de visões fixo no topo: sempre alcançável sem rolar, e mais baixo */
+        body.obr .ficha-switch {
+            position: sticky; top: 0; z-index: 20;
+            background: rgba(8,8,8,0.97); backdrop-filter: blur(6px);
+            padding: 6px 0; margin: 0 0 8px;
+        }
+        body.obr .ficha-view-btn { padding: 7px 4px; font-size: 0.74rem; border-radius: 8px; }
+        /* botões de rolar do atributo: menores no popover */
+        body.obr .ficha-attr-row { padding: 4px 6px; }
+        body.obr .ef-det > summary { font-size: 0.72rem; }
     </style>
 </head>
 <body class="p-30-t p-30-lr xs-p-15-t xs-p-15-lr" style="overflow-x: hidden;">
@@ -3109,6 +3130,7 @@
                 '¥ (IENE): ' + (_vficha('ficha-iene') || '0'),
                 'MOVIMENTO: Coordenação × 2 m = ' + mov + ' m',
                 'DEFESA PASSIVA: 5,5 × atributo (arred. ↑) — esquiva = ' + Math.ceil(at['Coordenação'] * 5.5) + ' · encaixar = ' + Math.ceil(vig * 5.5) + '  (rolar Ativo = gastar Reação, aposta ~50/50)',
+                'CARGA: ___ / ' + (5 + at['Força']) + '  (limite = 5 + Força)',
                 'AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação',
                 '',
                 'INJÚRIAS',
