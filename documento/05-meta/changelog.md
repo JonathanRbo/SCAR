@@ -11,6 +11,77 @@
 
 ---
 
+> **24/06/2026 (12ª rodada)**
+
+# **Update: "Do Bestiário Atualizado"** — fichas de monstro alinhadas ao sistema
+As fichas estavam sem o número mais importante do combate novo.
+
+- **Defesa Passiva em TODA criatura** (não existia): o atacante agora tem contra o que rolar. Calculada por 5,5 × atributo de defesa (encaixa Vigor / esquiva Coordenação). Chefes: Antofobia 33 · Cavaleiro-Corvo 44 · Fera de Marfim 50 · Delirium 22 · Juggernaut 50 · Controle 17. Minions: Humano 11 · Caçador 28 · Zumbi Comum 6 · Arauto 33 · Filhote 17 · Carniceiro 28 · Construto 22.
+- **Armadura convertida pro formato atual:** "X de redução"/"Armadura 10" → **−1/−2 níveis** (Cavaleiro-Corvo, Fera, Juggernaut, Zumbi Arauto, e os do site).
+- **Notas de identidade:** Delirium "difícil de alcançar pela ilusão (não pela Passiva)"; Controle "você quase nunca chega nele".
+- Sincronizado nos 3 lugares: `BESTIARIO-DEMONIOS.md`, `BESTIARIO-MINIONS.md` e o bestiário visual `aparencias.html` (26 statlines ganharam a pill **Def**; criaturas exclusivas do site — Cara Feliz, O Sócio, Espantalho, Aurélio, Evolução Demônio — tiveram a Def calculada). Cabeçalhos e a caixa "Como ler" atualizados.
+
+> **24/06/2026 (11ª rodada)**
+
+# **Update: "Do Filler que Virou Alma"** — Habilidades Gerais reformuladas
+Em vez de cortar as Gerais fracas, **reformulamos** cada uma pra ter efeito próprio e significado (o filler virou coisa boa). Princípio: cada Geral tem **um efeito claro**; a força vem de juntar várias, limitada pelo teto da Troca Equivalente.
+
+**23 reformuladas** (Físico/Mental/Social) — destaques:
+- **Speed Blitz**: virou buff de velocidade (Coord 6, +2d10 em ações de Coordenação + deslocamento dobrado, 1 Stress/rodada) — forte, mas sem o "Sem Defesa pra todos" que ficou roubado.
+- **Pele Dura** → resistência especializada a 1 tipo de dano (−1 nível sempre).
+- **Onde Dói** → sabe um segredo do alvo? força 1 concessão sem rolar.
+- **Sequência Devastadora** → 3º acerto seguido fura armadura + acumula +5 por acerto.
+- E mais: Ignorar o Medo (medo vira fúria), Sangue Quente (repetível), Líder Natural, Nem a Morte Separa, etc.
+
+**4 fusões (só duplicata, sem ganhar poder):** Tiro Duplo + Rajada Controlada → **Fogo em Sequência**; Atirador de Elite Extremo → absorvido por **Técnica Mortal**; Esquizofrenia + Leitura de Cicatriz → **Leitura Forense** (corrige o nome); Bom Homem + História que Assombra → **Reputação**.
+
+**Mantidas como Geral** (decisão do dono): cura, conserto, pilotagem e contatos seguem Gerais (básico universal); o Humano só tem a versão melhor.
+
+**Contagem:** Gerais 115 → **111** · total 183 → **179** (De Origem 68 inalterado). Sincronizado nos 3 arquivos (`habilidades.md`, `habilidades.html`, `dice-roller.html` — catálogo + grupos de situação), JS validado, e corrigido um "De Origem 80→68" que tinha ficado velho no site.
+
+> **24/06/2026 (10ª rodada)**
+
+# **Update: "Do Cadáver e do Medo"** — origens Infernal e Demônio Puro
+Fechando o passe de alma nas habilidades de Origem.
+
+**Infernal — reformulado (de transformação genérica para a tragédia dele)**
+Trocada a transformação/regen comum por 4 blocos com a alma do Infernal (cadáver emprestado que vira gente):
+- **Corpo Emprestado**: Carne que Não Aceita Morrer, Costura Própria, Membro Descartável, Trocar de Pele, Não Apaga Ainda.
+- **Memória do Inferno** (foi demônio e lembra): Reconhecer um Igual, Línguas Mortas, Frieza Infinita, Instinto do Abismo.
+- **A Coisa que Você Foi** (o errado sob a pele): Presença Antinatural, Aura de Terror, Grito do Inferno, Marca Rastejante, Rosto Verdadeiro.
+- **Virando Gente** (a traição de aprender a sentir): Primeira Lágrima, Coração Emprestado (ganha Talismã!), Escolha de Poupar.
+
+**Demônio Puro — 5 poderes únicos de SCAR** (mantidos os 14 anteriores):
+- **Mídia do Medo** (sobe a Escala de Medo aterrorizando em público), **Abrir a Porta** (Porta do Inferno), **A Falha é a Força** (abraça a Falha Central como lâmina de dois gumes), **Aprender a Fingir Gente**, **Comer o Conceito**.
+
+**Contagens:** Humano 14 · Infernal 22→**17** · Híbrido 18 · Demônio Puro 14→**19**. De Origem segue **68**, total **183** (totais inalterados). Tudo sincronizado em `habilidades.md`, `habilidades.html` e `dice-roller.html` (catálogo + grupos de situação recategorizados).
+
+> **24/06/2026 (9ª rodada)**
+
+# **Update: "Do Que Só Você Traz"** — origens Humano e Híbrido reformuladas
+Repensar o que cada natureza traz de **único** nas habilidades de Origem (em `habilidades.md`).
+
+**Humano — de "treino genérico" para "o que só gente traz"**
+- Saíram os blocos genéricos (Combate, Tática, Sobrevivência, Equipamento) que qualquer um treinaria nas Gerais.
+- Entraram dois blocos com alma humana:
+  - **Ofício** (a carreira/vida antes): Distintivo Velho, Mãos de Médico, Graxa nas Mãos, Pena Afiada, Contato no Submundo, Gravata e Papel, Quadro-Negro, Gente do Bairro.
+  - **Humanidade**: Cara de Ninguém, A Graça de Ser Comum, Âncora de Humanidade, Última Bala, Não Vou Cair Aqui, Vontade de Gente.
+
+**Híbrido — a fusão humano+demônio, bem trabalhada**
+- Reescrito em torno dos **Grilhões como recurso vivo**:
+  - **O Acordo**: Arma Viva, Transição Suave, Barganha Interna, Dar Rédea, Cobrar de Volta.
+  - **As Duas Vozes** (o demônio sabe coisas): Faro do Abismo, A Voz que Sabe, Instinto Emprestado, Dívida de Sangue.
+  - **Identidade Dual**: Natureza Dual Reativa, Corpo Entre Mundos, Sangue de Dois Mundos, Espelho do Inimigo, Síntese Imperfeita.
+  - **O Fio que te Segura** (a metade humana): Equilíbrio Instável, Âncora Humana, Sincronia, Recusa Compartilhada.
+
+**Sincronizado no site e no rolador:** `habilidades.html` (cards) e `dice-roller.html` (catálogo) agora listam as novas Humano/Híbrido. Contagens atualizadas: Humano 22→**14**, Híbrido 22→**18**, De Origem 80→**68**, total 195→**183** (Gerais 115 inalterado).
+
+> **24/06/2026 (8ª rodada)**
+
+# **Update: "Do Rolador Afinado"**
+- **Rolador conferido com o sistema atual** (Passiva 5,5×, 22 pontos + troca por PM no contador, estilos rebalanceados). Export da ficha agora também traz a linha **CARGA** (5 + Força), além de Defesa Passiva e ¥.
+- **Modo Owlbear mais compacto:** dados e total menores no popover, espaçamentos reduzidos, e o **switch de visões (Rolar/Combate/Bônus/Habilidades) fixo no topo** — ocupa menos tela e fica sempre alcançável sem rolar.
+
 > **24/06/2026 (7ª rodada)**
 
 # **Update: "Da Ficha Nova"** — fichas copia-e-cola atualizadas

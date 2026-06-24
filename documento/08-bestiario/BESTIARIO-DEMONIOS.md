@@ -2,6 +2,7 @@
 > *Fichas dos demônios fortes. São alvos de arco, não de rodada. Cada um traz Categoria e Idade do Medo, DT de Teste de Medo, atributos-chave, 2 Poderes Demoníacos, ataque, e a **Falha Central** (o jeito de apagá-lo do mundo). Stress pela fórmula de Demônio Puro do [criacao-personagem](../02-criacao-e-preparo/criacao-personagem.md); DT de Medo escala 15→50 por idade.*
 > *Tiers pela [escala-de-poder](../04-mecanicas-em-jogo/escala-de-poder.md): 7-8 monstruoso · 9-10 primordial/Cavaleiro (máximo).*
 > ⚙️ **Slots de Injúria destes chefes são fixados à mão por design de encontro** (chefe = alvo de arco, resistência calibrada à mão, não pela fórmula de PC). Use os valores da ficha; já vêm prontos.*
+> 🛡️ **Atualização de sistema:** cada ficha agora traz **Defesa Passiva** (5,5 × atributo de defesa, arredondado pra cima) — o número que o atacante rola contra (Xd10 + arma vs Passiva). E a **Armadura** agora reduz **nível de Injúria** (−1 ou −2 níveis), não mais "X de redução" fixa.*
 
 # 🌼 ANTOFOBIA — *o Florescer que Apodrece*
 **Aparência:** `antofobia.jpg`
@@ -11,6 +12,7 @@
 
 **ATRIBUTOS-CHAVE:** Percepção 7 · Coordenação 6 · Vigor 6 · Negociação 5 · Vínculo 1
 **STRESS:** 4 + Vigor + Percepção = 17 · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
+**DEFESA PASSIVA:** 33 *(esquiva · Coordenação 6)*
 **MOVIMENTO:** 12 m
 
 **ATAQUE:**
@@ -33,7 +35,8 @@
 **Conceito:** *Armadura cinza-violácea de placas, coroa de espinhos de marfim, garras de aço, uma caveira de pássaro cravada no peito e um corvo vivo pousado no ombro. Anda devagar porque não precisa correr. O que ele alcança, ele encerra.*
 
 **ATRIBUTOS-CHAVE:** Força 8 · Vigor 8 · Autoridade 6 · Coordenação 5 · Percepção 5
-**STRESS:** 4 + Vigor + Autoridade = 18 · **INJÚRIAS:** Leves 4 / Graves 3 / Crítica 2 · **armadura pesada (10 de redução)**
+**STRESS:** 4 + Vigor + Autoridade = 18 · **INJÚRIAS:** Leves 4 / Graves 3 / Crítica 2 · **Armadura:** −2 níveis
+**DEFESA PASSIVA:** 44 *(encaixa · Vigor 8)*
 **MOVIMENTO:** 8 m
 
 **ATAQUE:**
@@ -56,7 +59,8 @@
 **Conceito:** *Besta quadrúpede do tamanho de um carro, a casca branca e dourada feito osso esmaltado, um único olho amarelo cravado numa máscara sem rosto, a fileira de dentes que nunca fecha e espinhos rasgando as costas. Vive entre as árvores secas que ela mesma matou. Pra ela, o território é tudo.*
 
 **ATRIBUTOS-CHAVE:** Força 8 · Vigor 9 · Percepção 7 · Coordenação 5 · Autoridade 5
-**STRESS:** 6 + Vigor + Força = 23 · **INJÚRIAS:** Leves 4 / Graves 3 / Crítica 2 · **armadura leve natural (5)**
+**STRESS:** 6 + Vigor + Força = 23 · **INJÚRIAS:** Leves 4 / Graves 3 / Crítica 2 · **Armadura:** −1 nível (casca natural)
+**DEFESA PASSIVA:** 50 *(encaixa · Vigor 9)*
 **MOVIMENTO:** 14 m *(investida)*
 
 **ATAQUE:**
@@ -81,6 +85,8 @@
 
 **ATRIBUTOS-CHAVE:** Autoridade 8 · Malandragem 8 · Negociação 7 · Percepção 7 · Vigor 4
 **STRESS:** 4 + Vigor + Autoridade = 16 · **INJÚRIAS:** Leves 2 / Graves 2 / Crítica 1
+**DEFESA PASSIVA:** 22 *(encaixa · Vigor 4 — frágil)*
+> *Difícil de alcançar: enquanto a ilusão/névoa dura, escolhê-lo como alvo exige furar a fantasia (Investigação ou Percepção vs Malandragem 8) — a proteção dele é o disfarce, não a Passiva.*
 **MOVIMENTO:** 10 m *(desliza / atravessa sombra)*
 
 **ATAQUE:**
@@ -103,7 +109,8 @@
 **Conceito:** *Coloso de placas de metal negro coroado por uma caveira, um núcleo vermelho pulsando no peito feito fornalha, fumaça escapando das juntas e garras industriais no lugar das mãos. Um demônio forjado dentro de uma carcaça de ferro, ou aprisionado nela, ninguém sabe ao certo. Avança. Sempre avança.*
 
 **ATRIBUTOS-CHAVE:** Força 9 · Vigor 9 · Autoridade 6 · Coordenação 3 · Percepção 4
-**STRESS:** 6 + Vigor + Força = 24 · **INJÚRIAS:** Leves 5 / Graves 3 / Crítica 2 · **armadura pesada (10 de redução)**
+**STRESS:** 6 + Vigor + Força = 24 · **INJÚRIAS:** Leves 5 / Graves 3 / Crítica 2 · **Armadura:** −2 níveis (exceto contra o núcleo)
+**DEFESA PASSIVA:** 50 *(encaixa · Vigor 9)*
 **MOVIMENTO:** 8 m *(não pode ser empurrado nem derrubado)*
 
 **ATAQUE:**
@@ -128,6 +135,8 @@
 
 **ATRIBUTOS-CHAVE:** Autoridade 10 · Negociação 10 · Percepção 10 · Investigação 9 · Malandragem 9 · Vínculo 1
 **STRESS:** 4 + Vigor + Autoridade = ~17 · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
+**DEFESA PASSIVA:** 17 *(Vigor 3)*
+> *Mas você quase nunca chega nele — há sempre peças entre você e ela (ver Falha Central).*
 **MOVIMENTO:** 8 m
 
 **ATAQUE:**

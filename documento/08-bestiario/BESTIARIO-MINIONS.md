@@ -1,6 +1,7 @@
 ﻿# BESTIÁRIO — MINIONS
 > *Fichas rápidas dos seres comuns que o Mestre joga na mesa. Cada ser traz **DESCRIÇÃO** (quem é, de onde vem) + ficha enxuta de combate. Stress segue a fórmula do sistema (6 + Vigor + Vínculo), Movimento = Coordenação × 2 m. Atributos não citados valem 1–2.*
 > ⚙️ **Slots de Injúria de NPC são fixados à mão por design de encontro** — propositalmente menores que a fórmula de PC (2+⌊Vigor/2⌋ etc.), pra NPC cair mais rápido que personagem. Use os números da ficha como estão; não recalcule pela fórmula de jogador.
+> 🛡️ **Atualização de sistema:** cada ficha agora traz **Defesa Passiva** (5,5 × atributo de defesa, arredondado pra cima) — o número que o atacante rola contra (Xd10 + arma vs Passiva). E a **Armadura** agora reduz **nível de Injúria** (−1 ou −2 níveis), não mais "X de redução" fixa.
 > *Tiers pela [escala-de-poder](../04-mecanicas-em-jogo/escala-de-poder.md): 1-2 comum · 3-4 treinado · 5-6 sobre-humano · 7-8 monstruoso.*
 > *Regra de ouro de SCAR: **demônio é a representação física de um medo**. Os seres aqui orbitam essa frase — uns são as vítimas do medo, outros são cópias dele, outros são o medo reaproveitado. Ninguém aqui é o medo em si (esses são os Demônios Puros, ver [BESTIARIO-DEMONIOS](./BESTIARIO-DEMONIOS.md)).*
 
@@ -16,6 +17,7 @@
 
 **ATRIBUTOS:** Força 2 · Vigor 2 · Coordenação 2 · Percepção 2 · resto 1-2
 **STRESS:** 10 · **INJÚRIAS:** Leves 2 / Graves 1 / Crítica 1
+**DEFESA PASSIVA:** 11 *(Coordenação/Vigor 2)*
 **MOVIMENTO:** 4 m
 
 **ATAQUE:**
@@ -44,6 +46,7 @@
 
 **ATRIBUTOS:** Coordenação 5 · Força 4 · Vigor 4 · Percepção 4 · Malandragem 3 · Investigação 3 · resto 2
 **STRESS:** 12 · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
+**DEFESA PASSIVA:** 28 *(esquiva · Coordenação 5)*
 **MOVIMENTO:** 10 m
 
 **ATAQUE:**
@@ -99,6 +102,7 @@ PM: 0
 
 STRESS: 6 + Vigor + Vínculo = 10
 MOVIMENTO: Coordenação × 2 = 6 m
+DEFESA PASSIVA: 5,5 × atributo = 17 (Coord 3)
 AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação
 
 INJÚRIAS
@@ -148,6 +152,7 @@ MARCA DO DEMÔNIO: (se fechou contrato menor) a arma arde / corta o sobrenatural
 
 **ATRIBUTOS:** Vigor 4 · Força 3 · Coordenação 1 · resto 1
 **STRESS:** — *(imune a Medo e a Stress psicológico)* · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
+**DEFESA PASSIVA:** 6 *(não esquiva · Coordenação 1 — fácil de acertar; o perigo é a horda)*
 **MOVIMENTO:** 2 m *(arrastado)*
 
 **ATAQUE:**
@@ -166,7 +171,8 @@ MARCA DO DEMÔNIO: (se fechou contrato menor) a arma arde / corta o sobrenatural
 **Conceito:** *Não é refugo de horda. É um campeão morto que voltou inteiro de propósito, pra liderar os comuns. Enquanto ele vive, a horda pensa junto.*
 
 **ATRIBUTOS:** Força 6 · Vigor 6 · Coordenação 3 · Autoridade 4 · resto 2
-**STRESS:** — *(imune a Medo)* · **INJÚRIAS:** Leves 4 / Graves 3 / Crítica 1 · **armadura leve (5 de redução)**
+**STRESS:** — *(imune a Medo)* · **INJÚRIAS:** Leves 4 / Graves 3 / Crítica 1 · **Armadura:** −1 nível
+**DEFESA PASSIVA:** 33 *(encaixa · Vigor 6)*
 **MOVIMENTO:** 6 m
 
 **ATAQUE:**
@@ -197,6 +203,7 @@ MARCA DO DEMÔNIO: (se fechou contrato menor) a arma arde / corta o sobrenatural
 
 **ATRIBUTOS:** Coordenação 3 · Força 3 · Vigor 3 · Percepção 3 · resto 2
 **STRESS:** 4 + Vigor = 7 · **DT DE MEDO:** 15 *(Recém-Nascido)* · **INJÚRIAS:** Leves 2 / Graves 1 / Crítica 1
+**DEFESA PASSIVA:** 17 *(esquiva · Coordenação 3)*
 **MOVIMENTO:** 6 m *(escala paredes)*
 
 **ATAQUE:**
@@ -215,6 +222,7 @@ MARCA DO DEMÔNIO: (se fechou contrato menor) a arma arde / corta o sobrenatural
 
 **ATRIBUTOS:** Força 5 · Vigor 5 · Coordenação 4 · Percepção 3 · resto 2
 **STRESS:** 4 + Vigor = 9 · **DT DE MEDO:** 20 *(Jovem)* · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
+**DEFESA PASSIVA:** 28 *(encaixa · Vigor 5)*
 **MOVIMENTO:** 8 m
 
 **ATAQUE:**
@@ -243,6 +251,7 @@ MARCA DO DEMÔNIO: (se fechou contrato menor) a arma arde / corta o sobrenatural
 
 **ATRIBUTOS:** Percepção 6 · Coordenação 4 · Vigor 4 · Força 3 · resto 2
 **STRESS:** 4 + Vigor = 9 · **DT DE MEDO:** 20 · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
+**DEFESA PASSIVA:** 22 *(encaixa · Vigor 4)*
 **MOVIMENTO:** 8 m
 
 **ATAQUE:**

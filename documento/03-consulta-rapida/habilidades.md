@@ -1,6 +1,6 @@
 # HABILIDADES GERAIS — VERSÃO REVISADA
 ══════════════════════════
-> *115 habilidades distribuídas em 3 categorias: **Físico**, **Mental**, **Social**.*
+> *111 habilidades distribuídas em 3 categorias: **Físico**, **Mental**, **Social**.*
 
 
 ## CRITÉRIO DAS CATEGORIAS
@@ -57,7 +57,7 @@
 > *O corpo respondendo. Bater, atirar, esquivar, aparar, apanhar e continuar de pé.*
 ═══════════════════════════════════════
 
-## Combate *(17 habilidades)*
+## Combate *(15 habilidades)*
 
 ### Golpe Decisivo
 **Requisito:** Força 4 ou Coordenação 4
@@ -91,8 +91,8 @@
 
 ### Sequência Devastadora
 **Requisito:** Força 6, Coordenação 5 · **Requer:** Golpe Decisivo
-**Como funciona:** Dois acertos seguidos abrem o alvo; o terceiro entra com tudo.
-**Efeito:** Acertando 2 ataques seguidos no mesmo alvo, o 3º ganha **+10 fixo**
+**Como funciona:** Cada acerto seguido no mesmo alvo abre mais a guarda dele; você decora a brecha e bate cada vez mais certeiro, até o golpe entrar onde a armadura não cobre.
+**Efeito:** A cada acerto consecutivo no mesmo alvo você ganha **+5 fixo** no teste seguinte (acumula enquanto a sequência durar); o **3º acerto consecutivo ignora a redução de armadura** do alvo
 **Custo:** Passivo
 
 ### Quebra-Ossos
@@ -115,15 +115,9 @@
 
 ### Técnica Mortal *(4 PM)*
 **Requisito:** Força 7 ou Coordenação 7 · **Requer:** Maestria em Combate
-**Como funciona:** Uma vez por luta você arma o golpe pra matar. Entra fundo, dois graus de ferida de uma vez.
-**Efeito:** 1x por combate, declare "Golpe Mortal": o ataque causa **+2 estágios** de Injúria
+**Como funciona:** Uma vez por luta você arma o golpe pra matar, seja na lâmina ou no cano. Entra fundo, dois graus de ferida de uma vez.
+**Efeito:** 1x por combate, declare "Golpe Mortal" **corpo a corpo OU à distância**: o ataque causa **+2 estágios** de Injúria
 **Custo:** 5 Stress · 1x/combate
-
-### Atirador de Elite Extremo *(4 PM)*
-**Requisito:** Coordenação 7, Percepção 5 · **Requer:** Maestria em Combate (à distância)
-**Como funciona:** Uma vez por missão você crava o tiro impossível. Acerto certo, sem armadura ou cobertura que segure.
-**Efeito:** 1x por missão, 1 tiro é crítico automático (+1 estágio de Injúria, ignora cobertura/armadura)
-**Custo:** 4 Stress · 1x/missão
 
 ### Reflexo de Batalha *(4 PM)*
 **Requisito:** Coordenação 7, Percepção 6
@@ -131,10 +125,10 @@
 **Efeito:** Pode reagir a qualquer ataque visível sem gastar ação
 **Custo:** Passivo
 
-### Tiro Duplo
+### Fogo em Sequência *(2 PM)*
 **Requisito:** Coordenação 5 · **Requer:** Atirador
-**Como funciona:** Dois alvos do lado, dois tiros num gesto só. Cada um sai um pouco menos certeiro.
-**Efeito:** Ataca 2 alvos adjacentes, **-1d10** em cada
+**Como funciona:** Dois tiros num gesto só. Você decide na hora se despeja os dois no mesmo alvo ou divide entre dois.
+**Efeito:** Ataca **2 vezes à distância** (**-1d10** em cada disparo): concentra os dois num único alvo ou divide entre dois alvos
 **Custo:** 2 Stress · **Nota:** dois movimentos do dedo, dois corpos no chão
 
 ### Tiro de Supressão
@@ -143,23 +137,17 @@
 **Efeito:** Cobre uma área de fogo. Inimigos expostos nela sofrem **-1d10**
 **Custo:** 2 Stress
 
-### Rajada Controlada
-**Requisito:** Coordenação 5, Vigor 3 · **Requer:** Tiro Duplo
-**Como funciona:** Você despeja três tiros no mesmo alvo em sequência. Cada um um pouco mais solto.
-**Efeito:** Ataca 1 alvo 3 vezes seguidas, **-1d10** em cada disparo
-**Custo:** 3 Stress · 1x/cena
-
 ### Tiro Ricochete *(3 PM)*
 **Requisito:** Coordenação 6, Percepção 4 · **Requer:** Tiro de Precisão
-**Como funciona:** Você lê a parede e manda a bala quicar. Acerta quem se escondeu atrás da cobertura.
-**Efeito:** Atinge alvo atrás de cobertura com ricochete (parede, viga, cano)
+**Como funciona:** Quando o tiro erra, você não desperdiça: lê o ângulo na hora e a bala quica para o alvo do lado.
+**Efeito:** Quando você **erra** um tiro, ele **quica para um alvo adjacente** (role o ataque contra o 2º alvo) · 1x/cena
 **Custo:** 3 Stress + teste de Percepção pra mirar a superfície
 
 ### Speed Blitz *(4 PM)*
-**Requisito:** Coordenação 7, Vigor 5 · **Requer:** Maestria em Combate
-**Como funciona:** Por um instante você se move rápido demais pro resto acompanhar. Bate em vários e ninguém reage, mas o corpo cobra caro depois.
-**Efeito:** Aceleração extrema por 1 turno: ataca vários alvos diferentes na mesma rodada, ignora reações inimigas, cada ataque causa +1 Stress no alvo
-**Custo:** 5 Stress + 1 Injúria Leve ao fim do turno · 1x/combate · **Nota:** por 4 segundos você é o único que se move em tempo real
+**Requisito:** Coordenação 6 · **Requer:** Maestria em Combate · **Tipo:** Ativa/sustentada
+**Como funciona:** Você acelera além do normal e o resto do mundo parece engatinhar. Tudo que depende de reflexo e mira fica fácil enquanto durar, mas manter esse ritmo desgasta.
+**Efeito:** Enquanto ativa, **+2d10 em ações de Coordenação** (mira, esquiva/Defesa Ativa, iniciativa) e **deslocamento dobrado** *(o bônus em dados respeita o teto da Troca Equivalente)*
+**Custo:** 1 Stress por rodada que mantém ativa
 
 
 ## Mobilidade & Defesa *(13 habilidades)*
@@ -178,8 +166,8 @@
 
 ### Reflexo Antecipado
 **Requisito:** Coordenação 4
-**Como funciona:** Você sente o primeiro golpe antes dele sair, e já está saindo da frente.
-**Efeito:** +1d10 em esquivas contra o primeiro ataque do turno
+**Como funciona:** Você nunca baixa a guarda por completo. Mesmo pego de surpresa, alguma parte de você já está reagindo.
+**Efeito:** Você **não fica Sem Defesa contra o 1º ataque de emboscada/surpresa** (reage com a sua Passiva normalmente)
 **Custo:** Passivo · **Nota:** o primeiro golpe é sempre o que ainda não chegou; você vê antes
 
 ### Defensor Natural
@@ -208,9 +196,9 @@
 
 ### Esquiva Impossível *(3 PM)*
 **Requisito:** Coordenação 6, Percepção 5 · **Requer:** Esquiva Perfeita
-**Como funciona:** Você escapa até do que não dá pra escapar. Explosão, vários golpes de uma vez.
-**Efeito:** Pode esquivar de ataques em área ou múltiplos ao mesmo tempo
-**Custo:** 3 Stress
+**Como funciona:** Você escapa até do que não dá pra escapar. Onde explode, você não está mais.
+**Efeito:** 1x/cena, **esquiva por completo de UM ataque em área/explosão** (escapa sem sofrer nada)
+**Custo:** 3 Stress · 1x/cena
 
 ### Reflexos Sobre-Humanos *(4 PM)*
 **Requisito:** Coordenação 6, Percepção 5 · **Requer:** Esquiva Perfeita
@@ -220,9 +208,9 @@
 
 ### Velocidade Cegante *(3 PM)*
 **Requisito:** Coordenação 6 · **Requer:** Reflexo Antecipado
-**Como funciona:** Quem é mais lento que você nem te acerta direito. Mira onde você estava.
-**Efeito:** Inimigos com Coordenação menor que a sua sofrem -1d10 pra te acertar
-**Custo:** Passivo · **Nota:** eles erram porque te miraram onde você esteve, não onde você está
+**Como funciona:** Num lampejo você cruza a distância que ninguém esperava, ou some do lugar onde acabou de esquivar.
+**Efeito:** 1x/cena, **move o dobro do deslocamento sem gastar Stress** (ou reposiciona livremente logo após esquivar)
+**Custo:** Passivo · 1x/cena · **Nota:** eles erram porque te miraram onde você esteve, não onde você está
 
 ### Dança da Morte
 **Requisito:** Coordenação 5, Malandragem 4 · **Requer:** Esquiva Perfeita
@@ -238,8 +226,8 @@
 
 ### Pulmão de Aço *(2 PM)*
 **Requisito:** Vigor 3, Coordenação 2
-**Como funciona:** Seu fôlego não acaba na hora ruim. Você nada onde os outros afundam.
-**Efeito:** Nada em condições adversas (correnteza, água gelada) sem penalidade; +1d10 em testes subaquáticos
+**Como funciona:** Seu fôlego não acaba na hora ruim. Você prende a respiração muito além do normal e o cansaço demora a te alcançar.
+**Efeito:** Prende a respiração por muito tempo (água, gás, fumaça) **e ignora a 1ª penalidade de exaustão** num esforço/perseguição longa
 **Custo:** Passivo · **Nota:** o ar acabou três braçadas atrás; você continua
 
 
@@ -253,15 +241,15 @@
 
 ### Corpo Condicionado
 **Requisito:** Vigor 4
-**Como funciona:** Anos apanhando endureceram o corpo. Esforço físico te cansa menos.
-**Efeito:** Reduz -1 Stress de fontes físicas (mín 1)
+**Como funciona:** Você treinou um esforço físico até virar segunda natureza. Naquilo, simplesmente não falha.
+**Efeito:** Escolhe **1 esforço físico** (carregar, escalar, segurar, arrombar): **nunca falha nele em condição normal**; sob pressão, **+1d10**
 **Custo:** Passivo
 
 ### Pele Dura
 **Requisito:** Vigor 4 · **Requer:** Postura de Impacto OU Dor Conhecida
-**Como funciona:** Sua pele aguenta o primeiro corte como se fosse nada.
-**Efeito:** A primeira Injúria Leve da cena é reduzida a 0
-**Custo:** Passivo · 1x/cena
+**Como funciona:** Você endureceu o corpo contra um tipo específico de dano, e aquele nunca te machuca como deveria.
+**Efeito:** Escolhe **1 tipo de dano** (corte, impacto ou balístico): contra ele, **−1 nível de Injúria sempre**
+**Custo:** Passivo
 
 ### Postura de Impacto
 **Requisito:** Vigor 3
@@ -299,11 +287,11 @@
 **Efeito:** A primeira Injúria Crítica da missão vira Grave
 **Custo:** Passivo · 1x/missão
 
-### Sangue Quente *(2 PM)*
+### Sangue Quente *(2 PM)* *(repetível)*
 **Requisito:** Vigor 4
-**Como funciona:** Frio, calor, tempestade. Seu corpo ignora o clima que pararia os outros.
-**Efeito:** Ignora penalidades de clima extremo; não sofre Stress por exposição ambiental
-**Custo:** Passivo · **Nota:** o inverno desistiu de você antes de você desistir dele
+**Como funciona:** Seu corpo se acostumou a um extremo que pararia qualquer um, e aguenta privação que quebraria os outros.
+**Efeito:** Imune à penalidade de **1 ambiente extremo** (frio, calor, fumaça, gás — escolhido ao pegar) e **+1d10 para aguentar privação/tortura**
+**Custo:** Passivo · **Repetível:** cada nova compra cobre outro ambiente e o **+1d10 acumula** · **Nota:** o inverno desistiu de você antes de você desistir dele
 
 
 ## Sorte do Combate *(3 habilidades)*
@@ -358,14 +346,14 @@
 
 ### Ignorar o Medo
 **Requisito:** Autoridade 4, já ter enfrentado demônio Veterano+
-**Como funciona:** Você já viu coisa pior e segue mesmo assim. O medo não te trava por uma cena.
-**Efeito:** Ignora penalidades de Medo por 1 cena
-**Custo:** 2 Stress + risco de Aflição
+**Como funciona:** Quando o medo te derruba, você o converte em fúria fria e usa o baque a seu favor.
+**Efeito:** 1x/cena, ao **falhar um Teste de Medo**, ignora o debuff dele e ganha **+1d10 na próxima ação**
+**Custo:** 2 Stress + risco de Aflição · 1x/cena
 
 ### Plano Rápido
 **Requisito:** Investigação 3
-**Como funciona:** Você pensa rápido e arma um plano na hora. Se algo falha, você já contava com isso.
-**Efeito:** Declara um plano simples; ignora 1 falha relacionada a ele
+**Como funciona:** Você lê a situação na hora e age como se já tivesse planejado tudo. Improviso, pra você, não é desvantagem.
+**Efeito:** 1x/cena, **age sem a penalidade de improviso** (trata uma ação improvisada como se fosse planejada)
 **Custo:** 2 Stress (1x/cena)
 
 ### Insônia Produtiva
@@ -399,19 +387,19 @@
 **Requisito:** Tecnologia 2, Percepção 2
 **Como funciona:** Você sabe costurar gente no improviso. Fecha um ferimento leve no descanso.
 **Efeito:** Trata 1 Injúria Leve de aliado durante descanso (remove); precisa de material médico básico
-**Custo:** 1 Stress
+**Custo:** 1 Stress · **Nota:** é o **básico universal** de cura que qualquer um treina; o Humano tem a versão superior (**Mãos de Médico**)
 
 ### Arma Personalizada
 **Requisito:** Tecnologia 4 · **Requer:** Toque do Especialista
-**Como funciona:** Você ajusta uma arma pro seu jeito numa situação específica, e ali ela rende mais.
-**Efeito:** Escolhe 1 arma: +1d10 numa situação que você definir (ex: "fogo em terreno urbano", "faca em alvo agarrado")
+**Como funciona:** Você abre, ajusta e adapta o equipamento pro seu jeito. O que sai da sua bancada vem com um upgrade que mais ninguém tem.
+**Efeito:** Instala **1 modificação permanente em qualquer item/equipamento** (silenciador, mira, lâmina acoplada, munição especial, e afins)
 **Custo:** 2 Stress por cena
 
 ### Engenheiro de Campo
 **Requisito:** Tecnologia 4 · **Requer:** Toque do Especialista
 **Como funciona:** Com sucata e tempo você conserta arma ou monta armadilha pra prender quem cair nela.
 **Efeito:** Repara 1 arma quebrada ou monta 1 armadilha simples (Injúria Leve + Coordenação vs **DT base Moderado** ou imobiliza 1 rodada)
-**Custo:** 2 Stress + tempo narrativo
+**Custo:** 2 Stress + tempo narrativo · **Nota:** é o **básico universal** de conserto que qualquer um treina; o Humano tem a versão superior (**Graxa nas Mãos**)
 
 ### Beijo da Cobra
 **Requisito:** Tecnologia 4, Investigação 3
@@ -423,7 +411,7 @@
 **Requisito:** Tecnologia 5, Malandragem 3 · **Requer:** Engenheiro de Campo
 **Como funciona:** Tela, fechadura, câmera. Você invade e manda nelas.
 **Efeito:** Invade, sabota ou desativa dispositivos eletrônicos/mecânicos (alarmes, câmeras, drones, fechaduras)
-**Custo:** 2 Stress (precisa de teste)
+**Custo:** 2 Stress (precisa de teste) · **Nota:** é o **básico universal** de invasão que qualquer um treina; o Humano tem a versão superior do ofício técnico (**Graxa nas Mãos**)
 
 ### Mestre em Explosivos *(3 PM)*
 **Requisito:** Tecnologia 5 · **Requer:** Engenheiro de Campo
@@ -435,7 +423,7 @@
 **Requisito:** Tecnologia 5, Percepção 3 · **Requer:** Agulha e Vodka
 **Como funciona:** Você opera no improviso o que seria caso de hospital. Rebaixa uma ferida grave a leve.
 **Efeito:** Trata 1 Injúria Grave de aliado no descanso, reduzindo a Leve (Tecnologia vs **DT conforme a gravidade**)
-**Custo:** 3 Stress · **Nota:** falha não piora a Injúria, mas gasta os materiais
+**Custo:** 3 Stress · **Nota:** falha não piora a Injúria, mas gasta os materiais. É o **básico universal** de cirurgia de campo que qualquer um treina; o Humano tem a versão superior (**Mãos de Médico**)
 
 ### Minha Menina *(4 PM)*
 **Requisito:** Tecnologia 5, Coordenação 4
@@ -454,8 +442,8 @@
 
 ### Bússola Interna
 **Requisito:** Percepção 3, Investigação 2
-**Como funciona:** Você guarda o caminho na cabeça. Não se perde onde já pisou e se vira bem no desconhecido.
-**Efeito:** Nunca se perde em terreno já visitado; em terreno novo, +1d10 em orientação
+**Como funciona:** Você tem um senso de direção que não falha, e fareja a melhor rota mesmo em lugar que nunca pisou.
+**Efeito:** Nunca se perde; **1x/sessão o Mestre aponta a rota mais segura ou mais rápida** por um lugar desconhecido
 **Custo:** Passivo
 
 ### Arrepio na Nuca
@@ -480,7 +468,7 @@
 **Requisito:** Tecnologia 3, Coordenação 3
 **Como funciona:** Se tem volante ou manche, você pilota. Aprendeu na marra, quase sempre em fuga.
 **Efeito:** Pilota qualquer veículo terrestre sem penalidade; aquático/aéreo só -1d10
-**Custo:** Passivo
+**Custo:** Passivo · **Nota:** é o **básico universal** de pilotagem que qualquer um treina; o Humano tem a versão superior do ofício técnico (**Graxa nas Mãos**)
 
 ### Não Morre Ainda
 **Requisito:** Percepção 2, Vínculo 2
@@ -507,7 +495,7 @@
 **Custo:** Passivo · **Rebote:** após o ataque, exposto (-1d10 em furtividade até fim do combate)
 
 
-## Conhecimento & Investigação *(11 habilidades)*
+## Conhecimento & Investigação *(10 habilidades)*
 
 ### Já Vi Esse Bicho
 **Requisito:** Investigação 2
@@ -553,11 +541,11 @@
 **Efeito:** Identifica que Porta liga a qual demônio, prevê o outro lado, navega no Inferno com **+10 fixo** em orientação
 **Custo:** Passivo · **Rebote:** 1d10, 1-3 = um demônio Maduro+ se interessa por você
 
-### Leitura de Cicatriz
+### Leitura Forense *(2 PM)*
 **Requisito:** Investigação 3, Percepção 3
-**Como funciona:** Marca de demônio conta história. Você lê quem deixou, quando, e se ainda está por perto.
-**Efeito:** Analisa Marcas do Demônio em pessoas/lugares (Investigação vs **DT conforme a marca**): qual demônio, há quanto tempo, se ativo
-**Custo:** 1 Stress
+**Como funciona:** Você toca um objeto, uma marca ou uma cena e reconstrói o que aconteceu ali: quem passou, quando, e o que deixou pra trás (incluindo Marcas do Demônio).
+**Efeito:** Toca objeto/marca/cena e **lê o que aconteceu ali** (Investigação vs **DT conforme o vestígio**): quem usou ou deixou, quando, em que contexto, e — em Marcas do Demônio — qual demônio, há quanto tempo e se ainda está ativo
+**Custo:** 2 Stress
 
 ### O Sangue Conta a História
 **Requisito:** Investigação 3, Percepção 2
@@ -569,13 +557,7 @@
 **Requisito:** Negociação 3, Vínculo 2
 **Como funciona:** Você sempre conhece alguém. Um contato útil em qualquer canto, mas o favor cobra depois.
 **Efeito:** Em qualquer cidade/base, tenta achar 1 contato (informante, vendedor, médico clandestino); Negociação vs **DT conforme o contato e a cidade**
-**Custo:** 2 Stress + favor narrativo · **Nota:** o favor nunca é grátis; cedo ou tarde ele cobra
-
-### Esquizofrenia
-**Requisito:** Investigação 4, Tecnologia 3
-**Como funciona:** Você "escuta" a história de um objeto, quem usou, quando e como, como se a coisa falasse.
-**Efeito:** Extrai info de objetos (armas, roupas, dispositivos): quem usou, quando, em que contexto (Investigação vs **DT conforme o objeto**)
-**Custo:** 1 Stress
+**Custo:** 2 Stress + favor narrativo · **Nota:** o favor nunca é grátis; cedo ou tarde ele cobra. É o **básico universal** de contatos que qualquer um treina; o Humano tem a versão superior (**Contato no Submundo**)
 
 ═══════════════════════════════════════
 
@@ -600,8 +582,8 @@
 
 ### Coordenação de Equipe
 **Requisito:** Autoridade 4 · **Requer:** Voz de Comando
-**Como funciona:** Você sincroniza o time. Quem age depois de você entra já no embalo certo.
-**Efeito:** Aliados que agem após você ganham **+5 fixo** no primeiro teste
+**Como funciona:** Você e um aliado juntam os ataques numa jogada que sozinhos não fariam: um derruba, o outro imobiliza; um distrai, o outro executa.
+**Efeito:** **Ação combinada** com 1 aliado: vocês unem dois ataques para um efeito conjunto que nenhum dos dois faria sozinho (derrubar + imobilizar, distrair + executar, etc.)
 **Custo:** 2 Stress (dura a rodada)
 
 ### Inspirar Aliados
@@ -624,8 +606,8 @@
 
 ### Líder Natural
 **Requisito:** Autoridade 5, Vínculo 4 · **Requer:** Inspirar Aliados
-**Como funciona:** Sua presença firma o grupo. O primeiro tropeço mental de cada um não conta.
-**Efeito:** Aliados sob seu comando ignoram a primeira falha de teste mental da cena
+**Como funciona:** Enquanto você está de pé e lutando, o time segura a linha. Ninguém quebra vendo você firme.
+**Efeito:** Enquanto você está **de pé e lutando, aliados que te veem não fogem nem entram em pânico**
 **Custo:** Passivo
 
 ### Mestre Estrategista *(4 PM)*
@@ -635,7 +617,7 @@
 **Custo:** 3 Stress · **Rebote:** você age depois de todos os aliados · 1x/combate
 
 
-## Persuasão & Manipulação *(9 habilidades)*
+## Persuasão & Manipulação *(8 habilidades)*
 
 ### Mentira Convincente
 **Requisito:** Malandragem 4, Negociação 2
@@ -657,8 +639,8 @@
 
 ### Onde Dói
 **Requisito:** Negociação 3
-**Como funciona:** Sabendo o que o outro teme ou deseja, você aperta exatamente ali.
-**Efeito:** +1d10 em Negociação quando você já sabe algo pessoal do alvo (nome, medo, desejo, fraqueza)
+**Como funciona:** Você conhece o segredo ou a ferida do outro e aperta exatamente ali. Ele cede, ou paga caro pra recusar.
+**Efeito:** Conhecendo um **segredo/ferida do alvo**, força **1 concessão sem rolar** (ou ele paga em Stress para recusar)
 **Custo:** Passivo
 
 ### Leitura de Pessoas
@@ -667,17 +649,11 @@
 **Efeito:** Detecta mentiras óbvias na hora; após 1 minuto de conversa, descobre 1 info (emoção, medo, motivação, ou se está armado; o Mestre escolhe)
 **Custo:** 1 Stress (só pra info extra; detectar mentira é passivo)
 
-### Bom Homem
-**Requisito:** Vínculo 3, ter histórico de atos heroicos
-**Como funciona:** Sua fama de bom abre portas. Quem conhece seu passado heroico confia em você.
-**Efeito:** +10 fixo em testes sociais quando o alvo conhece seu passado heroico *(respeita o teto da Troca Equivalente)*
+### Reputação
+**Requisito:** Vínculo 3 OU Autoridade 5, ter um passado conhecido
+**Como funciona:** Sua fama anda na sua frente. Na criação você escolhe de que tipo ela é: **Herói** (quem conhece seu passado confia em você) ou **Terror** (quem sabe o que você fez já amolece). De um jeito ou de outro, abre portas.
+**Efeito:** Escolha **Herói ou Terror** na criação: **+10 fixo** em testes sociais quando o alvo conhece seu passado *(respeita o teto da Troca Equivalente)*
 **Custo:** 1 Stress
-
-### História que Assombra
-**Requisito:** Autoridade 5, ter histórico de violência/temor · **Requer:** Olhar que Quebra
-**Como funciona:** Sua fama de terror anda na sua frente. Quem sabe o que você fez já amolece.
-**Efeito:** +10 fixo em testes sociais quando o alvo sabe do seu passado violento *(respeita o teto da Troca Equivalente)*
-**Custo:** Passivo
 
 ### Manipulador Mestre *(3 PM)*
 **Requisito:** Malandragem 5, Negociação 4 · **Requer:** Mentira Convincente
@@ -701,7 +677,7 @@
 **Custo:** Passivo
 
 ### Laços Inquebráveis
-**Requisito:** Vínculo 5 · **Requer:** Bom Homem OU História que Assombra
+**Requisito:** Vínculo 5 · **Requer:** Reputação
 **Como funciona:** Você se joga na frente de quem ama. Leva o golpe grave no lugar dele.
 **Efeito:** Quando um aliado próximo sofreria Injúria Grave, você sofre no lugar
 **Custo:** 1 Stress
@@ -714,8 +690,8 @@
 
 ### Sem Palavras
 **Requisito:** Vínculo 4
-**Como funciona:** Você e quem é próximo se entendem sem falar. Sente quando algo está errado com ele.
-**Efeito:** Entende intenções, emoções e alertas de um aliado próximo (PC ou familiar) sem linguagem
+**Como funciona:** Você e um aliado combinam um sinal ou plano sem dizer uma palavra, e disparam juntos no instante certo.
+**Efeito:** **Comunicação silenciosa** com 1 aliado: combinam um sinal/plano sem falar (o inimigo não percebe) e disparam **uma ação conjunta coordenada**
 **Custo:** Passivo
 
 ### Juramento de Sangue
@@ -738,8 +714,8 @@
 
 ### Nem a Morte Separa *(3 PM)*
 **Requisito:** Vínculo 5 · **Requer:** Razão pra Voltar OU Familiar
-**Como funciona:** O elo é tão forte que nem morrer separa vocês. Ele volta, e você só sente o baque.
-**Efeito:** Se a pessoa/familiar do vínculo morre, ele retorna ao fim da cena seguinte; você sofre +2 Stress em vez de Aflição
+**Como funciona:** Quando um Vínculo seu cai na sua frente, o luto não te quebra: vira força bruta por um instante.
+**Efeito:** Quando um Vínculo seu cai na sua frente, o luto vira força: **1 cena de +1d10 e imune a Medo** *(não ressuscita ninguém)*
 **Custo:** Passivo · **Nota:** algo te liga a essa criatura de um jeito que nem a morte corta; isso assusta até demônios
 
 
@@ -765,20 +741,20 @@
 
 ### Sexto Sentido Peludo
 **Requisito:** Percepção 3 · **Requer:** Familiar
-**Como funciona:** O bicho sente o perigo antes de você. Com ele por perto, ninguém te embosca.
-**Efeito:** Com o familiar vivo e próximo, você não pode ser surpreendido (sem emboscadas)
+**Como funciona:** O bicho fareja o que escapa de você: veneno na comida, alguém escondido, uma mentira, doença.
+**Efeito:** O familiar **fareja 1 perigo oculto por cena** (veneno, emboscada, mentira, doença) e te avisa
 **Custo:** Passivo
 
 ### Mula de Guerra
 **Requisito:** Vigor 3, Vínculo 2 · **Requer:** Familiar (animal)
-**Como funciona:** Seu familiar é grande o bastante pra você montar. Mais veloz, mas alvo maior.
-**Efeito:** O familiar vira montaria: +4m de movimento base e dobra a carga, mas -1d10 em Malandragem (alvo maior)
+**Como funciona:** Seu familiar carrega o que você não consegue, e protege o que leva nas costas, inclusive gente.
+**Efeito:** O familiar **carrega carga ou feridos e protege o que transporta** — pode tirar 1 aliado caído da zona de perigo
 **Custo:** Passivo
 
 ### Rugido de Guerra
 **Requisito:** Autoridade 4 · **Requer:** Familiar (demoníaco) + Familiar de Combate
-**Como funciona:** Seu familiar solta um urro infernal que gela o sangue de quem está perto.
-**Efeito:** Inimigos a curta distância fazem Teste de Medo (**DT base Moderado — sobe conforme o quão assustador é o familiar e a cena**)
+**Como funciona:** Você solta um grito que arranca o medo dos seus e os empurra pra frente.
+**Efeito:** 1x/combate, um grito que **tira o medo dos aliados próximos e dá +1d10 na próxima ação deles**
 **Custo:** 3 Stress (1x/combate)
 
 ### Adotar Júnior
@@ -789,9 +765,9 @@
 
 ### Faz o que Eu Mandei
 **Requisito:** Autoridade 3 · **Requer:** Adotar Júnior
-**Como funciona:** Uma palavra sua e o Júnior executa, ataca, recua, protege, e faz bem feito.
-**Efeito:** Dá 1 comando ao Júnior como ação livre (atacar, defender, recuar, flanquear, proteger); ele executa no turno dele com +1d10
-**Custo:** 1 Stress
+**Como funciona:** Uma palavra sua e o aliado age na hora, mesmo fora do turno dele. Comando coordenado, sem hesitar.
+**Efeito:** 1x/cena, **dá uma ordem e um aliado/NPC age na hora, fora do turno dele** (comando coordenado)
+**Custo:** 1 Stress · 1x/cena
 
 ### Forjado na Guerra *(4 PM)*
 **Requisito:** Autoridade 5, Vínculo 4 · **Requer:** Adotar Júnior
@@ -811,10 +787,10 @@
 
 | Categoria | Subgrupos | Habilidades |
 |---|---|---|
-| **Físico** | Combate (17), Mobilidade & Defesa (13), Resistência (10), Sorte do Combate (3) | **43** |
-| **Mental** | Vontade & Foco (7), Perícia Técnica (10), Percepção & Exploração (9), Conhecimento & Investigação (11) | **37** |
-| **Social** | Comando & Estratégia (8), Persuasão & Manipulação (9), Vínculo & Laços (8), Familiares & Aliados (10) | **35** |
-| | | **115** |
+| **Físico** | Combate (15), Mobilidade & Defesa (13), Resistência (10), Sorte do Combate (3) | **41** |
+| **Mental** | Vontade & Foco (7), Perícia Técnica (10), Percepção & Exploração (9), Conhecimento & Investigação (10) | **36** |
+| **Social** | Comando & Estratégia (8), Persuasão & Manipulação (8), Vínculo & Laços (8), Familiares & Aliados (10) | **34** |
+| | | **111** |
 
 > *Os subgrupos dentro de cada categoria são apenas organizadores visuais; para fins de regra, todas as habilidades de uma categoria são equivalentes.*
 
@@ -823,23 +799,27 @@
 
 **Habilidades trazidas de volta nesta versão (que tinham sido cortadas):**
 
-**Físico:** Quebra-Ossos, Caçador Paciente, Atirador de Elite Extremo, Aparagem Mestra, Esquiva Impossível, Corpo Condicionado, Pele Dura, Recuperação Acelerada
+**Físico:** Quebra-Ossos, Caçador Paciente, Aparagem Mestra, Esquiva Impossível, Corpo Condicionado, Pele Dura, Recuperação Acelerada
 
 **Mental:** Ignorar o Medo, Arma Personalizada, Beijo da Cobra, Minha Menina, Arrepio na Nuca, Não Morre Ainda, Sumiu, Cheiro de Medo, Nunca Esqueço, Calcanhar de Aquiles, Sabe Demais
 
-**Social:** Coordenação de Equipe, Inspirar Aliados, Plano de Emergência, Comandante de Campo, Líder Natural, Onde Dói, Bom Homem, História que Assombra, Manipulador Mestre, Presença Dominante, Última Promessa, Laços Inquebráveis, Aura de Proteção, Sexto Sentido Peludo, Mula de Guerra, Rugido de Guerra, Faz o que Eu Mandei, Uma Só Mente
+**Social:** Coordenação de Equipe, Inspirar Aliados, Plano de Emergência, Comandante de Campo, Líder Natural, Onde Dói, Reputação, Manipulador Mestre, Presença Dominante, Última Promessa, Laços Inquebráveis, Aura de Proteção, Sexto Sentido Peludo, Mula de Guerra, Rugido de Guerra, Faz o que Eu Mandei, Uma Só Mente
 
 **Critério de escolha:**
-- Habilidades com sabor narrativo forte (Bom Homem, História que Assombra, Nunca Esqueço, Arrepio na Nuca)
+- Habilidades com sabor narrativo forte (Reputação, Nunca Esqueço, Arrepio na Nuca)
 - Especializações que abrem builds distintas (Caçador Paciente, Aparagem Mestra, Beijo da Cobra)
-- Tier alto/Mestre que dão objetivo de progressão (Atirador de Elite, Esquiva Impossível, Uma Só Mente)
+- Tier alto/Mestre que dão objetivo de progressão (Técnica Mortal, Esquiva Impossível, Uma Só Mente)
 - Suporte/médico de campo (Não Morre Ainda: estabilizar Crítica é nicho importante)
 - Cobrir buracos (Sumiu pra escapar perseguição, Mula de Guerra pra mobilidade narrativa)
 
+**Origens reformuladas (Humano e Híbrido):**
+- **Humano** deixou de ter "combate/tática genéricos" (que qualquer um treina nas Gerais) e passou a girar em torno do que só gente traz: **Ofício** (a carreira/vida antes — Distintivo Velho, Mãos de Médico, Graxa nas Mãos, Pena Afiada, Contato no Submundo, Gravata e Papel, Quadro-Negro, Gente do Bairro) e **Humanidade** (Cara de Ninguém, A Graça de Ser Comum, Âncora de Humanidade, Última Bala, Não Vou Cair Aqui, Vontade de Gente).
+- **Híbrido** foi aprofundado na fusão humano+demônio, com os **Grilhões como recurso vivo**: O Acordo (Barganha Interna, Dar Rédea, Cobrar de Volta), As Duas Vozes (A Voz que Sabe, Instinto Emprestado, Dívida de Sangue), Identidade Dual (Sangue de Dois Mundos, Síntese Imperfeita) e O Fio que te Segura (Âncora Humana, Recusa Compartilhada).
+
 **O que NÃO foi tocado:**
-- Habilidades de Origem (Humano/Infernal/Híbrido)
+- Habilidades de Origem **Infernal** e **Demônio Puro**
 - Sistema de PM, custo, rebote, stacking
-- Demônio Puro
+- Habilidades Gerais (próxima fase: opções "além do básico")
 
 
 
@@ -856,130 +836,85 @@ recuperação emocional eficiente(+5 em testes emocionais)
 Sem poder sobrenatural a não ser que negocie (Contrato).
  
 
-## Combate *(Humano)*
+## Ofício *(Humano)* — quem você foi antes da caça
+> *Treino de combate, tática e sobrevivência genéricos agora vivem nas **Habilidades Gerais**, abertas a todas as naturezas (qualquer um com treino faz). A Origem Humana é só o que **nasce de ter sido gente**: a sua vida antes, e o que te mantém humano num mundo de monstros.*
 
-### Combate Sujo *(2 PM)*
+### Distintivo Velho *(2 PM)*
+**Requisito:** Autoridade 3 · **Tipo:** Passivo + Ação
+**Como funciona:** Você foi da lei, e a lei ainda abre porta. Crachá vencido, contatos na corporação, faro de cena de crime.
+**Efeito:** Acesso a registros e cenas oficiais (o Mestre te entrega uma pista que um civil não teria). 1x/cena, impõe autoridade legal sobre um humano: ele hesita e obedece o razoável, ou leva −1d10 se resistir, sem precisar rolar.
+
+### Mãos de Médico *(2 PM)*
+**Requisito:** Investigação 3 ou Tecnologia 3 · **Tipo:** Ação
+**Como funciona:** Você salva carne pela ciência, não pelo sobrenatural. É a única medicina humana de verdade da mesa.
+**Efeito:** Com material, numa cena de descanso, estabiliza Injúria Crítica e trata Grave → Leve. Em campo, 1 ação: estanca um aliado caído (impede a morte por sangramento até o fim da cena).
+
+### Graxa nas Mãos *(2 PM)*
+**Requisito:** Tecnologia 3 · **Tipo:** Passivo + Ação
+**Como funciona:** Motor, fechadura, cano furado: na sua mão tudo volta a funcionar. E você dirige o que aparecer.
+**Efeito:** Conserta arma ou veículo no campo (teste de Tecnologia); pilota qualquer veículo terrestre sem penalidade; 1x/cena improvisa uma engenhoca útil com sucata.
+
+### Pena Afiada *(2 PM)*
+**Requisito:** Investigação 3 · **Tipo:** Passivo
+**Como funciona:** Jornalista, detetive, fuçador: você cava a verdade pra viver, e tem quem te conte.
+**Efeito:** Tem fontes — 1x/sessão consegue uma informação real que o mundo esconde (um contato, um arquivo, um rumor confirmado). +1d10 para descobrir o que alguém esconde.
+
+### Contato no Submundo *(2 PM)*
 **Requisito:** Malandragem 3 · **Tipo:** Passivo
-**Como funciona:** Você briga sujo. Usa lábia e oportunismo onde os outros usam músculo.
-**Efeito:** Usa Malandragem no lugar de Força em ataques corpo a corpo improvisados
+**Como funciona:** Você já viveu do lado errado e conhece quem arruma o impossível.
+**Efeito:** Acessa Encomendas do mercado negro com desconto, e tem 1 favor sujo por arco (um nome, uma arma, um sumiço). O Seu Bento te trata como gente da casa.
 
-### Execução Precisa *(2 PM)*
-**Requisito:** Força 4 ou Coordenação 4 · **Tipo:** Passivo
-**Como funciona:** Quando o golpe entra muito limpo, o estrago na cabeça do alvo é ainda maior.
-**Efeito:** Vencer o confronto por 15+ causa +2 Stress no alvo
+### Gravata e Papel *(2 PM)*
+**Requisito:** Negociação 3 · **Tipo:** Passivo
+**Como funciona:** Advogado, burocrata, despachante: você dobra o sistema sem sacar arma.
+**Efeito:** Tira um aliado de enrascada legal/burocrática (narrativo), forja ou valida um documento, e lê as letras miúdas de um Contrato demoníaco antes de assinar (enxerga a pegadinha).
 
-### Guerreiro Implacável *(3 PM)*
-**Requisito:** Força 5, Vigor 4 · **Tipo:** Passivo
-**Como funciona:** Ferida leve não te para. Você ignora a dor e segue lutando a missão toda.
-**Efeito:** Suas Injúrias Leves não geram penalidade até o fim da missão
+### Quadro-Negro *(2 PM)*
+**Requisito:** Investigação 3, Vínculo 2 · **Tipo:** Ação (downtime)
+**Como funciona:** Você ensina. Sabe línguas, história, e como passar adiante o que aprendeu.
+**Efeito:** Numa cena de treino, passa uma lição a um aliado: ele ganha +1d10 num tipo de teste à sua escolha pela próxima sessão. Idiomas e conhecimento abrem portas que arma não abre.
 
-### Mira Calculada *(2 PM)*
-**Requisito:** Percepção 2, Coordenação 2 · **Tipo:** Passivo
-**Como funciona:** Você estuda o alvo um instante e o tiro seguinte sai certeiro, furando até cobertura.
-**Efeito:** Após observar o alvo por 1 turno, o próximo tiro recebe +10 fixo e ignora cobertura parcial
+### Gente do Bairro *(2 PM)*
+**Requisito:** Vínculo 3 · **Tipo:** Passivo
+**Como funciona:** Comerciante, dono de bar, alguém que todo mundo conhece. Sua força é a rede de gente comum.
+**Efeito:** Onde houver um bairro, você tem abrigo, um prato e um rumor (recupera Stress num lugar seu, 1x/sessão). Gente comum fala com você e te esconde.
 
-### Munição Especial *(2 PM)*
-**Requisito:** Tecnologia 3, Coordenação 2 · **Tipo:** Ação Principal · 1x/cena
-**Como funciona:** Você prepara a munição certa. O tiro entra mais fundo do que devia.
-**Efeito:** Seu ataque à distância causa +1 estágio de Injúria ao acertar
-**Custo:** 2 Stress por uso
+## Humanidade *(Humano)* — o que te faz gente
+> *Num mundo que vira tudo em monstro, continuar gente é uma vantagem que monstro nenhum tem.*
 
-### Reflexos de Combate *(2 PM)*
-**Requisito:** Coordenação 5 · **Tipo:** Passivo
-**Como funciona:** Quando você segura o ataque e foca em defender, fica muito mais difícil de acertar.
-**Efeito:** Sua defesa recebe +1d10 se você não atacou no turno anterior
+### Cara de Ninguém *(1 PM)*
+**Requisito:** Vínculo 2 · **Tipo:** Passivo
+**Como funciona:** Você é só mais um rosto na multidão. O monstro nem te cheira até você dar motivo.
+**Efeito:** Demônios e Infernais não te marcam como alvo prioritário enquanto você não agir de forma hostil ou sobrenatural. +1d10 para se misturar e passar despercebido entre gente.
+
+### A Graça de Ser Comum *(2 PM)*
+**Requisito:** — · **Tipo:** Passivo
+**Como funciona:** Monstro subestima gente. E gente que sabe disso aproveita a brecha.
+**Efeito:** No 1º turno de combate, um inimigo sobrenatural que te vê como "só humano" não usa Defesa Ativa contra você (pega a guarda baixa).
+
+### Âncora de Humanidade *(2 PM)*
+**Requisito:** Vínculo 3 · **Tipo:** Ação · 1x/cena
+**Como funciona:** Só gente faz outro lembrar que um dia foi gente.
+**Efeito:** Toca um Híbrido ou Infernal aliado em surto (Grilhões, possessão, fúria) e dá a ele um teste extra com +1d10 para recuperar o controle.
 
 ### Última Bala *(3 PM)*
 **Requisito:** Vigor 4 · **Tipo:** Reação · 1x/missão
-**Como funciona:** Você devia estar no chão, mas continua lutando uma cena inteira, e o corpo cobra grave depois.
-**Efeito:** Age normalmente por 1 cena mesmo incapacitado
-**Custo:** **Rebote:** Injúria Grave automática ao fim da cena
+**Como funciona:** Você devia estar no chão, mas teimosia humana segura uma cena inteira. O corpo cobra grave depois.
+**Efeito:** Age normalmente por 1 cena mesmo incapacitado.
+**Custo:** **Rebote:** Injúria Grave automática ao fim da cena.
 
 ### Não Vou Cair Aqui ⚠️ *(4 PM)*
 **Requisito:** Vigor 5 · **Requer:** Última Bala · **Tipo:** Reação · 1x/arco
-**Como funciona:** Na hora da morte certa, pura teimosia te mantém vivo por uma cena. Ao custo de uma cicatriz na alma.
-**Efeito:** Quando sofreria morte certa, permanece vivo por 1 cena inteira
-**Custo:** **Rebote:** +1 Aflição permanente obrigatória ao fim
+**Como funciona:** Na hora da morte certa, pura teimosia te mantém vivo. Ao custo de uma cicatriz na alma.
+**Efeito:** Quando sofreria morte certa, permanece vivo por 1 cena inteira.
+**Custo:** **Rebote:** +1 Aflição permanente obrigatória ao fim.
 
-## Sobrevivência *(Humano)*
+### Vontade de Gente *(3 PM)*
+**Requisito:** Vínculo 4 · **Tipo:** Reação · 1x/sessão
+**Como funciona:** A única coisa mais forte que um demônio é alguém protegendo quem ama.
+**Efeito:** Quando um Vínculo seu corre risco de morte na sua frente, você age além do limite: ganha 1 ação extra com +2d10, sem custo de Stress.
 
-### Sangue Frio *(1 PM)*
-**Requisito:** Vigor 2 · **Tipo:** Passivo
-**Como funciona:** Você encara o primeiro erro sem se abalar. A falha não te estressa.
-**Efeito:** A primeira falha da cena não gera Stress adicional
-
-### Veterano de Guerra *(2 PM)*
-**Requisito:** Vigor 3 · **Tipo:** Passivo
-**Como funciona:** Já levou tanta porrada que a primeira ferida da cena não te atrapalha.
-**Efeito:** Ignora a primeira penalidade de Injúria da cena (recebe a Injúria, mas sem o debuff)
-
-### Corpo Treinado *(2 PM)*
-**Requisito:** Vigor 4 · **Tipo:** Passivo
-**Como funciona:** Você condicionou um lado do corpo. Aquele tipo de esforço te cansa menos.
-**Efeito:** Escolhe um atributo físico (Força, Vigor ou Coordenação): ações dele custam -1 Stress (mín 1)
-
-### Fôlego de Guerra *(2 PM)*
-**Requisito:** Vigor 3 · **Tipo:** Reação · 1x/cena
-**Como funciona:** No limite do Stress, você acha um segundo fôlego e recupera de uma vez.
-**Efeito:** Ao chegar a 0 Stress, recupera 1d10 Stress na hora
-
-### Instinto de Sobrevivência *(3 PM)*
-**Requisito:** Vigor 3 · **Tipo:** Reação · 1x/combate
-**Como funciona:** Na hora do golpe grave, você se vira e transforma em dois cortes menores.
-**Efeito:** Quando sofreria uma Injúria Grave, converte em 2 Injúrias Leves
-**Custo:** 2 Stress por uso
-
-## Tática *(Humano)*
-
-### Sobrevivente Nato *(1 PM)*
-**Requisito:** Vínculo 2 · **Tipo:** Passivo
-**Como funciona:** Trabalhar em equipe te recompõe. Ajuda recebida também alivia teu Stress.
-**Efeito:** Ao receber ajuda de um aliado num teste, recupera +1 Stress junto com o bônus
-
-### Treinamento Tático *(2 PM)*
-**Requisito:** Coordenação 2 · **Tipo:** Passivo
-**Como funciona:** Se você se preparou antes, sua defesa fica firme no turno seguinte.
-**Efeito:** Sua defesa recebe +5 fixo se você se preparou (gastou ação) no turno anterior
-
-### Postura de Comando *(2 PM)*
-**Requisito:** Autoridade 3 · **Tipo:** Ação Principal · 1x/cena
-**Como funciona:** Você grita a ordem certa e dois aliados entram com vantagem.
-**Efeito:** Distribui +5 fixo entre até 2 aliados na mesma rodada
-**Custo:** 2 Stress por uso
-
-### Preparo Tático *(3 PM)*
-**Requisito:** Autoridade 3, Percepção 2 · **Tipo:** Ação Principal · 1x/combate
-**Como funciona:** Você lê o início do combate e distribui vantagem entre o time.
-**Efeito:** No início do combate, distribui +10 fixo entre aliados (máx +5 por pessoa)
-**Custo:** 2 Stress por uso
-
-### Mentalidade Inabalável *(2 PM)*
-**Requisito:** Autoridade 3 · **Tipo:** Reação · 1x/cena
-**Como funciona:** Você não cede fácil ao medo. Encara de novo e fica com o melhor resultado.
-**Efeito:** Ao sofrer efeito de Medo, refaz o teste e escolhe o melhor resultado
-**Custo:** 2 Stress por uso
-
-### Mestre Tático *(3 PM)*
-**Requisito:** Investigação 4, Autoridade 3 · **Requer:** Preparo Tático · **Tipo:** Passivo
-**Como funciona:** Quem segue seu plano luta mais aliviado. Recupera um pouco de Stress.
-**Efeito:** Aliados que seguirem sua estratégia recuperam 1d5 Stress 1x por cena
-
-### Treinamento Anti-Demônio *(2 PM)*
-**Requisito:** Investigação 3, Percepção 2 · **Tipo:** Passivo
-**Como funciona:** Contra um tipo de demônio que você já encarou, você já sabe o que fazer.
-**Efeito:** +1d10 em testes contra Demônios que já enfrentou antes (mesmo tipo)
-
-## Equipamento *(Humano)*
-
-### Uso Criativo de Armas *(1 PM)*
-**Requisito:** Tecnologia 2 · **Tipo:** Passivo
-**Como funciona:** Qualquer coisa vira arma na sua mão. Alavanca, escudo, distração.
-**Efeito:** Usa armas de forma não-convencional (alavanca, escudo, distração) sem penalidade
-
-### Arsenal Adaptado *(2 PM)*
-**Requisito:** Coordenação 3, Tecnologia 2 · **Tipo:** Passivo
-**Como funciona:** Você troca de arma num piscar. Sem perder tempo de ação.
-**Efeito:** Troca de arma sem penalidade de tempo (ação grátis)
+> **Treino genérico foi pras Gerais.** Combate, tática, comando, sobrevivência e uso de equipamento que qualquer um aprende com treino agora moram nas **Habilidades Gerais** (Físico · Mental · Social), abertas a todas as naturezas — porque, com o treino certo, até um Híbrido faria. A Origem Humana guarda só o que é genuinamente seu: o **Ofício** que você viveu e a **Humanidade** que te segura inteiro.
 
 
 
@@ -993,136 +928,114 @@ Memória do Inferno (+1d10 vs demônios conhecidos),
 Corpo Emprestado: Injúrias Leves nunca geram penalidade
 Malefício: poderes custam +2 Stress, aflições viram permanentes com maior facilidade, corpo deteriora (1d10 a cada 3 sessões, 1-2 = Aflição Física). 
 
-## Transformação *(Infernal)*
+## Corpo Emprestado *(Infernal)* — o cadáver que você veste
+> *Você não tem corpo: você ocupa um. Um morto que se recusou a ficar morto. A carne é alugada, deteriora, e não obedece como devia — mas também não morre quando devia.*
 
-### Transformação Parcial Gratuita *(1 PM)*
-**Requisito:** Força 2 · **Tipo:** Passivo
-**Como funciona:** Você deixa um pedaço do demônio aflorar de graça. Garras, olhos, escamas.
-**Efeito:** Manifesta 1 aspecto demoníaco sem custo de Stress
-
-### Carne Mutável *(2 PM)*
-**Requisito:** Força 2 · **Tipo:** Ação de Movimento
-**Como funciona:** Você remodela o corpo na hora pra atacar ou defender de um jeito novo.
-**Efeito:** Altera a aparência corporal pra justificar novos usos de ataque ou defesa (membro extra, escama dura…)
-**Custo:** 1 Stress por mudança
-
-### Manifestação Maior *(2 PM)*
-**Requisito:** Força 3 · **Tipo:** Ativa enquanto transformado
-**Como funciona:** Transformado, você fica mais forte. A forma demoníaca empurra teus testes físicos.
-**Efeito:** +5 fixo em testes físicos enquanto transformado
-**Custo:** 1 Stress por rodada ativa
-
-### Forma Bestial *(2 PM)*
-**Requisito:** Força 4, Vigor 3 · **Tipo:** Passivo (enquanto transformado)
-**Como funciona:** Você vira mais bicho que gente. Ganha no físico, perde na cabeça.
-**Efeito:** Transformado, +1d10 em Força e Vigor, mas -1d10 em testes mentais
-
-### Essência Primordial *(3 PM)*
-**Requisito:** Força 5, Vigor 5 · **Tipo:** Passivo
-**Como funciona:** Seu ataque sempre arranca algo. Mesmo perdendo o confronto, machuca.
-**Efeito:** Seus ataques físicos sempre causam no mínimo Injúria Leve, mesmo perdendo o confronto
-
-### Evolução Forçada *(3 PM)*
-**Requisito:** Vigor 6 · **Tipo:** Ação Principal · 1x/combate
-**Como funciona:** Você se acelera num surto evolutivo por uns segundos. Devastador, mas o corpo racha depois.
-**Efeito:** Evolui por 3 rodadas: +2d10 em todos os testes físicos
-**Custo:** **Rebote:** 1 Injúria Grave automática ao fim
-
-### Forma Irreversível ⚠️ *(4 PM)*
-**Requisito:** Vigor 5 · **Tipo:** Passivo (permanente)
-**Como funciona:** Você trava um poder menor pra sempre ligado, e carrega a marca disso no corpo.
-**Efeito:** Escolhe 1 poder menor que fica sempre ativo, sem custo de Stress
-**Custo:** **Rebote:** gera Marca do Demônio permanente e visível
-
-## Resistência & Cura *(Infernal)*
-
-### Corpo Anômalo *(1 PM)*
+### Carne que Não Aceita Morrer *(1 PM)*
 **Requisito:** Vigor 2 · **Tipo:** Passivo
-**Como funciona:** Seu corpo errado ignora o primeiro corte da cena.
-**Efeito:** A primeira Injúria Leve da cena é cancelada automaticamente
+**Como funciona:** O corpo já morreu uma vez. Um corte a mais não significa nada pra ele.
+**Efeito:** A primeira Injúria Leve da cena é cancelada automaticamente.
 
-### Sangue Demoníaco *(2 PM)*
-**Requisito:** Vigor 2 · **Tipo:** Passivo
-**Como funciona:** Curar com sangue também te acalma. Recupera Stress junto.
-**Efeito:** Ao usar Sangue pra curar uma Injúria, recupera 1d5 Stress junto
+### Costura Própria *(2 PM)*
+**Requisito:** Vigor 3 · **Tipo:** Reação no início do turno
+**Como funciona:** Você puxa a carne emprestada de volta no lugar, como quem fecha um casaco rasgado.
+**Efeito:** Cura 1 Injúria completamente.
+**Custo:** 4 Stress (Leve) / 6 Stress (Grave).
 
-### Dor como Combustível *(2 PM)*
-**Requisito:** Vigor 3 · **Tipo:** Passivo
-**Como funciona:** A dor te alimenta. Cada ferida deixa o próximo golpe mais forte.
-**Efeito:** Sempre que sofre uma Injúria, o próximo ataque recebe +5 fixo
+### Membro Descartável *(2 PM)*
+**Requisito:** Vigor 3 · **Tipo:** Reação
+**Como funciona:** O braço não é seu mesmo. Arranca pra escapar de um agarrão ou aparar um golpe, e cresce depois.
+**Efeito:** Sacrifica um membro para anular um agarrão ou reduzir 1 nível de uma Injúria. Regenera ao fim do combate.
+**Custo:** **Rebote:** a cada regeneração, o corpo fica mais monstruoso (narrativo).
 
-### Corpo Adaptável *(2 PM)*
-**Requisito:** Vigor 3 · **Tipo:** Passivo
-**Como funciona:** Depois de apanhar de um jeito, você passa a resistir melhor àquele tipo.
-**Efeito:** Após sofrer um tipo de ataque (corte, fogo, balístico…), +1d10 pra resistir ao mesmo tipo até o fim da cena
+### Trocar de Pele ⚠️ *(3 PM)*
+**Requisito:** Vigor 4 · **Tipo:** Narrativo / 1x por arco
+**Como funciona:** Quando o corpo se gasta demais (a deterioração cobra) ou é destruído, você se arrasta pra outro cadáver fresco e continua. Mas algo do antigo fica pra trás.
+**Efeito:** Ao perder o corpo atual, ocupa um cadáver recente próximo e segue vivo, com nova aparência. Zera a deterioração acumulada.
+**Custo:** **Rebote:** perde 1 Vínculo ou 1 habilidade ligada ao corpo antigo (Mestre e jogador escolhem), e ganha Marca do Demônio.
 
-### Casca Rígida *(3 PM)*
-**Requisito:** Vigor 4 · **Tipo:** Reação · 1x/cena
-**Como funciona:** Sua pele endurece na hora e segura o primeiro golpe grave da cena.
-**Efeito:** A primeira Injúria Grave da cena vira Leve
-**Custo:** 3 Stress por uso
-
-### Essência Contaminada *(2 PM)*
-**Requisito:** Vigor 3 · **Tipo:** Passivo
-**Como funciona:** Quem te fere grave se contamina. Leva Stress na hora.
-**Efeito:** Quem te causar uma Injúria Grave sofre +2 Stress na hora
-
-### Membros Regenerativos ⚠️ *(3 PM)*
-**Requisito:** Vigor 4 · **Tipo:** Passivo
-**Como funciona:** Membro arrancado volta a crescer. Mas você fica mais monstruoso a cada vez.
-**Efeito:** Membros perdidos regeneram ao fim do combate
-**Custo:** **Rebote:** a cada regeneração, aparência mais monstruosa (narrativo)
-
-### Regeneração Profana *(3 PM)*
-**Requisito:** Vigor 4 · **Tipo:** Reação no início do turno
-**Como funciona:** Você fecha uma ferida na hora, fazendo a carne se refazer.
-**Efeito:** Cura 1 Injúria completamente
-**Custo:** 4 Stress (Leve) / 6 Stress (Grave)
-
-### Imortalidade Menor ⚠️ *(4 PM)*
+### Não Apaga Ainda ⚠️ *(4 PM)*
 **Requisito:** Vigor 6 · **Tipo:** Passivo
-**Como funciona:** Ferida crítica não te mata na hora. Você aguenta uma hora antes de apagar.
-**Efeito:** Não morre de Injúrias Críticas por 1 hora; só fica incapacitado
-**Custo:** **Rebote:** após 1 hora sem cura, morre automaticamente
+**Como funciona:** Ferida que mataria qualquer um só te desliga aos poucos. Você aguenta uma cena inteira antes de o corpo finalmente largar.
+**Efeito:** Não morre de Injúria Crítica na hora; fica agindo (incapacitado de fato no fim) até o fim da cena.
+**Custo:** **Rebote:** se não for curado até lá, apaga de vez ao fim da cena.
 
-## Presença *(Infernal)*
+## Memória do Inferno *(Infernal)* — você foi um demônio, e lembra
+> *Antes da carne, você foi uma coisa infinita e fria lá embaixo. Esse passado não se apaga: ele é conhecimento que humano nenhum tem, e a parte de você que ainda não aprendeu a ter medo.*
+
+### Reconhecer um Igual *(1 PM)*
+**Requisito:** Percepção 2 · **Tipo:** Passivo · 1x/cena
+**Como funciona:** Você já viu aquilo lá embaixo. Sabe o que é só de sentir o cheiro.
+**Efeito:** Identifica o conceito/medo de um demônio à vista — o Mestre te diz o que ele é, mais ou menos a idade, e uma pista da Falha Central.
+
+### Línguas Mortas *(2 PM)*
+**Requisito:** Investigação 3 · **Tipo:** Passivo
+**Como funciona:** A fala do Inferno e os símbolos dos contratos ainda fazem sentido pra você.
+**Efeito:** Lê e fala a língua do Inferno, entende símbolos demoníacos e cláusulas de Contrato, e sente uma Porta do Inferno a média distância.
+
+### Frieza Infinita *(2 PM)*
+**Requisito:** Vigor 3 · **Tipo:** Passivo
+**Como funciona:** A parte de você que nunca foi gente não treme diante de monstro nenhum. Mas isso te afasta mais do que você está virando.
+**Efeito:** Imune a Teste de Medo de demônios de Tier igual ou menor que o seu.
+**Custo:** **Rebote:** cada uso descarado afasta sua humanidade (narrativo — desce um Vínculo se virar hábito).
+
+### Instinto do Abismo *(2 PM)*
+**Requisito:** Percepção 2 · **Tipo:** Reação · 1x/cena
+**Como funciona:** Algo antigo dentro de você sussurra a resposta certa antes de você pensar.
+**Efeito:** Refaz um teste que falhou.
+**Custo:** 2 Stress por uso.
+
+## A Coisa que Você Foi *(Infernal)* — o errado por baixo da pele
+> *O disfarce humano é fino. Por baixo dele ainda mora algo que a carne não devia conseguir segurar, e que escapa quando você deixa.*
 
 ### Presença Antinatural *(2 PM)*
 **Requisito:** Autoridade 3 · **Tipo:** Passivo
-**Como funciona:** Tem algo de errado em você que faz humano gelar. Eles resistem pior ao medo.
-**Efeito:** Inimigos humanos sofrem -5 fixo pra resistir a medo contra você
+**Como funciona:** Tem algo de errado em você que faz humano gelar sem saber por quê.
+**Efeito:** Inimigos humanos sofrem -5 fixo para resistir a medo contra você.
 
 ### Aura de Terror *(2 PM)*
 **Requisito:** Autoridade 4 · **Tipo:** Ativa enquanto sustentada
-**Como funciona:** Sua presença sufoca. Quem está perto sofre o tempo todo.
-**Efeito:** Inimigos a curta distância sofrem +1 Stress no início do turno deles
-**Custo:** 2 Stress por rodada ativa
+**Como funciona:** Sua presença sufoca. Quem fica perto sente o errado o tempo todo.
+**Efeito:** Inimigos a curta distância sofrem +1 Stress no início do turno deles.
+**Custo:** 2 Stress por rodada ativa.
 
-### Grito Demoníaco *(3 PM)*
+### Grito do Inferno *(3 PM)*
 **Requisito:** Autoridade 3, Força 3 · **Tipo:** Ação Principal · 1x/combate
-**Como funciona:** Você solta um grito infernal que pode jogar os inimigos no pânico.
-**Efeito:** Inimigos próximos fazem Teste de Medo (**DT 20 + seu Vigor**) ou entram em pânico
-**Custo:** 4 Stress por uso
-
-## Mente & Sentidos *(Infernal)*
-
-### Instinto Demoníaco *(2 PM)*
-**Requisito:** Percepção 2 · **Tipo:** Reação · 1x/cena
-**Como funciona:** Algo antigo em você sussurra a resposta. Você refaz um teste falho.
-**Efeito:** Refaz um teste que falhou
-**Custo:** 2 Stress por uso
+**Como funciona:** Você solta um som que não devia caber numa garganta humana.
+**Efeito:** Inimigos próximos fazem Teste de Medo (**DT 20 + seu Vigor**) ou entram em pânico.
+**Custo:** 4 Stress por uso.
 
 ### Marca Rastejante *(2 PM)*
 **Requisito:** Percepção 3 · **Tipo:** Ação de Movimento
-**Como funciona:** Você marca lugar ou pessoa com um toque e sabe onde está até o fim da missão.
-**Efeito:** Deixa uma marca invisível em lugar/pessoa tocada; sabe a localização exata até o fim da missão
-**Custo:** 2 Stress por marca
+**Como funciona:** Você deixa um pedaço de si grudado em quem tocou. Sabe onde ele está até o fim da missão.
+**Efeito:** Marca invisível em lugar ou pessoa tocada; sabe a localização exata até o fim da missão.
+**Custo:** 2 Stress por marca.
 
-### Existência Errada ⚠️ *(4 PM)*
-**Requisito:** Vigor 5 · **Tipo:** Ativa enquanto sustentada
-**Como funciona:** Você simplesmente não pode ser parado. Medo, pânico e atordoamento não te seguram, mas você se isola do time.
-**Efeito:** Ignora efeitos que impedem ação (medo, pânico, atordoamento)
-**Custo:** **Rebote:** não recebe bônus de aliados enquanto ativo
+### Rosto Verdadeiro ⚠️ *(4 PM)*
+**Requisito:** Autoridade 4, Vigor 4 · **Tipo:** Ação Principal · 1x/cena
+**Como funciona:** Por um instante você deixa o disfarce cair e mostra a coisa infinita e fria que veste essa pele.
+**Efeito:** Todos que te veem fazem Teste de Medo (**DT 20 + seu Vigor**); quem falha foge ou congela 1 rodada.
+**Custo:** **Rebote:** o disfarce humano demora a voltar — você fica reconhecível como Infernal pelo resto da cena (e o mundo reage a isso).
+
+## Virando Gente *(Infernal)* — a traição de aprender a sentir
+> *Cada vez que você se importa, deixa um pedaço do que era pra trás. Demônio puro chama isso de traição. Pra você, é a única coisa que ainda parece valer a pena. E o que era frio descobre que sentir também tem força.*
+
+### Primeira Lágrima *(2 PM)*
+**Requisito:** Vínculo 2 · **Tipo:** Passivo · 1x/cena
+**Como funciona:** Proteger alguém sem ganhar nada com isso te dá uma coisa que você não tinha. Acalma o que você era.
+**Efeito:** Quando protege ou poupa alguém de forma significativa, recupera 1d5 Stress.
+**Custo:** **Rebote:** demônios sentem a humanidade crescente em você como fraqueza/traição (narrativo).
+
+### Coração Emprestado *(2 PM)*
+**Requisito:** Vínculo 3 · **Tipo:** Passivo
+**Como funciona:** Você criou um laço de verdade, a coisa mais humana que um monstro pode roubar. E ele vira a sua âncora.
+**Efeito:** Ganha um **Talismã** (uma pessoa, um objeto, uma lembrança), que Infernal normalmente não tem — usável 1x/sessão como o Talismã humano.
+
+### Escolha de Poupar ⚠️ *(3 PM)*
+**Requisito:** Vínculo 3 · **Tipo:** Reação
+**Como funciona:** Você se recusa a matar quando todo instinto manda. Deixar de ser demônio dói, mas te fortalece contra o que você foi.
+**Efeito:** Um golpe seu que mataria o alvo vira incapacitação; até o fim da cena você ganha +1d10 contra demônios.
+**Custo:** **Rebote:** a recusa cobra — role contra Aflição (a parte demoníaca se revolta).
 
 
 
@@ -1134,135 +1047,115 @@ ignora 1 aflição (1 vez por sessão)
 Recusa da Morte: O demonio em seu interior te revive com -10 em todos os testes ate o fim da sessão sendo acumulativo. Caso ambos não estejam em comunhão tera um embate entre os mesmo onde caso o demonio vença o personagem vira npc ate que alguma situação aconteça(Escolha do mestre para a situação).
 Malefício: Grilhões, usar poder demoníaco vai dando controle ao demônio interno (ver ⁠como-jogar ). 
 
-## Transformação & Combate *(Híbrido)*
+## O Acordo *(Híbrido)* — você e o de dentro negociam
+> *Híbrido não é humano com poder. É um pacto permanente entre você e um demônio preso na mesma carne. Toda força que você puxa do outro lado ele cobra em **Grilhões**, e cada Grilhão aproxima a hora dele assumir. Aqui o poder não tem preço em Stress: tem preço em controle.*
 
 ### Arma Viva *(1 PM)*
 **Requisito:** Força 2 · **Tipo:** Passivo
-**Como funciona:** Seu corpo vira a arma. Espada, machado, lança brotam da carne sem improviso.
-**Efeito:** Seu corpo substitui uma arma comum (espada, machado, lança) sem penalidade de improviso
+**Como funciona:** Seu corpo vira a arma. Lâmina, garra, espinho brotam da carne sem improviso.
+**Efeito:** Seu corpo conta como uma arma branca à sua escolha, sem penalidade de improviso. Ataca com Força ou Coordenação.
 
 ### Transição Suave *(1 PM)*
 **Requisito:** Coordenação 2 · **Tipo:** Passivo
-**Como funciona:** Você transforma e destransforma num gesto, sem perder tempo.
-**Efeito:** Transformar/destransformar não gasta ação
+**Como funciona:** Você acende e apaga a Forma num gesto, sem perder tempo.
+**Efeito:** Transformar ou destransformar não gasta ação.
 
-### Forma Intermediária *(2 PM)*
-**Requisito:** Vigor 3 · **Tipo:** Ativa enquanto sustentada
-**Como funciona:** Você fica no meio do caminho. Força demoníaca sem perder a cabeça humana.
-**Efeito:** Forma "meio transformada": +5 fixo em testes físicos, sem penalidade mental
-**Custo:** 1 Stress por rodada
+### Barganha Interna *(2 PM)*
+**Requisito:** Vínculo 3 · **Tipo:** Ação livre · 1x/rodada
+**Como funciona:** Você pede força ao de dentro. Ele dá, e cobra na hora.
+**Efeito:** Ganha **+2d10** numa ação física, mas sobe **+1 Grilhão** imediatamente. Alimentar o demônio vira escolha consciente.
 
-### Metamorfose Controlada *(3 PM)*
-**Requisito:** Força 5, Coordenação 4 · **Tipo:** Ação Principal
-**Como funciona:** Você remodela o corpo inteiro. Tamanho, membros, órgãos.
-**Efeito:** Altera a forma corporal drasticamente (tamanho, membros, estrutura interna)
-**Custo:** 3 Stress por mudança
+### Dar Rédea ⚠️ *(3 PM)*
+**Requisito:** Força 4 · **Tipo:** Ativa por 1 cena · 1x/dia
+**Como funciona:** Você solta a coleira do de dentro por uma cena. Vira uma fera, e quase deixa de ser você.
+**Efeito:** +1d10 em todos os testes físicos e ignora a penalidade de Injúria Leve durante a cena.
+**Custo:** **+1 Grilhão por rodada** ativa, e o Mestre pode acionar os Grilhões livremente enquanto durar.
 
-### Explosão Controlada *(2 PM)*
-**Requisito:** Força 3, Vigor 3 · **Tipo:** Ação livre na rodada
-**Como funciona:** Você puxa um surto de força pra uma ação, e paga com fraqueza na seguinte.
-**Efeito:** A próxima ação física recebe +1d10
-**Custo:** 3 Stress por uso · **Rebote:** -1d10 na ação seguinte
+### Cobrar de Volta *(3 PM)*
+**Requisito:** Vínculo 4 · **Tipo:** Ação Principal
+**Como funciona:** Você força o de dentro a recuar. Ele obedece de má vontade.
+**Efeito:** **Remove 2 Grilhões** de uma vez.
+**Custo:** 3 Stress e −1d10 em testes físicos por 1 rodada (o demônio emburra). É a sua alavanca para não perder o controle.
 
-### Limite do Ser ⚠️ *(3 PM)*
-**Requisito:** Força 4, Vigor 4 · **Tipo:** Ativa por 1 cena · 1x/dia
-**Como funciona:** Você força a fundo o lado demoníaco por uma cena. Poderoso, mas o corpo cobra caro.
-**Efeito:** +1d10 em todos os testes físicos por 1 cena
-**Custo:** **Rebote:** ao fim, Injúria Grave automática + Aflição temática
+## As Duas Vozes *(Híbrido)* — o de dentro sabe coisas
+> *Você não divide só a carne: divide os sentidos. O demônio reconhece o que te caça antes de você, e às vezes sussurra. Ouvir custa — toda verdade dele aproxima vocês mais um pouco.*
 
-## Resistência & Cura *(Híbrido)*
+### Faro do Abismo *(1 PM)*
+**Requisito:** Percepção 2 · **Tipo:** Passivo
+**Como funciona:** O de dentro cheira os seus. Demônio, Híbrido e Infernal não se escondem de você.
+**Efeito:** Sente a presença de Demônios, Híbridos e Infernais a média distância (20–100 m).
 
-### Fome Controlada *(2 PM)*
-**Requisito:** Vigor 2 · **Tipo:** Ação Principal · 1x/combate
-**Como funciona:** Você bebe sangue e a ferida leve fecha.
-**Efeito:** Beber sangue (humano ou demônio) recupera 1 Injúria Leve
+### A Voz que Sabe *(2 PM)*
+**Requisito:** Percepção 3 · **Tipo:** Reação · 1x/cena
+**Como funciona:** Diante de um medo encarnado, o demônio dentro de você reconhece um igual e sussurra.
+**Efeito:** Faça 1 pergunta sobre um demônio ou medo presente; o Mestre responde uma verdade útil.
+**Custo:** **+1 Grilhão** (ouvir demais aproxima vocês).
 
-### Cura Forçada ⚠️ *(3 PM)*
-**Requisito:** Vigor 4 · **Tipo:** Reação · 1x/missão
-**Como funciona:** Você anula uma ferida na marra. Mas o lado demoníaco cobra e trava sua regeneração.
-**Efeito:** Quando sofreria uma Injúria, cancela por completo
-**Custo:** **Rebote:** 1 Aflição automática + não regenera Injúrias até o fim do combate
+### Instinto Emprestado *(2 PM)*
+**Requisito:** Percepção 3 · **Tipo:** Reação · 1x/cena
+**Como funciona:** O de dentro vê o golpe antes de você e te joga pro lado sem pedir licença.
+**Efeito:** Anula uma emboscada ou ataque surpresa contra você (vira ataque normal, com você reagindo).
+**Custo:** **+1 Grilhão**.
 
-### Limite Forçado *(3 PM)*
-**Requisito:** Vigor 4 · **Tipo:** Ativa por 1 cena
-**Como funciona:** Mesmo com um atributo zerado, você continua agindo por uma cena.
-**Efeito:** Age normalmente mesmo com atributo reduzido a 0 por 1 cena
-**Custo:** 2 Stress por atributo afetado
+### Dívida de Sangue *(2 PM)*
+**Requisito:** Vigor 3 · **Tipo:** Reação
+**Como funciona:** Você bebe o sangue derramado e o de dentro fecha a ferida, e marca o favor.
+**Efeito:** Cura 1 Injúria Leve (ou Grave → Leve gastando a Reação inteira).
+**Custo:** **+1 Grilhão** por uso.
 
-### Adaptação Rápida *(2 PM)*
-**Requisito:** Percepção 3 · **Tipo:** Passivo · 1x/cena
-**Como funciona:** Errou? Você aprende na hora e refaz o próximo teste do mesmo tipo.
-**Efeito:** Após falhar num teste, refaz o próximo teste do mesmo tipo
-
-## Identidade Dual *(Híbrido)*
+## Identidade Dual *(Híbrido)* — duas naturezas, um corpo
+> *Quando os dois lados param de brigar e começam a somar, você vira uma coisa que nem humano nem demônio sabem combater.*
 
 ### Natureza Dual Reativa *(2 PM)*
 **Requisito:** Percepção 3 · **Tipo:** Passivo
 **Como funciona:** Apanhar de um lado te arma contra ele. Dano demoníaco te fortalece vs demônios, e vice-versa.
-**Efeito:** Após sofrer dano demoníaco, +5 fixo vs demônios; após dano humano, +5 fixo vs humanos (até o fim da cena)
+**Efeito:** Após sofrer dano demoníaco, +5 fixo vs demônios; após dano humano, +5 fixo vs humanos (até o fim da cena).
 
 ### Corpo Entre Mundos *(2 PM)*
 **Requisito:** Vigor 3, Vínculo 2 · **Tipo:** Passivo
 **Como funciona:** Sua dupla natureza te firma. Aguenta mente e medo na base do Vigor.
-**Efeito:** Usa Vigor no lugar de Vínculo pra resistir a efeitos mentais e Medo
+**Efeito:** Usa Vigor no lugar de Vínculo para resistir a efeitos mentais e ao Medo.
 
-### Ressonância Demoníaca *(1 PM)*
-**Requisito:** Percepção 2 · **Tipo:** Passivo
-**Como funciona:** Você sente o sobrenatural por perto. Demônios, híbridos e infernais não se escondem.
-**Efeito:** Sente a presença de Demônios, Híbridos e Infernais a média distância (20-100m)
+### Sangue de Dois Mundos *(3 PM)*
+**Requisito:** Vigor 4 · **Tipo:** Passivo
+**Como funciona:** Você fere como gente e como demônio ao mesmo tempo. Ninguém é imune às duas coisas.
+**Efeito:** Seus ataques contam como dano humano **e** demoníaco ao mesmo tempo — ignora resistência que só protege contra um dos tipos.
 
-### Equilíbrio Perfeito *(3 PM)*
-**Requisito:** Vigor 5, Vínculo 5 · **Tipo:** Passivo
-**Como funciona:** Você mistura poder humano e demoníaco sem que um atrapalhe o outro.
-**Efeito:** Nunca sofre penalidade por usar poderes conflitantes entre humano e demoníaco
-
-### Harmonia Instável *(3 PM)*
-**Requisito:** Vigor 5, Vínculo 4 · **Tipo:** Passivo
-**Como funciona:** Você dispara um poder demoníaco e um contrato ao mesmo tempo, pagando o preço.
-**Efeito:** Usa simultaneamente 1 poder demoníaco + 1 contrato sem penalidade
-**Custo:** 2 Stress adicionais por uso simultâneo
-
-### Essência Mista *(2 PM)*
-**Requisito:** Vínculo 3 · **Tipo:** Passivo
-**Como funciona:** Mesmo transformado, você ainda usa um poder humano.
-**Efeito:** Usa 1 poder humano (contrato ou equipamento) mesmo transformado, sem penalidade
-
-### Dupla Natureza *(3 PM)*
+### Espelho do Inimigo *(3 PM)*
 **Requisito:** Percepção 3 · **Tipo:** Reação
-**Como funciona:** Você copia, por uma cena, um efeito menor de um poder que acabou de ver.
-**Efeito:** Copia 1 efeito menor de um poder que testemunhou nesta cena (dura até o fim da cena)
-**Custo:** 3 Stress por uso
+**Como funciona:** O de dentro aprende rápido. Você copia, por uma cena, um truque que acabou de ver.
+**Efeito:** Copia 1 efeito menor de um poder que testemunhou nesta cena (dura até o fim da cena).
+**Custo:** 3 Stress por uso.
 
 ### Síntese Imperfeita ⚠️ *(4 PM)*
 **Requisito:** Vigor 4, Vínculo 3 · **Tipo:** Passivo (criação narrativa)
-**Como funciona:** Você funde humano e demônio num poder único seu. Que prende mais um grilhão.
-**Efeito:** Cria 1 poder único que mistura aspectos humanos e demoníacos
-**Custo:** **Rebote:** aprovação do Mestre + 1 Grilhão permanente
+**Como funciona:** Você funde humano e demônio num poder que é só seu. E prende mais um grilhão, pra sempre.
+**Efeito:** Cria 1 poder único que mistura aspecto humano e demoníaco, desenhado com o Mestre.
+**Custo:** **Rebote:** aprovação do Mestre + 1 Grilhão permanente.
 
-## Vínculo *(Híbrido)*
+## O Fio que te Segura *(Híbrido)* — a metade humana
+> *O que impede o demônio de te engolir não é força: é quem você ainda ama. O Vínculo é a corrente que segura a fera.*
 
 ### Equilíbrio Instável *(1 PM)*
 **Requisito:** Vínculo 2 · **Tipo:** Passivo
-**Como funciona:** Ajudar alguém de verdade te acalma. Recupera Stress.
-**Efeito:** Recupera +1 Stress sempre que ajuda um aliado de forma significativa
+**Como funciona:** Ajudar alguém de verdade silencia o de dentro por um instante.
+**Efeito:** Recupera +1 Stress sempre que ajuda um aliado de forma significativa.
 
-### Instinto Compartilhado *(2 PM)*
-**Requisito:** Vínculo 3, Percepção 2 · **Tipo:** Reação · 1x/cena
-**Como funciona:** Você e um aliado somam o melhor de cada um num teste conjunto.
-**Efeito:** Você e um aliado usam o melhor atributo entre vocês num teste conjunto
-**Custo:** 1 Stress por uso
+### Âncora Humana *(2 PM)*
+**Requisito:** Vínculo 3 · **Tipo:** Passivo
+**Como funciona:** Perto de quem você ama, a fera hesita.
+**Efeito:** Com um aliado com quem você tem Vínculo por perto, os testes para resistir aos Grilhões ou à possessão ganham +1d10.
 
-### Sincronização Perfeita *(2 PM)*
+### Sincronia *(2 PM)*
 **Requisito:** Vínculo 4 · **Tipo:** Ativa enquanto sustentada
-**Como funciona:** Lutando colado num aliado, vocês dois ficam mais afiados.
-**Efeito:** Escolhe 1 aliado: ambos recebem +5 fixo enquanto lutarem juntos na mesma área
-**Custo:** 2 Stress (dura a cena)
+**Como funciona:** Lutando colado a um aliado, vocês dois afiam um ao outro.
+**Efeito:** Escolhe 1 aliado: ambos recebem +5 fixo enquanto lutarem juntos na mesma área.
+**Custo:** 2 Stress (dura a cena).
 
-### Simbiose Forçada *(3 PM)*
-**Requisito:** Vínculo 4 · **Tipo:** Ação Principal · 1x/cena
-**Como funciona:** Um toque liga vocês dois. Ambos ganham num teste, mas dividem o Stress.
-**Efeito:** Tocando um aliado, ambos recebem +1d10 em 1 teste cada
-**Custo:** **Rebote:** compartilham qualquer Stress gerado durante o efeito
+### Recusa Compartilhada *(3 PM)*
+**Requisito:** Vínculo 4 · **Tipo:** Reação · 1x/sessão
+**Como funciona:** Quando o demônio ia te arrastar de volta cobrando o preço, uma voz conhecida te chama primeiro.
+**Efeito:** Quando a Recusa da Morte dispararia, um Vínculo presente te chama de volta: você revive **sem o −10 acumulativo** dessa vez.
 
 
 Demonios
@@ -1357,3 +1250,34 @@ Todo Demônio Puro começa com 2 Poderes Demoníacos ligados ao seu conceito. O 
 **Como funciona:** Você planta uma ideia na cabeça do alvo sem ele perceber a origem.
 **Efeito:** Negociação vs Vínculo; vencendo, o alvo age conforme a sugestão por 1 rodada
 **Custo:** 3 Stress
+
+═══════════════════════════════════════
+> *Os poderes abaixo tocam o que torna o Demônio Puro **único em SCAR**: ele não é um monstro com poderes, é um **medo** — e medo é mídia, abre Portas, e carrega a própria Falha como lâmina de dois gumes.*
+
+### Mídia do Medo
+**Atributo:** Autoridade · **Tipo:** Narrativo / cena
+**Como funciona:** Demônio não tem ego, tem audiência. Quanto mais o mundo fala de você, maior você fica. Você sabe alimentar isso.
+**Efeito:** Gastando uma cena aterrorizando de forma pública e memorável (deixar testemunhas, marca, espetáculo), sobe **+1 na sua Escala de Medo** pela próxima sessão. *(Some quando o mundo esquece ou você é ridicularizado.)*
+
+### Abrir a Porta ⚠️
+**Atributo:** Autoridade · **Tipo:** Ação Principal · custo alto
+**Como funciona:** Você imagina e abre a sua Porta do Inferno, ligada ao medo que você é. Poucos encaram fazer isso.
+**Efeito:** Abre uma Porta perto de você por 1 cena. Use para: **fugir** por ela, **jogar um inimigo dentro** (vitória por 10+; ele some até achar a saída), ou **chamar algo de lá** (o Mestre decide o que vem, e nem sempre obedece).
+**Custo:** 6 Stress + atrai a atenção de coisas maiores do outro lado.
+
+### A Falha é a Força
+**Atributo:** — · **Tipo:** Passivo
+**Como funciona:** Você abraça a própria Falha Central em vez de esconder. Enquanto o que pode te apagar não está em cena, você está no auge.
+**Efeito:** Enquanto a condição da sua **Falha Central** não está presente, ganha **+1d10 em todos os testes** (o medo sem freio). Quando ela aparece, porém, o tombo é maior: a penalidade dela conta dobrada.
+
+### Aprender a Fingir Gente
+**Atributo:** Negociação · **Tipo:** Ativa enquanto sustentada
+**Como funciona:** O demônio que treinou empatia o bastante pra vestir um sorriso humano por alguns minutos. É falso, e dói manter.
+**Efeito:** Por uma cena, passa por humano: engana detecção sobrenatural comum e Sentidos de baixo Tier, e some no meio de gente.
+**Custo:** 2 Stress por rodada · não funciona contra quem já sabe o que você é.
+
+### Comer o Conceito ⚠️
+**Atributo:** Força · **Tipo:** Reação ao matar um ser com poder
+**Como funciona:** Você devora não a carne, mas o medo e a natureza do que matou, e veste por um tempo.
+**Efeito:** Ao matar um demônio, híbrido ou infernal, rouba **1 poder/efeito menor dele** por 1 cena.
+**Custo:** 3 Stress · **Rebote:** o conceito alheio briga com o seu — role contra Aflição.
