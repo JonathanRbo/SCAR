@@ -156,6 +156,42 @@
             letter-spacing: 3px;
             font-size: 1.5rem;
         }
+        /* Sub-navegação da página */
+        .lore-nav {
+            display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+            max-width: 820px; margin: 0 auto;
+        }
+        .lore-nav a {
+            font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--cor-texto-secundario); border: 1px solid var(--cor-borda);
+            border-radius: 20px; padding: 7px 16px; transition: all 0.25s;
+        }
+        .lore-nav a:hover { color: var(--cor-secundaria); border-color: var(--cor-secundaria); transform: translateY(-2px); }
+        /* Nó de timeline nos eventos */
+        .evento { position: relative; }
+        .evento::before {
+            content: ''; position: absolute; left: -8px; top: 36px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--cor-secundaria); box-shadow: 0 0 8px var(--cor-secundaria);
+            transition: all 0.3s;
+        }
+        .evento:hover::before { box-shadow: 0 0 16px var(--cor-secundaria); transform: scale(1.25); }
+        /* Bloco de segredo / mito fundador */
+        .segredo {
+            background: linear-gradient(135deg, rgba(0,0,0,0.45), rgba(150,30,30,0.12));
+            border: 1px solid rgba(200,70,70,0.35);
+            border-radius: 12px; padding: 34px; margin: 24px 0;
+            position: relative; overflow: hidden;
+        }
+        .segredo::before { content: '⛓'; position: absolute; top: -18px; right: 6px; font-size: 7rem; opacity: 0.05; }
+        .segredo .tag {
+            display: inline-block; font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase;
+            color: #e0726a; border: 1px solid rgba(200,70,70,0.4); border-radius: 4px;
+            padding: 3px 10px; margin-bottom: 14px;
+        }
+        .segredo h3 { color: #e0726a; font-family: 'Bebas Neue', sans-serif; letter-spacing: 3px; font-size: 1.9rem; margin: 0 0 14px; }
+        .segredo p { color: var(--cor-texto-secundario); line-height: 1.75; }
+        .segredo strong { color: var(--cor-texto); }
     </style>
 </head>
 <body>
@@ -238,11 +274,21 @@
             </p>
         </section>
 
+        <!-- Sub-navegação -->
+        <nav class="container p-20-b lore-nav">
+            <a href="#apagamentos">Apagamentos</a>
+            <a href="#segredo">O Que Ninguém Lembra</a>
+            <a href="#linha">Linha do Tempo</a>
+            <a href="#mundo">O Mundo</a>
+            <a href="#inferno">O Inferno</a>
+            <a href="#faccoes">Facções</a>
+        </nav>
+
         <!-- Apagamentos -->
-        <section class="container p-60-tb">
+        <section class="container p-60-tb" id="apagamentos">
             <h2 class="fs-13 text-center m-30-b" style="color: var(--cor-mental);">APAGAMENTOS</h2>
             <p class="text-center m-30-b" style="max-width: 800px; margin-left: auto; margin-right: auto; color: var(--cor-texto-secundario);">
-                Antes de ler a linha do tempo, entenda uma coisa: <strong style="color: var(--cor-texto);">a história foi mexida</strong>. Existem registros de coisas que um dia existiram e depois deixaram de existir, porque alguém pagou um demônio pra apagar o conceito da realidade. O que some não deixa buraco. Some também a lembrança do buraco.
+                Antes de ler a linha do tempo, entenda uma coisa: <strong style="color: var(--cor-texto);">a história foi mexida</strong>. Existem registros de coisas que um dia existiram e depois deixaram de existir, porque <strong style="color: var(--cor-texto);">algo devorou o conceito</strong> da realidade. Só uma coisa no mundo faz isso — o <strong style="color: var(--cor-texto);">Demônio da Motosserra</strong> — e o que ela come deixa de ter existido. O que some não deixa buraco. Some também a lembrança do buraco.
             </p>
 
             <div class="row gap-20">
@@ -259,11 +305,27 @@
                     </div>
                 </div>
             </div>
-            <p class="text-center m-30-t opacity-6"><em>(A lista de apagamentos canônicos ainda vai crescer.)</em></p>
+            <p class="text-center m-30-t opacity-6"><em>(A lista de apagamentos canônicos ainda vai crescer — e o maior de todos nem está nela. <a href="#segredo" style="color: var(--cor-mental);">Veja a seguir</a>.)</em></p>
+        </section>
+
+        <!-- O QUE NINGUÉM LEMBRA -->
+        <section class="container p-30-tb" id="segredo">
+            <h2 class="fs-13 text-center m-30-b" style="color: #e0726a;">O QUE NINGUÉM LEMBRA</h2>
+            <p class="text-center m-30-b" style="max-width: 800px; margin-left: auto; margin-right: auto; color: var(--cor-texto-secundario);">
+                Existe um apagamento maior que todos os outros — e não foi um humano que o fez, foi a coisa que apaga por natureza. Só os <strong style="color: var(--cor-texto);">4 Cavaleiros</strong> ainda guardam esta lembrança, porque só eles sobrevivem à memória do que a Motosserra devora.
+            </p>
+
+            <div class="segredo">
+                <span class="tag">Mito Fundador · apagado da história</span>
+                <h3>A Guerra Ancestral &amp; a Motosserra</h3>
+                <p>Antes de qualquer registro humano, os Cavaleiros guerreavam <strong>entre si</strong>. No meio da guerra, algo subiu do Inferno: o <strong>Demônio da Motosserra</strong>, o "Herói do Inferno" — a única coisa capaz não de matar, mas de <strong>apagar um demônio da existência inteira</strong>: conceito, memória e tudo, em todo tempo. Diante da coisa que podia apagar até um Cavaleiro, os inimigos viraram aliados.</p>
+                <p>O embate durou semanas e a empurrou até as Portas. Mas eles <strong>não a destruíram</strong>: ferida quase de morte, a Motosserra <strong>fugiu para a Terra</strong> numa forma fraca e mudada — e os Cavaleiros voltaram em silêncio, porque a tinham perdido. Naquela guerra, ela <strong>devorou um deles</strong>: houve um <strong>quinto Cavaleiro</strong>, apagado tão por completo que o mundo não sabe que existiu. Ninguém jamais saberá quem foi.</p>
+                <p>É por isso que a aliança dos quatro é uma <strong>trégua, não uma amizade</strong>: o que os mantém juntos é o que enfrentaram, e o medo de que ela volte. E é por isso que a <strong>Controle</strong> nunca para de mover o tabuleiro — ela não quer destruir a Motosserra. Quer fazê-la dela. <em>(A coisa segue solta e escondida na Terra. Despertá-la por inteiro seria o fim de tudo.)</em></p>
+            </div>
         </section>
 
         <!-- LINHA DO TEMPO -->
-        <section class="container p-30-tb">
+        <section class="container p-30-tb" id="linha">
             <h2 class="fs-14 text-center m-40-b" style="color: var(--cor-secundaria);">LINHA DO TEMPO</h2>
 
             <!-- ERA 1: PRÉ-GUERRA -->
@@ -427,7 +489,7 @@
                 <div class="evento-ano">1997</div>
                 <div class="evento-titulo">O Contrato da Casa Branca</div>
                 <div class="evento-local">EUA</div>
-                <p>Em pânico com o Demônio da Guerra, o Presidente dos EUA fechou um contrato: sacrificou <strong>1 ano de vida de cada cidadão americano</strong> em troca do uso do Demônio das Armas. Funcionou, em parte. O Pentágono opera o demônio desde então.</p>
+                <p>Em pânico com o Demônio das Armas, o Presidente dos EUA fechou um contrato: sacrificou <strong>1 ano de vida de cada cidadão americano</strong> em troca do uso do próprio Demônio das Armas. Funcionou, em parte. O Pentágono opera o demônio desde então.</p>
             </div>
 
             <div class="evento">
@@ -465,7 +527,7 @@
         <hr style="border: none; height: 2px; background: linear-gradient(90deg, transparent, var(--cor-principal), transparent); margin: 80px 0 40px;">
 
         <!-- SCAR: O MUNDO -->
-        <section class="container p-60-tb">
+        <section class="container p-60-tb" id="mundo">
             <h2 class="fs-14 text-center m-40-b" style="color: var(--cor-secundaria);">SCAR: O MUNDO</h2>
             <p class="text-center m-30-b" style="max-width: 800px; margin-left: auto; margin-right: auto; color: var(--cor-texto-secundario);">
                 Uma visão geral do sistema, dos seres que habitam o mundo e das forças que disputam ele.
@@ -476,7 +538,7 @@
         </section>
 
         <!-- O INFERNO -->
-        <section class="container p-30-tb">
+        <section class="container p-30-tb" id="inferno">
             <h3 class="org-section-title">O INFERNO</h3>
             <p>No universo de SCAR, o Inferno é real e literal. <strong>Não é metáfora nem dimensão espiritual: é um lugar físico</strong> onde os demônios moram quando não estão na Terra.</p>
 
@@ -494,7 +556,7 @@
                 <li>Ele se mostra como um campo florido coberto por portas suspensas no céu</li>
                 <li>Cada porta representa um medo e leva a um "território" demoníaco</li>
                 <li>Os demônios mais poderosos dominam os territórios maiores</li>
-                <li>O Inferno tem demônios próprios, nascidos lá, que nunca pisaram na Terra</li>
+                <li>O Inferno tem demônios próprios, nascidos lá, que nunca pisaram na Terra — os <strong>Primordiais</strong>, os medos mais antigos de todos</li>
             </ul>
 
             <h4 style="color: var(--cor-secundaria);">As Portas do Inferno</h4>
@@ -529,7 +591,13 @@
             <div class="natureza-narrativa">
                 <h4 style="color: #666;">Demônios Puros</h4>
                 <p>São a manifestação física do medo coletivo humano. Eles <strong>não "nascem" no sentido comum</strong>: simplesmente existem porque a humanidade teme algo.</p>
+                <p>Um demônio raramente é UM medo só: carrega um <strong>feixe de medos próximos</strong> (o "demônio da invisibilidade" é menos <em>sumir aos olhos</em> e mais o medo de <strong>ninguém te ver</strong>). E o medo quase nunca aparece com a própria cara — ele <strong>se disfarça</strong>: o ódio é medo coalhado, o desprezo é medo que endureceu, uma alegria vazia esconde o medo de que nada importe.</p>
                 <p>Podem mudar conforme as circunstâncias, como a própria morte ou eventos particulares, ganhando títulos novos ou origens redefinidas.</p>
+            </div>
+
+            <div class="natureza-narrativa">
+                <h4 style="color: #C0392B;">Rancores</h4>
+                <p>Quando o medo não vem da multidão, mas de <strong>um só trauma concentrado</strong> — um ódio que virou desprezo que virou medo, preso a um lugar, um osso, um nome. É o espírito vingativo do mundo de SCAR: mais fraco que um Demônio, mas amarrado a uma <strong>Âncora</strong>. Destrua a âncora (resolva a injustiça, queime o lugar, enterre os ossos) e ele some — às vezes <strong>sem precisar lutar</strong>.</p>
             </div>
 
             <div class="lore-quote">
@@ -538,7 +606,7 @@
         </section>
 
         <!-- ORGANIZAÇÕES -->
-        <section class="container p-60-tb">
+        <section class="container p-60-tb" id="faccoes">
             <h2 class="fs-13 text-center m-40-b" style="color: var(--cor-secundaria);">FACÇÕES & ORGANIZAÇÕES</h2>
 
             <h3 class="org-section-title">Governamentais</h3>
