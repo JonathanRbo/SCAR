@@ -97,6 +97,10 @@
         .fraqueza .fx span { color: var(--cor-texto-secundario); font-size: 0.8rem; line-height: 1.45; }
         .evolui { margin-top: 9px; font-size: 0.78rem; color: var(--cor-texto-secundario); line-height: 1.45; }
         .evolui .up { color: var(--ac); font-weight: 700; }
+        .dominio { margin-top: 9px; }
+        .dominio .dx { border-left: 3px solid var(--ac); background: rgba(255,255,255,0.035); border-radius: 0 7px 7px 0; padding: 8px 12px; }
+        .dominio .dx b { color: var(--ac); font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+        .dominio .dx span { color: var(--cor-texto-secundario); font-size: 0.8rem; line-height: 1.45; }
         .ser.wide { grid-column: 1 / -1; }
         .ser.wide .ser-body { grid-template-columns: 230px 1fr; }
         @media (max-width: 460px) { .ser.wide .ser-body { grid-template-columns: 1fr; } }
@@ -276,6 +280,7 @@
                     <ul>
                         <li><strong>Demônio é a representação física de um medo.</strong> As pessoas normais são o piso (fracas de propósito); tudo que veio do inferno bate <em>muito</em> mais forte: é pra sentir o degrau.</li>
                         <li><strong>Atributos vêm em faixas</strong> (ex.: 5-7). Pegue o ponto da faixa pro tier do seu grupo. Stress = 6 + Vigor + Vínculo · Injúrias em estágios · Mov = Coord × 2 m.</li>
+                        <li><strong>Def</strong> (Defesa Passiva) = 5,5 × atributo de defesa (o maior entre Vigor/encaixa e Coordenação/esquiva), arredondado pra cima. É o número que o atacante rola contra (Xd10 + arma vs Def). A <strong>Armadura</strong> reduz nível de Injúria (−1 ou −2 níveis), não mais redução fixa.</li>
                         <li><strong>Tier:</strong> 1-2 comum · 3-4 treinado · 5-6 sobre-humano · 7-8 monstruoso · 9-10 primordial.</li>
                     </ul>
                 </div>
@@ -300,7 +305,7 @@
                                 <p class="lore">A maioria do mundo: gente comum que compensa a falta de poder com adaptação, engenho e teimosia. É <strong>o piso</strong>, e a usina invisível que, de tanto temer, dá carne aos demônios. O rosto que se cruza na rua e esquece: o operário, a civil, o xerife.</p>
                                 <div class="statline">
                                     <span class="pill"><b>FOR</b> 1-2</span><span class="pill"><b>VIG</b> 1-2</span><span class="pill"><b>COO</b> 1-2</span><span class="pill"><b>PER</b> 2</span>
-                                    <span class="pill k"><b>Stress</b> 8</span><span class="pill k"><b>Inj</b> 2/1/1</span><span class="pill"><b>Mov</b> 4 m</span>
+                                    <span class="pill k"><b>Stress</b> 8</span><span class="pill k"><b>Inj</b> 2/1/1</span><span class="pill k"><b>Def</b> 11</span><span class="pill"><b>Mov</b> 4 m</span>
                                 </div>
                                 <div class="bloco"><p><span class="key">Frágil.</span> Uma Injúria Grave já o tira da luta. Pode fechar contrato pra ganhar poder, sempre com um preço.</p></div>
                                 <div class="fraqueza"><div class="fx"><b>Medo —</b> <span>diante de um demônio, teste de Medo: falha = −2d10 e foge ou trava. Não foi feito pra encarar isso.</span></div></div>
@@ -322,7 +327,7 @@
                                         <span class="vt">Tier 2 · horda</span>
                                         <h3>Comum</h3>
                                         <img class="vimg" src="assets/images/minions/zumbi-1-comum.jpg" alt="Zumbi Comum">
-                                        <div class="statline"><span class="pill"><b>VIG</b> 3-4</span><span class="pill"><b>FOR</b> 2-3</span><span class="pill"><b>COO</b> 1</span></div>
+                                        <div class="statline"><span class="pill"><b>VIG</b> 3-4</span><span class="pill"><b>FOR</b> 2-3</span><span class="pill"><b>COO</b> 1</span><span class="pill k"><b>Def</b> 6</span></div>
                                         <div class="bloco"><p><span class="hn">Vence pelo número.</span> Não Sente Dor (Graves contam como Leves) e +1d10 por zumbi extra no alvo (máx +3d10). Sozinho é fraco: o perigo é a horda.</p></div>
                                         <div class="fraqueza"><div class="fx"><b>Lerdo —</b> <span>Coord 1; cabeça ou fogo encerra. Isolado, é saco de pancada.</span></div></div>
                                     </div>
@@ -330,7 +335,7 @@
                                         <span class="vt">Tier 5 · mini-chefe</span>
                                         <h3>Arauto</h3>
                                         <img class="vimg" src="assets/images/minions/zumbi-2-arauto.jpg" alt="Zumbi Arauto">
-                                        <div class="statline"><span class="pill k"><b>FOR</b> 5-6</span><span class="pill k"><b>VIG</b> 6</span><span class="pill"><b>AUT</b> 4</span><span class="pill"><b>Arm</b> 5</span></div>
+                                        <div class="statline"><span class="pill k"><b>FOR</b> 5-6</span><span class="pill k"><b>VIG</b> 6</span><span class="pill"><b>AUT</b> 4</span><span class="pill k"><b>Def</b> 33</span><span class="pill"><b>Arm</b> −1 nível</span></div>
                                         <div class="bloco"><p><span class="hn">Maça + Halo.</span> Pesada +2d10 (10+ Derruba); coordena a horda (Coord 3, +1d10).</p></div>
                                         <div class="fraqueza"><div class="fx"><b>Âncora —</b> <span>mate-o e a horda volta a ser burra.</span></div></div>
                                     </div>
@@ -352,7 +357,7 @@
                                         <span class="vt">Tier 4 · recém-nascido</span>
                                         <h3>Filhote</h3>
                                         <img class="vimg" src="assets/images/minions/criado-1-filhote.jpg" alt="Criado Filhote">
-                                        <div class="statline"><span class="pill"><b>COO/FOR/VIG</b> 4</span><span class="pill k"><b>Medo</b> DT 15</span></div>
+                                        <div class="statline"><span class="pill"><b>COO/FOR/VIG</b> 4</span><span class="pill k"><b>Medo</b> DT 15</span><span class="pill k"><b>Def</b> 17</span></div>
                                         <div class="bloco"><p><span class="hn">Garras + Trepa-Paredes.</span> Leve +1d10; anda por tetos e ataca de cima. Vai no alvo mais próximo.</p></div>
                                         <div class="fraqueza"><div class="fx"><b>Corpo Novo —</b> <span>sem um demônio maior por perto, dispersa.</span></div></div>
                                     </div>
@@ -360,7 +365,7 @@
                                         <span class="vt">Tier 6 · massa de carne</span>
                                         <h3>Carniceiro</h3>
                                         <img class="vimg" src="assets/images/minions/criado-2-carniceiro.jpg" alt="Criado Carniceiro">
-                                        <div class="statline"><span class="pill k"><b>FOR</b> 6-7</span><span class="pill k"><b>VIG</b> 7</span><span class="pill"><b>COO</b> 5</span><span class="pill"><b>Medo</b> DT 25</span></div>
+                                        <div class="statline"><span class="pill k"><b>FOR</b> 6-7</span><span class="pill k"><b>VIG</b> 7</span><span class="pill"><b>COO</b> 5</span><span class="pill"><b>Medo</b> DT 25</span><span class="pill k"><b>Def</b> 28</span></div>
                                         <div class="bloco"><p><span class="hn">Tentáculos + Regeneração Voraz.</span> Agarra e puxa; cura 1 Leve/turno se feriu alguém antes.</p></div>
                                         <div class="fraqueza"><div class="fx"><b>Sede —</b> <span>segure-o longe de alvos e a cura seca. Fogo cancela.</span></div></div>
                                     </div>
@@ -378,7 +383,7 @@
                                 <span class="nat">Demônio-construto · sentinela</span>
                                 <p class="lore">Não nasce: é <strong>construído</strong>. Cada um sai diferente, mas todos repetem três coisas: o olhar <strong>sem consciência</strong>, o corpo <strong>firme</strong> e imóvel como uma estátua que vigia, e os <strong>vários olhos</strong> espalhados pela carne. É um amálgama de carne ou matéria bruta que fala línguas mortas, daí a lenda de que são quimeras de mitos antigos.</p>
                                 <div class="statline">
-                                    <span class="pill k"><b>PER</b> 6-7</span><span class="pill"><b>COO</b> 5-6</span><span class="pill"><b>VIG</b> 6</span><span class="pill"><b>FOR</b> 4-5</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 25</span>
+                                    <span class="pill k"><b>PER</b> 6-7</span><span class="pill"><b>COO</b> 5-6</span><span class="pill"><b>VIG</b> 6</span><span class="pill"><b>FOR</b> 4-5</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 25</span><span class="pill k"><b>Def</b> 22</span>
                                 </div>
                                 <div class="bloco"><p><span class="key">Visão Total (360°) + Marcação.</span> Não pode ser flanqueado nem pego de surpresa; vê no escuro e na fumaça; fixa um olho num alvo e dá +5 fixo pra ele e aliados acertarem.</p></div>
                                 <div class="fraqueza"><div class="fx"><b>Cego ao que não vê —</b> <span>tudo nele é visão. Cegue os olhos (fumaça densa, escuro total, dano nos olhos laranja) e ele desaba pra Percepção 2 e ataca no chute.</span></div></div>
@@ -404,22 +409,22 @@
                             <div class="fichas-list">
                                 <div class="cf">
                                     <div class="cf-row"><span class="cf-tier">TIER 3</span><h4>Novato</h4></div>
-                                    <div class="statline"><span class="pill"><b>COO</b> 3</span><span class="pill"><b>FOR</b> 2-3</span><span class="pill"><b>VIG</b> 3</span><span class="pill"><b>PER</b> 3</span><span class="pill k"><b>Stress</b> 9</span></div>
+                                    <div class="statline"><span class="pill"><b>COO</b> 3</span><span class="pill"><b>FOR</b> 2-3</span><span class="pill"><b>VIG</b> 3</span><span class="pill"><b>PER</b> 3</span><span class="pill k"><b>Stress</b> 9</span><span class="pill k"><b>Def</b> 17</span></div>
                                     <p class="cf-note">Sobreviveu à 1ª caçada. Mata criado e zumbi comum, mas corre de qualquer coisa maior.</p>
                                 </div>
                                 <div class="cf">
                                     <div class="cf-row"><span class="cf-tier">TIER 4</span><h4>Treinado</h4></div>
-                                    <div class="statline"><span class="pill"><b>COO</b> 4-5</span><span class="pill"><b>FOR</b> 4</span><span class="pill"><b>VIG</b> 4</span><span class="pill"><b>PER</b> 4</span><span class="pill k"><b>Stress</b> 11</span></div>
+                                    <div class="statline"><span class="pill"><b>COO</b> 4-5</span><span class="pill"><b>FOR</b> 4</span><span class="pill"><b>VIG</b> 4</span><span class="pill"><b>PER</b> 4</span><span class="pill k"><b>Stress</b> 11</span><span class="pill k"><b>Def</b> 28</span></div>
                                     <p class="cf-note">Caçador de carteira assinada. Aguenta um Infernal fraco e segura um Construto.</p>
                                 </div>
                                 <div class="cf">
                                     <div class="cf-row"><span class="cf-tier">TIER 5-6</span><h4>Veterano</h4></div>
-                                    <div class="statline"><span class="pill k"><b>COO</b> 6-7</span><span class="pill"><b>FOR</b> 5-6</span><span class="pill"><b>VIG</b> 6</span><span class="pill"><b>PER</b> 5-6</span><span class="pill k"><b>Stress</b> 14</span></div>
+                                    <div class="statline"><span class="pill k"><b>COO</b> 6-7</span><span class="pill"><b>FOR</b> 5-6</span><span class="pill"><b>VIG</b> 6</span><span class="pill"><b>PER</b> 5-6</span><span class="pill k"><b>Stress</b> 14</span><span class="pill k"><b>Def</b> 39</span></div>
                                     <p class="cf-note">Beira o sobre-humano. Encara Infernal e Carniceiro de frente; mira a Falha.</p>
                                 </div>
                                 <div class="cf elite">
                                     <div class="cf-row"><span class="cf-tier">TIER 7</span><h4>Lendário</h4></div>
-                                    <div class="statline"><span class="pill k"><b>COO</b> 8-9</span><span class="pill k"><b>FOR</b> 7-8</span><span class="pill k"><b>VIG</b> 8-9</span><span class="pill k"><b>PER</b> 7-8</span><span class="pill k"><b>Stress</b> 18</span></div>
+                                    <div class="statline"><span class="pill k"><b>COO</b> 8-9</span><span class="pill k"><b>FOR</b> 7-8</span><span class="pill k"><b>VIG</b> 8-9</span><span class="pill k"><b>PER</b> 7-8</span><span class="pill k"><b>Stress</b> 18</span><span class="pill k"><b>Def</b> 50</span></div>
                                     <p class="cf-note">O da arte: cabelo branco, espada flamejante, contrato maior. Encara demônio monstruoso de igual pra igual.</p>
                                 </div>
                             </div>
@@ -443,32 +448,32 @@
                             <div class="fichas-list">
                                 <div class="cf">
                                     <div class="cf-row"><span class="cf-tier">TIER 3</span><h4>Recém-Nascido</h4></div>
-                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 15</span><span class="pill"><b>Atrib.</b> 3-4</span></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 15</span><span class="pill"><b>Atrib.</b> 3-4</span><span class="pill k"><b>Def</b> 22</span></div>
                                     <p class="cf-note">Mal saiu da Porta: instinto puro, quase um criado. O conceito ainda é fraco.</p>
                                 </div>
                                 <div class="cf">
                                     <div class="cf-row"><span class="cf-tier">TIER 5</span><h4>Jovem</h4></div>
-                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 20</span><span class="pill"><b>Atrib.</b> 4-6</span></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 20</span><span class="pill"><b>Atrib.</b> 4-6</span><span class="pill k"><b>Def</b> 33</span></div>
                                     <p class="cf-note">Já entende o que é. Usa os 2 Poderes com jeito; ameaça de verdade pra um grupo.</p>
                                 </div>
                                 <div class="cf">
                                     <div class="cf-row"><span class="cf-tier">TIER 7</span><h4>Maduro</h4></div>
-                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 30</span><span class="pill"><b>Atrib.</b> 6-8</span></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 30</span><span class="pill"><b>Atrib.</b> 6-8</span><span class="pill k"><b>Def</b> 44</span></div>
                                     <p class="cf-note">O medo firmado. Chefe de arco: exige plano e a Falha na mira.</p>
                                 </div>
                                 <div class="cf">
                                     <div class="cf-row"><span class="cf-tier">TIER 8</span><h4>Veterano</h4></div>
-                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Atrib.</b> 7-9</span></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Atrib.</b> 7-9</span><span class="pill k"><b>Def</b> 50</span></div>
                                     <p class="cf-note">Décadas se alimentando; domina território e tem nome conhecido.</p>
                                 </div>
                                 <div class="cf">
                                     <div class="cf-row"><span class="cf-tier">TIER 9</span><h4>Ancião</h4></div>
-                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 40-45</span><span class="pill"><b>Atrib.</b> 8-10</span></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 40-45</span><span class="pill"><b>Atrib.</b> 8-10</span><span class="pill k"><b>Def</b> 55</span></div>
                                     <p class="cf-note">Séculos de pavor acumulado. Beira o primordial, quase intocável sem a Falha.</p>
                                 </div>
                                 <div class="cf elite">
                                     <div class="cf-row"><span class="cf-tier">TIER 10</span><h4>Primevo</h4></div>
-                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 50</span><span class="pill k"><b>Atrib.</b> 10 (teto)</span></div>
+                                    <div class="statline"><span class="pill k"><b>Medo</b> DT 50</span><span class="pill k"><b>Atrib.</b> 10 (teto)</span><span class="pill k"><b>Def</b> 55</span></div>
                                     <p class="cf-note">O medo original, par de Cavaleiro. Limite do sistema: fim de campanha.</p>
                                 </div>
                             </div>
@@ -520,7 +525,7 @@
                                     <div class="a hi"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Trilha</b> Sombra · 12 PM</span><span class="pill k"><b>Stress</b> 11</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 12 m</span><span class="pill"><b>Contrato</b> menor</span>
+                                    <span class="pill k"><b>Trilha</b> Sombra · 12 PM</span><span class="pill k"><b>Stress</b> 11</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill k"><b>Def</b> 39</span><span class="pill"><b>Mov</b> 12 m</span><span class="pill"><b>Contrato</b> menor</span>
                                 </div>
                                 <div class="bloco">
                                     <p><span class="key">Trilha — SOMBRA (12 PM) · o alvo cai antes de saber que você chegou.</span></p>
@@ -561,7 +566,7 @@
                                     <div class="a hi"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Trilha</b> Fuzileiro · 8 PM</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 20</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 9 m</span>
+                                    <span class="pill k"><b>Trilha</b> Fuzileiro · 8 PM</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 20</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill k"><b>Def</b> 39</span><span class="pill"><b>Mov</b> 9 m</span>
                                 </div>
                                 <div class="bloco">
                                     <p><span class="key">Trilha — FUZILEIRO (núcleo 8 PM) · dano por tiro garantido, sem chegar perto.</span></p>
@@ -603,7 +608,7 @@
                                     <div class="a hi"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Trilha</b> Maestro · 14 PM</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 25</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 9 m</span>
+                                    <span class="pill k"><b>Trilha</b> Maestro · 14 PM</span><span class="pill k"><b>Stress</b> 13</span><span class="pill k"><b>Medo</b> DT 25</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill k"><b>Def</b> 28</span><span class="pill"><b>Mov</b> 9 m</span>
                                 </div>
                                 <div class="bloco">
                                     <p><span class="key">Trilha — MAESTRO (14 PM) · não bate forte: faz a revoada inteira bater junto.</span></p>
@@ -645,7 +650,7 @@
                                     <div class="a hi"><span class="n">Vín</span><span class="v">4</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Trilha</b> Demolidor · 11 PM</span><span class="pill k"><b>Stress</b> alto</span><span class="pill"><b>Injúrias</b> 4/3/2</span><span class="pill"><b>Mov</b> 10 m</span><span class="pill k"><b>Regen</b> por sangue</span>
+                                    <span class="pill k"><b>Trilha</b> Demolidor · 11 PM</span><span class="pill k"><b>Stress</b> alto</span><span class="pill"><b>Injúrias</b> 4/3/2</span><span class="pill k"><b>Def</b> 39</span><span class="pill"><b>Mov</b> 10 m</span><span class="pill k"><b>Regen</b> por sangue</span>
                                 </div>
                                 <div class="bloco">
                                     <p><span class="key">Trilha — DEMOLIDOR (11 PM) · cada golpe abre mais fundo; um basta.</span></p>
@@ -669,38 +674,39 @@
                     <!-- ANTOFOBIA -->
                     <article class="ser wide" data-tier="TIER 7 · DT 30" style="--ac:#c2b21a">
                         <div class="ser-body">
-                            <div class="ser-figure"><img src="assets/images/chefes/antofobia.jpg" alt="Antofobia"><span class="cap">o florescer que apodrece</span></div>
+                            <div class="ser-figure"><img src="assets/images/chefes/antofobia.jpg" alt="Marcênia"><span class="cap">o florescer que apodrece</span></div>
                             <div class="ser-content">
-                                <h2>Antofobia</h2>
+                                <h2>Marcênia</h2>
                                 <span class="nat">Conceitual-Abstrato · Maduro · o belo que abre e contamina</span>
-                                <p class="lore">Humanoide pálido de braços longos demais, halo amarelo doente e uma coroa de galhos negros. A boca rasga o rosto de orelha a orelha. Onde passa, brota: e o que brota não devia.</p>
+                                <p class="lore">Não tem rosto fixo: é uma silhueta pálida e alta demais, de braços que se alongam quando ninguém os mede, brotando do próprio tronco como se fosse uma muda que cresceu gente por engano. Às costas, um halo amarelo e doente — não uma luz, uma flor aberta de pólen vivo, que respira. Da cabeça explode uma coroa de galhos negros que continua crescendo enquanto a cena dura, e onde os galhos tocam o ar, abrem-se botões pequenos que choram seiva. A boca rasga o rosto de orelha a orelha e está sempre cheia de pétalas. Onde Marcênia pisa, a terra acorda e brota — e o que brota não devia ter nascido: flores com dentes, raízes com dedos, frutos que têm o cheiro de quem morreu ali. Não é um monstro que entra num lugar. É um lugar que vira monstro, devagar, enquanto você ainda acha bonito.</p>
                                 <div class="attr10">
-                                    <div class="a"><span class="n">For</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">For</span><span class="v">4</span></div>
                                     <div class="a hi"><span class="n">Vig</span><span class="v">6</span></div>
                                     <div class="a hi"><span class="n">Coo</span><span class="v">6</span></div>
-                                    <div class="a"><span class="n">Mal</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">4</span></div>
                                     <div class="a"><span class="n">Tec</span><span class="v">1</span></div>
                                     <div class="a hi"><span class="n">Per</span><span class="v">7</span></div>
-                                    <div class="a"><span class="n">Inv</span><span class="v">4</span></div>
-                                    <div class="a hi"><span class="n">Neg</span><span class="v">5</span></div>
-                                    <div class="a"><span class="n">Aut</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Aut</span><span class="v">6</span></div>
                                     <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Stress</b> 17</span><span class="pill k"><b>Medo</b> DT 30</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 12 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (4)</b> Sab2·Res2</span>
+                                    <span class="pill k"><b>Stress</b> 17</span><span class="pill k"><b>Medo</b> DT 30</span><span class="pill k"><b>Escala</b> +1</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill k"><b>Def</b> 33</span><span class="pill"><b>Mov</b> 12 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (4)</b> Sab2·Res2</span>
                                 </div>
+                                <div class="dominio"><div class="dx"><b>🌿 DOMÍNIO — O Jardim que Avança</b> <span>Onde há matéria orgânica — gente, planta, madeira, qualquer vida — Marcênia é soberano. No <strong>início de cada turno dele</strong>, o ambiente floresce: ele <strong>recupera 1 Injúria Leve</strong> e o chão num raio amplo vira jardim hostil (terreno difícil; raízes agarram — quem se move faz <strong>Coordenação DT 20</strong> ou para). Quanto mais a cena dura, mais o jardim toma conta da sala. Ele não luta no seu campo; ele transforma o campo no dele.</span></div></div>
                                 <div class="bloco">
-                                    <p><span class="key">Ataque —</span> <strong>Galhos-Lâmina</strong> (Coordenação, alcance médio, +1d10); o que corta começa a brotar espinhos (Sangramento).</p>
-                                    <p><span class="hn">Poder 1 · Pólen do Pavor (área).</span> Nuvem de esporos: quem respira faz Teste de Medo DT 30: falha = flores na visão e na pele, −2d10 e alucinação por 1 rodada.</p>
-                                    <p><span class="hn">Poder 2 · Floração.</span> Toca um ferido e força um broto na Injúria: sobe +1 estágio e fica intratável até arrancarem a flor (ação + Vigor DT 20).</p>
-                                    <p><span class="hn">Poder 3 · Raízes Famintas <em>(utilidade · idade)</em>.</span> Raízes brotam numa área e prendem quem está nela (Coordenação DT 18 pra soltar); enquanto seguram alguém vivo, devolvem 1 Injúria Leve curada a Antofobia.</p>
+                                    <p><span class="key">Ataque —</span> <strong>Galhos-Lâmina</strong> (Coordenação 6 + arma média = rola 8d10, alcance médio); o que ele corta brota espinhos (Sangramento +3 Stress/rodada).</p>
+                                    <p><span class="hn">Poder 1 · Pólen do Pavor (área).</span> Libera uma nuvem de esporos. Todos que respiram fazem Teste de Medo (DT 30): falha = flores brotam na visão e na pele, −2d10 e alucinação de jardins por 1 rodada. (o raio escala com o Stress gasto.)</p>
+                                    <p><span class="hn">Poder 2 · Floração (corpo-horror).</span> Toca um alvo ferido e força um broto dentro da ferida: a Injúria sobe +1 estágio e fica intratável por meios comuns até a flor ser arrancada (ação + Vigor DT 20, doloroso, gera Stress).</p>
+                                    <p><span class="hn">Poder 3 · Brotar dos Mortos (faz exército).</span> Toda criatura que morre dentro do Jardim dele vira solo: no fim da cena (ou na rodada seguinte, se ele gastar Stress), do cadáver brota um <strong>Filho do Jardim</strong> — um criado-filhote vegetal (Tier 2-3) que obedece a Marcênia. Ele colhe os mortos da mesa pra encher a sala de mais ele.</p>
                                 </div>
-                                <div class="fraqueza"><div class="fx"><b>Falha Central — Precisa do Solo.</b> <span>Só floresce onde há vida pra corromper. Em terreno estéril (concreto, metal, sal, fogo que queima o pólen) ele murcha: −2d10 e perde a Floração. Arrancar o halo amarelo corta o pólen pela cena.</span></div></div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — Precisa do Solo.</b> <span>Toda a força de Marcênia vem do que ele pode corromper. Em terreno <strong>estéril</strong> — concreto puro, metal, sal, vácuo, ou <strong>fogo</strong> que queima o pólen antes de pegar — ele murcha: perde o Jardim e a Floração, e leva <strong>−2d10 em tudo</strong>. Vira um bicho franzino de Vigor 6 longe de casa. E o <strong>halo amarelo</strong> é o coração da floração: dano sobrenatural concentrado nele corta o pólen pela cena inteira. A mesa não vence Marcênia no jardim dele — tira ele do jardim, ou queima o jardim com ele dentro.</span></div></div>
                                 <div class="bloco">
                                     <p><span class="key">Marcas deixadas —</span> jardins que brotam onde dorme; gente com flores nascendo na pele, sem cura comum.</p>
                                     <p><span class="key">Porta / medo —</span> o belo que abre e contamina: estufas, velórios floridos, jardins abandonados.</p>
                                 </div>
-                                <p class="evolui"><span class="up">▲ Mais forte:</span> Idade Veterano (DT 35) + 3º poder "Jardim", que transforma a sala num domínio onde regenera todo turno.</p>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> Idade Veterano (DT 35) e o Jardim deixa de ser uma sala pra ser um bairro inteiro: regenera Injúria <strong>Grave</strong> por turno, e cada flor murcha que a mesa pisa libera Pólen sozinha. Aí Marcênia é o arco, não o chefe do arco.</p>
                             </div>
                         </div>
                     </article>
@@ -708,11 +714,11 @@
                     <!-- CAVALEIRO-CORVO -->
                     <article class="ser wide" data-tier="TIER 8 · DT 35" style="--ac:#9b8fb5">
                         <div class="ser-body">
-                            <div class="ser-figure"><img src="assets/images/chefes/cavaleiro-corvo.jpg" alt="Cavaleiro-Corvo"><span class="cap">a guerra que não esquece os mortos</span></div>
+                            <div class="ser-figure"><img src="assets/images/chefes/cavaleiro-corvo.jpg" alt="Carniel"><span class="cap">a guerra que não esquece os mortos</span></div>
                             <div class="ser-content">
-                                <h2>Cavaleiro-Corvo</h2>
+                                <h2>Carniel</h2>
                                 <span class="nat">Bíblico-Arquetípico · Veterano · o massacre, a morte com honra</span>
-                                <p class="lore">Armadura cinza-violácea de placas, coroa de espinhos de marfim, garras de aço, uma caveira de pássaro no peito e um corvo vivo no ombro. Anda devagar porque não precisa correr: o que ele alcança, encerra.</p>
+                                <p class="lore">Uma armadura de placas cinza-violácea grande demais pra ser de homem, comida por dentro pela ferrugem que escorre feito sangue seco das frestas. Não há rosto sob o elmo: há uma caveira de pássaro, longa e branca, cravada na altura do peito como brasão e como cabeça ao mesmo tempo — ninguém sabe qual das duas pensa. Coroa de espinhos de marfim, garras de aço que arranham o chão quando ele anda, e uma capa que não é tecido, é um manto vivo de penas pretas que se desmancha em corvos e volta a se juntar. Sempre há um corvo pousado no ombro, olhando você antes dele olhar. Carniel anda devagar, com o peso de quem já lutou todas as guerras e perdeu todos os companheiros — e os trouxe junto. Onde ele para, vira campo de batalha. O que ele alcança, ele encerra. E ele não esquece um único morto: carrega cada um no manto.</p>
                                 <div class="attr10">
                                     <div class="a hi"><span class="n">For</span><span class="v">8</span></div>
                                     <div class="a hi"><span class="n">Vig</span><span class="v">8</span></div>
@@ -720,27 +726,27 @@
                                     <div class="a"><span class="n">Mal</span><span class="v">2</span></div>
                                     <div class="a"><span class="n">Tec</span><span class="v">1</span></div>
                                     <div class="a"><span class="n">Per</span><span class="v">5</span></div>
-                                    <div class="a"><span class="n">Inv</span><span class="v">3</span></div>
-                                    <div class="a"><span class="n">Neg</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">5</span></div>
                                     <div class="a hi"><span class="n">Aut</span><span class="v">6</span></div>
-                                    <div class="a"><span class="n">Vín</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Vín</span><span class="v">5</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Stress</b> 18</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Injúrias</b> 4/3/2</span><span class="pill"><b>Armadura</b> 10</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res2·Sab2</span>
+                                    <span class="pill k"><b>Stress</b> 18</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill k"><b>Escala</b> +1</span><span class="pill"><b>Injúrias</b> 4/3/2</span><span class="pill k"><b>Def</b> 44</span><span class="pill"><b>Armadura</b> −2 níveis</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res2·Sab2</span>
                                 </div>
+                                <div class="dominio"><div class="dx"><b>🪶 DOMÍNIO — O Campo que Não Esquece</b> <span>Onde Carniel planta os pés, o chão vira campo de batalha e os mortos não ficam mortos. <strong>No início de cada turno dele</strong>, um cadáver na cena — inimigo, aliado da mesa, ou um dos seus antigos — levanta envolto em penas como <strong>Soldado-Corvo</strong> (um caçador-básico espectral, Tier 3) e luta ao lado dele. Enquanto houver morte recente no campo, Carniel <strong>recupera 1 Injúria Leve por turno</strong> (o manto cose as feridas dele com a memória dos caídos). E enquanto ele estiver de pé, ninguém ao lado dele foge: a presença é uma ordem. A guerra dele nunca termina porque ele a continua com quem já tombou.</span></div></div>
                                 <div class="bloco">
-                                    <p><span class="key">Ataque —</span> <strong>Garras de Carniça</strong> (Força, pesada +2d10); acerto por 10+ sobe a Injúria +1 estágio (Golpe Decisivo).</p>
-                                    <p><span class="hn">Poder 1 · Revoada.</span> O corvo cega e corta uma área (−1d10, marca os alvos) e o avisa de tudo num raio amplo: não pode ser surpreendido.</p>
-                                    <p><span class="hn">Poder 2 · Sentença do Cavaleiro.</span> Declara um alvo "condenado": contra ele ignora metade da armadura/cobertura e ganha +1d10, até um dos dois cair.</p>
-                                    <p><span class="hn">Poder 3 · Lança de Marfim <em>(combate · idade)</em>.</span> Arranca um espinho da própria coroa e arremessa: ataque à distância, +2d10, perfura armadura leve.</p>
-                                    <p><span class="hn">Poder 4 · Chamado da Murder <em>(utilidade · idade)</em>.</span> Invoca um bando de corvos: enxame que cega e atrasa uma área (−1d10) e vira os olhos dele por todo o campo.</p>
+                                    <p><span class="key">Ataque —</span> <strong>Garras de Carniça</strong> (Força 8 + arma pesada = rola 11d10, corpo a corpo); acerto por 10+ sobe a Injúria +1 estágio (Golpe Decisivo embutido).</p>
+                                    <p><span class="hn">Poder 1 · Revoada (o corvo / a murder · área).</span> O corvo no ombro é o olho e a lâmina dele. Solta uma revoada que cega e corta uma área (−2d10 a quem está dentro, marca os alvos) e o avisa de tudo num raio amplo: não pode ser surpreendido nem flanqueado.</p>
+                                    <p><span class="hn">Poder 2 · Sentença do Cavaleiro (1 alvo por vez).</span> Declara um alvo "condenado". Contra ele, Carniel ignora a redução de Armadura/cobertura e ganha +2d10. A sentença dura até um dos dois cair — e se o condenado cai, ele escolhe outro de graça.</p>
+                                    <p><span class="hn">Poder 3 · Toque de Finados (brado · comanda os mortos).</span> A caveira de pássaro abre o bico e solta um clamor que não é som, é luto. Todos os Soldados-Corvo agem fora do turno e ganham +1d10; a mesa faz Teste de Medo (DT 35) ou perde 1 ação ouvindo os nomes dos próprios mortos. É o poder que transforma o exército ressuscitado num pelotão.</p>
                                 </div>
-                                <div class="fraqueza"><div class="fx"><b>Falha Central — Código.</b> <span>É cavaleiro, não açougueiro: não recua de um duelo aceito nem ataca pelas costas quem o desafiou de frente, e despreza quem luta sujo: dá pra virar isso contra ele. Mate o <strong>corvo</strong> e ele perde a Revoada e a antevisão.</span></div></div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — O Código.</b> <span>É um cavaleiro, não um açougueiro. Não recua de um duelo aceito, não fere pelas costas quem o desafiou de frente, e <strong>despreza</strong> quem luta sujo a ponto de baixar a guarda pra puni-lo. Essa honra é a alça que você segura: provoque, force o duelo justo, ofereça-se em combate singular — e deixe que os outros ajam (sabotem, fujam com o objetivo, mirem o corvo) enquanto ele cumpre o ritual, porque ele <strong>não vai quebrar a palavra mesmo sabendo que é armadilha</strong>. E mate o <strong>corvo</strong>: sem ele, acaba a Revoada e a antevisão, e Carniel fica cego para o campo de batalha que jurou dominar — um gigante lento socando o escuro.</span></div></div>
                                 <div class="bloco">
                                     <p><span class="key">Marcas deixadas —</span> campos de batalha onde os corvos nunca partem; guerreiros que juram lealdade até depois de mortos.</p>
                                     <p><span class="key">Porta / medo —</span> o massacre com honra: frentes de guerra, memoriais, valas comuns.</p>
                                 </div>
-                                <p class="evolui"><span class="up">▲ Mais forte:</span> tire o código (vira um Açougueiro sem honra, brutal) ou suba pra Tier 9 como Cavaleiro de verdade: fim de campanha.</p>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> Tire o Código (vira O Carniceiro: sem honra, sem duelo, sem freio — mais brutal e imprevisível, mas perde a Falha que dava à mesa um plano) ou suba pra Tier 9 como <strong>Cavaleiro</strong> de verdade, com o manto erguendo TODOS os mortos da cena de uma vez. Aí é o limite do sistema, fim de campanha.</p>
                             </div>
                         </div>
                     </article>
@@ -748,38 +754,39 @@
                     <!-- FERA DE MARFIM -->
                     <article class="ser wide" data-tier="TIER 8 · DT 35" style="--ac:#cdbb8a">
                         <div class="ser-body">
-                            <div class="ser-figure"><img src="assets/images/chefes/fera-de-marfim.jpg" alt="Fera de Marfim"><span class="cap">o dono do bosque morto</span></div>
+                            <div class="ser-figure"><img src="assets/images/chefes/fera-de-marfim.jpg" alt="Ossárion"><span class="cap">o dono do bosque morto</span></div>
                             <div class="ser-content">
-                                <h2>Fera de Marfim</h2>
+                                <h2>Ossárion</h2>
                                 <span class="nat">Primordial · Veterano · ser caçado na mata</span>
-                                <p class="lore">Besta quadrúpede do tamanho de um carro, casca branca e dourada como osso esmaltado, um olho amarelo único numa máscara sem rosto, fileira de dentes que não fecha e espinhos pelas costas. Vive entre as árvores secas que ela mesma matou.</p>
+                                <p class="lore">Uma besta quadrúpede do tamanho de um carro, baixa e larga, que se move como predador antes de ser vista. A casca não é pele nem pelo: é osso esmaltado, branco e dourado, placas que cresceram por cima do corpo como uma armadura que o próprio bicho fabricou — e que continua crescendo, lasca por lasca, com os ossos do que ele come. No lugar do rosto, uma máscara lisa sem traços, e nela um único olho amarelo, enorme, que não pisca; a fileira de dentes corre por baixo da máscara e <strong>nunca fecha</strong>, sempre à mostra, sempre úmida. Das costas brotam espinhos longos de marfim que rasgam a própria carcaça ao crescer, deixando trilhas de sangue seco por onde ele passa. Ossárion vive entre árvores que ele mesmo matou — secou-as com a presença, marcou cada tronco — e anda por elas sem fazer som, grande demais pra ser tão silencioso. Pra ele não existe presa nem rival: existe o território, e o território é tudo. Você não entrou no bosque. Você entrou nele.</p>
                                 <div class="attr10">
                                     <div class="a hi"><span class="n">For</span><span class="v">8</span></div>
                                     <div class="a hi"><span class="n">Vig</span><span class="v">9</span></div>
                                     <div class="a"><span class="n">Coo</span><span class="v">5</span></div>
-                                    <div class="a"><span class="n">Mal</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Mal</span><span class="v">4</span></div>
                                     <div class="a"><span class="n">Tec</span><span class="v">1</span></div>
                                     <div class="a hi"><span class="n">Per</span><span class="v">7</span></div>
-                                    <div class="a"><span class="n">Inv</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">3</span></div>
                                     <div class="a"><span class="n">Neg</span><span class="v">1</span></div>
                                     <div class="a"><span class="n">Aut</span><span class="v">5</span></div>
                                     <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Stress</b> 23</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Injúrias</b> 5/4/2</span><span class="pill"><b>Armadura</b> 5</span><span class="pill"><b>Mov</b> 14 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res4</span>
+                                    <span class="pill k"><b>Stress</b> 23</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill k"><b>Escala</b> +1</span><span class="pill"><b>Injúrias</b> 4/3/2</span><span class="pill k"><b>Def</b> 50</span><span class="pill"><b>Armadura</b> −1 nível</span><span class="pill"><b>Mov</b> 14 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res4</span>
                                 </div>
+                                <div class="dominio"><div class="dx"><b>🌲 DOMÍNIO — A Mata é o Corpo Dele</b> <span>Dentro do bosque morto, Ossárion não tem ponto cego de verdade: sente cada passo pelo tremor das raízes (<strong>Percepção efetiva 10</strong>), move-se <strong>sem o menor ruído</strong> apesar do tamanho, e a casca remenda sozinha — <strong>recupera 1 Injúria Leve por turno</strong>, puxando osso novo das árvores em volta. O terreno obedece a ele: galhos secos agarram quem corre (Coordenação DT 18 ou cai), e ele sempre sabe onde está o mais ferido da mesa. Fora do bosque, <strong>nada disso funciona</strong> — sem o território ele é só um bicho grande e cansado. A força de Ossárion não está no corpo. Está no chão sob ele.</span></div></div>
                                 <div class="bloco">
-                                    <p><span class="key">Ataque —</span> <strong>Mordida Trituradora</strong> (Força +2d10, agarra; preso sofre dano todo turno até escapar, Força DT 22) e <strong>Investida</strong> (atropela: Derruba e empurra, +2d10).</p>
-                                    <p><span class="hn">Poder 1 · Domínio do Bosque.</span> No seu território regenera 1 Leve/turno <em>extra</em>, move-se sem ruído e sente cada passo (Percepção efetiva 10). Fora dele, perde isso.</p>
-                                    <p><span class="hn">Poder 2 · Rugido do Olho.</span> O olho único trava num alvo e ela ruge: Teste de Medo DT 35: falha = paralisado de pavor por 1 rodada.</p>
-                                    <p><span class="hn">Poder 3 · Dilaceração <em>(combate · idade)</em>.</span> Com algo preso na Mordida, ela rasga: a Injúria do preso sobe +1 estágio automático por turno até soltar-se, e carne na boca vira cura na hora. <em>(Poucos poderes, mas brutais: a Fera é um tanque que não solta.)</em></p>
+                                    <p><span class="key">Ataque —</span> <strong>Mordida Trituradora</strong> (Força 8 + arma pesada = rola 11d10, agarra no acerto; preso, sofre dano automático todo turno até escapar, Força DT 22) e <strong>Investida</strong> (corre em linha reta e atropela: Derruba e empurra, rola 11d10 numa faixa estreita; só uma vez por avanço).</p>
+                                    <p><span class="hn">Poder 1 · Rugido do Olho (terror · trava de presa).</span> O olho único trava num alvo e a fera ruge com a mata inteira: Teste de Medo (DT 35), falha = paralisado de pavor por 1 rodada, vira presa marcada (Ossárion ganha +1d10 contra ela até o fim da cena).</p>
+                                    <p><span class="hn">Poder 2 · Faro de Sangue (caçada · contra feridos).</span> Quem já está ferido não consegue se esconder dele — nem na fumaça, nem no escuro, nem atrás de cobertura. Contra qualquer alvo com Injúria, Ossárion ignora ocultação e some a distância num único avanço. Ele caça o sangue, não o corpo.</p>
+                                    <p><span class="hn">Poder 3 · Espinhos de Marfim (reativo · pune o corpo a corpo).</span> Quem acerta Ossárion no corpo a corpo se empala nos espinhos das costas e da carcaça: o atacante leva uma Injúria Leve de retorno (Coordenação DT 18 evita). Encostar nele cobra preço.</p>
                                 </div>
-                                <div class="fraqueza"><div class="fx"><b>Falha Central — Território.</b> <span>Deusa no bosque, bicho comum fora dele. Tire-a da mata morta (isca, fogo, bloqueio de rota) e perde o Domínio e a regeneração. O olho único é ponto cego total: ataque pela traseira-oposta ao olho anula o Rugido.</span></div></div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — Território.</b> <span>Ossárion é deus no bosque e bicho comum fora dele. <strong>Tire-o da mata</strong> (isca pra fora, fogo que queima as árvores-fonte, derrubada da rota que ele patrulha) e ele perde o Domínio inteiro — a regeneração, o silêncio, o faro, e metade da própria certeza: a caça vira caçada, e ele hesita pela primeira vez na vida. E o <strong>olho único</strong> é um ponto cego literal: ataque pelo lado oposto ao olho, ou cegue o olho, e o Rugido não vem e o Faro fica míope. Não se mata Ossárion na toca dele. Arranca-se ele da toca primeiro.</span></div></div>
                                 <div class="bloco">
                                     <p><span class="key">Marcas deixadas —</span> bosques que secam à sua passagem; trilhas que ninguém atravessa duas vezes.</p>
                                     <p><span class="key">Porta / medo —</span> ser caçado na mata: florestas mortas, matagais, o som de algo grande te seguindo.</p>
                                 </div>
-                                <p class="evolui"><span class="up">▲ Mais forte:</span> faça o bosque inteiro ser o corpo dela (as árvores atacam): chefe de mapa; ou ninhada com 2-3 criados-filhote.</p>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> Faça o bosque inteiro ser o corpo dele — as árvores atacam junto, o chão respira, e matar Ossárion exige matar a mata — e ele vira chefe de mapa. Ou monte uma ninhada: Ossárion mais 2-3 criado-filhote como crias que ele defende com a vida (e fica mais burro e mais perigoso por isso).</p>
                             </div>
                         </div>
                     </article>
@@ -787,40 +794,39 @@
                     <!-- DELIRIUM -->
                     <article class="ser wide" data-tier="TIER 8 · DT 40" style="--ac:var(--purple)">
                         <div class="ser-body">
-                            <div class="ser-figure"><img src="assets/images/chefes/delirium.jpg" alt="Delirium"><span class="cap">o hóspede cortês na sua cabeça</span></div>
+                            <div class="ser-figure"><img src="assets/images/chefes/delirium.jpg" alt="Véspero"><span class="cap">o hóspede cortês na sua cabeça</span></div>
                             <div class="ser-content">
-                                <h2>Delirium</h2>
+                                <h2>Véspero</h2>
                                 <span class="nat">Conceitual-Abstrato · Ancião · a loucura educada</span>
-                                <p class="lore">Vulto de chapéu de aba larga e capa que vira fumaça, rosto pálido de sorriso largo demais e olhos vermelhos que se multiplicam. Fala baixo, arrastado, sempre educado. Quase não bate: faz você bater em si mesmo.</p>
+                                <p class="lore">Um vulto vestido como um cavalheiro de outro século: cartola de aba larga, casaca comprida e uma capa que nunca está parada — desmancha-se em fumaça nas pontas e se refaz, como se o corpo dele fosse só a sugestão de um corpo. O rosto é pálido de giz, fino, com um sorriso largo demais, aberto além do que uma boca deveria, e dele escorre uma calma que dá mais medo que qualquer rugido. Os olhos são dois pontos vermelhos — mas você jura que viu três, e quando desvia o olhar e volta são quatro, cinco, espalhados pela sombra da capa como brasas. Véspero não tem altura fixa: parece da sua exata estatura quando fala com você, e do tamanho do teto quando você tenta fugir. Fala baixo, arrastado, sempre educadíssimo, sempre te chamando de "caro amigo" enquanto te convida a "deixar-se hipnotizar". É travesso, teatral, faz mesuras — e absolutamente faminto. Quase nunca encosta a mão em você. Por que encostaria? Ele faz você bater em si mesmo, e agradece pela dança.</p>
                                 <div class="attr10">
-                                    <div class="a"><span class="n">For</span><span class="v">2</span></div>
+                                    <div class="a"><span class="n">For</span><span class="v">3</span></div>
                                     <div class="a"><span class="n">Vig</span><span class="v">4</span></div>
-                                    <div class="a"><span class="n">Coo</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Coo</span><span class="v">6</span></div>
                                     <div class="a hi"><span class="n">Mal</span><span class="v">8</span></div>
                                     <div class="a"><span class="n">Tec</span><span class="v">2</span></div>
                                     <div class="a hi"><span class="n">Per</span><span class="v">7</span></div>
-                                    <div class="a"><span class="n">Inv</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Inv</span><span class="v">6</span></div>
                                     <div class="a hi"><span class="n">Neg</span><span class="v">7</span></div>
                                     <div class="a hi"><span class="n">Aut</span><span class="v">8</span></div>
-                                    <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
+                                    <div class="a"><span class="n">Vín</span><span class="v">2</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Stress</b> 16</span><span class="pill k"><b>Medo</b> DT 40</span><span class="pill"><b>Injúrias</b> 2/2/1</span><span class="pill"><b>Mov</b> 10 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (9)</b> Sab6·Res2·For1</span>
+                                    <span class="pill k"><b>Stress</b> 16</span><span class="pill k"><b>Medo</b> DT 40</span><span class="pill k"><b>Escala</b> +2</span><span class="pill"><b>Injúrias</b> 2/2/1</span><span class="pill k"><b>Def</b> 22</span><span class="pill"><b>Mov</b> 10 m</span><span class="pill k"><b>Regen</b> 1 Leve/cena</span><span class="pill"><b>Idade (9)</b> Sab6·Res2·For1</span>
                                 </div>
+                                <div class="dominio"><div class="dx"><b>🎭 DOMÍNIO — A Sua Cabeça é a Casa Dele</b> <span>Véspero não conquista o lugar: ele conquista a <strong>percepção</strong> do lugar. Enquanto a cena estiver na névoa dele, <strong>a mesa não pode confiar em nada que vê ou ouve</strong> — e, <strong>uma vez por turno, Véspero reescreve um fato sensorial</strong> sem rolar: a porta que existia some, o aliado vira o monstro, o tiro que acertou "nunca foi disparado", o chão vira abismo. O ônus de provar o que é real cai sobre os jogadores (Investigação/Percepção vs Malandragem 8 a cada dúvida). Ele não cria ilusões pontuais; ele é o <strong>anfitrião</strong> de uma realidade que decide as regras. Você não está lutando no quarto. Você está lutando no sonho dele, e ele já acordou primeiro.</span></div></div>
                                 <div class="bloco">
-                                    <p><span class="key">Ataque —</span> <strong>Toque do Delírio</strong> (Autoridade vs Mente do alvo; em vez de dano, −2d10 e alucinação curta).</p>
-                                    <p><span class="hn">Poder 1 · Hipnose Cortês.</span> Olhando nos olhos, dá uma ordem (Negociação/Autoridade vs Medo DT 40): "durma", "solte a arma", "ataque seu aliado". Vale 1 rodada.</p>
-                                    <p><span class="hn">Poder 2 · Realidade Torta + Paralisia do Sono.</span> Ilusões que machucam por convicção, troca aliado por inimigo aos olhos do alvo, e prende um alvo Imobilizado e mudo.</p>
-                                    <p><span class="hn">Poder 3 · Mil Faces <em>(utilidade · idade)</em>.</span> Cria cópias ilusórias de si pela cena: só uma é real; bater nas falsas não faz nada. Achar a verdadeira exige acerto contra a ilusão (Percepção/Investigação vs Malandragem).</p>
-                                    <p><span class="hn">Poder 4 · Insônia <em>(utilidade · idade)</em>.</span> Marca um alvo: ele não recupera Stress e leva −1d10 crescente por rodada enquanto não sair do "jogo" dele.</p>
-                                    <p><span class="hn">Poder 5 · Passo de Sombra <em>(utilidade · idade)</em>.</span> Some numa sombra e reaparece em outra à vista: impossível de encurralar. <em>(Muitos poderes, todos leves: ele é mil truques, não força.)</em></p>
+                                    <p><span class="key">Ataque —</span> <strong>Toque do Delírio</strong> (Autoridade 8 vs a Mente do alvo = rola 8d10 contra o Teste de Medo dele; em vez de dano físico, impõe −2d10 e uma alucinação curta que o alvo trata como real).</p>
+                                    <p><span class="hn">Poder 1 · Hipnose Cortês (comando · 1 rodada).</span> Olhando nos olhos e falando macio, dá uma ordem ao alvo (Negociação/Autoridade vs Teste de Medo DT 40): "durma", "solte a arma", "ataque seu aliado", "sente-se, por favor". Vale 1 rodada. Demônios Maduro+ resistem com +1d10~2d10.</p>
+                                    <p><span class="hn">Poder 2 · Realidade Torta + Paralisia do Sono (ilusão que fere).</span> Distorce o que a mesa percebe a ponto de machucar por convicção (ferida que o corpo acredita ter), troca aliado por inimigo aos olhos do alvo, e crava Paralisia do Sono num alvo: Imobilizado e mudo, ouvindo a própria respiração, até passar num Teste de Medo no turno dele.</p>
+                                    <p><span class="hn">Poder 3 · Espelhos de Si (os olhos que se multiplicam).</span> Véspero se divide em cópias risonhas — 3 a 5 silhuetas idênticas, só uma é real. Acertar a errada desperdiça o golpe (e a cópia ri ao se desfazer). A cada rodada ele embaralha quem é quem; descobrir o verdadeiro exige Percepção/Investigação vs Malandragem 8, ou um ataque em área que pegue todas de uma vez.</p>
                                 </div>
-                                <div class="fraqueza"><div class="fx"><b>Falha Central — Etiqueta.</b> <span>Trickster preso às próprias regras: não quebra a palavra dada nem age contra quem joga o jogo dele direito. Quem recusa a fantasia (foco brutal, dor real, descrença) fura tudo. E o corpo é fraquíssimo (Vigor 4): um golpe sério que pegue de verdade resolve rápido.</span></div></div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — A Etiqueta.</b> <span>Véspero é um trickster acorrentado às próprias regras. Faz acordos e <strong>não pode quebrar a palavra dada</strong>; não age contra quem joga o jogo dele com elegância (responde charada com charada, aposta com aposta, mesura com mesura) — a cortesia dele é genuína e é uma jaula. E ele <strong>não suporta o real cru</strong>: quem se recusa a entrar na fantasia fura tudo — foco brutal e sem dúvida, dor verdadeira, um sujeito teimoso que simplesmente <strong>não acredita</strong> na ilusão por pura cabeça-dura desfaz os Espelhos e a névoa em volta de si. Por baixo do teatro o corpo é vidro (Vigor 4): <strong>um golpe físico sério que enfim o alcance encerra a cena</strong>. O truque nunca foi bater forte. Foi chegar nele através do sonho — ou recusar o sonho até ele não ter onde se esconder.</span></div></div>
                                 <div class="bloco">
                                     <p><span class="key">Marcas deixadas —</span> pessoas que não distinguem mais sonho de vigília; insones que veem olhos vermelhos no escuro.</p>
                                     <p><span class="key">Porta / medo —</span> perder a razão e a paralisia do sono: quartos no escuro, manicômios, a hora morta da madrugada.</p>
                                 </div>
-                                <p class="evolui"><span class="up">▲ Mais forte:</span> Idade Imemorial (DT 45) e um domínio onírico onde a mesa "acorda" dentro da cabeça dele: arco inteiro de pesadelo.</p>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> Idade Imemorial (DT 45) e o Domínio deixa de ser uma névoa pra ser um <strong>mundo</strong>: a mesa "acorda" dentro da cabeça de Véspero e precisa atravessar um arco inteiro de pesadelo pra sair — vencê-lo é despertar, não matá-lo. Ou faça os Espelhos de Si serem dezenas, cada um com um poder diferente, e que a real só apareça quando todas as falsas caem.</p>
                             </div>
                         </div>
                     </article>
@@ -828,38 +834,39 @@
                     <!-- JUGGERNAUT INFERNAL -->
                     <article class="ser wide" data-tier="TIER 8 · DT 35" style="--ac:#c0392b">
                         <div class="ser-body">
-                            <div class="ser-figure"><img src="assets/images/chefes/juggernaut-infernal.jpg" alt="Juggernaut Infernal"><span class="cap">a máquina de guerra com alma presa</span></div>
+                            <div class="ser-figure"><img src="assets/images/chefes/juggernaut-infernal.jpg" alt="Fornaz"><span class="cap">a marcha que não para</span></div>
                             <div class="ser-content">
-                                <h2>Juggernaut Infernal</h2>
+                                <h2>Fornaz</h2>
                                 <span class="nat">Primordial · Veterano · a usina que anda</span>
-                                <p class="lore">Coloso de placas de metal negro com uma caveira no topo, um núcleo vermelho pulsando no peito como uma fornalha, fumaça escapando das juntas e garras industriais. Um demônio forjado (ou aprisionado) dentro de ferro. Avança. Sempre avança.</p>
+                                <p class="lore">Um coloso de placas de metal negro rebitadas umas sobre as outras, alto como um caminhão de pé, coroado por uma caveira grande demais soldada onde estaria a cabeça. No peito, atrás de uma grade de ferro torto, um núcleo vermelho pulsa feito fornalha viva — a cada batida, a luz vaza pelas frestas da blindagem e o metal em volta fica laranja de calor. Fumaça quente escapa das juntas a cada passo, e o chão racha sob o peso. No lugar das mãos, garras industriais, pistões e correntes; no lugar da voz, o ronco de uma usina e, bem lá no fundo, abafado, <strong>algo que parece um gemido</strong> — porque dentro do ferro há um demônio, forjado ali ou preso ali, ninguém sabe, e ele empurra a carcaça pra frente como quem empurra a própria sepultura. Fornaz não corre. Não desvia. Não cansa. Ele anda na sua direção, e tudo entre você e ele — paredes, carros, gente — vira parte do caminho. O barulho não para. A marcha não para.</p>
                                 <div class="attr10">
                                     <div class="a hi"><span class="n">For</span><span class="v">9</span></div>
                                     <div class="a hi"><span class="n">Vig</span><span class="v">9</span></div>
                                     <div class="a"><span class="n">Coo</span><span class="v">3</span></div>
                                     <div class="a"><span class="n">Mal</span><span class="v">1</span></div>
-                                    <div class="a"><span class="n">Tec</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">3</span></div>
                                     <div class="a"><span class="n">Per</span><span class="v">4</span></div>
-                                    <div class="a"><span class="n">Inv</span><span class="v">2</span></div>
-                                    <div class="a"><span class="n">Neg</span><span class="v">1</span></div>
+                                    <div class="a"><span class="n">Inv</span><span class="v">1</span></div>
+                                    <div class="a"><span class="n">Neg</span><span class="v">2</span></div>
                                     <div class="a hi"><span class="n">Aut</span><span class="v">6</span></div>
                                     <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Stress</b> 24</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill"><b>Injúrias</b> 5/4/2</span><span class="pill"><b>Armadura</b> 10</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Auto-reparo</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res4</span>
+                                    <span class="pill k"><b>Stress</b> 24</span><span class="pill k"><b>Medo</b> DT 35</span><span class="pill k"><b>Escala</b> +1</span><span class="pill"><b>Injúrias</b> 5/3/2</span><span class="pill k"><b>Def</b> 50</span><span class="pill"><b>Armadura</b> −2 níveis</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Auto-reparo</b> 1 Leve/cena</span><span class="pill"><b>Idade (6)</b> For2·Res4</span>
                                 </div>
+                                <div class="dominio"><div class="dx"><b>⚙️ DOMÍNIO — O Ímpeto</b> <span>Fornaz é a física do movimento virada arma: enquanto ele <strong>avançar em linha reta na direção de um alvo</strong>, a cada rodada de marcha ininterrupta ele ganha <strong>+1d10 acumulativo</strong> (some 1d10 por rodada avançando, sem teto durante a perseguição) e o calor sobe. Ele <strong>atravessa cobertura, móveis e paredes leves</strong> como se não estivessem lá, <strong>não pode ser empurrado, derrubado, agarrado nem freado</strong> por meios normais, e terreno difícil não o atrasa. Parar Fornaz não é uma questão de dano — é uma questão de <strong>tirá-lo da linha reta</strong>: obrigá-lo a virar, a recuar, a desviar zera o acúmulo e esfria a fornalha. Quanto mais longa a perseguição, pior. O tempo está do lado dele.</span></div></div>
                                 <div class="bloco">
-                                    <p><span class="key">Ataque —</span> <strong>Esmagamento</strong> (Força, pesada +2d10, ignora cobertura leve) e <strong>Punho-Foguete</strong> (garra à distância média, +10 fixo no dano).</p>
-                                    <p><span class="hn">Poder 1 · Cortina de Fumaça.</span> Solta fumaça quente das juntas: área de −2d10 de visão pra todos, menos pra ele (sente calor/vibração).</p>
-                                    <p><span class="hn">Poder 2 · Sobrecarga do Núcleo (área · dois gumes).</span> O núcleo superaquece e libera uma onda: Injúria Grave em área (Coordenação pra metade), mas cada Sobrecarga expõe o núcleo por 1 rodada.</p>
-                                    <p><span class="hn">Poder 3 · Rolo Compressor <em>(combate · idade)</em>.</span> Avança em linha reta atropelando tudo: +2d10, Derruba e empurra todos na faixa, e não pode ser interrompido por dano comum. <em>(Poucos poderes, mas é uma muralha que anda: quase impossível de parar ou derrubar.)</em></p>
+                                    <p><span class="key">Ataque —</span> <strong>Esmagamento</strong> (Força 9 + arma pesada = rola 12d10, ignora cobertura leve — passa por cima dela) e <strong>Punho-Foguete</strong> (dispara a garra à distância média, +10 fixo no dano e puxa o alvo de volta na corrente).</p>
+                                    <p><span class="hn">Poder 1 · Cortina de Fumaça (área · controle de campo).</span> Solta fumaça quente das juntas: área de −2d10 de visão pra todos, menos pra ele (sente calor e vibração no chão). Cobre o avanço, separa o grupo e tira a mira de quem tentava acertar o núcleo de longe.</p>
+                                    <p><span class="hn">Poder 2 · Sobrecarga do Núcleo (área · arma de dois gumes).</span> O núcleo vermelho superaquece e libera uma onda de calor: Injúria Grave em área a quem está perto (Coordenação pra metade). Mas cada Sobrecarga expõe o núcleo por 1 rodada (ver Falha) — é potência comprada com risco.</p>
+                                    <p><span class="hn">Poder 3 · Atropelo Térmico (investida · gasta o Ímpeto).</span> Despeja todo o acúmulo do Ímpeto num único avanço devastador: corre a linha inteira, Derruba e empurra todos no caminho, rola o Esmagamento com todos os d10 acumulados de uma vez. Some a distância e fecha em cima de quem achava que tinha espaço. Depois disso o acúmulo zera e ele recomeça do passo.</p>
                                 </div>
-                                <div class="fraqueza"><div class="fx"><b>Falha Central — O Núcleo.</b> <span>A blindagem é quase intransponível, mas o núcleo vermelho é a alma exposta: ataques contra ele ignoram a armadura, e durante a Sobrecarga fica descoberto. Mire o brilho em vez de bater no ferro. Lerdo (Coord 3): ágeis flanqueiam.</span></div></div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — O Núcleo.</b> <span>A blindagem é quase intransponível, mas o <strong>núcleo vermelho</strong> é a alma exposta — e ele precisa dela para andar. Ataques contra o núcleo <strong>ignoram a Armadura pesada inteira</strong>, e durante a Sobrecarga ele fica descoberto de bandeja. O calcanhar de Aquiles aqui é literal: Fornaz cai em poucas trocas se a mesa <strong>mira o brilho</strong> em vez de bater no ferro. E ele é lerdo de reflexo (Coord 3) e burro de manobra (Malandragem 1): os ágeis flanqueiam, cortam a rota, fazem ele virar — e cada vez que vira, perde o Ímpeto que o tornava imparável. Não se enfrenta a marcha de frente. Faz-se a marcha torcer.</span></div></div>
                                 <div class="bloco">
                                     <p><span class="key">Marcas deixadas —</span> trilhas de destruição em linha reta; fábricas e usinas que não desligam mais.</p>
                                     <p><span class="key">Porta / medo —</span> a coisa imparável: linhas de frente, complexos industriais, o estrondo que se aproxima sem parar.</p>
                                 </div>
-                                <p class="evolui"><span class="up">▲ Mais forte:</span> esconda o núcleo (comporta que só abre na Sobrecarga) = quebra-cabeça de timing; Tier 9 com canhões nos ombros = chefe de cerco.</p>
+                                <p class="evolui"><span class="up">▲ Mais forte:</span> Mova o núcleo — escondido nas costas, ou trancado atrás de uma comporta que só abre na Sobrecarga — e ele vira um quebra-cabeça de timing: a mesa só fere quando ele se arrisca. Tier 9 com canhões de cerco nos ombros e o Ímpeto sem teto é chefe de cidade inteira: param o avanço ou evacuam.</p>
                             </div>
                         </div>
                     </article>
@@ -871,22 +878,23 @@
                             <div class="ser-content">
                                 <h2>Controle</h2>
                                 <span class="nat">Social-Sistêmico · Ancião · a hierarquia que esmaga</span>
-                                <p class="lore">Silhueta calma de sobretudo e gravata, rosto na sombra, só dois olhos vermelhos em espiral acesos. Nunca levanta a voz. Não precisa lutar: tem gente, demônios e instituições inteiras pra lutar por ela. Considera todo mundo abaixo de si um cão, e cães obedecem.</p>
+                                <p class="lore">Uma silhueta calma demais. Sobretudo impecável, gravata bem dada, mãos nos bolsos, postura de quem nunca teve pressa porque o tempo também a obedece. O rosto fica afogado na sombra da gola e do chapéu — você nunca lembra direito dele depois — e dele acendem só dois olhos vermelhos com anéis de espiral girando devagar para dentro, como dois alvos, como duas miras, como duas perguntas que você não quer responder. Nunca levanta a voz; quando fala, é gentil, paciente, quase carinhosa, e é aí que dá mais medo. Não tem músculo, não tem garra, não precisa: tem gente, tem demônios, tem polícia, empresa e governo inteiro do lado de dentro da coleira, todos achando que a ideia foi deles. Controle olha pra qualquer um abaixo de si — e está todo mundo abaixo de si — e vê um cão. Não com ódio. Com naturalidade. Cães andam na coleira. Cães obedecem. E você nunca vê a coleira no seu próprio pescoço até puxarem.</p>
                                 <div class="attr10">
-                                    <div class="a"><span class="n">For</span><span class="v">7</span></div>
-                                    <div class="a hi"><span class="n">Vig</span><span class="v">10</span></div>
-                                    <div class="a"><span class="n">Coo</span><span class="v">6</span></div>
-                                    <div class="a hi"><span class="n">Mal</span><span class="v">9</span></div>
-                                    <div class="a"><span class="n">Tec</span><span class="v">3</span></div>
-                                    <div class="a hi"><span class="n">Per</span><span class="v">10</span></div>
-                                    <div class="a hi"><span class="n">Inv</span><span class="v">9</span></div>
-                                    <div class="a hi"><span class="n">Neg</span><span class="v">10</span></div>
-                                    <div class="a hi"><span class="n">Aut</span><span class="v">10</span></div>
+                                    <div class="a"><span class="n">For</span><span class="v">3</span></div>
+                                    <div class="a"><span class="n">Vig</span><span class="v">4</span></div>
+                                    <div class="a"><span class="n">Coo</span><span class="v">4</span></div>
+                                    <div class="a hi"><span class="n">Mal</span><span class="v">8</span></div>
+                                    <div class="a"><span class="n">Tec</span><span class="v">5</span></div>
+                                    <div class="a hi"><span class="n">Per</span><span class="v">9</span></div>
+                                    <div class="a hi"><span class="n">Inv</span><span class="v">8</span></div>
+                                    <div class="a hi"><span class="n">Neg</span><span class="v">9</span></div>
+                                    <div class="a hi"><span class="n">Aut</span><span class="v">9</span></div>
                                     <div class="a"><span class="n">Vín</span><span class="v">1</span></div>
                                 </div>
                                 <div class="statline">
-                                    <span class="pill k"><b>Stress</b> 17</span><span class="pill k"><b>Medo</b> DT 45</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Imortal</b> contrato</span><span class="pill"><b>Idade (9)</b> Sab6·Res2·For1</span>
+                                    <span class="pill k"><b>Stress</b> 17</span><span class="pill k"><b>Medo</b> DT 45</span><span class="pill k"><b>Escala</b> +2</span><span class="pill"><b>Injúrias</b> 3/2/1</span><span class="pill k"><b>Def</b> 22</span><span class="pill"><b>Mov</b> 8 m</span><span class="pill k"><b>Imortal</b> contrato</span><span class="pill"><b>Cavaleiro</b> não-Primordial</span>
                                 </div>
+                                <div class="dominio"><div class="dx"><b>♟️ DOMÍNIO — O Tabuleiro é Dela</b> <span>Controle não luta: ela <strong>joga</strong>. A qualquer momento tem entre si e a mesa um número de <strong>peças</strong> — humanos dominados, demônios contratados, instituições, capangas, reféns — e age <strong>sempre através delas</strong>, nunca do próprio corpo. Enquanto houver uma peça no caminho, ela <strong>não pode ser alvejada diretamente</strong>: o tiro acerta o cão, não a dona. Ela gasta peças para atacar, para se defender, para abrir portas e fechar saídas, e <strong>quanto mais peças no tabuleiro, mais longe o braço dela alcança</strong> — uma cidade cheia de gente é uma cidade cheia de mãos dela. Derrotar Controle nunca é uma luta. É desmontar o tabuleiro peça por peça até ela ficar, pela primeira vez, sozinha na sala — sem peças, sem coleira, sem braço que alcance.</span></div></div>
                                 <div class="bloco">
                                     <p><span class="key">Poderes Divinos (hierarquia) —</span> a força dela cresce com tudo que considera abaixo de si. Raramente ataca em pessoa: aponta e algo simplesmente <strong>acontece</strong> ao alvo (Percepção/Autoridade vs Medo DT 45).</p>
                                     <p><span class="hn">Poder 1 · Domínio.</span> Controla qualquer ser que julgue inferior (quase todos): ordem que o corpo obedece antes da mente (Autoridade vs Medo DT 45): comanda hordas, vira aliados contra a mesa, faz largarem armas.</p>
@@ -896,7 +904,7 @@
                                     <p><span class="hn">Poder 5 · Ordem em Massa <em>(idade)</em>.</span> Uma única ordem que cai sobre todos os "inferiores" numa área de uma vez: multidões, exércitos, uma cidade inteira.</p>
                                     <p><span class="key">Imortalidade (Contrato) —</span> tem um contrato de imortalidade com o primeiro-ministro japonês: o dano que a mataria é transferido a sacrifícios (cidadãos escolhidos). <strong>Ferimento não a mata</strong>: enquanto o contrato durar, ela volta.</p>
                                 </div>
-                                <div class="fraqueza"><div class="fx"><b>Falha Central — Vínculo 1 & o Contrato.</b> <span>Dano não a mata: a imortalidade joga tudo nos sacrifícios, e força bruta é inútil. Ela cai por dois caminhos que se cruzam: <strong>cortar o contrato</strong> (tirar o primeiro-ministro / a fonte dos sacrifícios do tabuleiro) e o que <strong>nenhuma coleira explica</strong>: conexão real, sacrifício por amor, lealdade que não vem do medo. Incapaz de prever isso (Vínculo 1), e sempre subestima o "inferior": esse é o ângulo morto dela.</span></div></div>
+                                <div class="fraqueza"><div class="fx"><b>Falha Central — Vínculo 1 & o Contrato.</b> <span>Controle domina tudo, menos o que <strong>não se deixa controlar</strong>. É incapaz de conexão real (Vínculo 1): não entende, não prevê e despreza o laço genuíno, o sacrifício por amor, a lealdade que não nasce do medo nem do cálculo. É por aí — e só por aí — que ela cai. O gesto que nenhuma coleira explica; o aliado que age contra todo proveito próprio; a peça que se recusa a ser peça por uma razão que ela é literalmente burra demais para enxergar. E ela <strong>subestima o inferior por princípio</strong>, sempre: quem ela vê como cão é o ângulo morto perfeito, porque ela nunca olha duas vezes pra um cão. A mesa não vence Controle sendo mais forte. Vence sendo o que ela não sabe ser — gente que se importa de graça. E lembre: dano cru não a mata enquanto durar o <strong>Contrato</strong> de imortalidade (o que a mataria é jogado nos sacrifícios) — então <strong>cortar o contrato</strong>, tirando o primeiro-ministro / a fonte dos sacrifícios do tabuleiro, é o que abre a porta pra esse golpe que nenhuma coleira explica.</span></div></div>
                                 <div class="bloco">
                                     <p><span class="key">Marcas deixadas —</span> contratos por toda parte; pessoas, demônios e instituições inteiras na coleira sem saberem.</p>
                                     <p><span class="key">Porta / medo —</span> ser usado e perder a vontade própria: hierarquias, governos, todo lugar onde alguém manda e alguém obedece.</p>
