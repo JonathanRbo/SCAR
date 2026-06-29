@@ -86,8 +86,25 @@
             color: var(--cor-texto-secundario);
             font-size: 0.85rem;
             font-style: italic;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
+        .container p { line-height: 1.75; }
+        .evento { padding: 32px; margin-bottom: 36px; }
+        .evento p { line-height: 1.85; margin: 0 0 14px; }
+        .evento p:last-child { margin-bottom: 0; }
+        .evento-conseq {
+            border-left: 2px solid var(--cor-borda);
+            padding-left: 14px;
+            color: var(--cor-texto);
+        }
+        .evento-gancho {
+            font-size: 0.8rem;
+            color: var(--cor-texto-secundario);
+            letter-spacing: 0.3px;
+            margin-top: 4px;
+        }
+        .evento-gancho a { color: var(--cor-secundaria); text-decoration: none; }
+        .evento-gancho a:hover { text-decoration: underline; }
         .apagamento {
             background: linear-gradient(135deg, rgba(155,89,182,0.1) 0%, transparent 100%);
             border: 1px dashed var(--cor-mental);
@@ -341,21 +358,24 @@
                 <div class="evento-ano">1908</div>
                 <div class="evento-titulo">Tunguska</div>
                 <div class="evento-local">Sibéria</div>
-                <p>Um Demônio atravessou uma Porta que colapsou atrás dele; 2.000 km² de floresta sumiram numa manhã. O Império Russo carimbou como acidente. <strong>Consequência:</strong> os corpos recolhidos viraram, décadas depois, a fundação do projeto soviético.</p>
+                <p>Um Demônio atravessou uma Porta que colapsou atrás dele; 2.000 km² de floresta sumiram numa manhã. O Império Russo carimbou como acidente.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> os corpos recolhidos viraram, décadas depois, a fundação do projeto soviético.</p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">1918</div>
                 <div class="evento-titulo">Gripe Espanhola</div>
                 <div class="evento-local">Global</div>
-                <p>O <strong>Demônio da Gripe</strong> se alimentou escondido dentro da pandemia que matou 50 milhões; ninguém soube separar uma morte da outra. <strong>Consequência:</strong> a OMS ainda nega, e os cientistas que chegaram perto desapareceram.</p>
+                <p>O <strong>Demônio da Gripe</strong> se alimentou escondido dentro da pandemia que matou 50 milhões; ninguém soube separar uma morte da outra.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> a OMS ainda nega, e os cientistas que chegaram perto desapareceram.</p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">1937</div>
                 <div class="evento-titulo">Os Documentos Apagados</div>
                 <div class="evento-local">Europa</div>
-                <p>Um regime fascista tentou criar híbridos pra guerra; o projeto fracassou com cobaias mutiladas, e <strong>o regime foi apagado da história inteira</strong>. Os documentos sobreviveram porque alguém os tirou do contexto antes do apagamento — existem, mas não lembram a quem pertenceram. <strong>Consequência:</strong> caíram na URSS do pós-guerra e viraram a base do <strong>Projeto Filha</strong> <em>(ver ~1996)</em>.</p>
+                <p>Um regime fascista tentou criar híbridos pra guerra; o projeto fracassou com cobaias mutiladas, e <strong>o regime foi apagado da história inteira</strong>. Os documentos sobreviveram porque alguém os tirou do contexto antes do apagamento: existem, mas não lembram a quem pertenceram.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> caíram na URSS do pós-guerra e viraram a base do <strong>Projeto Filha</strong> <em>(ver ~1996)</em>.</p>
             </div>
 
             <!-- ERA 2: GUERRA FRIA -->
@@ -369,14 +389,17 @@
                 <div class="evento-ano">1945</div>
                 <div class="evento-titulo">Floração de Hiroshima</div>
                 <div class="evento-local">Japão</div>
-                <p>A bomba acordou o <strong>Demônio Solar</strong>; os EUA enterraram os registros. Os sobreviventes desenvolveram uma doença crônica hereditária, e sob a cidade existe uma cidade-fantasma subterrânea de Infernais. <strong>Consequência:</strong> nasceu a <strong>Divisão 4 da Segurança Pública</strong>, com uma missão secreta — manter o Demônio Solar dormindo. Hoje é comandada por <strong>Makima</strong> <em>(→ <a href="#figuras" style="color: var(--cor-secundaria);">Figuras</a>)</em>. <em>(O sono do Demônio Solar → <a href="#misterios" style="color: var(--cor-secundaria);">Mistérios</a>.)</em></p>
+                <p>A bomba acordou o <strong>Demônio Solar</strong>, e os EUA enterraram os registros. Os sobreviventes desenvolveram uma doença crônica hereditária, e sob a cidade ficou uma cidade-fantasma subterrânea de Infernais.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> nasceu a <strong>Divisão 4 da Segurança Pública</strong>, com uma missão secreta: manter o Demônio Solar dormindo. Hoje é comandada por <strong>Makima</strong>.</p>
+                <p class="evento-gancho">→ <a href="#figuras">Figuras: Makima</a> · <a href="#misterios">Mistérios: o sono do Demônio Solar</a></p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">1947</div>
                 <div class="evento-titulo">Roswell</div>
                 <div class="evento-local">EUA</div>
-                <p>Não foi alienígena: foi uma Porta colapsando sobre o Novo México. Os EUA gritaram "OVNI" pra desviar os olhos. <strong>Consequência:</strong> a área segue militarizada.</p>
+                <p>Não foi alienígena: foi uma Porta colapsando sobre o Novo México. Os EUA gritaram "OVNI" pra desviar os olhos.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> a área segue militarizada.</p>
             </div>
 
             <div class="evento">
@@ -390,28 +413,42 @@
                 <div class="evento-ano">1962</div>
                 <div class="evento-titulo">Crise dos Mísseis Demoníacos</div>
                 <div class="evento-local">Cuba</div>
-                <p>A crise nuclear foi cortina pra crise demoníaca: CIA e KGB descobriram que Cuba cultivava demônios. <strong>Consequência:</strong> assinaram o <strong>Acordo de Não-Proliferação Demoníaca</strong>, que vale até hoje — quem viola some, dos dois lados ao mesmo tempo.</p>
+                <p>A crise nuclear foi cortina pra crise demoníaca: CIA e KGB descobriram que Cuba cultivava demônios.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> assinaram o <strong>Acordo de Não-Proliferação Demoníaca</strong>, que vale até hoje — quem viola some, dos dois lados ao mesmo tempo.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1968</div>
+                <div class="evento-titulo">O Coloso da Cortina</div>
+                <div class="evento-local">Cortina de Ferro</div>
+                <p>A URSS tentou erguer uma sentinela viva pra vigiar a fronteira: prendeu um <strong>demônio-núcleo</strong> e cresceu carne, osso e metal em volta dele até virar um colosso que andava. Funcionou. Aí parou de obedecer.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> a região foi isolada como "área de testes". <strong>O Coloso</strong> ainda caminha por lá, marcando tudo que entra. Mata-se o núcleo costurado dentro, não a casca.</p>
+                <p class="evento-gancho">→ <a href="#mundo">Zonas-Inferno: O Coloso</a></p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">1973</div>
                 <div class="evento-titulo">Sinfonia de Santiago</div>
                 <div class="evento-local">Chile</div>
-                <p>Pinochet executou 30 mil dissidentes como oferenda ao <strong>Demônio da Penitência</strong>, e o Chile ficou "estável" por dezessete anos. <strong>Consequência:</strong> uma Zona do Silêncio no centro de Santiago; o Demônio da Penitência segue ativo, protegido pelas forças armadas como recurso nacional. <em>(→ <a href="#figuras" style="color: var(--cor-secundaria);">Figuras</a>: Padre Esteban.)</em></p>
+                <p>Pinochet executou 30 mil dissidentes como oferenda ao <strong>Demônio da Penitência</strong>, e o Chile ficou "estável" por dezessete anos.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> uma Zona do Silêncio no centro de Santiago; o Demônio da Penitência segue ativo, protegido pelas forças armadas como recurso nacional.</p>
+                <p class="evento-gancho">→ <a href="#figuras">Figuras: Padre Esteban</a></p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">1976</div>
                 <div class="evento-titulo">Operação Bandeirante</div>
                 <div class="evento-local">Brasil</div>
-                <p>A ditadura copiou o modelo soviético e fracassou em oito meses; os sobreviventes voltaram do interior com Aflições Mentais permanentes e nunca tocaram no assunto. <strong>Consequência:</strong> o Brasil adotou não-intervenção em zonas rurais, que vale até hoje.</p>
+                <p>A ditadura copiou o modelo soviético e fracassou em oito meses; os sobreviventes voltaram do interior com Aflições Mentais permanentes e nunca tocaram no assunto.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> o Brasil adotou não-intervenção em zonas rurais, que vale até hoje.</p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">1979</div>
                 <div class="evento-titulo">Invasão Soviética do Afeganistão</div>
                 <div class="evento-local">Afeganistão</div>
-                <p>A KGB-Demônica estreou híbridos em combate; os mujahideen responderam com contratos de jihad. <strong>Consequência:</strong> a <strong>primeira guerra demoníaca documentada</strong> — e os EUA aprenderam observando os dois lados sangrarem.</p>
+                <p>A KGB-Demônica estreou híbridos em combate; os mujahideen responderam com contratos de jihad.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> a <strong>primeira guerra demoníaca documentada</strong> — e os EUA aprenderam observando os dois lados sangrarem.</p>
             </div>
 
             <!-- ERA 3: CRISE SOVIÉTICA -->
@@ -425,14 +462,26 @@
                 <div class="evento-ano">1986</div>
                 <div class="evento-titulo">Chernobyl</div>
                 <div class="evento-local">Ucrânia</div>
-                <p>Não foi acidente nuclear: foi a tentativa final de conter o <strong>Demônio da Radiação</strong>. A URSS sacrificou Pripyat e funcionou, mas saiu abalada, sem nunca recuperar o controle absoluto. <strong>Consequência:</strong> Pripyat é uma Zona-Inferno permanente; quem entra sai com doença demoníaca crônica.</p>
+                <p>Não foi acidente nuclear: foi a tentativa final de conter o <strong>Demônio da Radiação</strong>. A URSS sacrificou Pripyat e funcionou, mas saiu abalada, sem nunca recuperar o controle absoluto.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> Pripyat é uma Zona-Inferno permanente; quem entra sai com doença demoníaca crônica.</p>
+            </div>
+
+            <div class="evento">
+                <div class="evento-ano">1988</div>
+                <div class="evento-titulo">A Cidade que Não Enterra os Mortos</div>
+                <div class="evento-local">local riscado dos mapas</div>
+                <p>Numa cidade isolada, um <strong>Demônio dos Mortos</strong> começou a reanimar quem morria. Os mortos lembravam de andar, mas não de parar; a versão oficial foi vazamento químico e quarentena.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> a cidade foi cercada e apagada dos mapas. A horda só cresce, porque todo morto novo entra na conta, e parte dela tem a consciência presa, acordada.</p>
+                <p class="evento-gancho">→ <a href="#mundo">Zonas-Inferno: A Cidade dos Mortos</a></p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">1989-91</div>
                 <div class="evento-titulo">Cascata da Cortina</div>
                 <div class="evento-local">Leste Europeu</div>
-                <p>Um ataque vindo de dentro pôs em pane o sistema soviético que segurava milhares de demônios em segredo; muitos escaparam no caos, o <strong>Demônio das Armas</strong> entre eles. <strong>Consequência:</strong> Portas se abriram em massa; híbridos do projeto desertaram ou foram caçar os fugitivos. <em>(Em 1990, a caçadora <strong>Olga</strong> entrou sozinha em Pripyat atrás dos arquivos e saiu sem os olhos.)</em></p>
+                <p>Um ataque vindo de dentro pôs em pane o sistema soviético que segurava milhares de demônios em segredo; muitos escaparam no caos, o <strong>Demônio das Armas</strong> entre eles. Em 1990, a caçadora <strong>Olga</strong> entrou sozinha em Pripyat atrás dos arquivos e saiu sem os olhos.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> Portas se abriram em massa; híbridos do projeto desertaram ou foram caçar os fugitivos. Um trecho do Leste virou a <strong>Faixa Cinzenta</strong>, infestação de Criados que segue ativa.</p>
+                <p class="evento-gancho">→ <a href="#mundo">Zonas-Inferno: Faixa Cinzenta</a></p>
             </div>
 
             <div class="evento">
@@ -453,7 +502,9 @@
                 <div class="evento-ano">~1996</div>
                 <div class="evento-titulo">O NASCIMENTO IMPEDIDO</div>
                 <div class="evento-local">URSS, Instalação Secreta</div>
-                <p>A URSS acelerou o <strong>Projeto Filha</strong> pra criar uma anomalia viva, além de humano, híbrido ou demônio — usando o <strong>Demônio da Fertilidade</strong> como matriz e a esposa de um agente como âncora humana. Caçadores invadiram a instalação central no instante do ritual e <strong>impediram o nascimento</strong>. <strong>Consequência:</strong> uma híbrida estável sobreviveu, a única nascida direto de uma matriz demoníaca; o Demônio da Fertilidade foi destruído e não renasceu; o Demônio das Armas voltou a se mover livre <em>(ver 1997)</em>; a URSS persiste, muito menor, talvez guardando uma surpresa; os relatórios chegaram a Makima em 24h. <em>(A Filha, e o destino dos invasores → <a href="#misterios" style="color: var(--cor-secundaria);">Mistérios</a>.)</em></p>
+                <p>A URSS acelerou o <strong>Projeto Filha</strong> pra criar uma anomalia viva, além de humano, híbrido ou demônio — usando o <strong>Demônio da Fertilidade</strong> como matriz e a esposa de um agente como âncora humana. Caçadores invadiram a instalação central no instante do ritual e <strong>impediram o nascimento</strong>.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> uma híbrida estável sobreviveu, a única nascida direto de uma matriz demoníaca; o Demônio da Fertilidade foi destruído e não renasceu; o Demônio das Armas voltou a se mover livre <em>(ver 1997)</em>; a URSS persiste, muito menor, talvez guardando uma surpresa; os relatórios chegaram a Makima em 24h.</p>
+                <p class="evento-gancho">→ <a href="#misterios">Mistérios: A Filha e o destino dos invasores</a></p>
             </div>
 
             <!-- ERA 4: PÓS-ARMAS -->
@@ -467,21 +518,24 @@
                 <div class="evento-ano">1997</div>
                 <div class="evento-titulo">O Contrato da Casa Branca</div>
                 <div class="evento-local">EUA</div>
-                <p>Em pânico com o Demônio das Armas, o Presidente sacrificou <strong>um ano de vida de cada cidadão americano</strong> pelo uso do próprio demônio. <strong>Consequência:</strong> o Pentágono opera o Demônio das Armas desde então.</p>
+                <p>Em pânico com o Demônio das Armas, o Presidente sacrificou <strong>um ano de vida de cada cidadão americano</strong> pelo uso do próprio demônio.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> o Pentágono opera o Demônio das Armas desde então.</p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">1997</div>
                 <div class="evento-titulo">Ataque do Demônio das Armas</div>
                 <div class="evento-local">Global</div>
-                <p>Solto desde a Cascata e enfurecido, cobrou o preço: <strong>1,2 milhão de mortos num único dia</strong>, a maior parte nos EUA, Europa Ocidental e Rússia. O Japão sobreviveu de um jeito que ninguém explica. <em>(Na Costa Leste, um menino de oito anos viu a família virar pó e sobrou só ele e o ódio → <a href="#figuras" style="color: var(--cor-secundaria);">Figuras</a>: Veredito.)</em></p>
+                <p>Solto desde a Cascata e enfurecido, cobrou o preço: <strong>1,2 milhão de mortos num único dia</strong>, a maior parte nos EUA, Europa Ocidental e Rússia. O Japão sobreviveu de um jeito que ninguém explica. Na Costa Leste, um menino de oito anos viu a família virar pó e sobrou só ele e o ódio.</p>
+                <p class="evento-gancho">→ <a href="#figuras">Figuras: Veredito</a></p>
             </div>
 
             <div class="evento">
                 <div class="evento-ano">2001</div>
                 <div class="evento-titulo">Ataque do Pavor</div>
                 <div class="evento-local">Global</div>
-                <p>Numa manhã de setembro, um demônio atacou um símbolo ocidental, e o <strong>Demônio do Pavor</strong> se alimentou do terror televisionado por semanas. <strong>Consequência:</strong> a versão oficial mudou tantas vezes que nem ela lembra qual era a primeira.</p>
+                <p>Numa manhã de setembro, um demônio atacou um símbolo ocidental, e o <strong>Demônio do Pavor</strong> se alimentou do terror televisionado por semanas.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> a versão oficial mudou tantas vezes que nem ela lembra qual era a primeira.</p>
             </div>
 
             <div class="evento">
@@ -495,7 +549,8 @@
                 <div class="evento-ano">2011</div>
                 <div class="evento-titulo">Fukushima</div>
                 <div class="evento-local">Japão</div>
-                <p>O segundo Chernobyl, evitado a tempo: a Segurança Pública despachou dezoito veteranos pra conter o Demônio da Radiação antes que ele se manifestasse por inteiro. <strong>Catorze morreram.</strong> <strong>Consequência:</strong> Tóquio sobreviveu por sorte e burocracia. Os dezoito tinham sido escolhidos a dedo por Makima, entre os alunos de <strong>Kishibe</strong> — ela não foi ao funeral de nenhum dos catorze.</p>
+                <p>O segundo Chernobyl, evitado a tempo: a Segurança Pública despachou dezoito veteranos pra conter o Demônio da Radiação antes que ele se manifestasse por inteiro. <strong>Catorze morreram.</strong> Os dezoito tinham sido escolhidos a dedo por Makima, entre os alunos de <strong>Kishibe</strong>; ela não foi ao funeral de nenhum dos catorze.</p>
+                <p class="evento-conseq"><strong>Consequência:</strong> Tóquio sobreviveu por sorte e burocracia.</p>
             </div>
         </section>
 
@@ -510,6 +565,19 @@
 
             <p>SCAR parte do mesmo conceito e dos mesmos poderes de <em>Chainsaw Man</em>: um mundo onde <strong>demônios existem e ameaçam a humanidade sem trégua</strong>. Esses demônios nascem do medo humano, e quanto mais as pessoas temem algo, mais forte fica o demônio ligado a esse algo.</p>
             <p>Pra enfrentar a ameaça, os governos criaram organizações como a <strong>Segurança Pública</strong>, feitas de caçadores: humanos, híbridos e até demônios que trabalham pra matar outros demônios.</p>
+
+            <h4 style="color: var(--cor-secundaria);">Zonas-Inferno</h4>
+            <p>Territórios que a presença demoníaca tornou permanentes — e cenário de arco.</p>
+            <ul>
+                <li><strong>Pripyat (Ucrânia)</strong> — Zona de radiação desde Chernobyl; quem entra sai com doença demoníaca crônica.</li>
+                <li><strong>Roswell (EUA)</strong> — área de uma Porta colapsada, militarizada até hoje.</li>
+                <li><strong>Zona do Silêncio (Santiago)</strong> — erguida sobre os 30 mil entregues ao Demônio da Penitência.</li>
+                <li><strong>A cidade sob Hiroshima</strong> — cidade-fantasma subterrânea de Infernais sobreviventes.</li>
+                <li><strong>O Coloso</strong> — Demônio-construto colossal que uma potência da Guerra Fria prendeu e perdeu; anda por uma região isolada, marcando tudo que entra. Mata-se o núcleo costurado dentro, não a casca.</li>
+                <li><strong>A Faixa Cinzenta (Leste Europeu)</strong> — infestação de Criados nascida da Cascata da Cortina; a horda oca se multiplica sozinha desde 1991.</li>
+                <li><strong>A Cidade que Não Enterra os Mortos</strong> — um Demônio dos Mortos reanima quem morre ali; parte da horda tem a consciência presa, acordada.</li>
+            </ul>
+            <p class="opacity-6"><em>Construto, Criado e Zumbi são demoníacos por natureza — humano só os cria canalizando poder demoníaco (contrato, demônio preso, criado como motor). Sem isso, construto seria só máquina e zumbi não existiria.</em></p>
         </section>
 
         <!-- O INFERNO -->
@@ -568,11 +636,6 @@
                 <p>São a manifestação física do medo coletivo humano. Eles <strong>não "nascem" no sentido comum</strong>: simplesmente existem porque a humanidade teme algo.</p>
                 <p>Um demônio raramente é UM medo só: carrega um <strong>feixe de medos próximos</strong> (o "demônio da invisibilidade" é menos <em>sumir aos olhos</em> e mais o medo de <strong>ninguém te ver</strong>). E o medo quase nunca aparece com a própria cara — ele <strong>se disfarça</strong>: o ódio é medo coalhado, o desprezo é medo que endureceu, uma alegria vazia esconde o medo de que nada importe.</p>
                 <p>Podem mudar conforme as circunstâncias, como a própria morte ou eventos particulares, ganhando títulos novos ou origens redefinidas.</p>
-            </div>
-
-            <div class="natureza-narrativa">
-                <h4 style="color: #C0392B;">Rancores</h4>
-                <p>Quando o medo não vem da multidão, mas de <strong>um só trauma concentrado</strong> — um ódio que virou desprezo que virou medo, preso a um lugar, um osso, um nome. É o espírito vingativo do mundo de SCAR: mais fraco que um Demônio, mas amarrado a uma <strong>Âncora</strong>. Destrua a âncora (resolva a injustiça, queime o lugar, enterre os ossos) e ele some — às vezes <strong>sem precisar lutar</strong>.</p>
             </div>
 
             <div class="lore-quote">
