@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizações - SCAR</title>
+    <meta name="description" content="Histórico de atualizações do SCAR RPG — o que mudou em cada rodada do sistema.">
+
+    <!-- Squeleton CSS -->
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+
+    <!-- SCAR CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <!-- Squeleton JS -->
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Accordion das atualizações — mesmo padrão das mesas (agradecimentos) */
+        .upd-acc { padding: 0; }
+        .upd-acc > summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        .upd-acc > summary::-webkit-details-marker { display: none; }
+        .upd-acc > summary::marker { content: ""; }
+        .upd-acc-chevron {
+            color: var(--cor-secundaria);
+            font-size: 0.85rem;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .upd-acc[open] > summary .upd-acc-chevron { transform: rotate(90deg); }
+        .upd-acc-body { padding: 0 25px 22px; }
+        .upd-acc-body p:first-child { margin-top: 0; }
+        .upd-acc-body ul { margin: 12px 0 0; padding-left: 20px; }
+        .upd-acc-body li { margin-bottom: 8px; color: var(--cor-texto-secundario); line-height: 1.6; }
+        .upd-date {
+            display: block;
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            opacity: 0.85;
+        }
+        .upd-version-badge {
+            display: inline-block;
+            border: 1px solid var(--cor-secundaria);
+            color: var(--cor-secundaria);
+            border-radius: 20px;
+            padding: 5px 18px;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header p-15-tb">
+        <div class="container">
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+
+                <nav class="nav-desktop d-flex f-items-center f-gap-10">
+                    <a href="sumario.html#sec-10" class="nav-link">Criação</a>
+                    <a href="sumario.html" class="nav-link">Sumário</a>
+                    <a href="habilidades.html" class="nav-link">Habilidades</a>
+                    <a href="vendinha.html" class="nav-link">Vendinha</a>
+                    <a href="aflicoes.html" class="nav-link">Aflições</a>
+                    <a href="historia.html" class="nav-link">História</a>
+                    <a href="aparencias.html" class="nav-link">Bestiário</a>
+                </nav>
+
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu">
+                    <span>☰</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Modal -->
+    <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
+                <button class="mobile-menu-close" data-modal-hide>✕</button>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <nav class="mobile-menu-nav">
+                        <a href="sumario.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">📚</span><span class="link-text">Sumário</span>
+                        </a>
+                        <a href="habilidades.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🎯</span><span class="link-text">Habilidades</span>
+                        </a>
+                        <a href="vendinha.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">🏪</span><span class="link-text">Vendinha</span>
+                        </a>
+                        <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide>
+                            <span class="link-icon">💀</span><span class="link-text">Aflições</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-section-divider"></div>
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">História</span>
+                        </a>
+                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Bestiário</span>
+                        </a>
+                        <a href="atualizacoes.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Atualizações</span>
+                        </a>
+                        <a href="agradecimentos.html" class="mobile-nav-link secondary" data-modal-hide>
+                            <span class="link-text">Agradecimentos</span>
+                        </a>
+                    </nav>
+                    <div class="mobile-menu-footer">
+                        <p>"Todo contrato tem um preço"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO -->
+        <section class="container text-center p-90-t p-40-b">
+            <h1 class="fs-16 fw-700 wow fadeInUp" style="color: var(--cor-secundaria);">ATUALIZAÇÕES</h1>
+            <p class="fs-10 m-20-t opacity-7 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 650px; margin-left: auto; margin-right: auto;">
+                SCAR é testado e remendado em volta da mesa. Cada rodada aqui é o que mudou, e por quê.
+            </p>
+            <div class="m-25-t wow fadeInUp" data-wow-delay="0.2s">
+                <span class="upd-version-badge">v15 · 29/06/2026</span>
+            </div>
+        </section>
+
+        <!-- PRÓXIMAS -->
+        <section class="container p-20-tb">
+            <div class="scar-card scar-card-bordered">
+                <h3 class="fs-11 fw-700 ls-2 m-0-t m-15-b" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">🔮 Próximas</h3>
+                <p class="m-0 lh-1-7" style="color: var(--cor-texto-secundario);">
+                    Integrar as Loucuras (STAGE, MITO, MUSUME) ao site · finalizar fichas · NPCs · expansão de contratos e poderes · mais players.
+                    <br><span class="fs-5 opacity-7">No radar: simplificação do core (v2.0) · SERTÃO (próxima Loucura) · PWA · Foundry VTT.</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- LINHA DO TEMPO -->
+        <section class="container p-20-tb">
+            <div class="row gap-20">
+
+                <!-- 15ª (aberta) -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc" open>
+                        <summary>
+                            <div>
+                                <span class="upd-date">29/06/2026 · 15ª rodada</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">As Quatro Naturezas Fecham</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <p class="lh-1-7" style="color: var(--cor-texto-secundario);">Uma auditoria mostrou que Infernal e Híbrido eram injogáveis só pelos docs — faltava o conteúdo que os define. Preenchido, mais rebalanceamento de estilos e correções de números.</p>
+                            <ul>
+                                <li><strong>Infernal:</strong> lista de <strong>Sentidos Sobrenaturais</strong> (7) e acesso explícito aos Poderes Demoníacos.</li>
+                                <li><strong>Híbrido:</strong> lista de <strong>Formas de Transformação</strong> (6, exemplos) + regra de transformação; Forma = Poder de transformação.</li>
+                                <li><strong>Stress do Humano = 8 + Vigor + Vínculo</strong>; custo de poder do Infernal unificado em <strong>+1 Stress</strong>.</li>
+                                <li><strong>Estilos rebalanceados</strong> (Instintivo, Estilo Livre, Espadachim, Executor, Spetsnaz). <strong>"Atirador" → "Pistoleiro"</strong>, reformulado.</li>
+                                <li><strong>Executor</strong> ganhou a <strong>Sentença (Execução)</strong>: 1x/sessão, executa alvo ferido/indefeso quando o resultado é ≥ 2× a Passiva efetiva.</li>
+                                <li>Correções de matemática no bestiário; criação mais à prova de novato; página de criação linkada no site e dice-roller atualizado (Stress do Humano, Sentidos e Formas).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 14ª -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">27/06/2026 · 14ª rodada</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">O Que Te Quebrou</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <p class="lh-1-7" style="color: var(--cor-texto-secundario);">As Aflições eram 200 entradas fracas que sumiam em 1d3 rodadas. Reescritas num princípio único — e a DT virou base, não teto.</p>
+                            <ul>
+                                <li>Aflição agora é <strong>condição de cena</strong> (dura até tratar/resolver), com <strong>Mecânicas-Mãe</strong> fáceis de arbitrar.</li>
+                                <li><strong>d100 vira severidade</strong> (Branda/Séria/Profunda); Profunda = permanente, com 3 destinos (Conviver/Cicatrizar/Domar).</li>
+                                <li><strong>DT é base, não teto</strong> (regra-mãe): a situação empurra pra cima. Novos gastos de PM.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 13ª -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">24/06/2026 · 13ª rodada</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Os Apex Ganharam Nome</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <p class="lh-1-7" style="color: var(--cor-texto-secundario);">Os chefes tinham fichas incompletas e nomes genéricos. Cada um virou um ser apex no próprio ramo.</p>
+                            <ul>
+                                <li><strong>Nomes próprios originais:</strong> Marcênia · Carniel · Ossárion · Véspero · Fornaz (Controle ficou Controle).</li>
+                                <li>Ficha completa (10 atributos), Escala de Medo, um <strong>DOMÍNIO</strong> único, 3º Poder assinado e Falha Central mais rica.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 12ª -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">24/06/2026 · 12ª rodada</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Do Bestiário Atualizado</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <p class="lh-1-7" style="color: var(--cor-texto-secundario);">As fichas de monstro estavam sem o número mais importante do combate novo.</p>
+                            <ul>
+                                <li><strong>Defesa Passiva em toda criatura</strong> (5,5 × atributo) — o atacante agora tem contra o que rolar.</li>
+                                <li>Armadura convertida pro formato atual (−1/−2 níveis). Sincronizado nos 3 lugares (docs + bestiário visual).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 11ª -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">24/06/2026 · 11ª rodada</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Do Filler que Virou Alma</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <p class="lh-1-7" style="color: var(--cor-texto-secundario);">Em vez de cortar as Habilidades Gerais fracas, reformulamos cada uma pra ter efeito próprio.</p>
+                            <ul>
+                                <li>23 Gerais reformuladas (cada uma com 1 efeito claro), 4 fusões de duplicatas.</li>
+                                <li>Contagem: Gerais 115 → <strong>111</strong>. Sincronizado nos 3 arquivos.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 10ª -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">24/06/2026 · 10ª rodada</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Do Cadáver e do Medo</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <p class="lh-1-7" style="color: var(--cor-texto-secundario);">Origens Infernal e Demônio Puro reformuladas com identidade própria.</p>
+                            <ul>
+                                <li><strong>Infernal:</strong> 4 blocos com a tragédia do cadáver que vira gente (Corpo Emprestado, Memória do Inferno, A Coisa que Você Foi, Virando Gente).</li>
+                                <li><strong>Demônio Puro:</strong> 5 poderes únicos de SCAR (Abrir a Porta, A Falha é a Força, etc.).</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 9ª -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">24/06/2026 · 9ª rodada</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Do Que Só Você Traz</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <p class="lh-1-7" style="color: var(--cor-texto-secundario);">Origens Humano e Híbrido repensadas pra trazer o que cada natureza tem de único.</p>
+                            <ul>
+                                <li><strong>Humano:</strong> saiu o treino genérico, entraram Ofício e Humanidade.</li>
+                                <li><strong>Híbrido:</strong> reescrito em torno dos Grilhões como recurso vivo.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 8ª -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">24/06/2026 · 8ª rodada</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">Do Rolador Afinado</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <ul>
+                                <li>Rolador conferido com o sistema atual (Passiva 5,5×, 22 pontos, estilos). Export agora traz a linha CARGA.</li>
+                                <li>Modo Owlbear mais compacto, com o switch de visões fixo no topo.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Rodadas 1-7 (resumo) -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">24/06/2026 · rodadas 1–7</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">O Mês das Auditorias</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <ul>
+                                <li><strong>7ª · Da Ficha Nova:</strong> fichas copia-e-cola do site reescritas e completas.</li>
+                                <li><strong>6ª · Do Bolso Inicial:</strong> dinheiro (¥) na criação, separado do PM.</li>
+                                <li><strong>5ª · Do Balcão Justo:</strong> balanceamento da vendinha; o "nível" da arma virou teto de Injúria; Encomendas.</li>
+                                <li><strong>4ª · Do Peso e do Mestre:</strong> Desgaste da Passiva, Carga & Mãos, Quebra/Conserto; Início Rápido e Guia do Mestre.</li>
+                                <li><strong>3ª · Do Acerto Final:</strong> atributos 22 fixos (sobra vira PM), Colapso pela intensidade, idade de estreia do Demônio Puro.</li>
+                                <li><strong>2ª · Do Ajuste Fino:</strong> Defesa Passiva virou 5,5×, Contratos de Restrição travados, Armas Pesadas refinada.</li>
+                                <li><strong>1ª · Do Sistema Coeso:</strong> lógica de teste unificada (somar Xd10 vs DT), Defesa Passiva, wizard de criação no rolador.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Gênese (resumo) -->
+                <div class="c-xs-12">
+                    <details class="scar-card scar-card-bordered upd-acc">
+                        <summary>
+                            <div>
+                                <span class="upd-date">dez/2025 – mai/2026</span>
+                                <h3 class="fs-12 fw-700 ls-2 m-0" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif;">A Gênese</h3>
+                            </div>
+                            <span class="upd-acc-chevron">▶</span>
+                        </summary>
+                        <div class="upd-acc-body">
+                            <p class="lh-1-7" style="color: var(--cor-texto-secundario);">De um servidor de zoeira a um sistema com nome — os marcos que construíram o SCAR.</p>
+                            <ul>
+                                <li><strong>Fundação:</strong> demônios jogáveis, Iniciativa, Cura, Economia, Poderes Demoníacos.</li>
+                                <li><strong>Identidade de combate:</strong> Estilos de Luta, Crítico & Duelo, armas com efeito próprio, Talismãs como recurso.</li>
+                                <li><strong>Naturezas:</strong> Grilhões (nerf do Híbrido), Infernal com identidade, balanceamento da Autoridade.</li>
+                                <li><strong>O nome:</strong> servidor virou <strong>SCAR</strong> (Sacrificial Contract & Risk) e ganhou site oficial.</li>
+                                <li><strong>Loucuras do Mestre:</strong> STAGE (idols), MITO (mitológico), MUSUME (corridas) — o motor do SCAR em outros mundos.</li>
+                                <li><strong>Lore canônica:</strong> linha do tempo de 1908 a 2011, com apagamentos.</li>
+                                <li><strong>Menos é Mais:</strong> 200+ habilidades cortadas e reescritas; a Vendinha do Seu Bento como fonte única de equipamento.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+            <p class="text-center fs-5 m-30-t opacity-7" style="color: var(--cor-texto-secundario);">Histórico técnico completo no <code>changelog.md</code> do sistema.</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a href="index.html">SCAR</a>
+            <span>Sacrificial Contract & Risk</span>
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="atualizacoes.html">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.97 8.97 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+                Atualizações
+            </a>
+        </div>
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">© 2026 SCAR RPG • Feito com 🩸 por fãs, para fãs</p>
+    </footer>
+
+    <!-- Squeleton JS Footer -->
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+    </script>
+
+    <!-- Botão Flutuante - Rolador -->
+    <a href="dice-roller.html" class="dice-fab" title="Rolador de Dados" aria-label="Abrir Rolador de Dados">
+        <span class="dice-fab-icon">🎲</span>
+        <span class="dice-fab-text">DADOS</span>
+    </a>
+
+</body>
+</html>
