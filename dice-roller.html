@@ -2396,16 +2396,16 @@
         // ===== Estilos de Luta (12 — passivos, da vendinha) =====
         const ESTILOS_LUTA = {
             "Boxe": ["Jab — alvo falhou a defesa? repete o ataque com metade dos dados (arred. p/ cima)","Combinação — 2 acertos no mesmo alvo na rodada? o 2º sobe 1 nível de Injúria","Pode defender com Percepção ou Vínculo em curto alcance","Esquiva natural — defendeu por 5+? próximo ataque +1d10","Resistência de ringue — 1ª Injúria Leve por combate não gera penalidade"],
-            "Estilo Livre": ["Pode usar Malandragem pra atacar 1x/rd ou pra defender","Injúrias causadas podem gerar efeito (queda, deslocamento, desarme)","Ambiente ajudando, defensor rola -1d10"],
-            "Espadachim": ["Diferença 5+ → Injúria Leve vira sangramento","Pode defender com Percepção ou Tecnologia","Em 1x1, ignora armamento defensivo do alvo"],
-            "Atirador": ["Ataques criam zona de perigo — quem atravessa sofre -1d10 em toda ação","Diferença 10+ pode aumentar a Injúria em 1 grau"],
+            "Estilo Livre": ["Pode usar Malandragem pra atacar 1x/rd ou pra defender","Injúria causada aplica 1 efeito grátis: queda, deslocamento, desarme ou cegueira momentânea","Briga suja — 1x/cena, transforma o ambiente (areia, vidro, móvel) num golpe que ignora a Defesa Ativa do alvo","Vantagem do terreno — em lugar que te favorece (escuro, apertado, caótico) o alvo defende -1d10 e você +1d10 pra reposicionar"],
+            "Espadachim": ["Diferença 5+ → Injúria Leve vira sangramento","Pode defender com Percepção ou Coordenação","Em 1x1, ignora armamento defensivo do alvo","Bote — defendeu com sucesso por 5+? contra-ataca de imediato com metade dos dados (1x/rd)","Sangria — acertar alvo já sangrando empilha o sangramento (+2 Stress/rodada acumula)"],
+            "Pistoleiro": ["Zona de perigo: no alcance da sua arma de fogo, quem atravessa ou age sofre -1d10; quem foge da sua linha de tiro come um tiro de reação (gasta sua Reação)","Domínio de cobertura: leve não penaliza, pesada conta como leve","Diferença 10+ aumenta a Injúria em 1 grau","Cadência: ao ferir à distância, recarregar/sacar vira ação livre até o fim da rodada","Pode mirar com Coordenação ou Percepção"],
             "Armas Pesadas": ["Ignora 1 nível de proteção do alvo (fura armadura, não anula)","Injúrias Críticas criam Aflição Física automática (1× por alvo)","Alvos de Tier 2+ abaixo do seu fazem Teste de Medo DT 20 ao serem atacados"],
             "Caçador": ["Por rodada observando, ignora 1d10 defensivo do alvo na próxima ação (máx 3 rodadas = 3d10)","Ataques armados podem usar Investigação ou Negociação","Pode trocar dano por condição (marcado, exposto, sangrando, deslocado)","Pode avisar aliados sem gastar ação"],
-            "Instintivo": ["Sempre que causar Injúria → +2 Stress no alvo","Pode atacar usando Percepção ou Investigação no lugar de Força"],
+            "Instintivo": ["Sempre que causar Injúria → +2 Stress no alvo","Pode atacar usando Percepção ou Investigação no lugar de Força","Presa ferida — +1d10 contra alvo que já tem Injúria aberta (o instinto sente o sangue)","Reflexo selvagem — ao sofrer uma Injúria, contra-ataca de imediato (Reação, 1x/cena): a dor vira violência"],
             "Spetsnaz": ["1º ataque da cena contra um alvo: se causar Injúria, aumenta 1 grau","Pode usar Coordenação ou Autoridade pra ataques corpo a corpo armados","Atacar alvo desatento/imobilizado/ferido ignora a redução de defesa"],
             "Wrestling": ["Pode usar Força ou Vigor pra agarrar, derrubar ou imobilizar","Agarrados sofrem penalidade crescente em ações físicas (-1/-2/-3d10)","Agarrados não fogem nem lutam com outra coisa sem vencer o teste","Pode não causar Injúria pra drenar +2 Stress OU causar Aflição leve"],
             "Judô": ["Contra-ataque — inimigo errou corpo a corpo? contra-ataca Coord vs Vigor (1x/rd)","Pode defender com Coordenação, Vigor ou Vínculo","Defesa por 5+ → pode derrubar ou deslocar o alvo","Atacante com Força maior → +1d10 no contra-ataque E na defesa","Fluxo — derrubou? próximo ataque de aliado contra ele +1d10"],
-            "Executor": ["Contra alvos com Autoridade maior: +1d10 geral","Injúria Grave → alvo não pode conceder bônus ou liderar","Pode trocar dano por Aflição"],
+            "Executor": ["Contra alvos com Autoridade maior: +1d10 geral","Injúria Grave → alvo não pode conceder bônus ou liderar","Pode trocar dano por Aflição","Sentença — contra alvo já em Grave+ ou indefeso, seus ataques sobem 1 nível de Injúria (fecha a conta)","Presença de carrasco — abateu um inimigo? aliados dele a curta distância fazem Teste de Medo DT 20"],
             "Mãos da Guerra": ["Toda arma improvisada vira armamento leve ou médio (+1d10 ou +2d10)","Nunca está desarmado: de mãos vazias ataca como armamento leve (+1d10)","Empunhando arma de verdade ou demoníaca: ganha +1d10 adicional"],
         };
         function montarEstilos() {
@@ -3045,10 +3045,11 @@
             const injGraves = 1 + Math.floor(vig / 3);
             const injCritica = 1;
 
-            // Stress por natureza
+            // Stress por natureza (Humano usa base 8; Infernal/Híbrido base 6)
+            const stressBase = (natureza === 'Humano') ? 8 : 6;
             const stressLinha = ehDemonio
                 ? 'STRESS: 4 + Vigor + atributo da Categoria de Medo = (defina pelo Medo)'
-                : 'STRESS: 6 + Vigor + Vínculo = ' + (6 + vig + at['Vínculo']);
+                : 'STRESS: ' + stressBase + ' + Vigor + Vínculo = ' + (stressBase + vig + at['Vínculo']);
 
             // Habilidades + custo de PM (2 PM cada)
             const habIds = (typeof habSelecionadas !== 'undefined' ? habSelecionadas : []);

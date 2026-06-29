@@ -698,7 +698,7 @@
                 <li><strong>O estrago</strong> (soma − Defesa): 1-9 Leve · 10-19 Grave · 20-39 Crítica · 40+ Morte. Diferença ≤0 é raspão.</li>
                 <li><strong>Aguentar:</strong> sem "vida", só <strong>slots de Injúria</strong> (Leves 2+⌊Vigor/2⌋ · Graves 1+⌊Vigor/3⌋ · Crítica 1). Encheu, sobe de nível. A Passiva do alvo <strong>cansa</strong>: −5 por ataque extra na rodada e −3/−6/−10 por Injúria já aberta.</li>
             </ul>
-            <p><strong>Stress</strong> é sanidade e gasolina ao mesmo tempo (máx = 6 + Vigor + Vínculo). Você o queima pra forçar dados e usar poderes. Encheu o teto = <strong>Colapso</strong>: o corpo desliga, toma Injúria e o Stress zera.</p>
+            <p><strong>Stress</strong> é sanidade e gasolina ao mesmo tempo (máx = 6 + Vigor + Vínculo; Humano 8 + Vigor + Vínculo). Você o queima pra forçar dados e usar poderes. Encheu o teto = <strong>Colapso</strong>: o corpo desliga, toma Injúria e o Stress zera.</p>
 
             <h3>Como jogar (resumo)</h3>
             <p>Escolha uma <strong>Natureza</strong> (Humano, Infernal, Híbrido ou Demônio Puro), distribua <strong>22 pontos</strong> entre os 10 atributos (o que sobrar vira PM), calcule os recursos pelas fórmulas acima, escolha um Estilo de Luta e feche a lore. O passo a passo completo está na aba <strong>10. Criação</strong>.</p>
@@ -731,7 +731,7 @@
                 <div class="c-xs-12 c-sm-6">
                     <div class="info-card">
                         <h4 class="nature-color-humano">Humano</h4>
-                        <p>+2 Stress máx, +1 Vínculo, um Talismã, Contratos mais fáceis de encerrar e recuperação emocional eficiente.</p>
+                        <p>Stress máximo maior (8 + Vigor + Vínculo, contra base 6 das outras naturezas mortais), um Talismã, Contratos mais fáceis de encerrar e recuperação emocional eficiente.</p>
                         <p>Começa com 2 Habilidades Gerais + 1 Habilidade de Origem grátis. Sem poder sobrenatural enquanto não fechar um Contrato.</p>
                     </div>
                 </div>
@@ -853,7 +853,7 @@
             </ul>
 
             <h3>Estilo de Luta</h3>
-            <p>Passivo sempre ativo, sem custo e sem dado extra, que altera como o personagem causa ou recebe Injúrias, Stress e Aflições. Todo personagem escolhe 1 estilo na criação. <strong>São 12 estilos</strong>: Boxe, Estilo Livre, Espadachim, Atirador, Armas Pesadas, Caçador, Instintivo, Spetsnaz, Wrestling, Judô, Executor, Mãos da Guerra.</p>
+            <p>Passivo sempre ativo, sem custo e sem dado extra, que altera como o personagem causa ou recebe Injúrias, Stress e Aflições. Todo personagem escolhe 1 estilo na criação. <strong>São 12 estilos</strong>: Boxe, Estilo Livre, Espadachim, Pistoleiro, Armas Pesadas, Caçador, Instintivo, Spetsnaz, Wrestling, Judô, Executor, Mãos da Guerra.</p>
             <div class="quote-block">Detalhes mecânicos de cada um → <a href="vendinha.html" style="color: var(--cor-secundaria);">vendinha</a></div>
 
             <h3>Poderes & Contratos</h3>
@@ -1303,7 +1303,8 @@
 
             <h3>Stress Máximo</h3>
             <ul>
-                <li><strong>Humano/Infernal/Híbrido:</strong> 6 + Vigor + Vínculo</li>
+                <li><strong>Humano:</strong> 8 + Vigor + Vínculo</li>
+                <li><strong>Infernal/Híbrido:</strong> 6 + Vigor + Vínculo</li>
                 <li><strong>Demônio Puro:</strong> 4 + Vigor + atributo da Categoria de Medo (<strong>Primordial: 6</strong> + Vigor + Força)</li>
             </ul>
 
@@ -1710,6 +1711,14 @@
                     <div class="info-card">
                         <h4>7. Habilidades</h4>
                         <p>Escolhe habilidades de origem (da sua natureza) + habilidades gerais (universais). Custo padrão <strong>2 PM cada</strong>.</p>
+                        <p style="font-size: 0.9rem;"><strong>Grátis na criação</strong> (além dos poderes da natureza, sem custo de PM):</p>
+                        <ul style="padding-left: 18px; font-size: 0.9rem;">
+                            <li><strong>Humano:</strong> 2 Gerais + 1 de Origem</li>
+                            <li><strong>Infernal:</strong> 1 Geral + 1 de Origem + 1 Poder + 1 Sentido</li>
+                            <li><strong>Híbrido:</strong> 1 Geral + 1 de Origem + 1 Forma</li>
+                            <li><strong>Demônio Puro:</strong> 2 Poderes (+ extras dos Pontos de Idade)</li>
+                        </ul>
+                        <p style="color: var(--cor-secundaria); font-size: 0.85rem;">⚠️ As grátis também respeitam os requisitos de atributo. As marcadas "Requisito: —" não exigem nada.</p>
                         <p><a href="habilidades.html" style="color: var(--cor-secundaria);">→ Catálogo de Habilidades</a></p>
                     </div>
                 </div>
@@ -1772,7 +1781,7 @@ PM: 0
 
 ═══ RECURSOS ═══
 
-STRESS:            (6 + Vigor + Vínculo · Humano +2)
+STRESS:            (6 + Vigor + Vínculo · Humano: 8 + Vigor + Vínculo)
 ¥ (IENE):          (base 2.000 + procedência)
 DEFESA PASSIVA:    (5,5 × Coord ou Vigor, arred. p/ cima)
 MOVIMENTO:         (Coordenação × 2 m)
@@ -1883,6 +1892,7 @@ AFLIÇÕES:
 PODERES (2 ligados ao medo):
   1)
   2)
+ESTILO DE LUTA: (opcional — luta pelos Poderes; 1 dos 12 se o conceito pedir)
 HABILIDADES (Origem / Gerais):
 MARCAS NO MUNDO:
   Pessoas (contratos):
