@@ -706,7 +706,7 @@
     <main>
         <section class="hero">
             <h1>AFLIÇÕES</h1>
-            <p>Traumas físicos e mentais que marcam seu personagem além do dano puro. O d100 dá a <strong>gravidade</strong> (base) — a Mecânica-Mãe dá o peso, e a cena agrava.</p>
+            <p>Estado mais grave que a Injúria. O d100 dá a <strong>gravidade</strong> (base) — a Mecânica-Mãe dá o peso, e a cena agrava.</p>
         </section>
 
         <div class="container">
@@ -719,12 +719,12 @@
                 <div class="step">
                     <div class="step-num">1</div>
                     <h4>Mecânica-Mãe</h4>
-                    <p>O <strong>Mestre escolhe</strong> a das 6 que casa com a cena. É ela que morde — ninguém calcula −Xd10.</p>
+                    <p>O <strong>Mestre escolhe</strong> a que casa com a cena. É ela que aplica o efeito.</p>
                 </div>
                 <div class="step">
                     <div class="step-num">2</div>
                     <h4>Severidade</h4>
-                    <p>Role <strong>1d100</strong> pra ver o quão fundo morde. A situação sobe uma faixa.</p>
+                    <p>Role <strong>1d100</strong> para a faixa. A situação sobe uma faixa.</p>
                 </div>
                 <div class="step">
                     <div class="step-num">3</div>
@@ -734,7 +734,7 @@
             </div>
 
             <!-- 6 Mecânicas-Mãe -->
-            <h3 class="aff-block-title">As 6 Mecânicas-Mãe</h3>
+            <h3 class="aff-block-title">As Mecânicas-Mãe</h3>
             <div class="mech-grid">
                 <div class="mech-card fis">
                     <div class="mech-head">
@@ -802,6 +802,17 @@
                         <li><b>Profunda</b> sem Stress + perde 1 ação</li>
                     </ul>
                 </div>
+                <div class="mech-card men">
+                    <div class="mech-head">
+                        <span class="mech-icon">🔁</span>
+                        <div><div class="mech-name">Compulsão</div><div class="mech-tag">Mental · urgência imposta</div></div>
+                    </div>
+                    <ul class="mech-sev">
+                        <li><b>Branda</b> resistir custa +1 Stress</li>
+                        <li><b>Séria</b> resistir: +2 Stress e −3d10</li>
+                        <li><b>Profunda</b> Teste de Medo pra resistir, senão cede</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Severidade -->
@@ -840,6 +851,24 @@
                 <div class="aff-strip-card">
                     <h4>Profunda = Permanente</h4>
                     <p>Conviver · Cicatrizar (PM) · Domar, que vira poder com coleira. <a href="sumario.html">PM no sumário ↗</a></p>
+                </div>
+            </div>
+
+            <!-- Dreno (contextual) -->
+            <div class="aff-divider"></div>
+            <h3 class="aff-block-title">Aflição Contextual — só com Demônio em cena</h3>
+            <div class="mech-grid" style="grid-template-columns: 1fr; max-width: 640px;">
+                <div class="mech-card men" style="border-left-color: var(--cor-gold);">
+                    <div class="mech-head">
+                        <span class="mech-icon">👹</span>
+                        <div><div class="mech-name">Dreno</div><div class="mech-tag">o medo alimenta o demônio</div></div>
+                    </div>
+                    <ul class="mech-sev">
+                        <li><b>Branda</b> o demônio recupera 1 Injúria Leve/rodada (ou +1d10)</li>
+                        <li><b>Séria</b> recupera 1 Leve/rodada + +1d10 em tudo</li>
+                        <li><b>Profunda</b> +1 na Escala de Medo do demônio enquanto durar</li>
+                    </ul>
+                    <p style="margin-top:12px;">Sem demônio na cena, o Mestre usa outra mecânica.</p>
                 </div>
             </div>
 
