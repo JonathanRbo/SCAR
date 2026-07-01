@@ -941,10 +941,18 @@
         /* Ficha compacta no popover: atributos 2-col + caixas/fontes menores pra caber sem scroll */
         body.obr .section-box { padding: 12px !important; margin-bottom: 10px !important; }
         body.obr .section-title { font-size: 1rem; margin-bottom: 8px; }
-        /* Owlbear: resultado da rolagem vira POPUP fixo (não empurra a telinha) */
-        body.obr #ficha-resultado { display: none; position: fixed; left: 6px; right: 6px; bottom: 6px; z-index: 500; margin: 0 !important; padding: 14px !important; max-height: 64vh; overflow: auto; border: 1px solid var(--cor-secundaria); box-shadow: 0 -8px 30px rgba(0,0,0,0.85); }
+        /* Owlbear: aproveita a telinha — atributos em LISTA, card/recursos compactos, sem rodapé */
+        body.obr .fs-attrs { grid-template-columns: 1fr; gap: 5px; }
+        body.obr .fs-card { padding: 12px 13px; }
+        body.obr .fs-recursos { gap: 6px; }
+        body.obr .fs-rec { padding: 6px 9px; }
+        body.obr .fs-attr { padding: 9px 11px; }
+        body.obr .fs-sec-tit { margin: 12px 0 6px; }
+        body.obr .site-footer { display: none !important; }
+        /* Resultado da rolagem = bottom-sheet OPACO (não sobrepõe bagunçado) */
+        body.obr #ficha-resultado { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 600; margin: 0 !important; padding: 12px 14px 18px !important; max-height: 78vh; overflow: auto; background: #141414; border: none; border-top: 2px solid var(--cor-secundaria); border-radius: 16px 16px 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,0.92); }
         body.obr #ficha-resultado.aberto { display: block; }
-        .roll-close { float: right; background: var(--gradient-blood); color: #fff; border: none; border-radius: 8px; padding: 5px 11px; font-size: 0.85rem; cursor: pointer; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+        .roll-close { display: block; width: 100%; background: var(--gradient-blood); color: #fff; border: none; border-radius: 10px; padding: 9px; font-size: 0.95rem; cursor: pointer; font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; margin-bottom: 10px; }
         body.obr .ficha-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px; }
         body.obr .ficha-attr-row { padding: 5px 7px; gap: 5px; overflow: hidden; }
         body.obr .ficha-attr-row .nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.74rem; letter-spacing: 0; }
