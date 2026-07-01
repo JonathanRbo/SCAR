@@ -814,6 +814,13 @@
         .fs-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
         .fs-tag { font-size:0.78rem; background:rgba(0,0,0,0.35); border:1px solid var(--cor-borda); border-radius:20px; padding:3px 11px; color:var(--cor-texto, #eee); }
         .fs-txt { font-size:0.86rem; line-height:1.55; color:var(--cor-texto, #eee); white-space:pre-wrap; background:rgba(0,0,0,0.22); border-radius:8px; padding:8px 11px; }
+        .fs-track { display:flex; flex-direction:column; gap:6px; }
+        .fs-track-row { display:flex; align-items:center; gap:10px; background:rgba(0,0,0,0.28); border:1px solid var(--cor-borda); border-radius:8px; padding:7px 11px; }
+        .fs-track-row .tk-lbl { flex:1; font-size:0.85rem; color:var(--cor-texto, #eee); }
+        .fs-track-row .tk-max { font-size:0.78rem; color:var(--cor-texto-secundario, #aaa); min-width:34px; text-align:right; }
+        .fs-track-row .trk-ctrl { display:inline-flex; align-items:center; gap:8px; }
+        .fs-track-row .trk-ctrl button { width:30px; height:30px; border:none; border-radius:8px; background:var(--gradient-blood); color:#fff; font-size:1.2rem; line-height:1; cursor:pointer; font-family:'Bebas Neue',sans-serif; }
+        .fs-track-row .trk-ctrl b { min-width:20px; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:1.25rem; color:#fff; }
         .ficha-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
         @media (max-width:560px) { .ficha-grid { grid-template-columns:1fr; } }
         .ficha-attr-row, .ficha-buff-row {
@@ -1236,8 +1243,8 @@
 
                 <!-- Popover Owlbear: troca de visão por toque (sem precisar rolar a tela) -->
                 <div class="ficha-switch m-12-b">
+                    <button type="button" class="ficha-view-btn" data-view="stats" onclick="setFichaView('stats')">📊 Stats</button>
                     <button type="button" class="ficha-view-btn active" data-view="rolar" onclick="setFichaView('rolar')">🎲 Rolar</button>
-                    <button type="button" class="ficha-view-btn" data-view="bonus" onclick="setFichaView('bonus')">✨ Bônus</button>
                     <button type="button" class="ficha-view-btn" data-view="hab" onclick="setFichaView('hab')">📖 Habs</button>
                     <button type="button" class="ficha-view-btn" data-view="notas" onclick="setFichaView('notas')">📝 Notas</button>
                 </div>
@@ -2384,15 +2391,16 @@
         // Popover Owlbear: troca qual seção aparece (sem precisar rolar). Só age no modo obr.
         function setFichaView(v) {
             if (!document.body.classList.contains('obr')) return;
-            // Owlbear (tela pequena): uma seção por vez. O resultado da rolagem é popup (não entra aqui).
-            const vis = {
-                'ficha-sheet': v === 'rolar',
-                'ficha-bonus-box': v === 'bonus',
-                'ficha-habilidades-box': v === 'hab',
-                'ficha-notas-box': v === 'notas',
-                'ficha-import-box': v === 'notas',
-            };
-            for (const id in vis) { const el = document.getElementById(id); if (el) el.style.display = vis[id] ? '' : 'none'; }
+            // Owlbear (tela pequena): uma aba por vez. O resultado da rolagem é popup (não entra aqui).
+            const set = (id, s) => { const e = document.getElementById(id); if (e) e.style.display = s ? '' : 'none'; };
+            const sheetOn = (v === 'stats' || v === 'rolar');   // o card (com cabeçalho) aparece nessas duas
+            set('ficha-sheet', sheetOn);
+            set('fs-stats', v === 'stats');
+            set('fs-rolar', v === 'rolar');
+            set('ficha-bonus-box', v === 'rolar');       // Bônus mora junto do Rolar (ajuste do dado)
+            set('ficha-habilidades-box', v === 'hab');
+            set('ficha-notas-box', v === 'notas');
+            set('ficha-import-box', v === 'notas');       // trocar ficha fica na aba Anotação
             document.querySelectorAll('.ficha-view-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
         }
         function montarFichaAttrs() {
@@ -3096,6 +3104,10 @@
         }
         // ===== Ficha renderizada (só-leitura) — recebida do Criador =====
         let fichaData = null;
+        let fichaTrack = { stress: 0, injL: 0, injG: 0, injC: 0 };   // trackers editáveis em jogo (Stress/Injúrias sofridas)
+        let fichaMax = { stress: 0, injL: 0, injG: 0, injC: 0 };
+        function trkStep(key, d) { const max = fichaMax[key] || 0; fichaTrack[key] = Math.max(0, Math.min(max, (fichaTrack[key] || 0) + d)); localStorage.setItem('scar-ficha-track', JSON.stringify(fichaTrack)); const b = document.getElementById('trk-' + key); if (b) { b.textContent = fichaTrack[key]; b.style.color = fichaTrack[key] >= max && max > 0 ? '#e74c3c' : ''; } }
+        function carregarTrack() { try { const r = localStorage.getItem('scar-ficha-track'); if (r) fichaTrack = Object.assign({ stress: 0, injL: 0, injG: 0, injC: 0 }, JSON.parse(r)); } catch (e) {} }
         function renderFichaSheet() {
             const el = document.getElementById('ficha-sheet'); if (!el) return;
             const d = fichaData;
@@ -3124,29 +3136,41 @@
             const estilo = (Array.isArray(d.estilos) && d.estilos.length) ? d.estilos.join(' · ') : d.estilo;
             const listaQtd = o => o ? Object.keys(o).filter(k => o[k] > 0).map(k => k.replace(/ \*$/, '') + (o[k] > 1 ? ' ×' + o[k] : '')) : [];
             const compras = listaQtd(d.compras), marcasList = listaQtd(d.marcas);
+            // tracker editável em jogo (Stress e Injúrias sofridas) — tetos vêm da ficha
+            fichaMax = { stress: (typeof stress === 'number' ? stress : 0), injL, injG, injC };
+            const trkRow = (key, lbl, max) => `<div class="fs-track-row"><span class="tk-lbl">${lbl}</span><span class="trk-ctrl"><button type="button" onclick="trkStep('${key}',-1)">−</button><b id="trk-${key}">${fichaTrack[key] || 0}</b><button type="button" onclick="trkStep('${key}',1)">+</button></span><span class="tk-max">/ ${max}</span></div>`;
+            const trackerHtml = `<div class="fs-track">${trkRow('stress', 'Stress', fichaMax.stress)}${trkRow('injL', 'Inj. Leve', injL)}${trkRow('injG', 'Inj. Grave', injG)}${trkRow('injC', 'Crítica', injC)}</div>`;
             el.innerHTML = `<div class="fs-card">
-                <div class="fs-nome">${d.nome || 'Sem nome'}</div>
-                <div class="fs-sub">${[d.natureza, d.idade, d.conceito].filter(Boolean).join(' · ')}</div>
-                ${linha('Falha Central', d.falha)}${linha('Ligação', d.ligacao)}
-                <div class="fs-sec-tit">Recursos</div>
-                <div class="fs-recursos">
-                    <div class="fs-rec"><div class="k">Stress máx</div><div class="v">${stress}</div></div>
-                    <div class="fs-rec"><div class="k">Injúrias L/G/C</div><div class="v">${injL} / ${injG} / ${injC}</div></div>
-                    <div class="fs-rec"><div class="k">Defesa esq/enc</div><div class="v">${defEsq} / ${defEnc}</div></div>
-                    <div class="fs-rec"><div class="k">Movimento</div><div class="v">${mov} m</div></div>
-                    <div class="fs-rec"><div class="k">Carga</div><div class="v">${carga}</div></div>
-                    ${(d.pmTotal != null && !ehDem) ? `<div class="fs-rec"><div class="k">PM</div><div class="v">${d.pmTotal}</div></div>` : ''}
+                <div id="fs-header">
+                    <div class="fs-nome">${d.nome || 'Sem nome'}</div>
+                    <div class="fs-sub">${[d.natureza, d.idade, d.conceito].filter(Boolean).join(' · ')}</div>
+                    ${linha('Falha Central', d.falha)}${linha('Ligação', d.ligacao)}
                 </div>
-                ${(ehDem && d.medoEscala != null) ? `<p class="fs-sub" style="margin-top:6px">👹 Escala de Medo ${d.medoEscala > 0 ? '+' : ''}${d.medoEscala} — atributos e status já escalados.</p>` : ''}
-                <div class="fs-sec-tit">Atributos</div>
-                <div class="fs-attrs">${attrsHtml}</div>
-                ${(estilo || d.armamento) ? `<div class="fs-sec-tit">Combate</div>${linha('Estilo(s)', estilo)}${linha('Armamento', d.armamento)}` : ''}
-                ${habNomes.length ? `<div class="fs-sec-tit">Habilidades (${habNomes.length})</div><div class="fs-tags">${habNomes.map(n => `<span class="fs-tag">${n}</span>`).join('')}</div>` : ''}
-                ${compras.length ? `<div class="fs-sec-tit">Poderes & Evolução (PM)</div><div class="fs-tags">${compras.map(c => `<span class="fs-tag">${c}</span>`).join('')}</div>` : ''}
-                ${marcasList.length ? `<div class="fs-sec-tit">Marcas</div><div class="fs-tags">${marcasList.map(c => `<span class="fs-tag">${c}</span>`).join('')}</div>` : ''}
-                ${txt('Talismã', d.talisma)}${txt('Sonhos', d.sonhos)}
-                ${txt('Marcas deixadas', d.marcasDeixadas)}${txt('Portas para o Inferno', d.portas)}
-                ${txt('Poderes / Contratos', d.poderes)}${txt('Aflições', d.aflicoes)}
+                <div id="fs-rolar">
+                    <div class="fs-sec-tit">Atributos <span style="opacity:.55;font-size:.7rem;font-family:Roboto">· toque pra rolar</span></div>
+                    <div class="fs-attrs">${attrsHtml}</div>
+                </div>
+                <div id="fs-stats">
+                    <div class="fs-sec-tit">Recursos</div>
+                    <div class="fs-recursos">
+                        <div class="fs-rec"><div class="k">Stress máx</div><div class="v">${stress}</div></div>
+                        <div class="fs-rec"><div class="k">Injúrias L/G/C</div><div class="v">${injL} / ${injG} / ${injC}</div></div>
+                        <div class="fs-rec"><div class="k">Defesa esq/enc</div><div class="v">${defEsq} / ${defEnc}</div></div>
+                        <div class="fs-rec"><div class="k">Movimento</div><div class="v">${mov} m</div></div>
+                        <div class="fs-rec"><div class="k">Carga</div><div class="v">${carga}</div></div>
+                        ${(d.pmTotal != null && !ehDem) ? `<div class="fs-rec"><div class="k">PM</div><div class="v">${d.pmTotal}</div></div>` : ''}
+                    </div>
+                    ${(ehDem && d.medoEscala != null) ? `<p class="fs-sub" style="margin-top:6px">👹 Escala de Medo ${d.medoEscala > 0 ? '+' : ''}${d.medoEscala} — atributos e status já escalados.</p>` : ''}
+                    <div class="fs-sec-tit">Em jogo <span style="opacity:.55;font-size:.7rem;font-family:Roboto">· edite na sessão</span></div>
+                    ${trackerHtml}
+                    ${(estilo || d.armamento) ? `<div class="fs-sec-tit">Combate</div>${linha('Estilo(s)', estilo)}${linha('Armamento', d.armamento)}` : ''}
+                    ${habNomes.length ? `<div class="fs-sec-tit">Habilidades (${habNomes.length})</div><div class="fs-tags">${habNomes.map(n => `<span class="fs-tag">${n}</span>`).join('')}</div>` : ''}
+                    ${compras.length ? `<div class="fs-sec-tit">Poderes & Evolução (PM)</div><div class="fs-tags">${compras.map(c => `<span class="fs-tag">${c}</span>`).join('')}</div>` : ''}
+                    ${marcasList.length ? `<div class="fs-sec-tit">Marcas</div><div class="fs-tags">${marcasList.map(c => `<span class="fs-tag">${c}</span>`).join('')}</div>` : ''}
+                    ${txt('Talismã', d.talisma)}${txt('Sonhos', d.sonhos)}
+                    ${txt('Marcas deixadas', d.marcasDeixadas)}${txt('Portas para o Inferno', d.portas)}
+                    ${txt('Poderes / Contratos', d.poderes)}${txt('Aflições', d.aflicoes)}
+                </div>
             </div>`;
             atualizarVisibilidadeFicha();
         }
@@ -3173,6 +3197,7 @@
             } else {   // site: tudo empilhado
                 if (sw) sw.style.display = 'none';
                 jogo.forEach(id => set(id, true));
+                set('fs-stats', true); set('fs-rolar', true);
                 set('ficha-resultado', true);
             }
         }
@@ -3228,7 +3253,8 @@
                 if (typeof renderBuffSumario === 'function') renderBuffSumario();
                 if (typeof salvarFichaLocal === 'function') salvarFichaLocal();
                 fichaData = data;
-                try { localStorage.setItem('scar-ficha-full', JSON.stringify(data)); } catch (e) {}
+                fichaTrack = { stress: 0, injL: 0, injG: 0, injC: 0 };   // ficha nova → zera trackers de sessão
+                try { localStorage.setItem('scar-ficha-full', JSON.stringify(data)); localStorage.setItem('scar-ficha-track', JSON.stringify(fichaTrack)); } catch (e) {}
                 if (typeof renderFichaSheet === 'function') renderFichaSheet();
                 if (hint) hint.textContent = '✓ Ficha "' + (data.nome || 'sem nome') + '" carregada!';
             } catch (e) { if (hint) hint.textContent = '⚠ Erro ao importar: ' + e.message; }
@@ -3475,6 +3501,7 @@
         setupFichaImport();
         try { const rawFull = localStorage.getItem('scar-ficha-full'); if (rawFull) fichaData = JSON.parse(rawFull); } catch (e) {}
         carregarNotas();
+        carregarTrack();
         renderFichaSheet();
     </script>
 
