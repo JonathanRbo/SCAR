@@ -797,6 +797,9 @@
         .fs-card { border:1px solid var(--cor-borda); border-left:4px solid var(--cor-secundaria); border-radius:14px; padding:18px 20px; margin-bottom:14px;
             background:linear-gradient(135deg, color-mix(in srgb, var(--cor-secundaria) 9%, var(--cor-fundo-card, #141414)) 0%, var(--cor-fundo-card, #141414) 60%, color-mix(in srgb, var(--cor-secundaria) 4%, var(--cor-fundo-card, #141414)) 100%); }
         .fs-nome { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:1px; color:#fff; line-height:1.1; }
+        .fs-head-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+        .fs-trocar { flex-shrink:0; background:rgba(0,0,0,0.4); border:1px solid var(--cor-borda); color:var(--cor-texto-secundario, #aaa); border-radius:8px; padding:6px 11px; font-size:0.78rem; cursor:pointer; white-space:nowrap; font-family:'Roboto',sans-serif; }
+        .fs-trocar:hover { border-color:var(--cor-secundaria); color:var(--cor-secundaria); }
         .fs-sub { font-size:0.82rem; color:var(--cor-texto-secundario, #aaa); margin-top:2px; }
         .fs-sec-tit { font-family:'Bebas Neue',sans-serif; letter-spacing:2px; color:var(--cor-secundaria); font-size:0.95rem; margin:16px 0 8px; }
         .fs-recursos { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:8px; }
@@ -1031,10 +1034,6 @@
 <body class="p-30-t p-30-lr xs-p-15-t xs-p-15-lr" style="overflow-x: hidden;">
     <div class="container">
         <!-- Aviso/atalho só dentro do Owlbear: o popover mobile não rola, então oferece abrir no navegador -->
-        <div class="obr-only m-10-b">
-            <button class="btn btn-secondary border-rd-8 p-10-tb w-100 fs-5" onclick="window.open('https://jonathanrbo.github.io/SCAR/dice-roller.html','_blank')">↗ Abrir no navegador (versão completa)</button>
-        </div>
-
         <!-- Botão Voltar -->
         <div class="m-20-b obr-hide">
             <a href="index.html" class="btn-back">
@@ -3150,9 +3149,11 @@
             const trackerHtml = `<div class="fs-track">${trkRow('stress', 'Stress', fichaMax.stress)}${trkRow('injL', 'Inj. Leve', injL)}${trkRow('injG', 'Inj. Grave', injG)}${trkRow('injC', 'Crítica', injC)}</div>`;
             el.innerHTML = `<div class="fs-card">
                 <div id="fs-header">
-                    <div class="fs-nome">${d.nome || 'Sem nome'}</div>
+                    <div class="fs-head-top">
+                        <div class="fs-nome">${d.nome || 'Sem nome'}</div>
+                        <button type="button" class="fs-trocar" onclick="document.getElementById('ficha-file').click()" title="Carregar outra ficha .md">🔄 Trocar</button>
+                    </div>
                     <div class="fs-sub">${[d.natureza, d.idade, d.conceito].filter(Boolean).join(' · ')}</div>
-                    ${linha('Falha Central', d.falha)}${linha('Ligação', d.ligacao)}
                 </div>
                 <div id="fs-rolar">
                     <div class="fs-sec-tit">Atributos <span style="opacity:.55;font-size:.7rem;font-family:Roboto">· toque pra rolar</span></div>
@@ -3164,6 +3165,7 @@
                     ${(estilo || d.armamento) ? `<div class="fs-sec-tit">Combate</div>${linha('Estilo(s)', estilo)}${linha('Armamento', d.armamento)}` : ''}
                 </div>
                 <div id="fs-ficha">
+                    ${linha('Falha Central', d.falha)}${linha('Ligação', d.ligacao)}
                     <div class="fs-sec-tit">Recursos</div>
                     <div class="fs-recursos">
                         <div class="fs-rec"><div class="k">Stress máx</div><div class="v">${stress}</div></div>
