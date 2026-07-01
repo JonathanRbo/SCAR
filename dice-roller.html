@@ -948,12 +948,13 @@
         /* Ficha compacta no popover: atributos 2-col + caixas/fontes menores pra caber sem scroll */
         body.obr .section-box { padding: 12px !important; margin-bottom: 10px !important; }
         body.obr .section-title { font-size: 1rem; margin-bottom: 8px; }
-        /* Owlbear: aproveita a telinha — atributos em LISTA, card/recursos compactos, sem rodapé */
-        body.obr .fs-attrs { grid-template-columns: 1fr; gap: 5px; }
+        /* Owlbear: aproveita a telinha — atributos em GRID 2 colunas compacto, card/recursos justos, sem rodapé */
+        body.obr .fs-attrs { grid-template-columns: 1fr 1fr; gap: 5px; }
+        body.obr .fs-attr { padding: 7px 9px; }
+        body.obr .fs-attr .n { font-size: 0.74rem; }
         body.obr .fs-card { padding: 12px 13px; }
         body.obr .fs-recursos { gap: 6px; }
         body.obr .fs-rec { padding: 6px 9px; }
-        body.obr .fs-attr { padding: 9px 11px; }
         body.obr .fs-sec-tit { margin: 12px 0 6px; }
         body.obr .site-footer { display: none !important; }
         /* Resultado da rolagem = bottom-sheet OPACO (não sobrepõe bagunçado) */
@@ -1243,10 +1244,10 @@
 
                 <!-- Popover Owlbear: troca de visão por toque (sem precisar rolar a tela) -->
                 <div class="ficha-switch m-12-b">
-                    <button type="button" class="ficha-view-btn" data-view="stats" onclick="setFichaView('stats')">📊 Stats</button>
                     <button type="button" class="ficha-view-btn active" data-view="rolar" onclick="setFichaView('rolar')">🎲 Rolar</button>
-                    <button type="button" class="ficha-view-btn" data-view="hab" onclick="setFichaView('hab')">📖 Habs</button>
-                    <button type="button" class="ficha-view-btn" data-view="notas" onclick="setFichaView('notas')">📝 Notas</button>
+                    <button type="button" class="ficha-view-btn" data-view="bonus" onclick="setFichaView('bonus')">✨ Bônus</button>
+                    <button type="button" class="ficha-view-btn" data-view="emjogo" onclick="setFichaView('emjogo')">⚔️ Em Jogo</button>
+                    <button type="button" class="ficha-view-btn" data-view="ficha" onclick="setFichaView('ficha')">📋 Ficha</button>
                 </div>
 
                 <!-- Ficha renderizada (só-leitura) — preenchida ao arrastar o .md do Criador -->
@@ -2393,14 +2394,16 @@
             if (!document.body.classList.contains('obr')) return;
             // Owlbear (tela pequena): uma aba por vez. O resultado da rolagem é popup (não entra aqui).
             const set = (id, s) => { const e = document.getElementById(id); if (e) e.style.display = s ? '' : 'none'; };
-            const sheetOn = (v === 'stats' || v === 'rolar');   // o card (com cabeçalho) aparece nessas duas
-            set('ficha-sheet', sheetOn);
-            set('fs-stats', v === 'stats');
+            const cardOn = (v === 'rolar' || v === 'emjogo' || v === 'ficha');   // o card (com cabeçalho) aparece nessas
+            set('ficha-sheet', cardOn);
+            set('fs-header', cardOn);
             set('fs-rolar', v === 'rolar');
-            set('ficha-bonus-box', v === 'rolar');       // Bônus mora junto do Rolar (ajuste do dado)
-            set('ficha-habilidades-box', v === 'hab');
-            set('ficha-notas-box', v === 'notas');
-            set('ficha-import-box', v === 'notas');       // trocar ficha fica na aba Anotação
+            set('fs-emjogo', v === 'emjogo');
+            set('fs-ficha', v === 'ficha');
+            set('ficha-bonus-box', v === 'bonus');            // Bônus + Habilidades juntos (o que altera a rolagem)
+            set('ficha-habilidades-box', v === 'bonus');
+            set('ficha-notas-box', v === 'ficha');            // Anotações e trocar ficha ficam na aba Ficha
+            set('ficha-import-box', v === 'ficha');
             document.querySelectorAll('.ficha-view-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
         }
         function montarFichaAttrs() {
@@ -3150,7 +3153,12 @@
                     <div class="fs-sec-tit">Atributos <span style="opacity:.55;font-size:.7rem;font-family:Roboto">· toque pra rolar</span></div>
                     <div class="fs-attrs">${attrsHtml}</div>
                 </div>
-                <div id="fs-stats">
+                <div id="fs-emjogo">
+                    <div class="fs-sec-tit">Em jogo <span style="opacity:.55;font-size:.7rem;font-family:Roboto">· edite na sessão</span></div>
+                    ${trackerHtml}
+                    ${(estilo || d.armamento) ? `<div class="fs-sec-tit">Combate</div>${linha('Estilo(s)', estilo)}${linha('Armamento', d.armamento)}` : ''}
+                </div>
+                <div id="fs-ficha">
                     <div class="fs-sec-tit">Recursos</div>
                     <div class="fs-recursos">
                         <div class="fs-rec"><div class="k">Stress máx</div><div class="v">${stress}</div></div>
@@ -3161,9 +3169,6 @@
                         ${(d.pmTotal != null && !ehDem) ? `<div class="fs-rec"><div class="k">PM</div><div class="v">${d.pmTotal}</div></div>` : ''}
                     </div>
                     ${(ehDem && d.medoEscala != null) ? `<p class="fs-sub" style="margin-top:6px">👹 Escala de Medo ${d.medoEscala > 0 ? '+' : ''}${d.medoEscala} — atributos e status já escalados.</p>` : ''}
-                    <div class="fs-sec-tit">Em jogo <span style="opacity:.55;font-size:.7rem;font-family:Roboto">· edite na sessão</span></div>
-                    ${trackerHtml}
-                    ${(estilo || d.armamento) ? `<div class="fs-sec-tit">Combate</div>${linha('Estilo(s)', estilo)}${linha('Armamento', d.armamento)}` : ''}
                     ${habNomes.length ? `<div class="fs-sec-tit">Habilidades (${habNomes.length})</div><div class="fs-tags">${habNomes.map(n => `<span class="fs-tag">${n}</span>`).join('')}</div>` : ''}
                     ${compras.length ? `<div class="fs-sec-tit">Poderes & Evolução (PM)</div><div class="fs-tags">${compras.map(c => `<span class="fs-tag">${c}</span>`).join('')}</div>` : ''}
                     ${marcasList.length ? `<div class="fs-sec-tit">Marcas</div><div class="fs-tags">${marcasList.map(c => `<span class="fs-tag">${c}</span>`).join('')}</div>` : ''}
@@ -3197,7 +3202,7 @@
             } else {   // site: tudo empilhado
                 if (sw) sw.style.display = 'none';
                 jogo.forEach(id => set(id, true));
-                set('fs-stats', true); set('fs-rolar', true);
+                ['fs-header', 'fs-rolar', 'fs-emjogo', 'fs-ficha'].forEach(id => set(id, true));
                 set('ficha-resultado', true);
             }
         }
