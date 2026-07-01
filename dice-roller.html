@@ -941,7 +941,10 @@
         /* Ficha compacta no popover: atributos 2-col + caixas/fontes menores pra caber sem scroll */
         body.obr .section-box { padding: 12px !important; margin-bottom: 10px !important; }
         body.obr .section-title { font-size: 1rem; margin-bottom: 8px; }
-        body.obr #ficha-resultado { padding: 14px !important; }
+        /* Owlbear: resultado da rolagem vira POPUP fixo (não empurra a telinha) */
+        body.obr #ficha-resultado { display: none; position: fixed; left: 6px; right: 6px; bottom: 6px; z-index: 500; margin: 0 !important; padding: 14px !important; max-height: 64vh; overflow: auto; border: 1px solid var(--cor-secundaria); box-shadow: 0 -8px 30px rgba(0,0,0,0.85); }
+        body.obr #ficha-resultado.aberto { display: block; }
+        .roll-close { float: right; background: var(--gradient-blood); color: #fff; border: none; border-radius: 8px; padding: 5px 11px; font-size: 0.85rem; cursor: pointer; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
         body.obr .ficha-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 6px; }
         body.obr .ficha-attr-row { padding: 5px 7px; gap: 5px; overflow: hidden; }
         body.obr .ficha-attr-row .nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.74rem; letter-spacing: 0; }
@@ -1226,9 +1229,9 @@
                 <!-- Popover Owlbear: troca de visão por toque (sem precisar rolar a tela) -->
                 <div class="ficha-switch m-12-b">
                     <button type="button" class="ficha-view-btn active" data-view="rolar" onclick="setFichaView('rolar')">🎲 Rolar</button>
-                    <button type="button" class="ficha-view-btn" data-view="combate" onclick="setFichaView('combate')">⚔️ Combate</button>
                     <button type="button" class="ficha-view-btn" data-view="bonus" onclick="setFichaView('bonus')">✨ Bônus</button>
-                    <button type="button" class="ficha-view-btn" data-view="hab" onclick="setFichaView('hab')">📖 Habilidades</button>
+                    <button type="button" class="ficha-view-btn" data-view="hab" onclick="setFichaView('hab')">📖 Habs</button>
+                    <button type="button" class="ficha-view-btn" data-view="notas" onclick="setFichaView('notas')">📝 Notas</button>
                 </div>
 
                 <!-- Ficha renderizada (só-leitura) — preenchida ao arrastar o .md do Criador -->
@@ -2373,13 +2376,13 @@
         // Popover Owlbear: troca qual seção aparece (sem precisar rolar). Só age no modo obr.
         function setFichaView(v) {
             if (!document.body.classList.contains('obr')) return;
+            // Owlbear (tela pequena): uma seção por vez. O resultado da rolagem é popup (não entra aqui).
             const vis = {
-                'ficha-attrs-box': v === 'rolar',
-                'ficha-resultado': v === 'rolar',
-                'ficha-estilo-box': v === 'combate',
-                'ficha-arma-box': v === 'combate',
+                'ficha-sheet': v === 'rolar',
                 'ficha-bonus-box': v === 'bonus',
                 'ficha-habilidades-box': v === 'hab',
+                'ficha-notas-box': v === 'notas',
+                'ficha-import-box': v === 'notas',
             };
             for (const id in vis) { const el = document.getElementById(id); if (el) el.style.display = vis[id] ? '' : 'none'; }
             document.querySelectorAll('.ficha-view-btn').forEach(b => b.classList.toggle('active', b.dataset.view === v));
@@ -3142,12 +3145,30 @@
         // Vazio → só o "colocar ficha". Com ficha → esconde o construtor em branco e mostra a ficha + controles de jogo.
         function atualizarVisibilidadeFicha() {
             const loaded = !!(fichaData && (fichaData.nome || fichaData.atributos));
+            const obr = document.body.classList.contains('obr');
+            const set = (id, show) => { const e = document.getElementById(id); if (e) e.style.display = show ? '' : 'none'; };
             // construtor em branco (definição) some sempre — a ficha bonita cobre isso
-            ['ficha-basicos-box', 'ficha-attrs-box', 'ficha-estilo-box', 'ficha-arma-box', 'ficha-export-box'].forEach(id => { const e = document.getElementById(id); if (e) e.style.display = 'none'; });
-            // controles de jogo, anotações e o upload aparecem só com ficha carregada
-            ['ficha-bonus-box', 'ficha-habilidades-box', 'ficha-resultado', 'ficha-import-box', 'ficha-notas-box'].forEach(id => { const e = document.getElementById(id); if (e) e.style.display = loaded ? '' : 'none'; });
-            const sw = document.querySelector('.ficha-switch'); if (sw) sw.style.display = 'none';
+            ['ficha-basicos-box', 'ficha-attrs-box', 'ficha-estilo-box', 'ficha-arma-box', 'ficha-export-box'].forEach(id => set(id, false));
+            const sw = document.querySelector('.ficha-switch');
+            const jogo = ['ficha-sheet', 'ficha-bonus-box', 'ficha-habilidades-box', 'ficha-import-box', 'ficha-notas-box'];
+            if (!loaded) {   // vazio: só o dropzone
+                jogo.forEach(id => set(id, id === 'ficha-sheet'));
+                set('ficha-resultado', false);
+                if (sw) sw.style.display = 'none';
+                return;
+            }
+            if (obr) {   // Owlbear: 4 botões, uma seção por vez (o resultado é popup)
+                if (sw) sw.style.display = '';
+                set('ficha-resultado', true);   // limpa display inline → CSS controla (escondido até .aberto)
+                const a = document.querySelector('.ficha-view-btn.active');
+                setFichaView(a ? a.dataset.view : 'rolar');
+            } else {   // site: tudo empilhado
+                if (sw) sw.style.display = 'none';
+                jogo.forEach(id => set(id, true));
+                set('ficha-resultado', true);
+            }
         }
+        function fecharRollPopup() { const r = document.getElementById('ficha-resultado'); if (r) r.classList.remove('aberto'); }
         function salvarNotas() { const t = document.getElementById('ficha-notas'); if (t) localStorage.setItem('scar-ficha-notas', t.value); }
         function carregarNotas() { const t = document.getElementById('ficha-notas'); if (t) t.value = localStorage.getItem('scar-ficha-notas') || ''; }
         function wireFsDrop() {
@@ -3400,6 +3421,11 @@
                     ${statusBanners ? `<div class="roll-status">${statusBanners}</div>` : ''}
                 </div>
             `;
+            // Owlbear: resultado aparece como popup fixo (com botão de fechar), sem empurrar a telinha
+            if (document.body.classList.contains('obr')) {
+                container.classList.add('aberto');
+                container.insertAdjacentHTML('afterbegin', '<button class="roll-close" onclick="fecharRollPopup()">✕ fechar</button>');
+            }
 
             // Transmite (Owlbear/online): nome do personagem + qtd de dados + valores crus + total = anti-trapaça
             const tipo = personagem ? `${attr} · ${personagem}` : attr;
