@@ -185,6 +185,7 @@
             position: relative;
             margin-bottom: 40px;
             padding: 0 0 0 82px;
+            min-height: 290px; /* garante espinha alta o bastante pro rótulo vertical */
         }
         .category-section[data-mode]:not(.active-mode) {
             display: none !important;
@@ -200,7 +201,7 @@
             border-left-width: 4px;
             border-left-style: solid;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
             position: absolute;
             left: 0;
@@ -233,12 +234,14 @@
         .category-section .category-header h2 {
             writing-mode: vertical-rl;
             transform: rotate(180deg);
-            letter-spacing: 7px;
+            letter-spacing: 3px;
             margin: 0;
-            font-size: 1.55rem;
+            font-size: 1rem;
             font-family: 'Bebas Neue', sans-serif;
-            white-space: nowrap;
-            line-height: 1;
+            white-space: normal;      /* rótulos com espaço quebram em 2 colunas em vez de serem cortados */
+            text-align: center;
+            line-height: 1.2;
+            max-height: calc(100% - 32px); /* respeita as linhas decorativas topo/base */
             text-shadow: 0 0 20px var(--nat-color, var(--cor-secundaria));
             filter: brightness(1.1);
         }
@@ -354,6 +357,7 @@
         @media (max-width: 768px) {
             .category-section {
                 padding-left: 0 !important;
+                min-height: auto; /* sem espinha no mobile, sem espaço vazio */
             }
             .category-section .category-header {
                 position: static !important;
@@ -366,6 +370,8 @@
                 transform: none;
                 letter-spacing: 5px;
                 font-size: 1.6rem;
+                white-space: normal;
+                max-height: none;
             }
             .category-topics > .subcategory-header {
                 font-size: 0.95rem;
@@ -618,6 +624,7 @@
         .category-section[data-origin="infernal"]  { --nat-color: #E74C3C; }
         .category-section[data-origin="hibrido"]   { --nat-color: #9B59B6; }
         .category-section[data-origin="demonio"]   { --nat-color: #9B59B6; }
+        .category-section[data-origin="poderes"]   { --nat-color: var(--gold); }
         .category-section[data-category] .category-header,
         .category-section[data-origin] .category-header { border-color: var(--nat-color); }
         .category-section[data-category] .category-header h2,
@@ -876,6 +883,187 @@
             position: relative;
             z-index: 1;
         }
+
+        /* ===== Cards fundidos: número + explicação (accordion) ===== */
+        .tipo-card.gerais  { --nat-color: #DC143C; }
+        .tipo-card.origem  { --nat-color: #9B59B6; }
+        .tipo-card.poderes { --nat-color: var(--gold); }
+
+        .tipo-card {
+            height: 100%;
+            min-height: 210px;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg,
+                color-mix(in srgb, var(--nat-color) 8%, var(--cor-fundo-card)) 0%,
+                var(--cor-fundo-card) 60%,
+                color-mix(in srgb, var(--nat-color) 4%, var(--cor-fundo-card)) 100%);
+            border: 1px solid var(--cor-borda);
+            border-left: 4px solid var(--nat-color);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+        .tipo-card::before {
+            content: attr(data-glyph);
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            font-size: 8rem;
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--nat-color);
+            opacity: 0.06;
+            line-height: 1;
+            pointer-events: none;
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        .tipo-card:hover {
+            border-color: var(--nat-color);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.45),
+                        0 0 24px color-mix(in srgb, var(--nat-color) 20%, transparent);
+        }
+        .tipo-card.open {
+            border-color: var(--nat-color);
+        }
+        .tipo-card.open::before {
+            opacity: 0.12;
+            transform: scale(1.08) rotate(-3deg);
+        }
+
+        /* Cabeçalho clicável = o número */
+        .tipo-head {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 22px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            position: relative;
+            z-index: 1;
+        }
+        .tipo-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.4rem;
+            line-height: 0.9;
+            color: var(--nat-color);
+            text-shadow: 0 0 18px color-mix(in srgb, var(--nat-color) 45%, transparent);
+            min-width: 70px;
+            text-align: center;
+        }
+        .tipo-meta { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+        .tipo-label {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 3px;
+            font-size: 1.15rem;
+            color: var(--nat-color);
+        }
+        .tipo-sub {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: var(--cor-texto-secundario);
+        }
+        .tipo-chevron {
+            font-size: 1.1rem;
+            color: var(--nat-color);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        }
+        .tipo-card.open .tipo-chevron { transform: rotate(180deg); }
+
+        /* Corpo expansível */
+        .tipo-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+        .tipo-card.open .tipo-body { grid-template-rows: 1fr; }
+        .tipo-body-inner {
+            overflow: hidden;
+            min-height: 0;
+        }
+        .tipo-body-inner .criterio-desc {
+            margin: 0 24px;
+            padding: 20px 0 26px;
+            border-top: 1px solid color-mix(in srgb, var(--nat-color) 15%, transparent);
+        }
+
+        /* Chips com a quebra dos números — sempre visíveis */
+        .tipo-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 24px 4px;
+            position: relative;
+            z-index: 1;
+        }
+        .tipo-chip {
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            color: var(--cor-texto-secundario);
+            background: color-mix(in srgb, var(--nat-color) 10%, transparent);
+            border: 1px solid color-mix(in srgb, var(--nat-color) 25%, transparent);
+            border-radius: 20px;
+            padding: 4px 11px;
+            white-space: nowrap;
+        }
+        .tipo-chip b { color: var(--nat-color); font-weight: 700; }
+
+        /* Dica de "clique para abrir" dentro do card */
+        .tipo-toggle-hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: auto;
+            padding: 14px 24px 18px;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--nat-color);
+            opacity: 0.65;
+            position: relative;
+            z-index: 1;
+        }
+        .tipo-card.open .tipo-toggle-hint { opacity: 0; height: 0; padding: 0; margin: 0; overflow: hidden; }
+
+        /* ===== Formatação herdada do Sumário (textos e ideias) ===== */
+        /* Subtítulo com barra vermelha — igual ao h3 do sumário (classe dedicada, não vaza nos cards) */
+        .scar-h3 {
+            color: var(--cor-texto);
+            margin: 30px 0 14px;
+            font-size: 1.35rem;
+            padding: 10px 18px;
+            background: linear-gradient(90deg,
+                rgba(220,20,60,0.12) 0%,
+                rgba(220,20,60,0.04) 40%,
+                transparent 100%);
+            border-left: 4px solid var(--cor-secundaria);
+            border-radius: 0 4px 4px 0;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 3px;
+        }
+        .scar-h3::before {
+            content: '▸';
+            color: var(--cor-secundaria);
+            margin-right: 10px;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+        /* Parágrafo de leitura confortável — igual ao do sumário */
+        .scar-text {
+            line-height: 1.75;
+            margin: 10px auto 16px;
+            max-width: 820px;
+            color: rgba(245, 245, 245, 0.88);
+        }
+        .scar-text strong { color: var(--cor-texto); font-weight: 600; }
+        /* .info-card não tem padding no CSS compartilhado — replica o do sumário */
+        .info-card { padding: 24px; height: 100%; }
+        .info-card h4 { margin: 0 0 8px; font-size: 1.15rem; font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; }
+        .info-card p { color: var(--cor-texto-secundario); font-size: 0.92rem; line-height: 1.65; margin: 0; }
     </style>
 </head>
 <body>
@@ -927,44 +1115,143 @@
         </div>
     </div>
 
-    <main class="p-100-t xs-p-80-t">
+    <main>
 
-        <section class="container p-60-tb text-center">
-            <h1 class="fs-16 fw-700" style="color: var(--cor-secundaria);">HABILIDADES</h1>
-            <p class="fs-10 m-20-t opacity-7" style="max-width: 800px; margin-left: auto; margin-right: auto;">
-                <strong>179 habilidades</strong> divididas em <strong style="color: var(--cor-secundaria);">Gerais</strong> (111 universais em Físico, Mental, Social) e <strong style="color: #9B59B6;">De Origem</strong> (68 exclusivas: Humano, Infernal, Híbrido, Demônio Puro).
+        <section class="scar-hero">
+            <h1 class="wow fadeInUp">HABILIDADES</h1>
+            <p class="text-center m-40-b m-auto-lr fs-6 lh-1-7 w-600px" style="color: var(--cor-texto-secundario);">
+                Todo personagem monta a ficha a partir destes três grupos. Toque num card para ver como cada um funciona.
             </p>
-            <div class="summary-row">
-                <div class="summary-card total"><span class="big-number">179</span><h4>Total</h4></div>
-                <div class="summary-card gerais"><span class="big-number">111</span><h4>Gerais</h4></div>
-                <div class="summary-card origem"><span class="big-number">68</span><h4>De Origem</h4></div>
-            </div>
         </section>
 
         <section class="container p-30-tb">
-            <h2 class="fs-12 text-center m-40-b" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif; letter-spacing: 4px;">Dois Tipos de Habilidade</h2>
             <div class="row gap-20">
-                <div class="c-xs-12 c-md-6">
-                    <div class="criterio-card gerais" data-glyph="G">
-                        <h4 class="criterio-title">HABILIDADES GERAIS</h4>
-                        <p class="criterio-desc">
-                            <strong style="color: var(--cor-texto);">Universais.</strong> Qualquer natureza pega: o que você sabe fazer por treino e carreira. <strong>111 habilidades</strong> em Físico (41) · Mental (36) · Social (34). <strong>2 PM</strong> cada.
-                        </p>
+                <div class="c-xs-12 c-md-4">
+                    <div class="tipo-card gerais" data-glyph="G">
+                        <button class="tipo-head" type="button" aria-expanded="false">
+                            <span class="tipo-num">111</span>
+                            <span class="tipo-meta">
+                                <span class="tipo-label">Gerais</span>
+                                <span class="tipo-sub">O que qualquer um aprende no treino e na vida. Toda natureza pega.</span>
+                            </span>
+                            <span class="tipo-chevron" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="tipo-chips">
+                            <span class="tipo-chip">Físico <b>41</b></span>
+                            <span class="tipo-chip">Mental <b>36</b></span>
+                            <span class="tipo-chip">Social <b>34</b></span>
+                            <span class="tipo-chip"><b>2 PM</b> cada</span>
+                        </div>
+                        <span class="tipo-toggle-hint">Clique para detalhes <span aria-hidden="true">▾</span></span>
+                        <div class="tipo-body">
+                            <div class="tipo-body-inner">
+                                <p class="criterio-desc">
+                                    <strong style="color: var(--cor-texto);">Universais.</strong> São perícias e talentos que qualquer personagem pode comprar — não dependem de você ser humano, demônio ou híbrido. Representam o que você treinou na vida: lutar, investigar, convencer. Custam <strong>2 PM</strong> cada.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="c-xs-12 c-md-6">
-                    <div class="criterio-card origem" data-glyph="O">
-                        <h4 class="criterio-title">HABILIDADES DE ORIGEM</h4>
-                        <p class="criterio-desc">
-                            <strong style="color: var(--cor-texto);">Exclusivas da sua natureza.</strong> Vêm da carne, do sangue ou do conceito que você é. <strong>68 habilidades:</strong> Humano (14) · Infernal (17) · Híbrido (18) · Demônio Puro (19 Poderes). <strong>2 PM</strong> cada.
-                        </p>
+                <div class="c-xs-12 c-md-4">
+                    <div class="tipo-card origem" data-glyph="O">
+                        <button class="tipo-head" type="button" aria-expanded="false">
+                            <span class="tipo-num">68</span>
+                            <span class="tipo-meta">
+                                <span class="tipo-label">De Origem</span>
+                                <span class="tipo-sub">Vêm da carne, do sangue ou do conceito que você é. Só a sua natureza pega.</span>
+                            </span>
+                            <span class="tipo-chevron" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="tipo-chips">
+                            <span class="tipo-chip">Humano <b>14</b></span>
+                            <span class="tipo-chip">Infernal <b>17</b></span>
+                            <span class="tipo-chip">Híbrido <b>18</b></span>
+                            <span class="tipo-chip">Demônio <b>19</b></span>
+                        </div>
+                        <span class="tipo-toggle-hint">Clique para detalhes <span aria-hidden="true">▾</span></span>
+                        <div class="tipo-body">
+                            <div class="tipo-body-inner">
+                                <p class="criterio-desc">
+                                    <strong style="color: var(--cor-texto);">Exclusivas da sua natureza.</strong> Cada espécie desbloqueia habilidades que ninguém mais alcança. Um Demônio Puro nunca compra as de Humano, e vice-versa. São <strong>68 no total</strong>, divididas por origem, e custam <strong>2 PM</strong> cada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-4">
+                    <div class="tipo-card poderes" data-glyph="P">
+                        <button class="tipo-head" type="button" aria-expanded="false">
+                            <span class="tipo-num">∞</span>
+                            <span class="tipo-meta">
+                                <span class="tipo-label">Sobrenaturais</span>
+                                <span class="tipo-sub">Do contrato ou do demônio. Não é lista fechada — pode ser qualquer coisa.</span>
+                            </span>
+                            <span class="tipo-chevron" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="tipo-chips">
+                            <span class="tipo-chip">Efeito único</span>
+                            <span class="tipo-chip">Custo em Stress</span>
+                            <span class="tipo-chip">Um preço</span>
+                        </div>
+                        <span class="tipo-toggle-hint">Clique para detalhes <span aria-hidden="true">▾</span></span>
+                        <div class="tipo-body">
+                            <div class="tipo-body-inner">
+                                <p class="criterio-desc">
+                                    <strong style="color: var(--cor-texto);">Do contrato ou do demônio.</strong> Não existe uma lista pronta: seu poder pode ser o que a história pedir. Os exemplos servem de molde e mostram <strong>como</strong> um poder é construído — um efeito único, um custo em Stress e sempre um <strong>preço</strong> a pagar.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <hr class="secao-divider">
+
+        <!-- COMO FUNCIONA UMA HABILIDADE -->
+        <section class="container p-30-tb">
+            <h2 class="scar-section-header fs-13">Como Ler uma Habilidade</h2>
+
+            <div class="quote-block">
+                <strong style="color: var(--cor-secundaria);">Nenhum poder é de graça.</strong> Você sempre paga em sangue, em Stress ou num pedaço de quem você era. Toda ficha — das mais simples às mais brutais — segue o mesmo esqueleto: aprenda a ler uma e você lê todas as 179.
+            </div>
+
+            <h3 class="scar-h3">A anatomia de uma Habilidade</h3>
+            <div class="row gap-30 f-items-center m-20-t">
+                <div class="c-xs-12 c-md-5">
+                    <div class="skill-card fisico">
+                        <h4 class="skill-name">Caçador Paciente <span class="skill-pm">3 PM</span></h4>
+                        <div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 6, Coordenação 5</div>
+                        <div class="skill-prereq"><span class="skill-label">Requer:</span> Tiro de Precisão</div>
+                        <div class="skill-field"><span class="skill-label">Efeito:</span> 1 turno mirando → próximo tiro: <strong>+2d10</strong>, <strong>+12 fixo</strong> ou <strong>ignora metade da Passiva</strong></div>
+                        <div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress · 1x/cena</div>
+                        <div class="skill-field"><span class="skill-label">Rebote:</span> errar = -1d10 Coordenação até o fim do combate</div>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-7">
+                    <table class="stat-table">
+                        <thead><tr><th>Campo</th><th>O que significa</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>PM</strong></td><td>O preço de compra. Gerais e Origem custam 2 PM; as mais fortes pedem 3 ou 4.</td></tr>
+                            <tr><td><strong>Requisito</strong></td><td>O mínimo de atributo pra pegar. Sem ele, nem entra na ficha.</td></tr>
+                            <tr><td><strong>Requer</strong></td><td>A árvore: as fortes só existem se você já pagou pelas anteriores.</td></tr>
+                            <tr><td><strong>Efeito</strong></td><td>O que ela faz na mesa — o motivo de você tê-la.</td></tr>
+                            <tr><td><strong>Custo</strong></td><td>O combustível. Quase tudo queima Stress a cada uso.</td></tr>
+                            <tr><td><strong>Rebote</strong></td><td>O tiro pela culatra: falhar ou abusar cobra caro.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <hr class="secao-divider">
 
         <!-- TOGGLE MODE: GERAIS / ORIGEM -->
         <section class="container p-30-tb">
+            <h2 class="fs-12 text-center m-15-b" style="color: var(--cor-secundaria); font-family: 'Bebas Neue', sans-serif; letter-spacing: 4px;">Ver o Catálogo Completo</h2>
+            <p class="text-center m-40-b m-auto-lr fs-6 lh-1-7 w-600px" style="color: var(--cor-texto-secundario);">
+                Escolha um tipo abaixo para listar todas as habilidades, uma a uma.
+            </p>
             <div class="mode-toggle-wrapper">
                 <button class="mode-btn" data-mode="gerais">
                     HABILIDADES GERAIS
@@ -973,6 +1260,10 @@
                 <button class="mode-btn" data-mode="origem">
                     DE ORIGEM
                     <span class="mode-count">68</span>
+                </button>
+                <button class="mode-btn" data-mode="poderes">
+                    SOBRENATURAIS
+                    <span class="mode-count">∞</span>
                 </button>
             </div>
             <div class="mode-empty-state" id="mode-empty">
@@ -986,13 +1277,13 @@
             <h3 class="subcategory-header">Combate <span class="subcategory-count">15 habilidades</span></h3>
             <div class="row gap-20">
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Golpe Decisivo</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Força 4 ou Coordenação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Vencer confronto por 10+ → +1 estágio de Injúria</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div><div class="skill-note">Funciona com qualquer arma.</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Atirador <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> <strong>+10 fixo</strong> em ataques à distância</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Stress ao errar</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Atirador <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> <strong>+10 fixo</strong> à distância; ao ferir, <strong>marca o alvo</strong> — contra ele seus tiros ignoram cobertura leve por <strong>1d[Percepção] rodadas</strong></div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Stress ao errar</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Postura de Combate</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Força 3 ou Vigor 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Início da cena: <strong>Ofensiva</strong> (+1d10 atk, -1d10 def) ou <strong>Defensiva</strong> (+1d10 def, -1d10 atk)</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Contra-Ataque Brutal</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4, Força 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Defender com sucesso → revida com +1d10</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress (1x/rd)</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Tiro de Precisão</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 4, Coordenação 5</div><div class="skill-field"><span class="skill-label">Efeito:</span> Ignora armadura parcial e cobertura leve</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Sequência Devastadora</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Força 6, Coordenação 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Golpe Decisivo</div><div class="skill-field"><span class="skill-label">Efeito:</span> Cada acerto consecutivo no mesmo alvo dá <strong>+5 fixo</strong> no teste seguinte (acumula); o <strong>3º acerto consecutivo ignora a redução de armadura</strong> do alvo</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Tiro de Precisão</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 4, Coordenação 5</div><div class="skill-field"><span class="skill-label">Efeito:</span> Ignora armadura parcial e cobertura leve; cada acerto reduz a <strong>Defesa Passiva do alvo em −5</strong> (cumulativo na cena)</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Sequência Devastadora</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Força 6, Coordenação 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Golpe Decisivo</div><div class="skill-field"><span class="skill-label">Efeito:</span> Cada acerto consecutivo no mesmo alvo dá <strong>+5 fixo</strong> no teste seguinte (acumula); o <strong>3º acerto consecutivo ignora a redução de armadura</strong> do alvo <strong>e trata a Passiva dele pela metade</strong></div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Quebra-Ossos</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Força 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Golpe Decisivo</div><div class="skill-field"><span class="skill-label">Efeito:</span> Injúria Grave → alvo -1d10 em testes físicos até curar</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Caçador Paciente <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 6, Coordenação 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Tiro de Precisão</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1 turno mirando → próximo tiro: <strong>+2d10</strong> ou <strong>+12 fixo</strong></div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress · 1x/cena</div><div class="skill-field"><span class="skill-label">Rebote:</span> errar = -1d10 Coord até fim do combate</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Caçador Paciente <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 6, Coordenação 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Tiro de Precisão</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1 turno mirando → próximo tiro: <strong>+2d10</strong>, <strong>+12 fixo</strong> ou <strong>ignora metade da Passiva</strong></div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress · 1x/cena</div><div class="skill-field"><span class="skill-label">Rebote:</span> errar = -1d10 Coord até fim do combate</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Maestria em Combate <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Força 6 ou Coordenação 6</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Golpe Decisivo</div><div class="skill-field"><span class="skill-label">Efeito:</span> Escolha c.a.c OU à distância: <strong>+10 fixo</strong></div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Stress por ataque</div><div class="skill-field"><span class="skill-label">Rebote:</span> errar 2 seguidos = Aflição "Frustração"</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Técnica Mortal <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Força 7 ou Coordenação 7</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Maestria em Combate</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1x/combate, "Golpe Mortal" <strong>corpo a corpo OU à distância</strong>: o ataque causa <strong>+2 estágios</strong> de Injúria</div><div class="skill-field"><span class="skill-label">Custo:</span> 5 Stress · 1x/combate</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Reflexo de Batalha <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 7, Percepção 6</div><div class="skill-field"><span class="skill-label">Efeito:</span> Reage a qualquer ataque visível sem custo adicional</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
@@ -1004,12 +1295,12 @@
 
             <h3 class="subcategory-header">Mobilidade & Defesa <span class="subcategory-count">13 habilidades</span></h3>
             <div class="row gap-20">
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Movimento Calculado</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Reposiciona sem gerar reação inimiga</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Fluxo</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Move-se sem gerar reação; <strong>1x/rd troca de lugar com um aliado</strong> (tira ele da linha de fogo)</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Reação Extra</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1 ação reativa (esquiva, aparagem, mov def)</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress · 1x/rd</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Reflexo Antecipado</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> <strong>Não fica Sem Defesa contra o 1º ataque de emboscada/surpresa</strong> (reage com a sua Passiva normalmente)</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Defensor Natural</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4, Coordenação 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1d10 em todos testes defensivos</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Aparagem Mestra</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 5, Força 3</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Defensor Natural</div><div class="skill-field"><span class="skill-label">Efeito:</span> <strong>+10 fixo</strong> em aparagem</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Muralha Viva</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 6, Força 4</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Defensor Natural</div><div class="skill-field"><span class="skill-label">Efeito:</span> Bloqueia ataques destinados a aliados adjacentes</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress por bloqueio</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Reflexo Antecipado</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> <strong>Não fica Sem Defesa contra o 1º ataque de emboscada/surpresa</strong> (reage com a sua Passiva normalmente) <strong>e a reação a esse ataque ganha +1d10</strong></div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Inabalável</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4, Coordenação 3</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Reflexo Antecipado</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1d10 em todos testes defensivos <strong>e nunca fica Sem Defesa passiva</strong> (surpresa, escuro, cercado)</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Aparagem Mestra</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 5, Força 3</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Inabalável</div><div class="skill-field"><span class="skill-label">Efeito:</span> <strong>+10 fixo</strong> em aparagem; ao aparar c.a.c, o atacante fica <strong>exposto (−10 Passiva)</strong> na próxima troca</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Muralha Viva</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 6, Força 4</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Inabalável</div><div class="skill-field"><span class="skill-label">Efeito:</span> Bloqueia ataques destinados a aliados adjacentes</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress por bloqueio</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Esquiva Perfeita <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 6</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Reflexo Antecipado</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1x/cena: esquiva automática (sem rolar)</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Esquiva Impossível <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 6, Percepção 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Esquiva Perfeita</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1x/cena, esquiva por completo de UM ataque em área/explosão (escapa sem sofrer nada)</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress · 1x/cena</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Reflexos Sobre-Humanos <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 6, Percepção 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Esquiva Perfeita</div><div class="skill-field"><span class="skill-label">Efeito:</span> Sempre age primeiro (iniciativa automática)</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
@@ -1026,7 +1317,7 @@
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Pele Dura</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Postura de Impacto OU Dor Conhecida</div><div class="skill-field"><span class="skill-label">Efeito:</span> Escolhe <strong>1 tipo de dano</strong> (corte, impacto ou balístico): contra ele, <strong>−1 nível de Injúria sempre</strong></div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Postura de Impacto</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1x/cena: reduz Injúria em 1 estágio (Crítica→Grave→Leve)</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Adrenalina Pura</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Dor Conhecida</div><div class="skill-field"><span class="skill-label">Efeito:</span> Sofrer Injúria Grave → +1d10 físicos por 2 rd</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Recuperação Acelerada</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Corpo Condicionado</div><div class="skill-field"><span class="skill-label">Efeito:</span> Descansar → +1d5 Stress adicional</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Segundo Fôlego</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Corpo Condicionado</div><div class="skill-field"><span class="skill-label">Efeito:</span> Descanso completo → <strong>+1d5+atributo</strong> Stress; <strong>1x/cena recupera 1d5 Stress em combate</strong></div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Ficar de Pé <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 5, ≥1 Injúria Grave</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Dor Conhecida</div><div class="skill-field"><span class="skill-label">Efeito:</span> Age normalmente por 1 cena mesmo incapacitado</div><div class="skill-field"><span class="skill-label">Custo:</span> Grave automática ao fim · 1x/missão</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Tanque Humano <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 6, Força 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Graves tratadas como Leves pra penalidades</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card fisico"><h4 class="skill-name">Indestrutível <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 7</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Tanque Humano</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1ª Crítica da missão vira Grave</div><div class="skill-field"><span class="skill-passive">Passivo · 1x/missão</span></div></div></div>
@@ -1048,7 +1339,7 @@
 
             <h3 class="subcategory-header">Vontade & Foco <span class="subcategory-count">7 habilidades</span></h3>
             <div class="row gap-20">
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Frieza Profissional</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Autoridade 4 ou Investigação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Ignora próximo ganho de Stress psicológico</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Frieza Profissional</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Autoridade 4 ou Investigação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Ignora próximo ganho de Stress psicológico; <strong>sem Aflição, +1d10 para agir sob caos/pressão</strong></div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Vontade Inabalável</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 5, Vínculo 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Não pode ser forçado a fugir ou desistir por efeitos mentais</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Ignorar o Medo</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Autoridade 4, enfrentou demônio Veterano+</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1x/cena, ao <strong>falhar um Teste de Medo</strong>, ignora o debuff dele e ganha <strong>+1d10 na próxima ação</strong></div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress + risco de Aflição · 1x/cena</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Plano Rápido</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1x/cena, <strong>age sem a penalidade de improviso</strong> (trata uma ação improvisada como se fosse planejada)</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress · 1x/cena</div></div></div>
@@ -1076,7 +1367,7 @@
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Bússola Interna</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 3, Investigação 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Nunca se perde; <strong>1x/sessão o Mestre aponta a rota mais segura ou mais rápida</strong> por um lugar desconhecido</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Arrepio na Nuca</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 3, Vigor 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Antes de área perigosa, Mestre avisa "algo está errado"</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Nariz de Cão</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Rastreia criaturas em terreno difícil. Demônios: +5 DT. Primordiais: +15 DT</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Furtividade Adaptativa</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Malandragem 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1d10 em furtividade em qualquer ambiente</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Furtividade Adaptativa</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Malandragem 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1d10 em furtividade em qualquer ambiente; <strong>1x/cena some e reposiciona sem teste</strong> (quem te perdeu não te reencontra na mesma rodada)</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Roubei e Dirigi</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Tecnologia 3, Coordenação 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Pilota qualquer terrestre sem penalidade. Aquáticos/aéreos: -1d10</div><div class="skill-field"><span class="skill-passive">Passivo</span></div><div class="skill-note">Básico universal; o Humano tem a versão melhor (Graxa nas Mãos).</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Não Morre Ainda</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 2, Vínculo 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Estabiliza aliado com Crítica por 1 cena (não cura, previne morte)</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Sumiu</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Malandragem 4, Coordenação 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Mal vs Perc dos perseguidores. Vencer = desaparece</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div></div></div>
@@ -1090,7 +1381,7 @@
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Raio-X do Inimigo</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 3, Percepção 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1 rd observando → 1 info mecânica (atributo, injúrias, estilo)</div><div class="skill-field"><span class="skill-label">Brecha:</span> cada rodada observando = +5 persistente no alvo</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Nunca Esqueço</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Lembra detalhes exatos de qualquer cena, doc ou conversa</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Enciclopédia do Horror <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 4, Percepção 3</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Já Vi Esse Bicho</div><div class="skill-field"><span class="skill-label">Efeito:</span> Demônios fortes (Medo +3 a +5) e Primordiais. Até 3 infos</div><div class="skill-field"><span class="skill-label">Brecha:</span> +5 persistente por info revelada (até +15 de uma vez)</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Calcanhar de Aquiles <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 5, Tecnologia 3</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Enciclopédia do Horror</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1 contramedida vira a Brecha contra ele → demônio sofre <strong>-1d10 + toda a Brecha acumulada</strong> em todos os testes enquanto a contramedida se mantém no campo</div><div class="skill-field"><span class="skill-label">Escalada:</span> cada análise nova empilha +5 (-1d10 e -5, -10, -15…, sem teto)</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Calcanhar de Aquiles <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 5, Tecnologia 3</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Enciclopédia do Horror</div><div class="skill-field"><span class="skill-label">Efeito:</span> 1 contramedida vira a Brecha contra ele → demônio sofre <strong>-1d10 + toda a Brecha acumulada</strong> em todos os testes enquanto a contramedida se mantém no campo; a Brecha acumulada também <strong>vira −Passiva no mesmo valor</strong> (abre o alvo pro grupo)</div><div class="skill-field"><span class="skill-label">Escalada:</span> cada análise nova empilha +5 (-1d10 e -5, -10, -15…, sem teto)</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Sabe Demais <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 5</div><div class="skill-field"><span class="skill-label">Efeito:</span> Pergunta sobre lore oculta. Investigação DT conforme a pergunta = verdade</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress + risco · 1x/sessão</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Cartógrafo do Inferno <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 5, Percepção 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Enciclopédia do Horror</div><div class="skill-field"><span class="skill-label">Efeito:</span> Conexão Porta→demônio, +10 fixo orientação no Inferno</div><div class="skill-field"><span class="skill-label">Rebote:</span> 1d10 (1-3 = demônio Maduro+ se interessa)</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card mental"><h4 class="skill-name">Leitura Forense <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 3, Percepção 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Toca objeto/marca/cena e <strong>lê o que aconteceu ali</strong> (Inv DT conforme o vestígio): quem usou ou deixou, quando, em que contexto e — em Marcas do Demônio — qual demônio, há quanto tempo e se ainda está ativo</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div></div></div>
@@ -1111,7 +1402,7 @@
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Coordenação de Equipe</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Autoridade 4</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Voz de Comando</div><div class="skill-field"><span class="skill-label">Efeito:</span> <strong>Ação combinada</strong> com 1 aliado: vocês unem dois ataques para um efeito conjunto que nenhum faria sozinho (derrubar + imobilizar, distrair + executar, etc.)</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress (dura a rodada)</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Inspirar Aliados</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 5, Autoridade 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Aliados próximos recuperam 1d5 Stress</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress · 1x/combate</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Plano de Emergência</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Tecnologia 3, Investigação 2</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Plano Rápido</div><div class="skill-field"><span class="skill-label">Efeito:</span> Aliados que seguirem: +1d10</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress · 1x/cena</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Comandante de Campo</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Autoridade 6</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Coordenação de Equipe</div><div class="skill-field"><span class="skill-label">Efeito:</span> Aliados próximos: +1d10 em defesas</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Comandante de Campo</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Autoridade 6</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Coordenação de Equipe</div><div class="skill-field"><span class="skill-label">Efeito:</span> Aliados próximos <strong>não ficam Sem Defesa passiva</strong> (surpresa, escuro, cercado)</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Líder Natural</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Autoridade 5, Vínculo 4</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Inspirar Aliados</div><div class="skill-field"><span class="skill-label">Efeito:</span> Enquanto você está <strong>de pé e lutando, aliados que te veem não fogem nem entram em pânico</strong></div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Mestre Estrategista <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Requisito:</span> Investigação 6, Autoridade 5, Percepção 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Plano de Emergência + Coordenação de Equipe</div><div class="skill-field"><span class="skill-label">Efeito:</span> Distribui +10 fixo entre aliados (máx +10/aliado, total +20). Redistribui iniciativa</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress · 1x/combate</div><div class="skill-field"><span class="skill-label">Rebote:</span> age após todos aliados</div></div></div>
             </div>
@@ -1120,7 +1411,7 @@
             <div class="row gap-20">
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Mentira Convincente</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Malandragem 4, Negociação 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Mentira simples tratada como verdade até confrontada</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Olhar que Quebra</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Autoridade 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Inimigo +1 Stress ao te encarar. Humanos/Recém-Nascidos podem fugir</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress (fuga); +1 Stress passivo</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Negociador Experiente</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Negociação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1d10 em persuasão/barganha fora de combate</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">O Fechador</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Negociação 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1d10 em persuasão/barganha fora de combate; <strong>1x/sessão o Mestre diz até onde dá pra empurrar</strong> sem quebrar o acordo</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Onde Dói</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Negociação 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Conhecendo um <strong>segredo/ferida do alvo</strong>, força <strong>1 concessão sem rolar</strong> (ou ele paga em Stress para recusar)</div><div class="skill-field"><span class="skill-passive">Passivo</span></div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Leitura de Pessoas</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 4, Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Detecta mentiras óbvias. Após 1 min: 1 info (emoção, medo, motivação, armado?)</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress (info extra)</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card social"><h4 class="skill-name">Reputação</h4><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 3 OU Autoridade 5, passado conhecido</div><div class="skill-field"><span class="skill-label">Efeito:</span> Escolha <strong>Herói ou Terror</strong> na criação: <strong>+10 fixo</strong> em testes sociais quando o alvo conhece seu passado <em>(respeita o teto da Troca Equivalente)</em></div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress</div></div></div>
@@ -1180,7 +1471,7 @@
             <div class="row gap-20">
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Cara de Ninguém <span class="skill-pm">1 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Demônios e Infernais não te marcam como alvo prioritário enquanto você não agir de forma hostil ou sobrenatural. +1d10 para se misturar e passar despercebido entre gente</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">A Graça de Ser Comum <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> —</div><div class="skill-field"><span class="skill-label">Efeito:</span> No 1º turno de combate, um inimigo sobrenatural que te vê como "só humano" não usa Defesa Ativa contra você (pega a guarda baixa)</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Âncora de Humanidade <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ação · 1x/cena</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Toca um Híbrido ou Infernal aliado em surto (Grilhões, possessão, fúria) e dá a ele um teste extra com +1d10 para recuperar o controle</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Âncora de Humanidade <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ação · 1x/cena</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Toca um Híbrido ou Infernal aliado em surto (A Fera, possessão, fúria) e dá a ele um teste extra com +1d10 para recuperar o controle</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Última Bala <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação · 1x/missão</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Age normalmente por 1 cena mesmo incapacitado</div><div class="skill-field"><span class="skill-label">Rebote:</span> Injúria Grave automática ao fim da cena</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Não Vou Cair Aqui ⚠️ <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação · 1x/arco</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 5</div><div class="skill-prereq"><span class="skill-label">Requer:</span> Última Bala</div><div class="skill-field"><span class="skill-label">Efeito:</span> Quando sofreria morte certa, permanece vivo por 1 cena inteira</div><div class="skill-field"><span class="skill-label">Rebote:</span> +1 Aflição permanente obrigatória ao fim</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Vontade de Gente <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação · 1x/sessão</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Quando um Vínculo seu corre risco de morte na sua frente, você age além do limite: ganha 1 ação extra com +2d10, sem custo de Stress</div></div></div>
@@ -1247,24 +1538,24 @@
         <section class="container p-30-tb category-section" data-origin="hibrido">
             <div class="category-header">
                 <h2>ORIGEM · HÍBRIDO</h2>
-                <p><strong>18 habilidades</strong>: aqui o poder custa <strong>Grilhões</strong> e controle, não Stress.</p>
+                <p><strong>18 habilidades</strong>: aqui o poder custa <strong>Stress</strong> e controle; um Colapso em Profunda pode soltar <strong>A Fera</strong>.</p>
             </div>
 
             <h3 class="subcategory-header">O Acordo <span class="subcategory-count">5 habilidades</span></h3>
             <div class="row gap-20">
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Arma Viva <span class="skill-pm">1 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Força 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Seu corpo conta como uma arma branca à sua escolha, sem penalidade de improviso. Ataca com Força ou Coordenação</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Transição Suave <span class="skill-pm">1 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Coordenação 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Transformar ou destransformar não gasta ação</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Barganha Interna <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ação livre · 1x/rodada</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Ganha +2d10 numa ação física, mas sobe +1 Grilhão imediatamente</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Dar Rédea ⚠️ <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ativa por 1 cena · 1x/dia</div><div class="skill-field"><span class="skill-label">Requisito:</span> Força 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1d10 em todos os testes físicos e ignora a penalidade de Injúria Leve durante a cena</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Grilhão por rodada ativa; o Mestre pode acionar os Grilhões livremente enquanto durar</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Cobrar de Volta <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ação Principal</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Remove 2 Grilhões de uma vez</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress e −1d10 em testes físicos por 1 rodada (o demônio emburra)</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Barganha Interna <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ação livre · 1x/rodada</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Ganha +2d10 numa ação física, mas queima +1 Stress imediatamente</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Dar Rédea ⚠️ <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ativa por 1 cena · 1x/dia</div><div class="skill-field"><span class="skill-label">Requisito:</span> Força 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> +1d10 em todos os testes físicos e ignora a penalidade de Injúria Leve durante a cena</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Stress por rodada ativa</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Cobrar de Volta <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ação Principal</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Recupera 1d7 Stress; até o fim da cena, seu próximo Colapso não dispara A Fera</div><div class="skill-field"><span class="skill-label">Custo:</span> Ação Principal e −1d10 em testes físicos por 1 rodada</div></div></div>
             </div>
 
             <h3 class="subcategory-header">As Duas Vozes <span class="subcategory-count">4 habilidades</span></h3>
             <div class="row gap-20">
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Faro do Abismo <span class="skill-pm">1 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Sente a presença de Demônios, Híbridos e Infernais a média distância (20–100 m)</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">A Voz que Sabe <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação · 1x/cena</div><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Faça 1 pergunta sobre um demônio ou medo presente; o Mestre responde uma verdade útil</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Grilhão (ouvir demais aproxima vocês)</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Instinto Emprestado <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação · 1x/cena</div><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Anula uma emboscada ou ataque surpresa contra você (vira ataque normal, com você reagindo)</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Grilhão</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Dívida de Sangue <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Cura 1 Injúria Leve (ou Grave → Leve gastando a Reação inteira)</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Grilhão por uso</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">A Voz que Sabe <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação · 1x/cena</div><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Faça 1 pergunta sobre um demônio ou medo presente; o Mestre responde uma verdade útil</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Stress</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Instinto Emprestado <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação · 1x/cena</div><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Anula uma emboscada ou ataque surpresa contra você (vira ataque normal, com você reagindo)</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Stress</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Dívida de Sangue <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Cura 1 Injúria Leve (ou Grave → Leve gastando a Reação inteira)</div><div class="skill-field"><span class="skill-label">Custo:</span> +1 Stress por uso</div></div></div>
             </div>
 
             <h3 class="subcategory-header">Identidade Dual <span class="subcategory-count">5 habilidades</span></h3>
@@ -1273,20 +1564,20 @@
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Corpo Entre Mundos <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 3, Vínculo 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Usa Vigor no lugar de Vínculo para resistir a efeitos mentais e ao Medo</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Sangue de Dois Mundos <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Seus ataques contam como dano humano e demoníaco ao mesmo tempo — ignora resistência que só protege contra um dos tipos</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Espelho do Inimigo <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação</div><div class="skill-field"><span class="skill-label">Requisito:</span> Percepção 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Copia 1 efeito menor de um poder que testemunhou nesta cena (dura até o fim da cena)</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress por uso</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Síntese Imperfeita ⚠️ <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo (criação narrativa)</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4, Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Cria 1 poder único que mistura aspecto humano e demoníaco, desenhado com o Mestre</div><div class="skill-field"><span class="skill-label">Rebote:</span> Aprovação do Mestre + 1 Grilhão permanente</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Síntese Imperfeita ⚠️ <span class="skill-pm">4 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo (criação narrativa)</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vigor 4, Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Cria 1 poder único que mistura aspecto humano e demoníaco, desenhado com o Mestre</div><div class="skill-field"><span class="skill-label">Rebote:</span> Aprovação do Mestre; o poder custa +1 Stress a mais por uso, permanente</div></div></div>
             </div>
 
             <h3 class="subcategory-header">O Fio que te Segura <span class="subcategory-count">4 habilidades</span></h3>
             <div class="row gap-20">
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Equilíbrio Instável <span class="skill-pm">1 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 2</div><div class="skill-field"><span class="skill-label">Efeito:</span> Recupera +1 Stress sempre que ajuda um aliado de forma significativa</div></div></div>
-                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Âncora Humana <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Com um aliado com quem você tem Vínculo por perto, os testes para resistir aos Grilhões ou à possessão ganham +1d10</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Âncora Humana <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Passivo</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 3</div><div class="skill-field"><span class="skill-label">Efeito:</span> Com um aliado com quem você tem Vínculo por perto, os testes para resistir a A Fera ou à possessão ganham +1d10</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Sincronia <span class="skill-pm">2 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Ativa enquanto sustentada</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Escolhe 1 aliado: ambos recebem +5 fixo enquanto lutarem juntos na mesma área</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress (dura a cena)</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Recusa Compartilhada <span class="skill-pm">3 PM</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Reação · 1x/sessão</div><div class="skill-field"><span class="skill-label">Requisito:</span> Vínculo 4</div><div class="skill-field"><span class="skill-label">Efeito:</span> Quando a Recusa da Morte dispararia, um Vínculo presente te chama de volta: você revive sem o −10 acumulativo dessa vez</div></div></div>
             </div>
 
             <h3 class="subcategory-header">Formas de Transformação <span class="subcategory-count">exemplos · escolha ou crie 1 grátis</span></h3>
             <div class="row gap-20">
-                <div class="c-xs-12"><div class="skill-card"><h4 class="skill-name">Como transformar</h4><div class="skill-field">A Forma é o seu Poder de transformação — entrar nela conta como "usar poder demoníaco" (mexe nos Grilhões). As Formas abaixo são <strong>exemplos</strong>: escolha uma ou crie a sua com o Mestre, no mesmo nível de poder.</div><div class="skill-field"><span class="skill-label">Entrar / sair:</span> Ação de Movimento (livre com Transição Suave) · 2 Stress · +1 Grilhão · dura a cena</div><div class="skill-field"><span class="skill-label">Empurrar:</span> 1x/cena · +1 Grilhão → +2d10 numa ação (Barganha Interna destrava a cada rodada)</div><div class="skill-field"><span class="skill-label">Forma Completa (6 PM):</span> efeito dobra + 2º traço · +1 Grilhão/rodada</div></div></div>
+                <div class="c-xs-12"><div class="skill-card"><h4 class="skill-name">Como transformar</h4><div class="skill-field">A Forma é o seu Poder de transformação — entrar nela conta como "usar poder demoníaco" (queima Stress). As Formas abaixo são <strong>exemplos</strong>: escolha uma ou crie a sua com o Mestre, no mesmo nível de poder.</div><div class="skill-field"><span class="skill-label">Entrar / sair:</span> Ação de Movimento (livre com Transição Suave) · 2 Stress · dura a cena</div><div class="skill-field"><span class="skill-label">Empurrar:</span> 1x/cena · +1 Stress → +2d10 numa ação (Barganha Interna destrava a cada rodada)</div><div class="skill-field"><span class="skill-label">Forma Completa (6 PM):</span> efeito dobra + 2º traço · +1 Stress/rodada</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Lâminas / Garras</h4><div class="skill-field"><span class="skill-label">Efeito:</span> Membros viram lâminas ósseas: c.a.c +1d10 e sangramento (+2 Stress/rd no alvo); pode arremessar a lâmina (curta dist.) e aparar 1 golpe branco/rodada. Ataca com Força ou Coordenação</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Couraça</h4><div class="skill-field"><span class="skill-label">Efeito:</span> Pele vira casca/quitina: 1x/rodada, uma Injúria recebida cai −1 nível. Não acumula com armadura física (vale a maior). −1 Coordenação no estado</div></div></div>
                 <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Membros Bestiais</h4><div class="skill-field"><span class="skill-label">Efeito:</span> Pernas/braços de fera: Movimento dobra e salta longe; +1d10 pra agarrar, perseguir, escalar</div></div></div>
@@ -1342,6 +1633,30 @@
             </div>
         </section>
 
+        <hr class="secao-divider">
+
+        <!-- PODERES SOBRENATURAIS (3º tipo — modo próprio) -->
+        <section class="container p-30-tb category-section" data-origin="poderes">
+            <div class="category-header">
+                <h2>PODERES SOBRENATURAIS</h2>
+                <p><strong>Exemplos, não uma lista fechada.</strong> Do contrato ou do demônio — seu poder pode ser <strong>qualquer coisa</strong>. Estes modelos mostram <strong>como</strong> um poder funciona: um efeito único, um custo em Stress e um preço. Invente o seu; o Mestre aprova o que fizer sentido.</p>
+            </div>
+            <h3 class="subcategory-header">Modelos de Poder <span class="subcategory-count">10 exemplos</span></h3>
+            <div class="row gap-20">
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">O Domínio</h4><div class="skill-field"><span class="skill-label">Tipo:</span> Território · sustentada</div><div class="skill-field"><span class="skill-label">Efeito:</span> Delimita uma área e declara <strong>1 lei</strong> que vale pra todos ("aqui ninguém cura", "aqui o chão me obedece"); dentro, +1d10 no que se liga à lei</div><div class="skill-field"><span class="skill-label">Custo:</span> 5 Stress + 2/rodada</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">O Toque de Mil Anos</h4><div class="skill-field"><span class="skill-label">Tipo:</span> Dreno por contato</div><div class="skill-field"><span class="skill-label">Efeito:</span> Enquanto agarra, o alvo <strong>envelhece</strong> e escala: 2 Stress → 1 Leve → 1 Grave; metade vira cura/Stress pra você</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress pra iniciar</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">O Desdobrado</h4><div class="skill-field"><span class="skill-label">Tipo:</span> Manifestação · sustentada</div><div class="skill-field"><span class="skill-label">Efeito:</span> Vira <strong>dois corpos</strong> que agem no mesmo turno; a dor é uma só (dano em qualquer um conta metade)</div><div class="skill-field"><span class="skill-label">Custo:</span> 3 Stress + 1/rodada</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">O Olho que Tudo Alcança</h4><div class="skill-field"><span class="skill-label">Tipo:</span> Clarividência · Ativa</div><div class="skill-field"><span class="skill-label">Efeito:</span> Vê o longe/atrás da parede, revela o oculto, OU vislumbra <strong>1 rodada do futuro</strong> (+2d10 numa reação)</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress (futuro: 4)</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">O Agiota</h4><div class="skill-field"><span class="skill-label">Tipo:</span> Dívida · social</div><div class="skill-field"><span class="skill-label">Efeito:</span> Todo favor vira <strong>dívida invisível</strong> que você cobra em Informação, Força, Lealdade ou Memória</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress marcar · 2-4 cobrar</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">A Espiral <span class="skill-pm">Uzumaki</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Obsessão · loucura</div><div class="skill-field"><span class="skill-label">Efeito:</span> Marca um alvo com a espiral: entra em <strong>CONTROLE</strong> (repete a última ação ou é sugado pro centro) e a obsessão aprofunda <strong>−1d10 acumulativo</strong> por rodada. Sair: Teste de Medo crescente</div><div class="skill-field"><span class="skill-label">Custo:</span> 4 Stress</div><div class="skill-field"><span class="skill-label">Preço:</span> você também não desvia o olhar (−1d10 fora do alvo enquanto mantém)</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">A Cartada <span class="skill-pm">Baralho</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Aposta · aleatório</div><div class="skill-field"><span class="skill-label">Efeito:</span> Toca o alvo e "saca uma carta": <strong>♥</strong> dreno · <strong>♠</strong> Injúria · <strong>♦</strong> desloca/teleporta · <strong>♣</strong> Aflição. Aposta pura</div><div class="skill-field"><span class="skill-label">Custo:</span> 2 Stress</div><div class="skill-field"><span class="skill-label">Preço:</span> naipe ruim pode virar contra você</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Banho de Sangue <span class="skill-pm">Blood+</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Acúmulo por violência</div><div class="skill-field"><span class="skill-label">Efeito:</span> Cada Injúria causada na cena (por qualquer um) vira 1 carga; gaste por <strong>+1 dado/carga</strong> (teto 2× atributo) num golpe, ou pra curar. Quanto mais sangue, mais forte</div><div class="skill-field"><span class="skill-label">Custo:</span> 1 Stress liberar</div><div class="skill-field"><span class="skill-label">Preço:</span> cena sem sangue = você começa fraco</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">Singularidade <span class="skill-pm">carne-máquina</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Corpo maquinal · passivo</div><div class="skill-field"><span class="skill-label">Efeito:</span> Meio máquina: imune a Medo e a Aflições mentais de dor; Injúria física conta <strong>−1 nível</strong>; avança implacável, não cansa</div><div class="skill-field"><span class="skill-label">Preço:</span> <strong>não cura por meios normais</strong> (só conserto/Tecnologia); empatia/social −1d10</div></div></div>
+                <div class="c-xs-12 c-sm-6 c-md-4"><div class="skill-card"><h4 class="skill-name">A Sentença <span class="skill-pm">Indução de Morte</span></h4><div class="skill-field"><span class="skill-label">Tipo:</span> Morte condicional</div><div class="skill-field"><span class="skill-label">Efeito:</span> Declara uma morte com <strong>condição + prazo</strong> (Mestre aprova); cumprida a condição, o alvo <strong>morre</strong>. Instantâneo só em fraco/indefeso; contra forte/nomeado exige a condição</div><div class="skill-field"><span class="skill-label">Custo:</span> 8 Stress · 1x/sessão · dispara Cicatriz</div><div class="skill-field"><span class="skill-label">Preço:</span> condição não cumprida = o preço volta pra você</div></div></div>
+            </div>
+            <p class="text-center fs-8 m-30-t" style="color: var(--cor-texto-secundario);">Mais 200+ modelos (fogo, tempo, sombra, gravidade, morte…) no material do Mestre pra inspiração.</p>
+        </section>
+
     </main>
 
     <section class="cta-section p-100-tb xs-p-60-tb">
@@ -1361,6 +1676,7 @@
         <div class="footer-brand"><a href="index.html">SCAR</a><span>Sacrificial Contract & Risk</span></div>
         <div class="footer-links">
             <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub</a>
+            <a href="atualizacoes.html"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.97 8.97 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Atualizações</a>
             <a href="agradecimentos.html"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Agradecimentos</a>
         </div>
         <div class="footer-divider-line"></div>
@@ -1380,8 +1696,9 @@
         // Marca cada category-section com data-mode (gerais ou origem)
         const allCategorySections = document.querySelectorAll('.category-section');
         allCategorySections.forEach((section, i) => {
-            // Primeiras 3 são Gerais (Físico/Mental/Social), restante é Origem
-            section.dataset.mode = i < 3 ? 'gerais' : 'origem';
+            // Gerais = tem data-category; Poderes = data-origin "poderes"; resto = Origem
+            section.dataset.mode = section.dataset.category ? 'gerais'
+                : (section.dataset.origin === 'poderes' ? 'poderes' : 'origem');
 
             // Cria wrapper de tópicos depois do .category-header
             const header = section.querySelector('.category-header');
@@ -1412,6 +1729,15 @@
             if (adjacentToSection) {
                 hr.style.display = 'none';
             }
+        });
+
+        // ===== Cards fundidos: clica no número, desce a explicação =====
+        document.querySelectorAll('.tipo-head').forEach(head => {
+            head.addEventListener('click', () => {
+                const card = head.closest('.tipo-card');
+                const open = card.classList.toggle('open');
+                head.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
         });
 
         // ===== Toggle Gerais / Origem =====

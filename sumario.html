@@ -644,11 +644,11 @@
         </div>
     </div>
 
-    <main class="p-100-t xs-p-80-t">
+    <main>
 
         <!-- Hero -->
-        <section class="container p-60-tb text-center">
-            <h1 class="fs-16 fw-700 wow fadeInUp" style="color: var(--cor-secundaria);">SUMÁRIO</h1>
+        <section class="scar-hero">
+            <h1 class="wow fadeInUp">SUMÁRIO</h1>
             <p class="fs-10 m-20-t opacity-7 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 700px; margin-left: auto; margin-right: auto;">
                 Leia isso antes de qualquer coisa. Tudo o que o sistema faz.
             </p>
@@ -745,8 +745,8 @@
                 <div class="c-xs-12 c-sm-6">
                     <div class="info-card">
                         <h4 class="nature-color-hibrido">Híbrido</h4>
-                        <p>+1 Poder de transformação, ignora 1 consequência por combate, -1 Stress em combate (mín 1) e Recusa da Morte. Grilhões começam em 0.</p>
-                        <p><em>Malefício:</em> os <strong>Grilhões</strong>. Cada uso de poder demoníaco aumenta os Grilhões.</p>
+                        <p>+1 Poder de transformação, ignora 1 consequência por combate e Recusa da Morte.</p>
+                        <p><em>Malefício:</em> usar poder demoníaco custa Stress (Forma, Empurrar, habilidades de natureza). Um Colapso em Profunda pode disparar <strong>A Fera</strong> (ver seção A Fera): o demônio assume o controle.</p>
                     </div>
                 </div>
                 <div class="c-xs-12 c-sm-6">
@@ -758,25 +758,25 @@
                 </div>
             </div>
 
-            <h3>Grilhões <span class="badge">Híbrido</span></h3>
+            <h3>A Fera <span class="badge">Híbrido</span></h3>
             <div class="quote-block">
-                Todo Híbrido possui <strong>Grilhões</strong>: a medida do controle que o demônio interno exerce. Cada uso de poder demoníaco aumenta 1, e cada 20 minutos de descanso reduz 1.
+                O Híbrido não usa recurso próprio: o limitador é o <strong>Stress</strong>. Usar poder demoníaco custa Stress — entrar/manter Forma, Empurrar a Forma e habilidades de natureza.
             </div>
 
-            <p><strong>A cada 5 Grilhões acumulados</strong> o Mestre pode fazer o demônio agir através de você uma vez (escolhe 1 efeito):</p>
+            <p>Quando um Colapso do Híbrido nascido de poder demoníaco atinge <strong>Profunda</strong>, o Mestre pode substituir a Injúria pela ação do demônio: ele assume o controle por 1 cena, ou vira o personagem contra os aliados (1 efeito):</p>
             <ul>
                 <li>Sussurrar uma ordem (Teste de Medo DT 25 pra ignorar)</li>
                 <li>Forçar uma ação violenta em momento de raiva</li>
                 <li>Tomar controle por 1 rodada em combate</li>
                 <li>Fazer você falar algo que não queria</li>
-                <li>Sabotar uma interação social</li>
+                <li>Sabotar uma interação social, ou atacar um aliado</li>
             </ul>
 
             <table class="stat-table">
-                <thead><tr><th>Grilhões</th><th>Efeito</th></tr></thead>
+                <thead><tr><th>Relação</th><th>Efeito</th></tr></thead>
                 <tbody>
-                    <tr><td><strong>10+</strong></td><td>Mestre assume controle do personagem por 1 cena inteira (1x por sessão)</td></tr>
-                    <tr><td><strong>15+</strong></td><td>Demônio tenta possessão total. Teste de Medo DT 40 ou vira Infernal temporariamente</td></tr>
+                    <tr><td><strong>Conflito</strong></td><td>demônio hostil — A Fera dispara sem teste</td></tr>
+                    <tr><td><strong>Comunhão</strong></td><td>demônio aliado — Teste de Medo (DT 25, sobe com o Stress gasto) para manter o controle na cena</td></tr>
                 </tbody>
             </table>
 
@@ -861,14 +861,14 @@
 
             <h3>Habilidades de Origem & Gerais</h3>
             <p>Conjunto adicional fora dos atributos: o que seu personagem <strong>sabe fazer</strong> por background ou aprendeu rodando o mundo.</p>
-            <div class="quote-block">Detalhamento completo em <a href="habilidades.html" style="color: var(--cor-secundaria);">habilidades</a> · <strong>115 habilidades em 3 categorias</strong>: Físico, Mental, Social</div>
+            <div class="quote-block">Detalhamento completo em <a href="habilidades.html" style="color: var(--cor-secundaria);">habilidades</a> · <strong>111 habilidades em 3 categorias</strong>: Físico, Mental, Social</div>
 
             <h3>Pontos de Marca (PM)</h3>
-            <p>Você ganha PM matando inimigo forte, fechando missão, treinando, sobrevivendo a coisa que não devia. Gasta PM pra <strong>comprar habilidade, evoluir poder, subir atributo, expandir slots de Injúria, fechar Contrato</strong>.</p>
+            <p>PM é o XP do SCAR: você <strong>ganha</strong> jogando e <strong>gasta</strong> evoluindo. São duas coisas separadas — ganhar (abaixo) e gastar (na Evolução, logo após).</p>
 
-            <h4>PM Inicial <span style="font-weight: normal; opacity: 0.7;">(história do personagem)</span></h4>
+            <h4>Ganhar — na criação</h4>
             <table class="stat-table">
-                <thead><tr><th>Background</th><th>PM</th></tr></thead>
+                <thead><tr><th>PM Inicial (passado do personagem)</th><th>PM</th></tr></thead>
                 <tbody>
                     <tr><td>Vida comum, sem eventos extremos</td><td>3</td></tr>
                     <tr><td>Já enfrentou mortes, violência ou caos</td><td>5</td></tr>
@@ -876,46 +876,27 @@
                     <tr><td>Passado extremo (massacre, contrato antigo, quase-morte)</td><td>9</td></tr>
                 </tbody>
             </table>
-            <p><strong>Experiência prévia:</strong> rola 1d10, soma +1 a cada 3 anos de experiência.</p>
+            <p style="font-size: 0.9rem; opacity: 0.85;">Experiência prévia em missões: rola 1d10, +1 a cada 3 anos (novato não rola).</p>
 
-            <h4>Ganho de PM em Missões</h4>
+            <h4>Ganhar — em jogo</h4>
+            <p style="font-size: 0.9rem; opacity: 0.85;">Combate dá <strong>1 ganho por sessão</strong> — o feito mais alto, não soma inimigo por inimigo.</p>
             <table class="stat-table">
-                <thead><tr><th>Situação</th><th>Ganho</th></tr></thead>
+                <thead><tr><th>Fonte</th><th>Ganho</th></tr></thead>
                 <tbody>
-                    <tr><td>Missão simples concluída</td><td>+3 PM</td></tr>
-                    <tr><td>Missão com risco real / trauma</td><td>+5 PM</td></tr>
-                    <tr><td>Evento que muda o personagem</td><td>+8 PM</td></tr>
+                    <tr><td><strong>Missão</strong> — simples · com risco/trauma · que muda o personagem</td><td>+3 · +5 · +8</td></tr>
+                    <tr><td><strong>Combate</strong> — inimigo mais forte · muito acima do nível</td><td>+3 · +5</td></tr>
+                    <tr><td><strong>Combate</strong> — sobreviver a grupo em desvantagem · destruir grupo inteiro</td><td>+4 · +6</td></tr>
+                    <tr><td><strong>Combate</strong> — Demônio de Medo 3+ · Medo 5 ou Cavaleiro</td><td>+5 · +10</td></tr>
+                    <tr><td><strong>Combate</strong> — vencer Duelo superior · sobreviver à morte certa</td><td>+4 · +3</td></tr>
+                    <tr><td><strong>Sonho</strong> realizado — Comum · Pessoal · Ambicioso · Tolo</td><td>+4 · +6 · +10 · +15</td></tr>
+                    <tr><td><strong>Treino</strong> — comum · perigoso/demoníaco · ritual proibido</td><td>+3 · +4 · +6</td></tr>
                 </tbody>
             </table>
 
-            <h4>Ganho de PM em Combate / Feitos</h4>
-            <p><strong>Ganho único por sessão:</strong> escolha apenas o feito mais alto que aconteceu na sessão, e <strong>não soma inimigo por inimigo</strong>.</p>
-            <table class="stat-table">
-                <thead><tr><th>Feito mais alto da sessão</th><th>Ganho</th></tr></thead>
-                <tbody>
-                    <tr><td>Derrotar inimigo mais forte que você</td><td>+3 PM</td></tr>
-                    <tr><td>Derrotar inimigo muito acima do seu nível</td><td>+5 PM</td></tr>
-                    <tr><td>Sobreviver a grupo grande sozinho ou em desvantagem</td><td>+4 PM</td></tr>
-                    <tr><td>Derrotar/destruir grupo inteiro</td><td>+6 PM</td></tr>
-                    <tr><td>Derrotar Demônio de Medo 3+</td><td>+5 PM</td></tr>
-                    <tr><td>Derrotar Demônio de Medo 5 / Cavaleiro</td><td>+10 PM</td></tr>
-                    <tr><td>Vencer Duelo contra oponente superior</td><td>+4 PM</td></tr>
-                    <tr><td>Sobreviver a situação de morte certa</td><td>+3 PM</td></tr>
-                </tbody>
-            </table>
+            <h3>Evolução <span style="font-weight: normal; opacity: 0.7;">(gastar PM)</span></h3>
+            <p>Gastar PM tem duas camadas: as <strong>compras diretas</strong> (custos por natureza) e, a cada 2 compras, um <strong>Degrau</strong> que vira uma <strong>Marca</strong>. O preço do topo é a <strong>Cicatriz</strong>.</p>
 
-            <h4>Ganho de PM por Sonhos Realizados</h4>
-            <table class="stat-table">
-                <thead><tr><th>Tipo</th><th>Exemplo</th><th>Ganho</th></tr></thead>
-                <tbody>
-                    <tr><td>Comum</td><td>comer uma refeição incrível, beijar alguém</td><td>+4 PM</td></tr>
-                    <tr><td>Pessoal</td><td>fazer um amigo de verdade, ter um lar</td><td>+6 PM</td></tr>
-                    <tr><td>Ambicioso</td><td>viver até os 60, proteger alguém até o fim</td><td>+10 PM</td></tr>
-                    <tr><td>Tolo</td><td>derrotar um Primordial, mudar o mundo</td><td>+15 PM</td></tr>
-                </tbody>
-            </table>
-
-            <h4>Custos de PM por Natureza</h4>
+            <h4>Custos de PM por Natureza <span style="font-weight: normal; opacity: 0.7;">(compras diretas)</span></h4>
             <p>Pra evoluir poder, atributo, slot de Injúria ou fechar Contrato. Custo varia por natureza.</p>
 
             <div class="row gap-20 m-20-t">
@@ -959,10 +940,11 @@
                             <li>Habilidade Geral: <strong>2 PM</strong></li>
                             <li>Habilidade de Origem: <strong>2 PM</strong></li>
                             <li>Evolução de Poder: <strong>2 PM</strong></li>
+                            <li>Nova Forma Parcial (pode ter várias): <strong>3 PM</strong></li>
+                            <li>Forma Completa (evolui sua Forma, não multiplica): <strong>6 PM</strong></li>
                             <li>Contrato Menor: <strong>3 PM</strong></li>
                             <li>Contrato Médio: <strong>4 PM</strong></li>
                             <li>Contrato Maior: <strong>5 PM</strong></li>
-                            <li>Transformação Completa: <strong>6 PM</strong></li>
                             <li>+1 atributo: <strong>5 PM</strong></li>
                             <li>+1 Injúria Leve Máx: <strong>3 PM</strong></li>
                             <li>+1 Injúria Grave Máx: <strong>4 PM</strong></li>
@@ -970,12 +952,63 @@
                     </div>
                 </div>
             </div>
+            <p style="font-size: 0.9rem; opacity: 0.85;"><strong>Demônio Puro</strong> não usa esta tabela: evolui por <strong>Pontos de Idade</strong> (Força/Resistência/Sabedoria) e pela <strong>Escala de Medo</strong> — ver seção 7.</p>
 
-            <h3>Marcos de Cicatriz</h3>
-            <p>A cada <strong>10, 20, 30 PM gastos</strong>, o personagem recebe uma consequência permanente: marca visível no corpo, perda de aliado, mudança de comportamento, contrato forçado, dívida com criatura ou transformação parcial.</p>
-            <div class="quote-block">
-                O Mestre escolhe a consequência coerente com a história do personagem. Jogador pode propor, Mestre aprova.
+            <h4>Degraus &amp; Marcas <span style="font-weight: normal; opacity: 0.7;">(a outra camada da evolução)</span></h4>
+            <p><strong>Degrau</strong>: a cada <strong>2 compras feitas com PM</strong>, ganha <strong>1 Degrau</strong> — conta o número de compras, não o valor. Degraus acumulam e são gastos em <strong>Marcas</strong>. Cada Marca tem um <strong>Tier (1-4)</strong> e custa Degraus igual ao Tier; uma Marca Tier 4 exige 4 Degraus acumulados. A mesma Marca pode ser pega de novo e acumula, dentro dos tetos: atributo máximo 10, bônus fixo limitado pela Troca Equivalente, imunidade não acumula.</p>
+            <p>Cada Marca é <strong>uma escolha</strong> da faixa do seu Tier — não o pacote inteiro.</p>
+            <div class="row gap-20 m-20-t">
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>Tier 1 <span style="font-weight: normal; opacity: 0.7;">· 1 Degrau · escolha 1</span></h4>
+                        <ul style="padding-left: 18px;">
+                            <li><strong>Treino</strong> — foco numa perícia/ofício que você nomeia: +1d10 nela</li>
+                            <li><strong>Item</strong> — 1 item Leve/Médio de graça (sem ¥)</li>
+                            <li><strong>Fôlego</strong> — +2 no teto de Stress, ou +1 slot de Injúria Leve</li>
+                            <li><strong>Fundir Injúrias</strong> — remodela seus slots entre níveis</li>
+                            <li><strong>Gancho</strong> — +1d10 sempre que a condição que você define acontecer</li>
+                            <li><strong>Sentido</strong> — um sentido sobre-humano (ver no escuro, ouvir longe, farejar)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>Tier 2 <span style="font-weight: normal; opacity: 0.7;">· 2 Degraus · escolha 1</span></h4>
+                        <ul style="padding-left: 18px;">
+                            <li><strong>Imunidade</strong> — fica imune a 1 condição (sangramento, atordoamento…)</li>
+                            <li><strong>Item maior</strong> — 1 item Médio/Alto de graça</li>
+                            <li><strong>Atributo</strong> — +1 ponto num atributo (teto 10)</li>
+                            <li><strong>Criar Geral</strong> — inventa 1 Habilidade Geral com o Mestre</li>
+                            <li><strong>Manobra</strong> — passa a derrubar/desarmar/quebrar guarda ao acertar</li>
+                            <li><strong>Aliado</strong> — um Companheiro ou contato fixo (ficha simplificada)</li>
+                            <li><strong>Conduto</strong> — −1 Stress no custo de um poder seu</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>Tier 3 <span style="font-weight: normal; opacity: 0.7;">· 3 Degraus · escolha 1</span></h4>
+                        <ul style="padding-left: 18px;">
+                            <li><strong>Item excepcional</strong> — uma arma/item único, acima do catálogo</li>
+                            <li><strong>Evoluir habilidade</strong> — adiciona um efeito, ou tira uma trava, de uma sua</li>
+                            <li><strong>Efeito passivo</strong> — algo sempre ativo de curto alcance (ex.: inimigos perto −1d10)</li>
+                            <li><strong>Criar Origem</strong> — inventa 1 Habilidade de Origem com o Mestre</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="c-xs-12 c-md-6">
+                    <div class="info-card">
+                        <h4>Tier 4 <span style="font-weight: normal; opacity: 0.7;">· 4 Degraus · escolha 1 · rola Cicatriz</span></h4>
+                        <ul style="padding-left: 18px;">
+                            <li><strong>Criar algo novo no sistema</strong> — com o Mestre, respeitando as Linhas-Duras (sem ressurreição fora de Contrato, atributo ≤ 10, ninguém perde o controle sem reagir)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <p style="font-size: 0.9rem; opacity: 0.85;"><strong>Fundir Injúrias:</strong> troca slots de Injúria entre níveis — 2 de um nível por 1 do nível acima, ou 1 por 2 do nível abaixo (1 Crítica = 3 Graves; 1 Grave = 2 Leves). Nenhum nível chega a 0.</p>
+
+            <h4>Cicatriz <span style="font-weight: normal; opacity: 0.7;">(o preço da evolução)</span></h4>
+            <p>Perda permanente, disparada por uma Marca <strong>Tier 4</strong> ou por uma Aflição <strong>Profunda</strong>. O Mestre rola 1d10 (pode rolar em segredo). Resultados vão de −1 atributo a perda de membro, corrupção e Ruptura (morte ou mudança de natureza). <a href="aflicoes.html" style="color: var(--cor-secundaria);">→ Tabela em Aflições</a></p>
 
             <h3>Marca do Demônio</h3>
             <p>Campo da ficha que começa <strong>vazio</strong> (só Humanos). Você ganha Marca do Demônio quando:</p>
@@ -985,7 +1018,7 @@
                 <li><strong>Fecha um Contrato</strong></li>
                 <li><strong>Vira Infernal</strong></li>
             </ul>
-            <p>Marca altera o personagem de forma permanente: pode gerar novos poderes, Aflições, mudanças físicas ou narrativas. Diferente de Cicatriz (que vem de PM gasto), Marca vem do mundo sem você pedir.</p>
+            <p>Marca altera o personagem de forma permanente: pode gerar novos poderes, Aflições, mudanças físicas ou narrativas. Diferente da Cicatriz (que vem do preço da evolução ou de uma Aflição Profunda), a Marca do Demônio é imposta pelo mundo.</p>
 
             <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
         </section>
@@ -997,7 +1030,7 @@
             <h2 class="fs-13">2. Testes & Ações</h2>
 
             <h3>Teste de Ação</h3>
-            <p>Você rola <strong>Xd10</strong> (X = atributo), <strong>soma todos os dados</strong> e compara o total com a <strong>DT</strong>, ou com a soma do oponente quando o teste é oposto. Passou da DT, é sucesso. <strong>Uma lógica só:</strong> não existe "contar dados que passaram". Combate, perícia, social e Medo usam todos a mesma soma (a única exceção é o Duelo). <em>Graus de sucesso:</em> cada +10 acima da DT vale 1 grau a mais; cada 10 abaixo torna a falha mais grave.</p>
+            <p>Você rola <strong>Xd10</strong> (X = atributo), <strong>soma todos os dados</strong> e compara o total com a <strong>DT</strong>, ou com a soma do oponente quando o teste é oposto. Passou da DT, é sucesso. <strong>Uma lógica só:</strong> Combate, perícia, social e Medo usam todos a mesma soma (a única exceção é o Duelo). <em>Graus de sucesso:</em> cada +10 acima da DT vale 1 grau a mais; cada 10 abaixo torna a falha mais grave.</p>
 
             <h3>Tabela de DT (Dificuldade)</h3>
             <p>Bate o olho na situação e escolhe a DT. Vale pra perícia, social e exploração; no combate o atacante rola contra a Defesa Passiva, e o Medo tem escala própria.</p>
@@ -1154,11 +1187,17 @@
             <h3>Economia de Ação</h3>
             <p>Por turno:</p>
             <ul>
-                <li><strong>1 Ação Principal</strong> (atacar/poder/item)</li>
+                <li><strong>1 Ação Principal</strong> (atacar/poder/item, agarrar, arrombar, Preparar)</li>
                 <li><strong>1 Movimento</strong> (Coord × 2 metros, grátis)</li>
-                <li><strong>1 Reação</strong> (defesa fora do seu turno)</li>
+                <li><strong>1 Reação</strong> (fora do seu turno: Defesa Ativa ou Ataque de Oportunidade)</li>
+                <li><strong>Ações livres</strong> (falar, largar item)</li>
             </ul>
-            <p>Pode trocar ação por movimento extra. Pode pagar <strong>3 Stress por +1 ação extra</strong> (1x por rodada). Falar e largar item são livres.</p>
+            <p>Pode trocar a Ação Principal por movimento extra. Pode pagar <strong>3 Stress por +1 ação extra</strong> (1x por rodada).</p>
+            <ul>
+                <li><strong>Preparar Ação:</strong> gaste a Ação Principal pra armar um gatilho (condição + resposta); quando dispara, você executa <strong>antes</strong> da ação que o disparou, gastando a Reação. Não disparou até seu próximo turno, perde-se.</li>
+                <li><strong>Ataque de Oportunidade:</strong> inimigo que sai do seu alcance corpo a corpo (0–2 m) sem Desengajar leva <strong>1</strong> golpe seu (gasta a Reação; sem Defesa Ativa na rodada).</li>
+                <li><strong>Desengajar:</strong> gaste a Ação Principal pra sair do alcance sem provocar Ataque de Oportunidade.</li>
+            </ul>
 
             <h3>Ataque & Defesa</h3>
             <p>Só o <strong>atacante rola</strong> (soma Xd10 + arma) contra a <strong>Defesa Passiva = 5,5 × atributo de defesa</strong> (arredonda pra cima) do alvo: Coordenação pra esquivar, Vigor pra encaixar (ex.: Coord 5 → 28). Uma rolagem por troca. A <strong>diferença</strong> (soma do atacante − Defesa) vira injúria; <strong>piso:</strong> diferença ≤0 é raspão, ≥1 é no mínimo Leve. A Passiva é a média exata do defensor, então gastar a <strong>Reação</strong> pra rolar <em>Defesa Ativa</em> vira uma aposta de variância (~50/50). Use no golpe grande demais pra arriscar na média.</p>
@@ -1194,7 +1233,23 @@
             <p>Encheu o slot, próximo ataque sobe pro nível seguinte. <strong>Crítica + crítica = morte.</strong></p>
 
             <h3>Movimento</h3>
-            <p><strong>Coordenação × 2 metros</strong> de graça por turno. Para mover mais, pague <strong>1 Stress por 2 metros extras</strong>.</p>
+            <p>Deslocamento base <strong>Coordenação × 2 metros</strong> de graça por turno. Para mover além do base, pague <strong>1 Stress por 2 metros extras</strong>.</p>
+            <ul>
+                <li><strong>Correr:</strong> troca a Ação Principal por um 2º Movimento (dobra o deslocamento na rodada).</li>
+                <li><strong>Furtivo:</strong> desloca <strong>metade</strong> e rola <strong>Malandragem</strong> contra a <strong>Percepção</strong> de quem vigia; deslocar o total dá <strong>+10</strong> ao vigia. Sucesso: não detectado enquanto não houver linha de visão limpa.</li>
+                <li><strong>Salto horizontal:</strong> metade do deslocamento parado, ou o total vindo em corrida; no limite, teste de <strong>Coordenação</strong>. Correr aumenta a distância, não a altura.</li>
+                <li><strong>Salto vertical:</strong> 1 metro grátis; acima disso, teste de <strong>Força</strong> (DT pela altura).</li>
+                <li><strong>Nadar / escalar / terreno difícil:</strong> deslocamento <strong>pela metade</strong> (Terreno Difícil também dá −2d10 em testes físicos).</li>
+            </ul>
+
+            <h3>Ações em Conjunto</h3>
+            <ul>
+                <li><strong>Ajudar:</strong> cada aliado adjacente gasta <strong>1 Stress</strong> e soma <strong>+1d10</strong> no teste de quem lidera. Vale em teste, perícia ou ataque.</li>
+                <li><strong>Cercar:</strong> vários atacando o mesmo alvo aplicam o <strong>Desgaste da Passiva</strong> (−5 por atacante após o 1º; 1 Defesa Ativa por rodada).</li>
+                <li><strong>Proteger:</strong> gaste a <strong>Reação</strong> pra se interpor por um aliado ou objeto adjacente — recebe o golpe no lugar dele, ou dá cobertura (<strong>−1d10 / −2d10</strong> no atacante).</li>
+                <li><strong>Distrair:</strong> num teste de <strong>Malandragem</strong> ou <strong>Negociação</strong> bem-sucedido contra o alvo, o próximo golpe de um aliado o atinge <strong>Sem Defesa</strong> ou com <strong>+1d10</strong>.</li>
+            </ul>
+            <p>Ajudar e Cercar não se somam na mesma jogada. O crítico (Dado Marcado) é individual, não se compartilha.</p>
 
             <h3>Sangue</h3>
             <p>Quando um inimigo sofre Injúria Grave/Crítica ou morre a até <strong>3m</strong> de você, o sangue derramado pode ser absorvido para regenerar a carne. Gasta <strong>1 Reação</strong>:</p>
@@ -1363,7 +1418,7 @@
                 <li><strong>AVARIA</strong> (físico) — desliga 1 recurso a cena toda: Ação, Movimento ou Reação.</li>
                 <li><strong>EXPOSTO</strong> (físico) — Defesa Passiva cai; toda Injúria sobe 1 nível.</li>
                 <li><strong>AGONIA</strong> (físico) — +Stress/rodada; falha física abre Injúria Leve.</li>
-                <li><strong>POSSESSO</strong> (mental) — o Mestre dita sua ação.</li>
+                <li><strong>CONTROLE</strong> (mental) — você serve um impulso ou paga pra resistir; na Profunda, o Mestre dita sua ação.</li>
                 <li><strong>MIRAGEM</strong> (mental) — não lê a cena; auto-falha em ler a verdade.</li>
                 <li><strong>ENTORPECIDO</strong> (mental) — não pode gastar Stress (sem buff, sem Forçar, sem ação/movimento extra).</li>
             </ul>
@@ -1485,7 +1540,7 @@
                     <tr><td><strong>-5</strong> Esquecido</td><td>ninguém o teme</td><td><strong>×0,0 — Dormente</strong></td></tr>
                 </tbody>
             </table>
-            <div class="quote-block">Arredonda pra baixo, <strong>mínimo 1 por atributo</strong> enquanto não estiver Dormente.<br><strong>Dormente (-5):</strong> o demônio não age, entra num sono conceitual até alguém voltar a temê-lo. <strong>Não morre</strong>, e desperta no instante em que o Medo sobe.</div>
+            <div class="quote-block">Arredonda pra baixo, <strong>mínimo 1 por atributo</strong> enquanto não estiver Dormente.<br><strong>Dormente (-5):</strong> o demônio não age até alguém voltar a temê-lo. <strong>Não morre</strong>; desperta quando o Medo sobe.</div>
             <ul>
                 <li><strong>Sobe</strong> quando causa Crítica, mata gente importante, age com crueldade</li>
                 <li><strong>Desce</strong> quando protege humano, é ridicularizado, é derrotado em público</li>
@@ -1580,7 +1635,7 @@
             <p><strong>Parto:</strong> Vigor DT 15 do bebê, DT 20 da mãe. Falha = Injúria Grave + Aflição Mental pra ambos, ou morte.</p>
 
             <div class="quote-block">
-                <strong>Nota:</strong> o uso indevido desta mecânica traz perigos sérios. O Mestre não vai permitir o uso para algo fútil e sem sentido.
+                <strong>Nota:</strong> o Mestre veta o uso fútil ou incoerente com a ficção.
             </div>
 
             <a href="#" class="d-block text-center m-30-t" style="color: var(--cor-secundaria);">↑ Voltar ao Índice</a>
@@ -1619,7 +1674,7 @@
                 <li><strong>Tratamento</strong>: médico clandestino e remédio bom</li>
                 <li><strong>Reposição</strong>: arma quebra, armadura fura, veículo pega bala</li>
             </ul>
-            <div class="quote-block">Em campanha de foco narrativo, o Mestre pode ignorar dinheiro. Em campanha de sobrevivência, cada ¥ importa.</div>
+            <div class="quote-block">O Mestre define o peso do dinheiro por campanha: ignorável em foco narrativo, crítico em sobrevivência.</div>
 
             <h3>Renda por Missão <span style="font-weight: normal; opacity: 0.7;">(Segurança Pública)</span></h3>
             <table class="stat-table">
@@ -1702,7 +1757,7 @@
                         <ul style="padding-left: 18px;">
                             <li><strong>Humano:</strong> sem poder de berço. Pode fechar Contrato</li>
                             <li><strong>Infernal:</strong> 1 Poder Demoníaco + 1 Sentido Sobrenatural</li>
-                            <li><strong>Híbrido:</strong> 1 Poder de transformação. Grilhões = 0</li>
+                            <li><strong>Híbrido:</strong> 1 Poder de transformação</li>
                             <li><strong>Demônio Puro:</strong> 2 Poderes ligados ao conceito do medo</li>
                         </ul>
                     </div>
@@ -1910,10 +1965,6 @@ PORTAS PARA O INFERNO:
         <section id="sec-11" class="container p-60-tb sumario-section">
             <h2 class="fs-13">11. Regras & Custo</h2>
 
-            <div class="quote-block">
-                Em SCAR o limite raramente é "não pode", é o <strong>preço</strong>. Quanto mais um efeito foge do que o corpo e a cena permitem, mais ele cobra, seja em <strong>Stress, PM, dados ou sorte</strong>. O improviso nunca é proibido.
-            </div>
-
             <h3>Os 4 Eixos de Custo</h3>
             <p>Pra precificar qualquer poder, contrato improvisado ou manobra maluca, o Mestre soma os eixos que se aplicam. Cada degrau ≈ <strong>+1 nível de preço</strong> (mais Stress, +1 PM no contrato, ou passa a exigir Brecha/teste em vez de sair de graça).</p>
 
@@ -1967,11 +2018,11 @@ PORTAS PARA O INFERNO:
 
             <h3>Linhas-Duras <span style="font-weight: normal; opacity: 0.7;">(as poucas paredes)</span></h3>
             <ul>
-                <li><strong>Crítico precisa conectar.</strong> Dado Marcado 10 só vira Crítico se você vence o confronto. 10 num golpe que erra é só um 10.</li>
+                <li><strong>Crítico precisa conectar.</strong> Dado Marcado 10 só vira Crítico se você vence o confronto.</li>
                 <li><strong>Sem ressurreição fora de Contrato.</strong> A morte não se desfaz com Stress ou PM. Só o preço demoníaco traz alguém de volta, e cobra caro.</li>
-                <li><strong>Não existe HP.</strong> A cura reduz nível de Injúria pelas regras de descanso e sangue. Ninguém "se enche de vida" no meio da luta sem um efeito que diga isso.</li>
-                <li><strong>Atributo de mortal nunca passa de 10.</strong> Quem rompe o teto é o Medo do demônio, mais ninguém.</li>
-                <li><strong>Ninguém perde o controle do personagem sem chance de reagir.</strong> A única exceção são os Grilhões e a possessão, cujo preço já está pago na ficha do Híbrido.</li>
+                <li><strong>Não existe HP.</strong> A cura reduz nível de Injúria pelas regras de descanso e sangue. Ninguém recupera vida no meio da luta sem um efeito que diga exatamente isso.</li>
+                <li><strong>Atributo de mortal nunca passa de 10.</strong> Só o Medo do demônio rompe o teto.</li>
+                <li><strong>Ninguém perde o controle do personagem sem chance de reagir.</strong> A única exceção é A Fera (a possessão do Híbrido no Colapso), cujo preço já está pago no Stress queimado.</li>
             </ul>
 
             <h3>"Não Funciona Assim" <span style="font-weight: normal; opacity: 0.7;">(anti-furo)</span></h3>
@@ -1979,7 +2030,7 @@ PORTAS PARA O INFERNO:
                 <li><strong>Forçar o Dado não escolhe o melhor.</strong> Você rerola e fica com o novo resultado, mesmo se for pior, e cada uso te empurra pro Colapso.</li>
                 <li><strong>Estudar e usar Brecha não é de graça.</strong> Acumula, sim, mas cada rodada estudando é uma rodada sem agir, e o alvo reage ou foge.</li>
                 <li><strong>PM de combate é 1× por sessão</strong> (o feito mais alto), e não soma inimigo por inimigo.</li>
-                <li><strong>Regen de sangue precisa de sangue novo:</strong> 1 grau por Reação, 1 fonte por turno. Sala sem ninguém sangrando significa que acabou a mamata. (O Demônio Puro é a exceção brutal, e é por isso que ele carrega uma Falha Central.)</li>
+                <li><strong>Regen de sangue precisa de sangue novo:</strong> 1 grau por Reação, 1 fonte por turno. (O Demônio Puro é a exceção, e por isso carrega uma Falha Central.)</li>
                 <li><strong>Sobrecarga cobra Stress real.</strong> Bônus além de 2× o atributo vira +5 fixo, mas custa +2 Stress por dado.</li>
                 <li><strong>Mesmo gatilho não acumula.</strong> Dois estilos ou habilidades na mesma deixa: você escolhe um. Fontes diferentes somam, respeitando o teto de 2× em dados.</li>
             </ul>
@@ -1988,7 +2039,7 @@ PORTAS PARA O INFERNO:
             <ul>
                 <li><strong>Queda/colisão:</strong> 3–5 m = Leve · 6–9 m = Grave · 10 m+ = Crítica. Rola Vigor pra baixar 1 nível.</li>
                 <li><strong>Dano contínuo (fogo, veneno, sangramento):</strong> +1 Injúria Leve ou +2–3 Stress por rodada até apagar/tratar (1 ação ou teste de Vigor).</li>
-                <li><strong>Ataque em área:</strong> pega todos na faixa, e cada alvo rola a própria defesa. Raio padrão: explosão ~Médio, controle/teia ~Curto. Querer uma área maior cai no eixo Audácia.</li>
+                <li><strong>Ataque em área:</strong> pega todos na faixa, e cada alvo usa a própria Defesa (Passiva, ou Ativa se ainda tiver Reação). Raio padrão: explosão ~Médio, controle/teia ~Curto. Querer uma área maior cai no eixo Audácia.</li>
                 <li><strong>Vários contra um:</strong> o defensor usa a Passiva contra todos e só defende Ativo 1 vez (1 Reação). O resto entra pelo <strong>Desgaste da Passiva</strong> (−5 por ataque após o 1º na rodada + desgaste por Injúria aberta).</li>
                 <li><strong>Cobertura:</strong> leve −1d10 no atacante · pesada −2d10 · total significa sem linha de tiro, não dá pra mirar.</li>
             </ul>
@@ -2025,6 +2076,7 @@ PORTAS PARA O INFERNO:
                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 GitHub
             </a>
+            <a href="atualizacoes.html"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.97 8.97 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Atualizações</a>
             <a href="agradecimentos.html">
                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                 Agradecimentos

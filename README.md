@@ -91,7 +91,7 @@ Rola Xd10 (X = atributo), soma os dados e compara com a DT
 |----------|-----------|-----------|
 | **Humanos** | Mortais comuns, versáteis e numerosos. Brilham em equipe. | Adaptabilidade Humana + Força nos Números |
 | **Infernais** | Demônios que possuíram cadáveres. Poderes inatos, aflições permanentes. | Detecção demoníaca |
-| **Híbridos** | Meio humano, meio demônio — existência instável. Poder bruto com risco. | Grilhões + Recusa da Morte |
+| **Híbridos** | Meio humano, meio demônio — existência instável. Poder bruto com risco. | A Fera (poder queima Stress) + Recusa da Morte |
 | **Demônios** | Seres imortais nascidos do medo coletivo. Evoluem por nível. | Evolução por Nível de Medo (1-5) |
 
 ### Sistema de Contratos
@@ -174,12 +174,11 @@ Os arquivos em [`documento/`](documento/) estão organizados por **ordem de leit
 - `escala-de-poder.md` - Tiers de poder (1-10) com feitos mensuráveis
 - `sistemas-narrativos.md` - Sistema de Sonhos e outras mecânicas narrativas
 
-**[`05-meta/`](documento/05-meta/) — fora do fluxo de jogo**
-- `changelog.md` - Histórico de mudanças
-- `roadmap.md` - Próximas atualizações planejadas
-- `migracao-site.md` - Documento da reformulação do site v2.0
-- `momento-de-aura.md` - Notas de momentos marcantes / referências de aura
-- `balanceamento-pm.md` - Notas de balanceamento de PM e custos
+**[`05-meta/`](documento/05-meta/) — trabalho em desenvolvimento (não é regra de jogo)**
+- `IDEIAS.md` - Backlog, o que falta fazer e como escrever
+- `LORE.md` - Lore em construção (o que fecha vai pra `07-lore/`/bestiário e sai daqui)
+- `CATALOGO-PODERES.md` - Poderes de inspiração em curadoria
+> *Regra da pasta: nada de registro do passado. O que fica pronto migra pro doc do sistema. Histórico de versões dos players fica na página `atualizacoes.html` do site.*
 
 **[`06-loucuras-do-mestre/`](documento/06-loucuras-do-mestre/) — spinoffs experimentais (fora do canon)**
 - `STAGE.md` - Indústria musical / idols (Perfect Blue + Idolish7 + Mob Psycho)
@@ -236,7 +235,7 @@ SCAR/
     ├── 02-criacao-e-preparo/  # Criação de personagem
     ├── 03-consulta-rapida/    # Sumário, habilidades, vendinha
     ├── 04-mecanicas-em-jogo/  # Aflições, contratos, escala, narrativas
-    ├── 05-meta/               # Changelog, roadmap, migração, momento-de-aura
+    ├── 05-meta/               # Trabalho em dev: IDEIAS, LORE, CATALOGO-PODERES
     ├── 06-loucuras-do-mestre/ # Spinoffs experimentais (STAGE/MITO/MUSUME)
     ├── 07-one-shots/          # Aventuras fechadas (TUNGUSKA-1908)
     └── personagens/           # Fichas de personagens jogados (ECHO/TIMOR/yelena)

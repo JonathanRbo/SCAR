@@ -502,7 +502,6 @@
                 <a href="index.html" class="logo-text">SCAR</a>
 
                 <nav class="nav-desktop d-flex f-items-center f-gap-10">
-                    <a href="sumario.html#sec-10" class="nav-link">Criação</a>
                     <a href="sumario.html" class="nav-link">Sumário</a>
                     <a href="habilidades.html" class="nav-link">Habilidades</a>
                     <a href="vendinha.html" class="nav-link">Vendinha</a>
@@ -554,9 +553,6 @@
                         <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide>
                             <span class="link-text">Bestiário</span>
                         </a>
-                        <a href="atualizacoes.html" class="mobile-nav-link secondary" data-modal-hide>
-                            <span class="link-text">Atualizações</span>
-                        </a>
                     </nav>
                     <div class="mobile-menu-footer">
                         <p>"Todo contrato tem um preço"</p>
@@ -575,7 +571,8 @@
                 Um RPG d10 onde caçadores descartáveis encaram demônios nascidos do medo humano.<br>
             </p>
             <div class="d-flex f-justify-center f-wrap f-gap-15 wow fadeInUp" data-wow-delay="0.6s">
-                <a href="sumario.html" class="btn btn-primary">Começar Aqui</a>
+                <a href="criar.html" class="btn btn-primary">Criar Personagem</a>
+                <a href="sumario.html" class="btn btn-primary" style="background: transparent; border: 2px solid var(--cor-secundaria);">Começar Aqui</a>
                 <a href="historia.html" class="btn btn-primary" style="background: transparent; border: 2px solid var(--cor-secundaria);">Conhecer o Mundo</a>
             </div>
         </div>
@@ -658,10 +655,10 @@
 
             <div class="row gap-20 m-50-t">
                 <div class="c-xs-12 c-sm-6 c-md-4">
-                    <a href="sumario.html#sec-10" class="nav-grid-card wow fadeInUp">
+                    <a href="criar.html" class="nav-grid-card wow fadeInUp">
                         <span class="nav-icon">✍️</span>
-                        <h3>Criação de Personagem</h3>
-                        <p>O passo a passo pra fechar a ficha do zero: Natureza, Atributos, Recursos, Poderes, Habilidades. Com as fichas prontas pra copiar.</p>
+                        <h3>Criar Personagem</h3>
+                        <p>Criador interativo: escolhe Natureza, distribui atributos (recursos calculados na hora), pega habilidades e exporta a ficha em <strong>.md</strong> pra rolar no dado ou levar pra mesa.</p>
                     </a>
                 </div>
                 <div class="c-xs-12 c-sm-6 c-md-4">
@@ -739,7 +736,7 @@
                 <div class="c-xs-12 c-sm-6">
                     <div class="natureza-resumo wow fadeInLeft" data-wow-delay="0.1s" style="border-top-color: #9B59B6;" data-modal-show="modal-hibrido">
                         <h4 style="color: #9B59B6;">Híbrido</h4>
-                        <p>Humano com demônio dormindo dentro. Recusa da Morte, transformação, ignora consequências. Mas os <strong>Grilhões</strong> crescem com o uso, e o demônio interno toma o controle quando você se solta.</p>
+                        <p>Humano com demônio dormindo dentro. Recusa da Morte, transformação, ignora consequências. Mas todo poder <strong>queima Stress</strong>, e quando você estoura, <strong>A Fera</strong> toma o controle.</p>
                     </div>
                 </div>
                 <div class="c-xs-12 c-sm-6">
@@ -885,18 +882,17 @@
                                 <ul class="modal-natureza-bonus">
                                     <li><strong>+1 Poder de transformação</strong> · forma demoníaca acessível</li>
                                     <li><strong>Ignora 1 consequência</strong> por combate</li>
-                                    <li><strong>-1 Stress em combate</strong> (mín 1)</li>
                                     <li><strong>Recusa da Morte</strong> · praticamente imortal enquanto tiver sangue pra regenerar</li>
                                 </ul>
                             </div>
 
                             <div class="modal-natureza-section">
-                                <h5>Malefício: Grilhões</h5>
-                                <p style="color: var(--cor-texto-secundario);">Todo Híbrido carrega o malefício <strong style="color: var(--cor-secundaria);">Grilhões</strong>: o quanto o demônio interno tem de controle sobre você. Cada uso de poder demoníaco soma 1 ponto, e cada 20 minutos de descanso reduz 1.</p>
+                                <h5>Malefício: A Fera</h5>
+                                <p style="color: var(--cor-texto-secundario);">O Híbrido não usa recurso próprio: o limitador é o <strong style="color: var(--cor-secundaria);">Stress</strong>. Usar poder demoníaco custa Stress — entrar/manter Forma, Empurrar a Forma e habilidades de natureza.</p>
                                 <ul class="modal-natureza-malef m-15-t">
-                                    <li><strong>A cada 5 Grilhões:</strong> Mestre pode forçar o demônio agir (sussurrar ordem, ação violenta, controle de 1 rodada, fala forçada, sabotagem social)</li>
-                                    <li><strong>10+ Grilhões:</strong> Mestre assume controle por 1 cena (1x/sessão)</li>
-                                    <li><strong>15+ Grilhões:</strong> Possessão total. Teste de Medo DT 40 ou vira Infernal temporariamente</li>
+                                    <li><strong>A Fera (Colapso):</strong> um Colapso em Profunda pode virar a ação do demônio — ele assume o controle por 1 cena ou vira o personagem contra os aliados</li>
+                                    <li><strong>Conflito:</strong> demônio hostil — A Fera dispara sem teste</li>
+                                    <li><strong>Comunhão:</strong> demônio aliado — Teste de Medo (DT 25, sobe com o Stress gasto) para manter o controle</li>
                                 </ul>
                             </div>
 
@@ -905,7 +901,7 @@
                                 <ul>
                                     <li>O <strong>gatilho da transformação</strong> (objeto, ação, palavra, situação)</li>
                                     <li>Como o <strong>demônio interno se manifesta</strong> visualmente</li>
-                                    <li>Grilhões começam em <strong>0</strong></li>
+                                    <li>Se o demônio é <strong>aliado (Comunhão)</strong> ou <strong>hostil (Conflito)</strong></li>
                                 </ul>
                             </div>
 

@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Personagem - SCAR RPG</title>
+
+    <link rel="stylesheet" href="https://cdn.squeleton.dev/squeleton.v4.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <script src="https://cdn.squeleton.dev/squeleton-main.v4.min.js"></script>
+    <script src="assets/js/scar-catalogo.js"></script>
+    <script src="assets/js/scar-equip.js"></script>
+    <script src="assets/js/scar-requisitos.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== Criador — específico ===== */
+        .cr-step-title {
+            color: var(--cor-secundaria);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 4px;
+            border-bottom: 2px solid var(--cor-principal);
+            padding-bottom: 12px;
+            margin: 0 0 8px;
+            display: flex; align-items: baseline; gap: 12px;
+        }
+        .cr-step-title .cr-num {
+            font-size: 1rem; color: var(--cor-fundo);
+            background: var(--cor-secundaria); border-radius: 6px;
+            padding: 2px 10px; letter-spacing: 1px;
+        }
+        .cr-hint { color: var(--cor-texto-secundario); font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px; }
+
+        /* Inputs */
+        .cr-label { display:block; font-size:0.8rem; letter-spacing:1px; text-transform:uppercase; color:var(--cor-texto-secundario); margin:0 0 6px; }
+        .cr-input, .cr-select, .cr-area {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            padding: 11px 13px;
+            color: var(--cor-texto);
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+        .cr-input:focus, .cr-select:focus, .cr-area:focus { outline:none; border-color: var(--cor-secundaria); }
+        .cr-area { resize: vertical; min-height: 64px; line-height: 1.5; }
+        .cr-field { margin-bottom: 16px; }
+
+        /* Natureza cards */
+        .nat-card {
+            background: var(--cor-fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-left: 4px solid var(--nat-c, var(--cor-secundaria));
+            border-radius: 10px; padding: 18px 20px; height: 100%;
+            cursor: pointer; transition: all 0.25s; position: relative;
+        }
+        .nat-card:hover { transform: translateY(-3px); border-color: var(--nat-c); box-shadow: 0 10px 26px rgba(0,0,0,0.4); }
+        .nat-card.sel { border-color: var(--nat-c); box-shadow: 0 0 0 2px var(--nat-c) inset, 0 10px 26px rgba(0,0,0,0.45); }
+        .nat-card.sel::after { content:'✓'; position:absolute; top:12px; right:14px; color:var(--nat-c); font-size:1.3rem; }
+        .nat-card h4 { font-family:'Bebas Neue',sans-serif; letter-spacing:3px; font-size:1.3rem; color:var(--nat-c); margin:0 0 8px; }
+        .nat-card .nat-desc { color:var(--cor-texto-secundario); font-size:0.85rem; line-height:1.55; margin:0 0 10px; }
+        .nat-card ul { list-style:none; padding:0; margin:0; }
+        .nat-card li { font-size:0.8rem; line-height:1.5; padding-left:16px; position:relative; color:rgba(245,245,245,0.85); }
+        .nat-card li::before { content:'▪'; position:absolute; left:2px; color:var(--nat-c); }
+        .nat-card li.mal::before { content:'▪'; color:#e74c3c; }
+        .nat-humano{--nat-c:#5DADE2;} .nat-infernal{--nat-c:#E74C3C;} .nat-hibrido{--nat-c:#9B59B6;} .nat-demonio{--nat-c:#D4AF37;}
+
+        /* Atributos */
+        .attr-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+        .attr-box { background:rgba(0,0,0,0.3); border:1px solid var(--cor-borda); border-radius:8px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+        .attr-box.attr-zero { border-color:#e6b800; }
+        .attr-box label { font-size:0.85rem; color:var(--cor-texto); }
+        .attr-box input { width:56px; text-align:center; background:rgba(0,0,0,0.5); border:1px solid var(--cor-borda); border-radius:6px; color:var(--cor-texto); padding:7px 4px; font-family:'Bebas Neue',sans-serif; font-size:1.2rem; }
+        .attr-box input:focus { outline:none; border-color:var(--cor-secundaria); }
+        /* Demônio: box de atributo unificado (base + Pontos de Idade no mesmo lugar) */
+        .attr-box-dem { flex-direction:column; align-items:stretch; gap:5px; padding:8px 10px; }
+        .attr-box-dem .ab-head { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+        .attr-box-dem .ab-eff { font-family:'Bebas Neue',sans-serif; letter-spacing:1px; color:var(--gold); font-size:0.95rem; }
+        .attr-box-dem .ab-ctrl { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+        .attr-box-dem input { width:50px; font-size:1.05rem; padding:5px 4px; }
+        .attr-box-dem .ab-pi { display:inline-flex; align-items:center; gap:6px; }
+        .attr-box-dem .ab-pi .compra-btn { width:26px; height:26px; }
+        /* Demônio: eixos de Pontos de Idade — uma linha direta por eixo (input + efeito), sem cor extra */
+        .pi-rows { margin-top:8px; border-top:1px solid var(--cor-borda); }
+        .pi-row { display:flex; align-items:center; gap:12px; padding:8px 4px; border-bottom:1px solid var(--cor-borda); }
+        .pi-nome { font-family:'Bebas Neue',sans-serif; letter-spacing:1px; font-size:1rem; color:var(--cor-texto); width:100px; flex-shrink:0; }
+        .pi-row input { width:50px; text-align:center; background:rgba(0,0,0,0.5); border:1px solid var(--cor-borda); border-radius:6px; color:var(--cor-texto); padding:6px 4px; font-family:'Bebas Neue',sans-serif; font-size:1.1rem; flex-shrink:0; }
+        .pi-row input:focus { outline:none; border-color:var(--cor-secundaria); }
+        .pi-ef { flex:1; font-size:0.9rem; color:var(--cor-texto-secundario); line-height:1.5; }
+        .pi-ef em { opacity:0.75; font-style:normal; }
+        .pi-footer { margin-top:10px; font-size:0.9rem; color:var(--cor-texto-secundario); display:flex; align-items:center; gap:10px 14px; flex-wrap:wrap; }
+        .pi-rows .compra-row { border-bottom:1px solid var(--cor-borda); padding:8px 4px; }
+        .pi-rows .compra-row:last-child { border-bottom:none; }
+        /* Card de bloco do Demônio — mesmo fundo dos cards de categoria (Habilidades). Reusado por PI, Escala e Marcas. */
+        .pi-card { background:linear-gradient(135deg, color-mix(in srgb, var(--cor-secundaria) 9%, var(--cor-fundo-card)) 0%, var(--cor-fundo-card) 60%, color-mix(in srgb, var(--cor-secundaria) 4%, var(--cor-fundo-card)) 100%); border:1px solid var(--cor-borda); border-left:4px solid var(--cor-secundaria); border-radius:12px; padding:16px 20px 18px; margin:12px 0 4px; }
+        .pi-card > .attr-cat:first-child { margin-top:0; }
+        .pi-card .pi-rows { border-top:none; }
+        .pi-card .pi-row:last-child { border-bottom:none; }
+        .pi-card .pi-footer { border-top:1px dashed var(--cor-borda); padding-top:10px; }
+        .pi-titulo-sub { font-size:0.78rem; letter-spacing:0; opacity:0.85; font-family:'Roboto',sans-serif; text-transform:none; }
+        /* Configuração por Marca pega (escolha mecânica ou nota narrativa do Mestre) */
+        .marca-cfg { flex-basis:100%; display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:8px; padding-top:8px; border-top:1px dashed var(--cor-borda); }
+        .marca-cfg-lbl { font-size:0.8rem; color:var(--cor-texto-secundario); }
+        .marca-opt { background:rgba(0,0,0,0.4); border:1px solid var(--cor-borda); color:var(--cor-texto-secundario); border-radius:6px; padding:5px 10px; font-size:0.8rem; cursor:pointer; font-family:'Roboto',sans-serif; }
+        .marca-opt:hover { border-color:var(--cor-secundaria); color:var(--cor-secundaria); }
+        .marca-opt.on { border-color:var(--cor-secundaria); color:var(--cor-texto); background:rgba(220,20,60,0.14); }
+        .marca-nota { flex:1; min-width:200px; }
+        .fund-step { display:inline-flex; align-items:center; gap:4px; font-size:0.78rem; color:var(--cor-texto-secundario); }
+        .fund-step .compra-btn { width:24px; height:24px; font-size:0.95rem; }
+        .attr-cat { font-family:'Bebas Neue',sans-serif; letter-spacing:2px; color:var(--cor-secundaria); font-size:1rem; margin:18px 0 8px; }
+
+        /* Painel de recursos (sticky) */
+        .resumo-panel {
+            position: sticky; top: 84px;
+            background: linear-gradient(180deg, rgba(139,0,0,0.10) 0%, var(--cor-fundo-card) 60%);
+            border: 1px solid var(--cor-borda); border-left: 4px solid var(--cor-secundaria);
+            border-radius: 12px; padding: 20px;
+        }
+        .resumo-panel h3 { font-family:'Bebas Neue',sans-serif; letter-spacing:3px; color:var(--cor-secundaria); margin:0 0 14px; font-size:1.25rem; }
+        .res-row { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:7px 0; border-bottom:1px dashed var(--cor-borda); font-size:0.9rem; }
+        .res-row:last-of-type { border-bottom:none; }
+        .res-row .k { color:var(--cor-texto-secundario); }
+        .res-row .v { font-family:'Bebas Neue',sans-serif; font-size:1.15rem; color:var(--cor-texto); letter-spacing:1px; }
+        .res-pm .v { color:#2ecc71; }
+        .res-pm.over .v { color:#e74c3c; }
+
+        /* Habilidades */
+        .hab-filtros { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 16px; }
+        .hab-filtro { background:rgba(0,0,0,0.35); border:1px solid var(--cor-borda); color:var(--cor-texto-secundario); border-radius:20px; padding:6px 14px; font-size:0.8rem; letter-spacing:1px; cursor:pointer; transition:all 0.2s; font-family:'Bebas Neue',sans-serif; }
+        .hab-filtro:hover { color:var(--cor-secundaria); border-color:var(--cor-secundaria); }
+        .hab-filtro.on { background:var(--cor-principal); border-color:var(--cor-secundaria); color:var(--cor-texto); }
+        .hab-item { display:flex; gap:12px; align-items:flex-start; background:rgba(0,0,0,0.25); border:1px solid var(--cor-borda); border-radius:8px; padding:11px 13px; margin-bottom:8px; cursor:pointer; transition:all 0.2s; }
+        .hab-item:hover { border-color:var(--cor-secundaria); }
+        .hab-item.on { border-color:var(--cor-secundaria); background:rgba(220,20,60,0.08); }
+        .hab-item input { margin-top:3px; accent-color:var(--cor-secundaria); width:16px; height:16px; flex-shrink:0; }
+        .hab-item .hab-nome { font-family:'Bebas Neue',sans-serif; letter-spacing:1px; font-size:1.05rem; color:var(--cor-texto); }
+        .hab-item .hab-pm { font-size:0.72rem; color:var(--gold); border:1px solid color-mix(in srgb, var(--gold) 40%, transparent); border-radius:10px; padding:1px 8px; margin-left:6px; white-space:nowrap; }
+        .hab-item .hab-ef { font-size:0.82rem; color:var(--cor-texto-secundario); line-height:1.45; margin-top:3px; }
+        .hab-item .hab-tipo { font-size:0.64rem; letter-spacing:0.5px; text-transform:uppercase; border:1px solid; border-radius:8px; padding:1px 7px; margin-left:5px; white-space:nowrap; }
+        .hab-item .hab-req { display:block; font-size:0.72rem; margin-top:2px; color:var(--gold); }
+        .hab-item .hab-req.no { color:#e74c3c; }
+        .hab-item.hab-locked { opacity:.5; }
+        .hab-item.hab-locked:hover { border-color:var(--cor-borda); }
+        .hab-grupo-tit { font-family:'Bebas Neue',sans-serif; letter-spacing:2px; color:var(--cor-secundaria); font-size:1.1rem; margin:20px 0 10px; }
+        .estilo-ef { margin:6px 0 0; padding-left:16px; }
+        .estilo-ef li { font-size:0.8rem; color:var(--cor-texto-secundario); line-height:1.45; margin:2px 0; }
+        /* Tiers / equipamento */
+        .tier-badge { display:inline-block; font-size:0.66rem; letter-spacing:1px; text-transform:uppercase; border-radius:10px; padding:1px 8px; margin-left:6px; border:1px solid; white-space:nowrap; vertical-align:middle; }
+        .tier-legenda-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin-bottom:8px; }
+        .tier-leg-card { border:1px solid var(--cor-borda); border-left:3px solid var(--tc); border-radius:8px; padding:12px 14px; background:rgba(0,0,0,0.25); }
+        .tier-leg-card h5 { margin:0; font-family:'Bebas Neue',sans-serif; letter-spacing:2px; color:var(--tc); font-size:1.05rem; }
+        .tier-leg-card .yen { font-size:0.72rem; color:var(--gold); display:block; margin:2px 0 4px; }
+        .tier-leg-card p { margin:0; font-size:0.78rem; color:var(--cor-texto-secundario); line-height:1.45; }
+        .equip-meta { font-size:0.78rem; color:var(--cor-texto-secundario); line-height:1.45; margin-top:3px; }
+        .riq-btn { background:rgba(0,0,0,0.35); border:1px solid var(--cor-borda); color:var(--cor-texto); border-radius:8px; padding:8px 12px; cursor:pointer; font-size:0.82rem; transition:all .2s; font-family:'Roboto',sans-serif; }
+        .riq-btn:hover { border-color:var(--gold); color:var(--gold); }
+        .riq-btn.on { border-color:var(--gold); color:var(--gold); background:rgba(212,175,55,0.12); }
+        .compra-row { display:flex; align-items:center; gap:10px; padding:7px 2px; border-bottom:1px dashed var(--cor-borda); }
+        .compra-nome { flex:1; font-size:.9rem; color:var(--cor-texto); }
+        .compra-pm { color:var(--gold); font-size:.78rem; min-width:48px; text-align:right; }
+        .compra-ctrl { display:inline-flex; align-items:center; gap:8px; }
+        .compra-btn { width:28px; height:28px; border:1px solid var(--cor-borda); background:rgba(0,0,0,.3); color:var(--cor-texto); border-radius:6px; cursor:pointer; font-size:1.05rem; line-height:1; }
+        .compra-btn:hover { border-color:var(--cor-secundaria); color:var(--cor-secundaria); }
+        .compra-q { min-width:16px; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:1.15rem; color:var(--cor-secundaria); }
+        .compra-total { margin-top:12px; font-size:.9rem; color:var(--cor-texto-secundario); }
+        .builder-box { background:rgba(0,0,0,0.25); border:1px solid var(--cor-borda); border-radius:10px; padding:16px; }
+        .builder-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px; }
+        .builder-row > .bl-lbl { font-size:0.8rem; color:var(--cor-texto-secundario); min-width:74px; }
+        .ef-chip { font-size:0.75rem; border:1px solid var(--cor-borda); border-radius:16px; padding:4px 10px; cursor:pointer; color:var(--cor-texto-secundario); transition:all .2s; user-select:none; }
+        .ef-chip.on { border-color:var(--cor-secundaria); color:var(--cor-texto); background:rgba(220,20,60,0.12); }
+        .builder-seg { display:inline-flex; border:1px solid var(--cor-borda); border-radius:8px; overflow:hidden; }
+        .builder-seg button { background:transparent; border:none; color:var(--cor-texto-secundario); padding:6px 12px; cursor:pointer; font-size:0.8rem; }
+        .builder-seg button.on { background:var(--cor-principal); color:var(--cor-texto); }
+        .r-yen-row .v { color:var(--gold); }
+        /* Passo a passo (wizard) */
+        .cr-steps { position:sticky; top:60px; z-index:40; background:rgba(8,8,8,0.97); backdrop-filter:blur(8px); border:1px solid var(--cor-borda); border-radius:12px; padding:9px 10px; margin-bottom:26px; display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+        .cr-step-chip { background:rgba(0,0,0,0.4); border:1px solid var(--cor-borda); color:var(--cor-texto-secundario); border-radius:8px; padding:6px 11px; font-family:'Bebas Neue',sans-serif; letter-spacing:1px; font-size:0.8rem; cursor:pointer; white-space:nowrap; transition:all .2s; }
+        .cr-step-chip:hover { color:var(--cor-secundaria); border-color:var(--cor-secundaria); }
+        .cr-step-chip.on { background:linear-gradient(135deg,var(--cor-principal) 0%,var(--cor-fundo-card) 100%); border-color:var(--cor-secundaria); color:var(--cor-texto); box-shadow:0 0 12px rgba(220,20,60,0.3); }
+        .cr-nav-arrow { background:transparent; border:1px solid var(--cor-borda); color:var(--cor-secundaria); border-radius:8px; min-width:32px; height:32px; cursor:pointer; font-size:1.1rem; line-height:1; transition:all .2s; }
+        .cr-nav-arrow:hover:not(:disabled) { border-color:var(--cor-secundaria); background:rgba(220,20,60,0.12); }
+        .cr-nav-arrow:disabled { opacity:.3; cursor:default; }
+        .cr-step > .cr-step-title:first-child { margin-top:0 !important; }
+        .cr-step-foot { display:flex; justify-content:space-between; margin-top:28px; gap:12px; }
+        .cr-step-foot .btn { min-width:120px; }
+
+        /* Export */
+        .export-pre { background:rgba(0,0,0,0.5); border:1px solid var(--cor-borda); border-radius:8px; padding:16px; font-family:'Courier New',monospace; font-size:0.72rem; line-height:1.4; color:var(--cor-texto); white-space:pre; overflow:auto; max-height:420px; }
+        .cr-actions { display:flex; flex-wrap:wrap; gap:12px; margin:18px 0; }
+        .btn-copiado { background:#27ae60 !important; border-color:#27ae60 !important; }
+        @media (max-width: 991px){ .resumo-panel{ position:static; margin-bottom:24px; } }
+    </style>
+</head>
+<body>
+
+    <header class="site-header p-15-tb">
+        <div class="container">
+            <div class="d-flex f-items-center f-justify-between">
+                <a href="index.html" class="logo-text">SCAR</a>
+                <nav class="nav-desktop d-flex f-items-center f-gap-10">
+                    <a href="sumario.html" class="nav-link">Sumário</a>
+                    <a href="habilidades.html" class="nav-link">Habilidades</a>
+                    <a href="vendinha.html" class="nav-link">Vendinha</a>
+                    <a href="aflicoes.html" class="nav-link">Aflições</a>
+                    <a href="historia.html" class="nav-link">História</a>
+                    <a href="aparencias.html" class="nav-link">Bestiário</a>
+                </nav>
+                <button class="mobile-menu-btn" data-modal-show="mobile-menu"><span>☰</span></button>
+            </div>
+        </div>
+    </header>
+
+    <div data-modal="mobile-menu" class="modal-dialog" aria-hidden="true">
+        <div class="dialog-content">
+            <div class="dialog-backdrop" data-modal-hide style="background: rgba(0,0,0,0.95);"></div>
+            <div class="dialog-inline mobile-menu-container">
+                <div class="mobile-menu-bg"></div>
+                <div class="mobile-menu-glow"></div>
+                <button class="mobile-menu-close" data-modal-hide>✕</button>
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-header">
+                        <span class="mobile-menu-logo">SCAR</span>
+                        <p class="mobile-menu-subtitle">Sacrificial Contract & Risk</p>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <nav class="mobile-menu-nav">
+                        <a href="sumario.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">📚</span><span class="link-text">Sumário</span></a>
+                        <a href="habilidades.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">🎯</span><span class="link-text">Habilidades</span></a>
+                        <a href="vendinha.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">🏪</span><span class="link-text">Vendinha</span></a>
+                        <a href="aflicoes.html" class="mobile-nav-link" data-modal-hide><span class="link-icon">💀</span><span class="link-text">Aflições</span></a>
+                    </nav>
+                    <div class="mobile-menu-section-divider"></div>
+                    <nav class="mobile-menu-nav mobile-menu-nav-secondary">
+                        <a href="historia.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">História</span></a>
+                        <a href="aparencias.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Bestiário</span></a>
+                        <a href="index.html" class="mobile-nav-link secondary" data-modal-hide><span class="link-text">Home</span></a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+
+        <section class="scar-hero">
+            <h1 class="wow fadeInUp">CRIAR PERSONAGEM</h1>
+            <p class="text-center m-40-b m-auto-lr fs-6 lh-1-7 w-600px" style="color: var(--cor-texto-secundario);">
+                Monte sua ficha passo a passo. Os recursos se calculam sozinhos. No fim, baixe o <strong>.md</strong> e arraste no <a href="dice-roller.html" style="color:var(--cor-secundaria)">Rolador de Dados</a> ou leve pra sua mesa.
+            </p>
+        </section>
+
+        <section class="container p-30-tb">
+            <div class="row gap-30">
+                <!-- Coluna do formulário -->
+                <div class="c-xs-12 c-md-8" id="cr-form">
+
+                    <div id="cr-steps-nav" class="cr-steps"></div>
+
+                    <!-- 1. Natureza -->
+                    <h2 class="cr-step-title"><span class="cr-num">1</span> Natureza</h2>
+                    <p class="cr-hint">Define seus bônus, malefícios e habilidades iniciais. Escolha uma.</p>
+                    <div class="row gap-15" id="nat-cards">
+                        <div class="c-xs-12 c-sm-6"><div class="nat-card nat-humano" data-nat="Humano">
+                            <h4>Humano</h4>
+                            <p class="nat-desc">Frágil, mas resiliente e conectado. Só ganha poder fechando um Contrato.</p>
+                            <ul>
+                                <li>Stress máximo maior (8 + Vigor + Vínculo)</li>
+                                <li>+2 Habilidades Gerais e +1 de Origem grátis · Talismã</li>
+                                <li>Recuperação emocional eficiente · Contratos fáceis de encerrar</li>
+                                <li class="mal">Sem poder sobrenatural sem Contrato</li>
+                            </ul>
+                        </div></div>
+                        <div class="c-xs-12 c-sm-6"><div class="nat-card nat-infernal" data-nat="Infernal">
+                            <h4>Infernal</h4>
+                            <p class="nat-desc">Um demônio vestido de gente. Poder de berço, corpo emprestado.</p>
+                            <ul>
+                                <li>Grátis: 1 Geral + 1 Origem + 1 Poder + 1 Sentido</li>
+                                <li>Memória do Inferno (+1d10 vs demônios conhecidos)</li>
+                                <li>Injúrias Leves não geram penalidade</li>
+                                <li class="mal">Poderes custam +1 Stress · corpo se deteriora</li>
+                            </ul>
+                        </div></div>
+                        <div class="c-xs-12 c-sm-6"><div class="nat-card nat-hibrido" data-nat="Híbrido">
+                            <h4>Híbrido</h4>
+                            <p class="nat-desc">Metade humano, metade Fera. Transforma partes do corpo.</p>
+                            <ul>
+                                <li>Grátis: 1 Geral + 1 Origem + 1 Forma de Transformação</li>
+                                <li>Ignora 1 consequência por combate · Recusa da Morte</li>
+                                <li class="mal">Usar poder custa Stress</li>
+                                <li class="mal">Colapso em Profunda pode disparar A Fera</li>
+                            </ul>
+                        </div></div>
+                        <div class="c-xs-12 c-sm-6"><div class="nat-card nat-demonio" data-nat="Demônio Puro">
+                            <h4>Demônio Puro</h4>
+                            <p class="nat-desc">Um conceito com corpo. Funciona diferente das outras três.</p>
+                            <ul>
+                                <li>Pontos de atributo livres — sem troca por PM</li>
+                                <li>Poderes vêm de Pontos de Idade/Sabedoria</li>
+                                <li class="mal">Sem Talismã, sem Sonhos</li>
+                                <li class="mal">Regras completas na Seção 7 do Sumário</li>
+                            </ul>
+                        </div></div>
+                    </div>
+
+                    <!-- 2. Dados básicos -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">2</span> Dados Básicos</h2>
+                    <div class="row gap-15">
+                        <div class="c-xs-12 c-sm-8"><div class="cr-field"><label class="cr-label">Nome</label><input id="f-nome" class="cr-input" placeholder="Nome do personagem"></div></div>
+                        <div class="c-xs-12 c-sm-4" id="wrap-idade"><div class="cr-field"><label class="cr-label">Idade</label><input id="f-idade" class="cr-input" placeholder="—"></div></div>
+                    </div>
+
+                    <!-- Identidade do Demônio — logo abaixo do Nome (substitui Idade/Conceito no demônio) -->
+                    <div id="demonio-identidade" style="display:none">
+                        <div class="attr-cat" style="margin-top:14px">👹 Demônio Puro — Identidade do Medo <span style="font-size:.6em;opacity:.7;font-family:inherit">— sem Talismã nem Sonhos</span></div>
+                        <div class="row gap-15">
+                            <div class="c-xs-12 c-sm-4"><div class="cr-field"><label class="cr-label">Conceito do Medo <span style="opacity:.7">(o resumo do demônio)</span></label><input id="f-conceito-medo" class="cr-input" placeholder="Ex.: o medo de ser esquecido"></div></div>
+                            <div class="c-xs-12 c-sm-4"><div class="cr-field"><label class="cr-label">Categoria de Medo <span style="opacity:.7">(define o atributo do Stress)</span></label><select id="f-medo" class="cr-select"></select></div></div>
+                            <div class="c-xs-12 c-sm-4"><div class="cr-field"><label class="cr-label">Idade em anos <span style="opacity:.7">(o estágio, os Pontos e a DT saem daqui)</span></label>
+                                <input id="f-idade-anos" type="number" min="0" class="cr-input" placeholder="ex.: 200">
+                                <div class="fs-5" id="idade-readout" style="margin-top:7px;color:var(--cor-texto-secundario);line-height:1.5"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="row gap-15">
+                        <div class="c-xs-12" id="wrap-conceito"><div class="cr-field"><label class="cr-label">Conceito / Resumo</label><input id="f-conceito" class="cr-input" placeholder="Ex.: ex-policial que caça o que matou sua filha"></div></div>
+                        <div class="c-xs-12 c-sm-6"><div class="cr-field"><label class="cr-label">Ligação com demônios / seres</label><input id="f-ligacao" class="cr-input"></div></div>
+                        <div class="c-xs-12 c-sm-6"><div class="cr-field"><label class="cr-label">Falha Central</label><input id="f-falha" class="cr-input" placeholder="A fraqueza que te define"></div></div>
+                        <div class="c-xs-12 c-sm-6" id="wrap-pm"><div class="cr-field"><label class="cr-label">PM inicial <span style="opacity:.7">(passado)</span></label>
+                            <input id="f-pm" type="number" min="0" class="cr-input" value="3">
+                            <div class="fs-5" style="margin-top:7px;color:var(--cor-texto-secundario);line-height:1.6">
+                                Sugestão por passado:
+                                <a href="#" class="pm-sug" data-pm="3">3</a> ·
+                                <a href="#" class="pm-sug" data-pm="5">5</a> ·
+                                <a href="#" class="pm-sug" data-pm="7">7</a> ·
+                                <a href="#" class="pm-sug" data-pm="9">9</a>
+                                <span id="pm-sobra"></span>
+                            </div></div></div>
+                        <div class="c-xs-12 c-sm-6"><div class="cr-field"><label class="cr-label">Pontos de atributo <span style="opacity:.7">(o Mestre define · padrão 22)</span></label><input id="f-attrpts" type="number" min="0" class="cr-input" value="22"></div></div>
+                    </div>
+
+                    <!-- 3. Atributos -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">3</span> Atributos</h2>
+                    <p class="cr-hint" id="attr-hint">Distribua os <strong id="attr-pool-hint">22</strong> pontos (teto 10). Cada ponto que sobrar vira <strong>+2 PM</strong>. Atributo 0 = falha automática + 1 Stress.</p>
+
+                    <!-- Demônio: Pontos de Idade ANTES da grade -->
+                    <div id="demonio-box" class="pi-card" style="display:none">
+                        <div class="attr-cat" id="pi-titulo">👹 Pontos de Idade</div>
+                        <div class="pi-rows">
+                            <div class="pi-row"><span class="pi-nome">Força</span><input id="idp-forca" type="number" min="0" value="0"><span class="pi-ef">+1 físico · +1 Injúria Leve · <em>cada 2:</em> poder de combate</span></div>
+                            <div class="pi-row"><span class="pi-nome">Resistência</span><input id="idp-resist" type="number" min="0" value="0"><span class="pi-ef">+2 Stress · +1 Injúria Leve · <em>cada 2:</em> Injúria Grave + regen</span></div>
+                            <div class="pi-row"><span class="pi-nome">Sabedoria</span><input id="idp-sab" type="number" min="0" value="0"><span class="pi-ef">+1 mental/social · −1 Stress num poder · <em>cada 2:</em> poder + Geral</span></div>
+                        </div>
+                        <div id="idpts-res"></div>
+                        <div id="demonio-bonus"></div>
+                    </div>
+
+                    <div id="attr-pool-dem" class="cr-hint" style="display:none"></div>
+                    <div id="attr-wrap"></div>
+
+                    <!-- 4. Custo & Evolução -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">4</span> Custo &amp; Evolução</h2>
+                    <div id="demonio-escala" class="pi-card" style="display:none"></div>
+                    <div id="custos-box" class="pi-card">
+                        <p class="cr-hint" id="custo-hint">Gaste PM nas compras da sua natureza (botões + / −). Cada <strong>2 compras = 1 Degrau</strong>; Degraus compram <strong>Marcas</strong>. O PM e os Degraus atualizam no painel. <em>(Habilidades você compra na etapa 6; aqui ficam poderes, atributos, injúrias, contratos, etc.)</em></p>
+                        <div id="custos-pm"></div>
+                    </div>
+                    <div id="marcas-box" class="pi-card">
+                        <div class="attr-cat">Marcas <span style="font-size:.6em;opacity:.7">— gastam Degraus</span></div>
+                        <p class="cr-hint">Cada Marca custa Degraus igual ao Tier. As caras demais ficam 🔒 até você ter Degrau.</p>
+                        <div id="marcas-lista"></div>
+                        <p class="cr-hint"><strong>Cicatriz:</strong> Marca Tier 4 (ou Aflição Profunda) dispara perda permanente (1d10).</p>
+                    </div>
+
+                    <!-- 5. Estilos -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">5</span> Estilos de Luta</h2>
+                    <p class="cr-hint">Passivo sempre ativo, sem custo em jogo. <strong>1º é grátis</strong> (criação). Na ficha, os extras custam só <strong>PM</strong> (o ¥ é pra comprar em jogo): <strong>2º = 5 PM</strong> · <strong>3º = 8 PM</strong> · 4º+ só por evento. Máx 3.</p>
+                    <div id="estilo-lista"></div>
+
+                    <!-- 6. Habilidades -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">6</span> Habilidades</h2>
+                    <p class="cr-hint">Gerais valem pra qualquer natureza; as de Origem só pra você. As <strong>🔒 bloqueadas</strong> não cumprem o requisito de atributo ou pré-requisito (suba o atributo ou pegue a habilidade que falta). O PM gasto aparece no painel. <span id="hab-nota" style="color:var(--gold)"></span></p>
+                    <div class="hab-filtros" id="hab-filtros"></div>
+                    <div id="hab-lista"></div>
+
+                    <!-- 7. Equipamento -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">7</span> Equipamento &amp; ¥</h2>
+                    <p class="cr-hint">¥ compra <strong>coisa</strong>; poder que entra na ficha custa <strong>PM</strong>. Cada item tem um <strong>tier</strong> — quanto mais alto, mais forte (e mais caro). O ¥ inicial vem da <strong>Procedência</strong> (base 2.000), e o Mestre pode ajustar à mão.</p>
+                    <p class="cr-hint" id="equip-dem-nota" style="display:none;border-left:3px solid var(--gold);padding-left:10px">👹 <strong>Demônio Puro</strong> não usa ¥: pega qualquer arma/veículo <strong>livre</strong>. Só o item <strong>Excepcional</strong> ("único") custa <strong>1 Degrau</strong> — os mesmos Degraus das Marcas (etapa 4).</p>
+                    <div class="row gap-15">
+                        <div class="c-xs-12 c-sm-4"><div class="cr-field"><label class="cr-label">¥ disponível</label><input id="f-yen" type="number" min="0" class="cr-input" value="2000"></div></div>
+                        <div class="c-xs-12 c-sm-8"><div class="cr-field"><label class="cr-label">Procedência (define o ¥ base)</label><div id="proc-btns" class="d-flex f-gap-10 f-wrap"></div><div class="fs-5" id="proc-res" style="margin-top:7px;color:var(--cor-texto-secundario)"></div></div></div>
+                    </div>
+
+                    <div class="attr-cat">Tiers — o que cada nível entrega</div>
+                    <div id="tier-legenda"></div>
+
+                    <div class="attr-cat">Armamentos prontos</div>
+                    <div id="arma-lista"></div>
+
+                    <div class="attr-cat">Veículos</div>
+                    <div id="veiculo-lista"></div>
+
+                    <div class="attr-cat">Encomendas do Bento</div>
+                    <p class="cr-hint">O que o Bento arruma pra você. <strong>Sem Familiares</strong> (ficam fora da ficha). Marque o que pegou; o preço em ¥/PM é combinado com o Mestre. As <strong>Excepcionais</strong> sempre amarram um preço.</p>
+                    <div id="encomenda-lista"></div>
+
+                    <p class="cr-hint" style="margin-top:14px"><strong>Arma sob medida</strong> — a encomenda de gear personalizado. Escolha as peças e o <strong>¥ soma sozinho</strong> (só ¥, não custa PM). O <strong>tier sai do poder</strong> da arma. Se der <strong>Excepcional</strong>, escolha 1 Limitador.</p>
+                    <div id="arma-builder"></div>
+
+                    <!-- 8. Especial / Lore -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">8</span> Especial &amp; Lore</h2>
+                    <div id="demonio-lore" style="display:none">
+                        <div class="row gap-15">
+                            <div class="c-xs-12 c-sm-6"><div class="cr-field"><label class="cr-label">Marcas Deixadas <span style="opacity:.7">(o demônio marca)</span></label><textarea id="f-marcas-deixadas" class="cr-area" placeholder="Pessoas com contrato · lugares corrompidos"></textarea></div></div>
+                            <div class="c-xs-12 c-sm-6"><div class="cr-field"><label class="cr-label">Portas para o Inferno</label><textarea id="f-portas" class="cr-area" placeholder="Onde abre · o que liga · o medo associado"></textarea></div></div>
+                        </div>
+                    </div>
+                    <div class="row gap-15" id="wrap-mortal-especial">
+                        <div class="c-xs-12 c-sm-6"><div class="cr-field" id="wrap-talisma"><label class="cr-label">Talismã <span style="opacity:.7">(só Humano/Infernal/Híbrido)</span></label><input id="f-talisma" class="cr-input" placeholder="O que é · de onde veio · o que representa"></div></div>
+                        <div class="c-xs-12 c-sm-6"><div class="cr-field" id="wrap-marca"><label class="cr-label">Marca do Demônio <span style="opacity:.7">(mortal marcado)</span></label><input id="f-marca" class="cr-input"></div></div>
+                    </div>
+                    <div id="talisma-efeitos"></div>
+                    <div class="row gap-15">
+                        <div class="c-xs-12"><div class="cr-field" id="wrap-sonhos"><label class="cr-label">Sonhos (1 a 3) <span style="opacity:.7">(só Humano/Infernal/Híbrido)</span></label><textarea id="f-sonhos" class="cr-area" placeholder="Comum (4 PM) · Pessoal (6) · Ambicioso (10) · Tolo (15)"></textarea></div></div>
+                        <div class="c-xs-12"><div class="cr-field"><label class="cr-label">Poderes / Contratos</label><textarea id="f-poderes" class="cr-area" placeholder="Efeito único · custo em Stress · o preço"></textarea></div></div>
+                        <div class="c-xs-12"><div class="cr-field"><label class="cr-label">Aflições</label><textarea id="f-aflicoes" class="cr-area"></textarea></div></div>
+                    </div>
+
+                    <!-- 9. Testar Ficha -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">9</span> Testar Ficha</h2>
+                    <p class="cr-hint">Área de teste: role <strong>Xd10</strong> pelo atributo (X = o valor) e some os dados. Ajuste dados/fixo pra simular buffs de habilidades e a DT pra ver se passa. Atributo 0 = falha automática.</p>
+                    <div class="builder-box">
+                        <div class="builder-row"><span class="bl-lbl">Atributo</span><span id="teste-attrs" class="d-flex f-gap-10 f-wrap" style="flex:1"></span></div>
+                        <div class="builder-row">
+                            <span class="bl-lbl">Ajustes</span>
+                            <label style="font-size:.8rem;color:var(--cor-texto-secundario)">DT <input id="teste-dt" type="number" class="cr-input" style="width:72px;display:inline-block;padding:6px 8px" placeholder="—"></label>
+                            <label style="font-size:.8rem;color:var(--cor-texto-secundario)">+dados <input id="teste-dados" type="number" class="cr-input" style="width:62px;display:inline-block;padding:6px 8px" value="0"></label>
+                            <label style="font-size:.8rem;color:var(--cor-texto-secundario)">+fixo <input id="teste-fixo" type="number" class="cr-input" style="width:62px;display:inline-block;padding:6px 8px" value="0"></label>
+                        </div>
+                        <div id="teste-resultado" style="text-align:center;padding:14px;border-top:1px dashed var(--cor-borda);margin-top:4px;color:var(--cor-texto-secundario)">Escolha um atributo pra rolar.</div>
+                        <div class="text-center"><button class="btn" id="teste-reroll" style="display:none;border:1px solid var(--cor-secundaria);color:var(--cor-secundaria);background:transparent;font-size:.82rem">↻ Forçar o Dado (rerola · 2 Stress)</button></div>
+                    </div>
+
+                    <!-- 10. Ficha Pronta -->
+                    <h2 class="cr-step-title m-40-t"><span class="cr-num">10</span> Ficha Pronta</h2>
+                    <p class="cr-hint">Baixe o <strong>.md</strong> e arraste no Rolador de Dados (aba 🎲 Ficha) ou leve pra sua mesa/VTT.</p>
+                    <div class="cr-actions">
+                        <button class="btn btn-primary" id="btn-testar">🎲 Abrir no Rolador</button>
+                        <button class="btn btn-primary" id="btn-md" style="background:transparent;border:2px solid var(--cor-secundaria)">⬇ Baixar .md</button>
+                        <button class="btn btn-primary" id="btn-copy" style="background:transparent;border:2px solid var(--cor-secundaria)">📋 Copiar ficha</button>
+                        <button class="btn" id="btn-reset" style="border:1px solid var(--cor-borda);color:var(--cor-texto-secundario);background:transparent">Limpar tudo</button>
+                    </div>
+                    <pre class="export-pre" id="preview"></pre>
+                </div>
+
+                <!-- Coluna do resumo (sticky) -->
+                <div class="c-xs-12 c-md-4">
+                    <div class="resumo-panel">
+                        <h3>Recursos</h3>
+                        <div class="res-row"><span class="k">Natureza</span><span class="v" id="r-nat">—</span></div>
+                        <div class="res-row"><span class="k">Atributos</span><span class="v" id="r-pts">0 / 22</span></div>
+                        <div class="res-row res-pm" id="r-pm-row"><span class="k">PM (restante)</span><span class="v" id="r-pm">0</span></div>
+                        <div class="res-row res-pm" id="r-yen-row"><span class="k">¥ (restante)</span><span class="v" id="r-yen">—</span></div>
+                        <div class="res-row"><span class="k">Stress máx</span><span class="v" id="r-stress">—</span></div>
+                        <div class="res-row" id="r-dt-row" style="display:none"><span class="k">DT Teste de Medo</span><span class="v" id="r-dt">—</span></div>
+                        <div class="res-row"><span class="k">Injúrias (L/G/C)</span><span class="v" id="r-inj">—</span></div>
+                        <div class="res-row"><span class="k">Defesa Passiva</span><span class="v" id="r-passiva">—</span></div>
+                        <div class="res-row"><span class="k">Movimento</span><span class="v" id="r-mov">—</span></div>
+                        <div class="res-row"><span class="k">Carga</span><span class="v" id="r-carga">—</span></div>
+                        <div class="res-row"><span class="k">Iniciativa</span><span class="v" id="r-ini">—</span></div>
+                        <div class="res-row"><span class="k">Degraus (usados)</span><span class="v" id="r-degraus">0 / 0</span></div>
+                        <div class="fs-5" id="r-aviso" style="color:#e6b800;margin-top:10px;line-height:1.5"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-brand"><a href="index.html">SCAR</a><span>Sacrificial Contract & Risk</span></div>
+        <div class="footer-links">
+            <a href="https://github.com/JonathanRbo" target="_blank" rel="noopener"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub</a>
+            <a href="atualizacoes.html"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.97 8.97 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Atualizações</a>
+            <a href="agradecimentos.html"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Agradecimentos</a>
+        </div>
+        <div class="footer-divider-line"></div>
+        <p class="footer-copy">© 2026 SCAR RPG • Feito com 🩸 por fãs, para fãs</p>
+    </footer>
+
+    <script src="https://cdn.squeleton.dev/squeleton-scripts.v4.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+    (function(){
+        const $ = id => document.getElementById(id);
+        const ATRIBUTOS = ["Força","Vigor","Coordenação","Malandragem","Tecnologia","Percepção","Investigação","Negociação","Autoridade","Vínculo"];
+        const GRUPOS_ATTR = [
+            ["Físicos", ["Força","Vigor","Coordenação"]],
+            ["Táticos / Técnicos", ["Malandragem","Tecnologia","Percepção"]],
+            ["Mentais / Sociais", ["Investigação","Negociação","Autoridade","Vínculo"]],
+        ];
+        const ESTILOS = ["Boxe","Estilo Livre","Espadachim","Pistoleiro","Armas Pesadas","Caçador","Instintivo","Spetsnaz","Wrestling","Judô","Executor","Mãos da Guerra"];
+        // Stress-base dos mortais. Demônio Puro NÃO entra aqui: seu Stress vem da Categoria de Medo (demonioCalc).
+        const NAT_STRESS = { "Humano":8, "Infernal":6, "Híbrido":6 };
+        const CATS_LABEL = (typeof HAB_CAT_LABEL !== 'undefined') ? HAB_CAT_LABEL : {fisico:"Físico",mental:"Mental",social:"Social",humano:"Humano",infernal:"Infernal",hibrido:"Híbrido",demonio:"Demônio"};
+        const NAT_ORIGEM = { "Humano":"humano", "Infernal":"infernal", "Híbrido":"hibrido", "Demônio Puro":"demonio" };
+        // Habilidades grátis do Ponto de Partida (não custam PM). "geral" = tipo geral; "origem" = tipo origem da cat da natureza.
+        // Infernal: 1 Origem + 1 Poder + 1 Sentido = 3 no pool de origem. Híbrido: 1 Origem + 1 Forma = 2. Demônio Puro: cat demonio já sai 0.
+        const FREE_SLOTS = {
+            "Humano":       { geral:2, origem:1 },
+            "Infernal":     { geral:1, origem:3 },
+            "Híbrido":      { geral:1, origem:2 },
+            "Demônio Puro": { geral:0, origem:0 },
+        };
+        // Demônio Puro
+        const MEDO_CATS = [
+            { key:'incomum',    nome:'Incomum',              base:4, attr:'Força' },
+            { key:'social',     nome:'Social-Sistêmico',     base:4, attr:'Autoridade' },
+            { key:'biblico',    nome:'Bíblico-Arquetípico',  base:4, attr:'Autoridade' },
+            { key:'conceitual', nome:'Conceitual-Abstrato',  base:4, attr:'Percepção' },
+            { key:'primordial', nome:'Primordial',           base:6, attr:'Força' },
+        ];
+        const IDADES = [
+            { key:'recem',     nome:'Recém-Nascido',   pts:0,  dt:15, ymin:0 },
+            { key:'jovem',     nome:'Jovem',           pts:2,  dt:20, ymin:11 },
+            { key:'maduro',    nome:'Maduro (padrão)', pts:4,  dt:25, ymin:51 },
+            { key:'veterano',  nome:'Veterano',        pts:6,  dt:30, ymin:201 },
+            { key:'anciao',    nome:'Ancião (NPC)',    pts:9,  dt:35, ymin:501 },
+            { key:'milenar',   nome:'Milenar (NPC)',   pts:12, dt:40, ymin:1001 },
+            { key:'imemorial', nome:'Imemorial (NPC)', pts:16, dt:45, ymin:5001 },
+            { key:'primevo',   nome:'Primevo (NPC)',   pts:20, dt:50, ymin:50000 },
+        ];
+        // Deriva o estágio de idade a partir dos ANOS. "Sem teto" (Sumário §7): acima de Primevo (50.000),
+        // cada ×10 nos anos rende +2 Pontos de Idade e +5 na DT Base.
+        function idadeCalc(anos){
+            anos = Math.max(0, Math.floor(+anos||0));
+            let st = IDADES[0];
+            for(const it of IDADES){ if(anos >= it.ymin) st = it; }
+            let pts = st.pts, dt = st.dt, extra = 0;
+            if(st.key==='primevo' && anos >= 50000){
+                extra = Math.floor(Math.log10(anos/50000) + 1e-9);   // 500k→+1 · 5M→+2 · 50M→+3 …
+                pts += 2*extra; dt += 5*extra;
+            }
+            return { key:st.key, nome:st.nome, pts, dt, anos, extra };
+        }
+        function idadeAnos(){ return Math.max(0, Math.floor(+S.idadeAnos||0)); }
+        function renderIdadeReadout(){
+            const el=$('idade-readout'); if(!el) return;
+            const anos=idadeAnos(), id=idadeCalc(anos), fmt=n=>n.toLocaleString('pt-BR');
+            const idx=IDADES.findIndex(x=>x.key===id.key);
+            let prox='';
+            if(id.key!=='primevo' && idx>=0){ const nx=IDADES[idx+1]; prox=` · <span style="opacity:.7">${nx.nome.replace(/ \(.*\)/,'')} a partir de ${fmt(nx.ymin)} anos</span>`; }
+            else { prox=` · <span style="opacity:.7">+2 pts e +5 DT a cada ×10 anos (próximo em ${fmt(50000*Math.pow(10,id.extra+1))})</span>`; }
+            el.innerHTML = `→ <strong style="color:var(--gold)">${id.nome}${id.extra?' <span style="opacity:.85">+'+id.extra+'</span>':''}</strong> · <strong>${id.pts}</strong> Pontos de Idade · DT do Medo <strong>${id.dt}</strong>${prox}`;
+        }
+        // Escala de Medo (−5..+5): multiplica os status em cascata (×0..×2). A Idade dá o teto; o Medo diz quanto está ligado agora.
+        const ESCALA_MEDO = [
+            { v:5,  nome:'Incompreensível' }, { v:4, nome:'' }, { v:3, nome:'' }, { v:2, nome:'' }, { v:1, nome:'' },
+            { v:0,  nome:'Neutro' },
+            { v:-1, nome:'' }, { v:-2, nome:'' }, { v:-3, nome:'' }, { v:-4, nome:'' }, { v:-5, nome:'Esquecido · Dormente' },
+        ];
+        function medoMult(){ return Math.max(0, Math.min(2, 1 + 0.2*(+S.medoEscala||0))); }
+        function medoDormente(){ return (+S.medoEscala||0) <= -5; }
+        // atributo efetivo = base (22) + bônus de Idade (só Demônio). Escalado pelo Medo (mín 1, ou 0 se Dormente).
+        function attrEff(a){ return (S.attrs[a]||0) + (S.nat==='Demônio Puro' ? (S.idAttr[a]||0) : 0) + marcaAttrBonus(a); }
+        // Marcas que aplicam número na ficha (o resto é narrativo → vira anotação do Mestre)
+        const MARCA_MEC = { 'Fôlego':1, 'Atributo':1, 'Fundir Injúrias':1 };
+        function marcaBonus(){
+            const q=(S.marcas||{})['Fôlego']||0, opt=(S.marcaOpt||{})['Fôlego']||'stress';
+            const f=S.marcaFundir||{LG:0,GL:0,GC:0,CG:0};   // remodela slots (Sumário §Marcas): 2 Leves↔1 Grave · 3 Graves↔1 Crítica
+            return {
+                stress: opt==='injuria'?0:2*q,
+                injL: (opt==='injuria'?q:0) + 2*(f.GL||0) - 2*(f.LG||0),
+                injG: (f.LG||0) - (f.GL||0) - 3*(f.GC||0) + 3*(f.CG||0),
+                injC: (f.GC||0) - (f.CG||0)
+            };
+        }
+        // Slots de Injúria finais (base + Fôlego + Fundir) — usado pra impedir que a remodelagem zere um nível
+        function injuriasTotais(){
+            const mb=marcaBonus(), cb=comprasBonus();
+            let L,G; if(S.nat==='Demônio Puro'){ const dc=demonioCalc(); L=dc.injL; G=dc.injG; } else { const vig=attrEff('Vigor'); L=2+Math.floor(vig/2); G=1+Math.floor(vig/3); }
+            return { L: L+cb.injL+mb.injL, G: G+cb.injG+mb.injG, C: 1+(mb.injC||0) };
+        }
+        function marcaAttrBonus(a){ return ((S.marcaOpt||{})['Atributo']===a) ? ((S.marcas||{})['Atributo']||0) : 0; }
+        function attrEscala(v){ if(medoDormente()) return 0; const m=medoMult(); if(m===1) return v; return Math.max(1, Math.floor(v*m)); }
+        const ATTR_FISICOS = ['Força','Vigor','Coordenação'];
+        const ATTR_OUTROS  = ['Malandragem','Tecnologia','Percepção','Investigação','Negociação','Autoridade','Vínculo'];
+        const MARCAS = [
+            {t:1, nome:'Treino', ef:'+1d10 numa perícia/ofício que você nomeia'},
+            {t:1, nome:'Item (Leve/Médio)', ef:'1 item Leve ou Médio de graça'},
+            {t:1, nome:'Fôlego', ef:'+2 no teto de Stress OU +1 slot de Injúria Leve'},
+            {t:1, nome:'Fundir Injúrias', ef:'remodela seus slots de Injúria entre níveis'},
+            {t:1, nome:'Gancho', ef:'+1d10 quando a condição que você define acontecer'},
+            {t:1, nome:'Sentido', ef:'um sentido sobre-humano'},
+            {t:2, nome:'Imunidade', ef:'imune a 1 condição (sangramento, atordoamento…)'},
+            {t:2, nome:'Item maior (Médio/Alto)', ef:'1 item Médio ou Alto de graça'},
+            {t:2, nome:'Atributo', ef:'+1 ponto num atributo (teto 10)'},
+            {t:2, nome:'Criar Geral', ef:'inventa 1 Habilidade Geral com o Mestre'},
+            {t:2, nome:'Manobra', ef:'derrubar/desarmar/quebrar guarda ao acertar'},
+            {t:2, nome:'Aliado', ef:'um Companheiro ou contato fixo'},
+            {t:2, nome:'Conduto', ef:'−1 Stress no custo de um poder'},
+            {t:3, nome:'Item excepcional', ef:'arma/item único, acima do catálogo'},
+            {t:3, nome:'Evoluir habilidade', ef:'adiciona um efeito ou tira uma trava de uma sua'},
+            {t:3, nome:'Efeito passivo', ef:'algo sempre ativo de curto alcance'},
+            {t:3, nome:'Criar Origem', ef:'inventa 1 Habilidade de Origem com o Mestre'},
+            {t:4, nome:'Criar algo novo', ef:'com o Mestre, respeitando as Linhas-Duras · dispara Cicatriz'},
+        ];
+        const CUSTOS_PM = {
+            "Humano": [["Habilidade Geral","2"],["Habilidade de Origem","2"],["Novo Contrato Menor","2"],["Contrato Médio","3"],["Contrato Maior","4"],["Evolução de Contrato","2"],["+1 Injúria Leve Máx.","2"],["+1 Injúria Grave Máx.","3"],["+1 atributo","4"]],
+            "Infernal": [["Novo Poder Demoníaco","3"],["Habilidade Geral","2"],["Habilidade de Origem","2"],["Evolução de Poder","3"],["Transformação Parcial","4"],["Transformação Completa","6"],["+1 Injúria Leve Máx.","3"],["+1 Injúria Grave Máx.","4"],["+1 atributo","4"]],
+            "Híbrido": [["Novo Poder Demoníaco","3"],["Habilidade Geral","2"],["Habilidade de Origem","2"],["Evolução de Poder","2"],["Nova Forma Parcial (pode ter várias)","3"],["Forma Completa (evolui, não multiplica)","6"],["Contrato Menor","3"],["Contrato Médio","4"],["Contrato Maior","5"],["+1 atributo","5"],["+1 Injúria Leve Máx.","3"],["+1 Injúria Grave Máx.","4"]],
+        };
+        const CUSTOS_TODOS = [["+1 Stress Máximo","3"],["Fortalecer Talismã","3"],["Cicatrizar Aflição (leve/média/severa)","4/6/8"],["Domar Aflição","6 + Cicatriz"]];
+        const LS = 'scar-criador-v1';
+
+        // estado
+        let S = { nat:'', attrs:{}, estilos:[], habs:[], filtro:'todos',
+                  armas:[], veiculos:[], encomendas:[],
+                  armaBuild:{ nome:'', dado:0, nivel:'Leve', alcance:'Curto', efeitos:[], limitador:'' },
+                  medo:'', idade:'maduro', idPts:{ forca:0, resist:0, sab:0 }, marcas:[], compras:{},
+                  medoEscala:0, idAttr:{}, demDegraus:0 };
+        ATRIBUTOS.forEach(a => S.attrs[a] = 0);
+        const CAMPOS = ['f-nome','f-idade','f-conceito','f-conceito-medo','f-ligacao','f-falha','f-pm','f-attrpts','f-yen','f-talisma','f-marca','f-sonhos','f-poderes','f-aflicoes','f-marcas-deixadas','f-portas'];
+
+        function pmDeHab(h){
+            const c = (h.custo||'').toLowerCase();
+            if (c.includes('grátis')) return 0;
+            if (h.cat === 'demonio') return 0; // Demônio Puro: pré-montado (Pontos de Idade)
+            const m = c.match(/(\d+)\s*pm/);
+            return m ? parseInt(m[1],10) : 2;
+        }
+        function attrTotal(){ return ATRIBUTOS.reduce((s,a)=>s+(S.attrs[a]||0),0); }
+        function maxPts(){ return parseInt(($('f-attrpts')||{}).value,10)||22; }
+        function pmTotal(){
+            const base = parseInt($('f-pm').value,10)||0;
+            if(S.nat==='Demônio Puro') return base;            // sem troca de pontos por PM
+            return base + Math.max(0, maxPts()-attrTotal())*2;  // sobra de atributos vira +2 PM cada
+        }
+        // Estilos na criação: 1º grátis · 2º = 5 PM · 3º = 8 PM (sem ¥ — o ¥ é só pra comprar em jogo)
+        function estiloExtraPM(){ const n=S.estilos.length; return (n>=2?5:0)+(n>=3?8:0); }
+        // Custo em PM de cada instância de habilidade selecionada, já com dobra dos repetíveis "dobra a cada novo".
+        function habInstancias(){
+            const orig = NAT_ORIGEM[S.nat];                 // cat de origem da natureza atual
+            const grupos = {}; S.habs.forEach(id=>{ grupos[id]=(grupos[id]||0)+1; });
+            const itens = [];
+            Object.keys(grupos).forEach(id=>{
+                const h = HAB_CATALOGO.find(x=>x.id===id); if(!h) return;
+                const base = pmDeHab(h);
+                const dobra = /dobra/i.test(h.custo||'');    // ex.: "Carregar o Dado" — 4 → 8 → 16 → 32…
+                const classe = (h.tipo==='geral') ? 'geral' : ((h.cat===orig) ? 'origem' : 'outro');
+                for(let i=0;i<grupos[id];i++) itens.push({ id, pm: dobra ? base*Math.pow(2,i) : base, classe });
+            });
+            return itens;
+        }
+        // Aplica os slots grátis (nos itens de maior custo de cada pool) e devolve o PM gasto + os ids marcados como grátis.
+        function habCustoResumo(){
+            const itens = habInstancias();
+            const free = FREE_SLOTS[S.nat] || {};
+            let habPM = 0; const freeIds = new Set();
+            ['geral','origem','outro'].forEach(cl=>{
+                const grp = itens.filter(x=>x.classe===cl).sort((a,b)=>b.pm-a.pm);
+                const nFree = free[cl]||0;
+                grp.forEach((it,idx)=>{ if(idx<nFree){ freeIds.add(it.id); } else { habPM += it.pm; } });
+            });
+            return { habPM, freeIds };
+        }
+        function pmGasto(){ return habCustoResumo().habPM + estiloExtraPM() + (typeof comprasPM==='function'?comprasPM():0); }
+
+        // ---------- Equipamento: tiers, riqueza, armas, veículos, encomendas ----------
+        function tCor(k){ return (typeof TIER_COR!=='undefined' && TIER_COR[k]) ? TIER_COR[k] : 'var(--cor-secundaria)'; }
+        function tierBadge(k){ const c=tCor(k), l=(typeof TIER_LABEL!=='undefined'&&TIER_LABEL[k])?TIER_LABEL[k]:k; return `<span class="tier-badge" style="color:${c};border-color:${c}">${l}</span>`; }
+        function armaTier(a){ if(a.dado>=3) return 'excepcional'; if(a.dado===2||a.nivel==='Crítica') return 'superior'; if(a.nivel==='Grave') return 'especial'; return 'comum'; }
+        // Demônio: arma comum é livre (ignora ¥); cada armamento Excepcional ("único") custa 1 Degrau.
+        function armasUnicasDem(){
+            if(S.nat!=='Demônio Puro') return 0;
+            let n = S.armas.filter(id=>{ const a=ARMAMENTOS.find(x=>x.id===id); return a && armaTier(a)==='excepcional'; }).length;
+            if(temArmaBuild() && armaBuildTier(S.armaBuild)==='excepcional') n++;
+            return n;
+        }
+        function fmtY(n){ return n.toLocaleString('pt-BR'); }
+        function yenNum(){ return parseInt(($('f-yen')||{}).value,10)||0; }
+        function armaBuildYen(){
+            const b=S.armaBuild, P=ARMA_PECAS; let y=0;
+            const d=P.dado.find(x=>x.v===b.dado); if(d) y+=d.yen;
+            const n=P.nivel.find(x=>x.v===b.nivel); if(n) y+=n.yen;
+            const al=P.alcance.find(x=>x.v===b.alcance); if(al) y+=al.yen;
+            b.efeitos.forEach(nm=>{ const e=P.efeitos.find(x=>x.nome===nm); if(e) y+=e.yen; });
+            return y;
+        }
+        function armaBuildTier(b){
+            const fortes = b.efeitos.filter(nm=>{ const e=ARMA_PECAS.efeitos.find(x=>x.nome===nm); return e&&e.forte; }).length;
+            const nEf = b.efeitos.length, crit=b.nivel==='Crítica', grave=b.nivel==='Grave';
+            if(b.dado>=3 || fortes>=2 || (crit && (b.dado>=2||nEf>=1)) || (b.dado>=2 && fortes>=1)) return 'excepcional';
+            if(b.dado===2 || crit || nEf>=3 || (b.dado>=1 && fortes>=1)) return 'superior';
+            if(b.dado===1 || grave || nEf>=1) return 'especial';
+            return 'comum';
+        }
+        function temArmaBuild(){ const b=S.armaBuild; return !!(b.nome || b.dado>0 || b.nivel!=='Leve' || b.efeitos.length); }
+        function yenGasto(){
+            if(S.nat==='Demônio Puro') return 0;   // Demônio não gasta ¥ — arma comum é livre, Excepcional custa Degrau
+            let y=0;
+            S.armas.forEach(id=>{ const a=ARMAMENTOS.find(x=>x.id===id); if(a) y+=(a.yen||0); });
+            S.veiculos.forEach(id=>{ const v=VEICULOS.find(x=>x.id===id); if(v) y+=v.yen; });
+            if(temArmaBuild()) y+=armaBuildYen();
+            return y;
+        }
+        // Carga: peso por item (1 Leve / 2 Médio / 3 Pesado). Slots = 5 + Força.
+        const PESO_ARMA = { faca:1,'soco-ingles':1,bastao:1,katana:2,machado:2,marreta:3,motosserra:3,lanca:2,revolver:1,'pistola-9mm':1,'pistola-45':1,smg:2,'rifle-caca':2,'rifle-tatico':2,sniper:3,granada:1,molotov:1,arco:2 };
+        function cargaUsada(){
+            let c=0;
+            S.armas.forEach(id=> c += (PESO_ARMA[id]||2));
+            if(temArmaBuild()){ const d=S.armaBuild.dado; c += (d>=2?3:(d===1?2:1)); }
+            if(_v('f-talisma') && S.nat!=='Demônio Puro') c += 1;
+            return c;
+        }
+
+        function renderTierLegenda(){
+            $('tier-legenda').innerHTML = '<div class="tier-legenda-grid">'+TIERS.map(t=>
+                `<div class="tier-leg-card" style="--tc:${t.cor}"><h5>${t.nome}</h5><span class="yen">${t.yen}</span><p>${t.poder}</p></div>`
+            ).join('')+'</div>';
+        }
+        const PROCEDENCIA = [
+            {key:'nenhuma', nome:'Sem procedência', extra:0},
+            {key:'bico',    nome:'Bico',             extra:2000},
+            {key:'carreira',nome:'Carreira',         extra:4000},
+            {key:'conexao', nome:'Conexão c/ grana',  extra:8000},
+        ];
+        function procedenciaYen(key){
+            if(S.nat==='Demônio Puro') return 0;
+            const p=PROCEDENCIA.find(x=>x.key===key); const extra=p?p.extra:0;
+            let base=2000+extra;
+            if(S.nat==='Infernal') base-=1000;
+            return Math.max(0, base);
+        }
+        function aplicaProcRes(){
+            const el=$('proc-res'); if(!el) return;
+            if(!S.proc){ el.innerHTML='Escolha a procedência (ou o Mestre digita o ¥ direto).'; return; }
+            let partes;
+            if(S.nat==='Demônio Puro'){ partes=['Demônio Puro começa em 0']; }
+            else {
+                const p=PROCEDENCIA.find(x=>x.key===S.proc);
+                partes=['base 2.000']; if(p&&p.extra) partes.push('+ '+fmtY(p.extra)+' ('+p.nome.toLowerCase()+')');
+                if(S.nat==='Infernal') partes.push('− 1.000 (Infernal)');
+            }
+            el.innerHTML = partes.join(' ')+' = <strong style="color:var(--gold)">'+fmtY(procedenciaYen(S.proc))+' ¥</strong>';
+        }
+        function renderProcedencia(){
+            $('proc-btns').innerHTML = PROCEDENCIA.map(p=>`<button type="button" class="riq-btn ${S.proc===p.key?'on':''}" data-proc="${p.key}">${p.nome}${p.extra?' +'+(p.extra/1000)+'k':''}</button>`).join('');
+            $('proc-btns').querySelectorAll('[data-proc]').forEach(b=>b.addEventListener('click',()=>{
+                S.proc=b.dataset.proc;
+                $('f-yen').value=procedenciaYen(S.proc);
+                renderProcedencia(); recalc(); save();
+            }));
+            aplicaProcRes();
+        }
+        function renderArmas(){
+            const ehDem = S.nat==='Demônio Puro';
+            $('arma-lista').innerHTML = ARMAMENTOS.map(a=>{
+                const on=S.armas.includes(a.id); const tk=armaTier(a);
+                const bits=[]; if(a.dado) bits.push('+'+a.dado+'d10'); bits.push(a.nivel); bits.push(a.alcance);
+                const custo = ehDem ? (tk==='excepcional' ? '1 Degrau' : 'livre') : (fmtY(a.yen||0)+' ¥');
+                return `<label class="hab-item ${on?'on':''}"><input type="checkbox" data-arma="${a.id}" ${on?'checked':''}>
+                    <span><span class="hab-nome">${a.nome}</span>${tierBadge(tk)}<span class="hab-pm">${custo}</span>
+                    <span class="equip-meta">${bits.join(' · ')}${a.crit?' · crít: '+a.crit:''}${a.efeito&&a.efeito!=='—'?' · '+a.efeito:''}</span></span></label>`;
+            }).join('');
+            $('arma-lista').querySelectorAll('input[data-arma]').forEach(cb=>cb.addEventListener('change',e=>{
+                const id=e.target.dataset.arma;
+                if(e.target.checked){ if(!S.armas.includes(id)) S.armas.push(id); } else { S.armas=S.armas.filter(x=>x!==id); }
+                e.target.closest('.hab-item').classList.toggle('on',e.target.checked); recalc(); save();
+            }));
+        }
+        function seg(id, opts, cur){ return `<span class="builder-seg" data-seg="${id}">`+opts.map(o=>`<button type="button" data-v="${o.v}" class="${o.v===cur?'on':''}">${o.label||o.v}</button>`).join('')+`</span>`; }
+        function renderBuilder(){
+            const b=S.armaBuild, P=ARMA_PECAS, y=armaBuildYen(), tk=armaBuildTier(b);
+            const precisaLim = tk==='excepcional';
+            const efChips = P.efeitos.map(e=>`<span class="ef-chip ${b.efeitos.includes(e.nome)?'on':''}" data-ef="${e.nome}">${e.nome}${e.forte?' ⚡':''} <span style="opacity:.6">+${e.yen}</span></span>`).join('');
+            const limSel = precisaLim ? `<div class="builder-row"><span class="bl-lbl">Limitador</span>
+                <select id="ab-lim" class="cr-select" style="flex:1;min-width:200px"><option value="">— escolha 1 (obrigatório) —</option>${LIMITADORES.map(l=>`<option value="${l}" ${b.limitador===l?'selected':''}>${l.split(':')[0]}</option>`).join('')}</select></div>
+                ${b.limitador?`<p class="equip-meta" style="color:#e6b800">⚠ ${b.limitador}</p>`:`<p class="equip-meta" style="color:#e74c3c">Excepcional exige 1 Limitador.</p>`}` : '';
+            $('arma-builder').innerHTML = `<div class="builder-box">
+                <div class="builder-row"><span class="bl-lbl">Nome</span><input id="ab-nome" class="cr-input" style="flex:1;min-width:180px" placeholder="Ex.: Minha Menina" value="${(b.nome||'').replace(/"/g,'&quot;')}"></div>
+                <div class="builder-row"><span class="bl-lbl">Dano</span>${seg('dado',P.dado.map(x=>({v:x.v,label:x.label})),b.dado)}</div>
+                <div class="builder-row"><span class="bl-lbl">Nível</span>${seg('nivel',P.nivel.map(x=>({v:x.v})),b.nivel)}</div>
+                <div class="builder-row"><span class="bl-lbl">Alcance</span>${seg('alcance',P.alcance.map(x=>({v:x.v})),b.alcance)}</div>
+                <div class="builder-row"><span class="bl-lbl">Efeitos</span><span class="d-flex f-gap-10 f-wrap" style="flex:1">${efChips}</span></div>
+                ${limSel}
+                <div class="d-flex" style="justify-content:space-between;align-items:center;border-top:1px dashed var(--cor-borda);padding-top:10px;margin-top:4px">
+                    <span class="fs-6">Custo: <strong style="color:var(--gold)">${S.nat==='Demônio Puro' ? (tk==='excepcional'?'1 Degrau':'livre') : fmtY(y)+' ¥'}</strong></span>
+                    <span>Tier: ${tierBadge(tk)}</span>
+                </div></div>`;
+            $('ab-nome').addEventListener('input',e=>{ b.nome=e.target.value; save(); renderPreview(); });
+            $('arma-builder').querySelectorAll('.builder-seg').forEach(sg=>sg.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
+                const key=sg.dataset.seg; let v=btn.dataset.v; if(key==='dado') v=parseInt(v,10);
+                b[key]=v; renderBuilder(); recalc(); save();
+            })));
+            $('arma-builder').querySelectorAll('.ef-chip').forEach(c=>c.addEventListener('click',()=>{
+                const nm=c.dataset.ef; if(b.efeitos.includes(nm)) b.efeitos=b.efeitos.filter(x=>x!==nm); else b.efeitos.push(nm);
+                renderBuilder(); recalc(); save();
+            }));
+            const lim=$('ab-lim'); if(lim) lim.addEventListener('change',e=>{ b.limitador=e.target.value; renderBuilder(); recalc(); save(); });
+        }
+        function renderVeiculos(){
+            const ehDem = S.nat==='Demônio Puro';
+            $('veiculo-lista').innerHTML = VEICULOS.map(v=>{
+                const on=S.veiculos.includes(v.id);
+                const custo = ehDem ? 'livre' : (fmtY(v.yen)+' ¥');
+                return `<label class="hab-item ${on?'on':''}"><input type="checkbox" data-veic="${v.id}" ${on?'checked':''}>
+                    <span><span class="hab-nome">${v.nome}</span>${tierBadge(v.tier)}<span class="hab-pm">${custo}</span>
+                    <span class="equip-meta">${v.vel} · manobra ${v.manobra} · ${v.slots} slots · ${v.bonus} · pilota: ${v.pilota}<br>${v.efeito}</span></span></label>`;
+            }).join('');
+            $('veiculo-lista').querySelectorAll('input[data-veic]').forEach(cb=>cb.addEventListener('change',e=>{
+                const id=e.target.dataset.veic;
+                if(e.target.checked){ if(!S.veiculos.includes(id)) S.veiculos.push(id); } else { S.veiculos=S.veiculos.filter(x=>x!==id); }
+                e.target.closest('.hab-item').classList.toggle('on',e.target.checked); recalc(); save();
+            }));
+        }
+        function renderEncomendas(){
+            const ehDem = S.nat==='Demônio Puro';
+            $('encomenda-lista').innerHTML = ENCOMENDAS.map(e=>{
+                const on=S.encomendas.includes(e.id);
+                const pm = (!ehDem && e.pm && e.pm!==0) ? ` · <span style="color:var(--gold)">PM ${e.pm}</span>` : '';
+                return `<label class="hab-item ${on?'on':''}"><input type="checkbox" data-enc="${e.id}" ${on?'checked':''}>
+                    <span><span class="hab-nome">${e.nome}</span>${tierBadge(e.tier)}
+                    <span class="equip-meta">${e.yen}${pm}<br>${e.efeito}</span></span></label>`;
+            }).join('');
+            $('encomenda-lista').querySelectorAll('input[data-enc]').forEach(cb=>cb.addEventListener('change',e=>{
+                const id=e.target.dataset.enc;
+                if(e.target.checked){ if(!S.encomendas.includes(id)) S.encomendas.push(id); } else { S.encomendas=S.encomendas.filter(x=>x!==id); }
+                e.target.closest('.hab-item').classList.toggle('on',e.target.checked); recalc(); save();
+            }));
+        }
+        const TALISMA_EFEITOS = ['Rerolar um teste falho','Reduzir 1 nível de Injúria recebida','Ignorar 1 Aflição por 1 cena','+3d10 em teste ligado ao significado do Talismã','Resistir automaticamente a 1 Teste de Medo','Recupera 1d7 + Vínculo de Stress'];
+        function renderTalisma(){
+            if(S.nat==='Demônio Puro'){ $('talisma-efeitos').innerHTML=''; return; }   // Demônio não tem Talismã
+            $('talisma-efeitos').innerHTML = `<div class="cr-hint" style="margin-top:2px"><strong style="color:var(--cor-texto)">O Talismã ativa 1x por sessão (0 Stress), 1 efeito à escolha:</strong>
+                <ol style="margin:6px 0 0;padding-left:20px;line-height:1.6">${TALISMA_EFEITOS.map(e=>`<li>${e}</li>`).join('')}</ol>
+                <span style="color:#e6b800">Risco: destruído/perdido = +1 Aflição permanente e sem efeitos de Talismã até conseguir outro.</span></div>`;
+        }
+
+        // ---------- render atributos ----------
+        function renderAttrs(){
+            const ehDem = S.nat==='Demônio Puro';
+            let html='';
+            GRUPOS_ATTR.forEach(([tit,list])=>{
+                html += `<div class="attr-cat">${tit}</div><div class="attr-grid">`;
+                list.forEach(a=>{
+                    if(ehDem){
+                        html += `<div class="attr-box attr-box-dem" id="ab-${a}">
+                            <div class="ab-head"><label>${a}</label><span class="ab-eff" id="abeff-${a}"></span></div>
+                            <div class="ab-ctrl">
+                                <input type="number" min="0" max="10" data-attr="${a}" value="${S.attrs[a]||0}">
+                                <span class="ab-pi" id="abpi-${a}"></span>
+                            </div></div>`;
+                    } else {
+                        html += `<div class="attr-box" id="ab-${a}"><label>${a}</label><input type="number" min="0" max="10" data-attr="${a}" value="${S.attrs[a]||0}"></div>`;
+                    }
+                });
+                html += `</div>`;
+            });
+            $('attr-wrap').innerHTML = html;
+            $('attr-wrap').querySelectorAll('input[data-attr]').forEach(inp=>{
+                inp.addEventListener('input', e=>{
+                    let v = parseInt(e.target.value,10); if(isNaN(v)) v=0;
+                    if(v>10){v=10;e.target.value=10;} if(v<0){v=0;e.target.value=0;}
+                    S.attrs[e.target.dataset.attr]=v; recalc(); save();
+                });
+            });
+        }
+        // Demônio: bônus de Pontos de Idade distribuídos DIRETO na grade de atributos (base + Idade juntos).
+        // Só mexe nos spans/botões (não no <input> base) — seguro re-renderizar a cada recalc sem perder foco.
+        function renderIdadeInline(){
+            if(S.nat!=='Demônio Puro' || !$('abpi-Força')) return;
+            const c = demonioCalc();
+            // clampa as alocações caso os pools (Força/Sabedoria) tenham encolhido
+            let leftF=c.forca; ATTR_FISICOS.forEach(a=>{ let v=Math.max(0,S.idAttr[a]||0); if(v>leftF)v=leftF; S.idAttr[a]=v; leftF-=v; });
+            let leftO=c.sab;   ATTR_OUTROS.forEach(a=>{ let v=Math.max(0,S.idAttr[a]||0); if(v>leftO)v=leftO; S.idAttr[a]=v; leftO-=v; });
+            const pd=$('attr-pool-dem'); if(pd){
+                const parts=[];
+                if(c.forca>0) parts.push(`<strong>Físicos</strong> ← Força ${leftF}/${c.forca}`);
+                if(c.sab>0)   parts.push(`<strong>Tát/Ment/Social</strong> ← Sabedoria ${leftO}/${c.sab}`);
+                if(parts.length){ pd.style.display=''; pd.innerHTML = 'Bônus de Idade pra espalhar na grade: '+parts.join(' · ')+((leftF+leftO)?'':' <span style="color:#2ecc71">✓ tudo distribuído</span>'); }
+                else pd.style.display='none';
+            }
+            ATRIBUTOS.forEach(a=>{
+                const fis=ATTR_FISICOS.includes(a), left=fis?leftF:leftO;
+                const base=S.attrs[a]||0, bo=S.idAttr[a]||0, eff=base+bo;
+                const effEl=$('abeff-'+a); if(effEl) effEl.innerHTML = bo?`+${bo} = <b>${eff}</b>`:'';
+                const piEl=$('abpi-'+a); if(piEl) piEl.innerHTML =
+                    `<button type="button" class="compra-btn" data-ida="${a}" data-d="-1" ${bo>0?'':'disabled'}>−</button>`
+                    +`<b class="compra-q">${bo}</b>`
+                    +`<button type="button" class="compra-btn" data-ida="${a}" data-d="1" ${left>0?'':'disabled'}>+</button>`;
+            });
+            $('attr-wrap').querySelectorAll('.compra-btn[data-ida]').forEach(bt=>bt.addEventListener('click',()=>{
+                const a=bt.dataset.ida, d=parseInt(bt.dataset.d,10);
+                const fis=ATTR_FISICOS.includes(a), pool=fis?c.forca:c.sab;
+                const usado=(fis?ATTR_FISICOS:ATTR_OUTROS).reduce((s,x)=>s+(S.idAttr[x]||0),0);
+                let v=(S.idAttr[a]||0)+d;
+                if(v<0) v=0; if(d>0 && usado>=pool) return;   // não passa do pool da Idade
+                S.idAttr[a]=v; recalc(); save();
+            }));
+        }
+
+        // ---------- render estilos (múltiplos, até 3, com efeitos) ----------
+        function renderEstilosLista(){
+            const EF = (typeof ESTILOS_LUTA!=='undefined') ? ESTILOS_LUTA : {};
+            $('estilo-lista').innerHTML = ESTILOS.map(nome=>{
+                const on = S.estilos.includes(nome);
+                const efs = (EF[nome]||[]).map(e=>`<li>${e}</li>`).join('');
+                return `<label class="hab-item ${on?'on':''}">
+                    <input type="checkbox" data-estilo="${nome}" ${on?'checked':''}>
+                    <span><span class="hab-nome">${nome}</span>
+                    <ul class="estilo-ef">${efs}</ul></span></label>`;
+            }).join('');
+            $('estilo-lista').querySelectorAll('input[data-estilo]').forEach(cb=>{
+                cb.addEventListener('change',e=>{
+                    const nome=e.target.dataset.estilo;
+                    if(e.target.checked){
+                        if(S.estilos.length>=3){ e.target.checked=false; alert('Máximo prático: 3 estilos de luta.'); return; }
+                        if(!S.estilos.includes(nome)) S.estilos.push(nome);
+                    } else { S.estilos=S.estilos.filter(x=>x!==nome); }
+                    e.target.closest('.hab-item').classList.toggle('on', e.target.checked);
+                    recalc(); save();
+                });
+            });
+        }
+
+        // ---------- render habilidades ----------
+        function habVisiveis(){
+            const origemCat = NAT_ORIGEM[S.nat] || null;
+            return HAB_CATALOGO.filter(h=>{
+                if (h.tipo === 'geral') return true;
+                // origem: só a da natureza escolhida (se nenhuma escolhida, mostra nenhuma origem)
+                return origemCat ? h.cat === origemCat : false;
+            });
+        }
+        function renderFiltros(){
+            const base = [['todos','Todas'],['fisico','Físico'],['mental','Mental'],['social','Social']];
+            const oc = NAT_ORIGEM[S.nat];
+            if (oc) base.push([oc, 'Origem: '+CATS_LABEL[oc]]);
+            $('hab-filtros').innerHTML = base.map(([k,l])=>`<button class="hab-filtro ${S.filtro===k?'on':''}" data-f="${k}">${l}</button>`).join('');
+            $('hab-filtros').querySelectorAll('.hab-filtro').forEach(b=>b.addEventListener('click',()=>{ S.filtro=b.dataset.f; renderFiltros(); renderHabs(); }));
+        }
+        function selectedNames(){ return S.habs.map(id=>{ const h=HAB_CATALOGO.find(x=>x.id===id); return h?h.nome:''; }); }
+        function habTipo(h){
+            const s = ((h.custo||'')+' '+(h.efeito||'')).toLowerCase();
+            if(/passiv/.test(s)) return 'Passivo';
+            if(/reaç|reage|revida|ao (defender|aparar|sofrer|matar|errar|cair|proteger)|quando (aliado|você|um vínculo|sofreria)/.test(s)) return 'Reação';
+            return 'Ativa';
+        }
+        function tipoCor(t){ return t==='Passivo'?'#5DADE2':(t==='Reação'?'#9B59B6':'#c98a3a'); }
+        function habElegivel(id){
+            const r=(typeof HAB_REQUISITOS!=='undefined')?HAB_REQUISITOS[id]:null;
+            if(!r) return {ok:true, motivo:'', texto:''};
+            const motivos=[];
+            const attrTxt = (r.attrs&&r.attrs.length) ? r.attrs.map(g=>g.map(q=>q.a+' '+q.n).join('+')).join(' ou ') : '';
+            let attrOk=true;
+            if(r.attrs && r.attrs.length){
+                attrOk = r.attrs.some(g=>g.every(req=>(S.attrs[req.a]||0)>=req.n));
+                if(!attrOk) motivos.push('falta '+attrTxt);
+            }
+            let reqOk=true;
+            if(r.requer && r.requer.length){
+                const nomes=selectedNames();
+                const faltam=r.requer.filter(nm=>!nomes.includes(nm));
+                if(faltam.length){ reqOk=false; motivos.push('requer '+faltam.join(', ')); }
+            }
+            // texto LIMPO montado dos dados estruturados (ignora o texto bruto poluído)
+            const partes=[]; if(attrTxt) partes.push(attrTxt); if(r.requer&&r.requer.length) partes.push('Requer: '+r.requer.join(', '));
+            return { ok: attrOk&&reqOk, motivo: motivos.join(' · '), texto: partes.join(' · ') };
+        }
+        // true se pegar +1 desta habilidade respeita o teto de Poderes/Gerais do demônio (sempre true fora do demônio)
+        function habDentroDoTeto(id){
+            if(S.nat!=='Demônio Puro') return true;
+            const h=HAB_CATALOGO.find(x=>x.id===id); if(!h) return true;
+            const dc=demonioCalc(), cont=fn=>S.habs.filter(x=>{ const hh=HAB_CATALOGO.find(y=>y.id===x); return hh&&fn(hh); }).length;
+            if(h.cat==='demonio') return cont(hh=>hh.cat==='demonio') < dc.poderes;
+            if(h.tipo==='geral')  return cont(hh=>hh.tipo==='geral')  < dc.gerais;
+            return true;
+        }
+        function renderHabs(){
+            let list = habVisiveis();
+            const freeIds = habCustoResumo().freeIds;
+            // Demônio: teto de Poderes/Gerais vem dos Pontos de Idade (Poderes = 2 + Força/2 + Sab/2 · Gerais = Sab/2)
+            const ehDem = S.nat==='Demônio Puro', dc = ehDem ? demonioCalc() : null;
+            const nPod = ehDem ? S.habs.filter(id=>{ const h=HAB_CATALOGO.find(x=>x.id===id); return h && h.cat==='demonio'; }).length : 0;
+            const nGer = ehDem ? S.habs.filter(id=>{ const h=HAB_CATALOGO.find(x=>x.id===id); return h && h.tipo==='geral'; }).length : 0;
+            if (S.filtro!=='todos') list = list.filter(h=>h.cat===S.filtro);
+            const ordem = ['fisico','mental','social','humano','infernal','hibrido','demonio'];
+            let html='';
+            ordem.forEach(cat=>{
+                const grp = list.filter(h=>h.cat===cat);
+                if(!grp.length) return;
+                const isOr = ['humano','infernal','hibrido','demonio'].includes(cat);
+                html += `<div class="hab-grupo-tit">${isOr?'Origem · ':'Geral · '}${CATS_LABEL[cat]} <span style="color:var(--cor-texto-secundario);font-size:0.75rem;font-family:Roboto">(${grp.length})</span></div>`;
+                grp.forEach(h=>{
+                    const rep = /repet[íi]vel/i.test(h.custo||'');
+                    const qty = S.habs.filter(x=>x===h.id).length;
+                    const on = qty>0;
+                    const pm = pmDeHab(h);
+                    const grInicial = pm>0 && on && freeIds.has(h.id);
+                    const pmLbl = pm===0 ? 'grátis' : (grInicial ? 'grátis (inicial)' : pm+' PM');
+                    const el = habElegivel(h.id);
+                    // trava de teto do demônio (Poderes/Gerais dos Pontos de Idade) — não bloqueia o que já foi pego
+                    const isPod = ehDem && h.cat==='demonio', isGer = ehDem && h.tipo==='geral';
+                    const capCheio = (isPod && nPod>=dc.poderes) || (isGer && nGer>=dc.gerais);
+                    const bloqCap = capCheio && !on;
+                    const podePegar = el.ok && !bloqCap;
+                    const bloq = !podePegar && !on;
+                    const tipo = habTipo(h), tcor = tipoCor(tipo);
+                    const repTag = rep ? '<span class="hab-tipo" style="color:#2ecc71;border-color:#2ecc71">repetível</span>' : '';
+                    let reqLinha = el.texto ? `<span class="hab-req ${el.ok?'':'no'}">${el.ok?'':'🔒 '}Requisito: ${el.texto}${(!el.ok&&el.motivo)?' — '+el.motivo:''}</span>` : (el.ok?'':`<span class="hab-req no">🔒 ${el.motivo}</span>`);
+                    if(el.ok && bloqCap) reqLinha = `<span class="hab-req no">🔒 limite de ${isPod?'Poderes':'Habilidades Gerais'} atingido (${isPod?dc.poderes:dc.gerais}) — suba ${isPod?'Força ou Sabedoria':'Sabedoria'} nos Pontos de Idade</span>`;
+                    const info = `<span class="hab-nome">${h.nome}</span><span class="hab-pm">${pmLbl}</span><span class="hab-tipo" style="color:${tcor};border-color:${tcor}">${tipo}</span>${repTag} ${reqLinha} <span class="hab-ef">${h.efeito||''}</span>`;
+                    if(rep){
+                        html += `<div class="hab-item ${on?'on':''}${bloq?' hab-locked':''}">
+                            <span style="flex:1">${info}</span>
+                            <span class="compra-ctrl"><button type="button" class="compra-btn" data-hab="${h.id}" data-d="-1">−</button><b class="compra-q">${qty}</b><button type="button" class="compra-btn" data-hab="${h.id}" data-d="1" ${podePegar?'':'disabled'}>+</button></span></div>`;
+                    } else {
+                        html += `<label class="hab-item ${on?'on':''}${bloq?' hab-locked':''}" data-id="${h.id}">
+                            <input type="checkbox" ${on?'checked':''} ${bloq?'disabled':''} data-id="${h.id}">
+                            <span>${info}</span></label>`;
+                    }
+                });
+            });
+            $('hab-lista').innerHTML = html || '<p class="cr-hint">Escolha uma Natureza acima para ver as habilidades de Origem.</p>';
+            if(ehDem){ const hn=$('hab-nota'); if(hn) hn.innerHTML = `Poderes <b>${nPod}/${dc.poderes}</b> · Gerais <b>${nGer}/${dc.gerais}</b> <span style="opacity:.7">(vêm da Idade — Força/2 e Sabedoria/2)</span>`; }
+            $('hab-lista').querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>{
+                cb.addEventListener('change', e=>{
+                    const id=e.target.dataset.id;
+                    if(e.target.checked){ if(!habDentroDoTeto(id)){ e.target.checked=false; return; } if(!S.habs.includes(id)) S.habs.push(id); }
+                    else { S.habs = S.habs.filter(x=>x!==id); }
+                    recalc(); renderHabs(); save();
+                });
+            });
+            $('hab-lista').querySelectorAll('.compra-btn[data-hab]').forEach(b=>{
+                b.addEventListener('click', ()=>{
+                    const id=b.dataset.hab, d=parseInt(b.dataset.d,10);
+                    if(d>0){ if(!habElegivel(id).ok || !habDentroDoTeto(id)) return; S.habs.push(id); }
+                    else { const i=S.habs.indexOf(id); if(i>=0) S.habs.splice(i,1); }
+                    recalc(); renderHabs(); save();
+                });
+            });
+        }
+
+        // ---------- natureza ----------
+        function renderNat(){
+            document.querySelectorAll('.nat-card').forEach(c=>c.classList.toggle('sel', c.dataset.nat===S.nat));
+            const notas = {
+                "Humano":"Grátis (respeitando requisitos): 2 Gerais + 1 de Origem.",
+                "Infernal":"Grátis: 1 Geral + 1 de Origem + 1 Poder Demoníaco + 1 Sentido.",
+                "Híbrido":"Grátis: 1 Geral + 1 de Origem + 1 Forma de Transformação.",
+                "Demônio Puro":"Grátis: 2 Poderes do conceito (+ extras dos Pontos de Idade). Sem troca de pontos por PM."
+            };
+            $('hab-nota').textContent = S.nat ? (notas[S.nat]||'') : '';
+            toggleEspecialDem();
+        }
+        // Demônio Puro não tem Talismã nem Sonhos — desabilita e sinaliza esses campos.
+        function toggleEspecialDem(){
+            const ehDem = S.nat==='Demônio Puro';
+            // Demônio não tem Talismã nem Sonhos — some de vez com os campos (mortais mantêm normais).
+            [['f-talisma','wrap-talisma'],['f-sonhos','wrap-sonhos']].forEach(([inp,wrap])=>{
+                const el=$(inp), w=$(wrap); if(!el||!w) return;
+                w.style.display = ehDem ? 'none' : '';
+                w.style.opacity = '';
+                el.disabled = ehDem;
+                if(ehDem) el.value='';
+                const nota = w.querySelector('.dem-na'); if(nota) nota.remove();
+            });
+        }
+
+        // ---------- Demônio Puro ----------
+        function demonioCalc(){
+            const cat = MEDO_CATS.find(x=>x.key===S.medo) || null;
+            const id = idadeCalc(S.idadeAnos);   // estágio + pts + DT derivados dos ANOS digitados
+            const p = S.idPts || {forca:0,resist:0,sab:0};
+            const forca=+p.forca||0, resist=+p.resist||0, sab=+p.sab||0;
+            const deg = +S.demDegraus||0;                       // Degraus convertidos (2 PI cada + brinde)
+            const vig = attrEff('Vigor');                       // Vigor já com bônus de Idade
+            const base = cat ? cat.base : 4;
+            const catAttrVal = cat ? attrEff(cat.attr) : 0;     // atributo do Stress já com bônus de Idade
+            const mult = medoMult(), dorm = medoDormente();
+            // brinde por Degrau: +2 Stress máx e +1 Injúria Leve máx (compensa os 2 PI gastos)
+            const stressNeutro = base + vig + catAttrVal + 2*resist + 2*deg;
+            const injLNeutro   = 2 + Math.floor(vig/2) + forca + resist + deg;
+            const injGNeutro   = 1 + Math.floor(vig/3) + Math.floor(resist/2);
+            return {
+                cat, id, forca, resist, sab, deg, mult, dorm,
+                ptsTotal:id.pts, ptsUsado:forca+resist+sab+2*deg,   // eixos + PI convertidos em Degrau
+                stressNeutro, stress: dorm?0:Math.floor(stressNeutro*mult),   // Stress máx escala com o Medo
+                injL: injLNeutro, injG: injGNeutro,                 // Injúrias NÃO escalam com o Medo
+                poderes: 2 + Math.floor(forca/2) + Math.floor(sab/2),
+                gerais: Math.floor(sab/2),
+                regen: resist>=2,
+                dtNeutro:id.dt, dt: dorm?0:Math.floor(id.dt*mult)   // DT imposta escala com o Medo
+            };
+        }
+        function renderDemonio(){
+            const box=$('demonio-box'); if(!box) return;
+            const ehDem = S.nat==='Demônio Puro';
+            // alterna visibilidade de TODOS os blocos do demônio (espalhados pelos passos)
+            ['demonio-identidade','demonio-box','demonio-escala','demonio-lore','attr-pool-dem','equip-dem-nota'].forEach(id=>{ const el=$(id); if(el) el.style.display = ehDem?'':'none'; });
+            const wm=$('wrap-marca'); if(wm) wm.style.display = ehDem?'none':'';  // "Marca do Demônio" (mortal) some no demônio
+            const wpm=$('wrap-pm'); if(wpm) wpm.style.display = ehDem?'none':'';  // Demônio não usa PM
+            // Idade e Conceito genéricos somem no demônio — reaproveitados pela Idade (select) e pelo Conceito do Medo
+            ['wrap-idade','wrap-conceito'].forEach(id=>{ const el=$(id); if(el) el.style.display = ehDem?'none':''; });
+            const ap=$('f-attrpts'); if(ap){ ap.disabled = ehDem; if(ehDem) ap.value='22'; }   // Demônio: 22 fixos
+            if(!ehDem) return;
+            if(!$('f-medo').options.length){
+                $('f-medo').innerHTML = '<option value="">— escolha —</option>' + MEDO_CATS.map(c=>`<option value="${c.key}">${c.nome} — Stress ${c.base}+Vigor+${c.attr}</option>`).join('');
+            }
+            $('f-medo').value = S.medo || '';
+            const anosEl=$('f-idade-anos'); if(anosEl && document.activeElement!==anosEl) anosEl.value = idadeAnos();
+            renderIdadeReadout();
+            [['idp-forca','forca'],['idp-resist','resist'],['idp-sab','sab']].forEach(([id,k])=>{ const el=$(id); if(el && document.activeElement!==el) el.value = S.idPts[k]||0; });
+            const c = demonioCalc(), over=c.ptsUsado>c.ptsTotal, falta=c.ptsUsado<c.ptsTotal;
+            const deg=+S.demDegraus||0, usados=degrausUsados(), temPI=(c.ptsTotal-c.ptsUsado)>=2;
+            const tit=$('pi-titulo'); if(tit) tit.innerHTML = `👹 Pontos de Idade <span class="pi-titulo-sub">— <b style="color:${over?'#e74c3c':'var(--cor-texto)'}">${c.ptsUsado}/${c.ptsTotal}</b>${over?' acima do limite':(falta?' · sobram '+(c.ptsTotal-c.ptsUsado):' ✓')}</span>`;
+            // rodapé único: derivados + conversão em Degraus numa linha só (menos picotado)
+            $('idpts-res').innerHTML = `<div class="pi-footer">`
+                + `<span>Poderes <b>${c.poderes}</b> · Geral <b>${c.gerais}</b>${c.regen?' · Regen passiva':''}</span>`
+                + `<span>Degraus <span class="compra-ctrl"><button type="button" class="compra-btn" data-degb="-1" ${deg>0?'':'disabled'}>−</button><b class="compra-q">${deg}</b><button type="button" class="compra-btn" data-degb="1" ${temPI?'':'disabled'}>+</button></span> <span style="opacity:.6">2 PI = 1 · compra Marcas</span>${usados>deg?' <span style="color:#e74c3c">⚠</span>':''}</span>`
+                + `</div>`;
+            $('demonio-bonus').innerHTML='';
+            $('idpts-res').querySelectorAll('.compra-btn[data-degb]').forEach(bt=>bt.addEventListener('click',()=>{
+                const d=parseInt(bt.dataset.degb,10);
+                if(d>0){ if((c.ptsTotal-c.ptsUsado)<2) return; S.demDegraus=deg+1; }
+                else { if(deg<=0) return; if(deg-1<degrausUsados()) return; S.demDegraus=deg-1; }  // não reduz abaixo do gasto
+                recalc(); save();
+            }));
+            // etapa 4 — Escala de Medo (dial que multiplica os status)
+            const esc=+S.medoEscala||0, mult=medoMult(), dorm=medoDormente();
+            const escNome=(ESCALA_MEDO.find(x=>x.v===esc)||{}).nome||'';
+            $('demonio-escala').innerHTML = `<div class="attr-cat">Escala de Medo <span class="pi-titulo-sub">— o quão temido ele está agora (×0 a ×2 nos status)</span></div>
+                <p class="cr-hint" style="margin:0 0 8px;font-size:.88rem">A Idade dá o teto de poder; o Medo decide quanto dele está ligado agora. Multiplica atributos, pool de dados, Stress e a DT que você impõe.</p>
+                <input type="range" id="medo-escala" min="-5" max="5" step="1" value="${esc}" style="width:100%;accent-color:var(--gold)">
+                <div style="font-size:.95rem;color:${dorm?'#e74c3c':(esc>0?'var(--gold)':'var(--cor-texto-secundario)')};margin-top:4px">
+                    Medo <strong>${esc>0?'+':''}${esc}</strong>${escNome?' · '+escNome:''} → multiplicador <strong>×${mult.toFixed(1)}</strong>${dorm?' — Dormente (não age até voltarem a temê-lo)':''}</div>`;
+            const sl=$('medo-escala'); if(sl){ sl.addEventListener('change',e=>{ S.medoEscala=parseInt(e.target.value,10)||0; recalc(); save(); });
+                sl.addEventListener('input',e=>{ const v=parseInt(e.target.value,10)||0, mu=Math.max(0,Math.min(2,1+0.2*v)); const nm=(ESCALA_MEDO.find(x=>x.v===v)||{}).nome||''; const lbl=sl.nextElementSibling; if(lbl) lbl.innerHTML='Medo <strong>'+(v>0?'+':'')+v+'</strong>'+(nm?' · '+nm:'')+' → multiplicador <strong>×'+mu.toFixed(1)+'</strong>'+(v<=-5?' — Dormente':''); }); }
+            // bônus de Idade distribuídos direto na grade de atributos (etapa 3)
+            renderIdadeInline();
+        }
+        const CUSTO_HINT_MORTAL = 'Compre com PM (+ / −): poderes, atributos, injúrias, contratos. Cada <strong>2 compras = 1 Degrau</strong> (pras Marcas). <em>Habilidades são na etapa 6.</em>';
+        const CUSTO_HINT_DEMONIO = 'Demônio não usa PM: as <strong>Marcas</strong> abaixo são pagas com <strong>Degraus</strong> — converta <strong>Pontos de Idade</strong> na etapa 3.';
+
+        // ---------- Custo & Evolução (compras com PM → Degraus → Marcas) ----------
+        // Itens compráveis da natureza (exclui Habilidades — essas vão na etapa 6) + itens de todas as naturezas
+        function comprasList(){
+            const lista = (CUSTOS_PM[S.nat]||[]).filter(x=>!/^Habilidade (Geral|de Origem)/.test(x[0]));
+            const geral = CUSTOS_TODOS.filter(x=>/^\d+$/.test(String(x[1]))).map(x=>[x[0]+' *', x[1]]);
+            return lista.concat(geral).map(x=>({ nome:x[0], pm:parseInt(x[1],10)||0 }));
+        }
+        function comprasQty(){ if(!S.compras) return 0; return comprasList().reduce((s,it)=>s+((S.compras[it.nome])||0),0); }
+        // Compras que mexem no TETO dos recursos (aplicadas em recalc/ficha). Itens de CUSTOS_TODOS ganham " *" no nome.
+        function comprasBonus(){
+            const c=S.compras||{}; const q=nm=>((c[nm]||0)+(c[nm+' *']||0));
+            return { stress:q('+1 Stress Máximo'), injL:q('+1 Injúria Leve Máx.'), injG:q('+1 Injúria Grave Máx.') };
+        }
+        function comprasPM(){ if(!S.compras) return 0; return comprasList().reduce((s,it)=>s+((S.compras[it.nome])||0)*it.pm,0); }
+        function degrausTotal(){ if(S.nat==='Demônio Puro') return +S.demDegraus||0; return Math.floor(comprasQty()/2); }
+        function degrausUsados(){ return Object.keys(S.marcas||{}).reduce((s,nm)=>{ const m=MARCAS.find(x=>x.nome===nm); return s+(m?m.t*(S.marcas[nm]||0):0); },0) + armasUnicasDem(); }
+        function renderCustos(){
+            const el=$('custos-pm'); if(!el) return;
+            const ch=$('custo-hint'); if(ch) ch.innerHTML = (S.nat==='Demônio Puro') ? CUSTO_HINT_DEMONIO : CUSTO_HINT_MORTAL;
+            if(S.nat==='Demônio Puro'){
+                const deg=+S.demDegraus||0, usados=degrausUsados(), livres=deg-usados;
+                el.innerHTML = `<div class="compra-total" style="margin:0">Degraus: <b style="color:#2ecc71">${deg}</b> · usados: <b>${usados}</b> · livres: <b style="color:${livres<0?'#e74c3c':'#2ecc71'}">${livres}</b></div>`;
+                return;
+            }
+            if(!CUSTOS_PM[S.nat]){ el.innerHTML='<p class="cr-hint" style="margin:0 0 12px">Escolha uma Natureza pra ver as compras de PM.</p>'; return; }
+            if(!S.compras) S.compras={};
+            const habInfo=(CUSTOS_PM[S.nat]||[]).filter(x=>/^Habilidade/.test(x[0])).map(x=>x[0]+' ('+x[1]+' PM)').join(' · ');
+            const items=comprasList();
+            let html = habInfo?`<p class="cr-hint" style="margin:0 0 8px">${habInfo} — na etapa 6.</p>`:'';
+            html += '<div class="pi-rows">'+items.map(it=>{
+                const q=(S.compras[it.nome])||0;
+                return `<div class="compra-row"><span class="compra-nome">${it.nome}</span><span class="compra-pm">${it.pm} PM</span>
+                    <span class="compra-ctrl"><button type="button" class="compra-btn" data-c="${it.nome}" data-d="-1">−</button><b class="compra-q">${q}</b><button type="button" class="compra-btn" data-c="${it.nome}" data-d="1">+</button></span></div>`;
+            }).join('')+'</div>';
+            html += `<div class="pi-footer">Compras <b>${comprasQty()}</b> · PM <b style="color:var(--gold)">${comprasPM()}</b> · Degraus <b style="color:#2ecc71">${degrausTotal()}</b> <span style="opacity:.6">· 2 compras = 1 · <b>*</b> vale pra todas · teto (Stress/Injúria) já entra nos Recursos</span></div>`;
+            el.innerHTML=html;
+            el.querySelectorAll('.compra-btn').forEach(b=>b.addEventListener('click',()=>{
+                const nm=b.dataset.c, d=parseInt(b.dataset.d,10);
+                S.compras[nm]=Math.max(0,((S.compras[nm])||0)+d);
+                recalc(); save();
+            }));
+        }
+        function renderMarcas(){
+            const el=$('marcas-lista'); if(!el) return;
+            const restante = degrausTotal() - degrausUsados();
+            const tcor={1:'#8a8a8a',2:'#5DADE2',3:'#9B59B6',4:'#D4AF37'};
+            let html='';
+            [1,2,3,4].forEach(t=>{
+                html += `<div class="hab-grupo-tit" style="color:${tcor[t]}">Tier ${t} · ${t} Degrau${t>1?'s':''} <span style="font-size:.7rem;opacity:.55;font-family:Roboto">(repetível · acumula)</span></div>`;
+                MARCAS.filter(m=>m.t===t).forEach(m=>{
+                    const q=(S.marcas[m.nome])||0;
+                    const podeMais = restante>=m.t;
+                    let ctrl='';
+                    if(q>0){
+                        if(m.nome==='Fôlego'){
+                            const o=(S.marcaOpt||{})['Fôlego']||'stress';
+                            ctrl=`<div class="marca-cfg"><span class="marca-cfg-lbl">Aplica na ficha:</span>
+                                <button type="button" class="marca-opt ${o==='stress'?'on':''}" data-mo="Fôlego" data-v="stress">+${2*q} Stress máx.</button>
+                                <button type="button" class="marca-opt ${o==='injuria'?'on':''}" data-mo="Fôlego" data-v="injuria">+${q} Injúria Leve máx.</button></div>`;
+                        } else if(m.nome==='Atributo'){
+                            const o=(S.marcaOpt||{})['Atributo']||'';
+                            ctrl=`<div class="marca-cfg"><span class="marca-cfg-lbl">+${q} em:</span>
+                                <select class="cr-select marca-sel" data-mo="Atributo" style="width:auto;padding:5px 8px">${['<option value="">— escolha —</option>'].concat(ATRIBUTOS.map(a=>`<option value="${a}" ${o===a?'selected':''}>${a}</option>`)).join('')}</select></div>`;
+                        } else if(m.nome==='Fundir Injúrias'){
+                            const f=S.marcaFundir||{LG:0,GL:0,GC:0,CG:0}, usados=(f.LG||0)+(f.GL||0)+(f.GC||0)+(f.CG||0), temMais=usados<q;
+                            const step=(k,lbl)=>`<span class="fund-step">${lbl} <button type="button" class="compra-btn" data-fund="${k}" data-d="-1" ${(f[k]||0)>0?'':'disabled'}>−</button><b class="compra-q">${f[k]||0}</b><button type="button" class="compra-btn" data-fund="${k}" data-d="1" ${temMais?'':'disabled'}>+</button></span>`;
+                            ctrl=`<div class="marca-cfg"><span class="marca-cfg-lbl">Remodelar (${usados}/${q}):</span>${step('LG','2 Leve→1 Grave')}${step('GL','1 Grave→2 Leve')}${step('GC','3 Grave→1 Crítica')}${step('CG','1 Crítica→3 Grave')}</div>`;
+                        } else {
+                            const nt=((S.marcaNotas||{})[m.nome]||'').replace(/"/g,'&quot;');
+                            ctrl=`<div class="marca-cfg"><input type="text" class="cr-input marca-nota" data-mn="${m.nome}" placeholder="Descreva o efeito — o Mestre balanceia depois" value="${nt}"></div>`;
+                        }
+                    }
+                    html += `<div class="hab-item ${q?'on':''}" style="flex-wrap:wrap">
+                        <span style="flex:1"><span class="hab-nome">${m.nome}</span><span class="hab-pm">${m.t} Degrau${m.t>1?'s':''}</span>
+                        <span class="hab-ef">${m.ef}</span></span>
+                        <span class="compra-ctrl"><button type="button" class="compra-btn" data-m="${m.nome}" data-d="-1">−</button><b class="compra-q">${q}</b><button type="button" class="compra-btn" data-m="${m.nome}" data-d="1" ${podeMais?'':'disabled'}>+</button></span>
+                        ${ctrl}</div>`;
+                });
+            });
+            el.innerHTML = html;
+            el.querySelectorAll('.compra-btn[data-m]').forEach(b=>b.addEventListener('click',()=>{
+                const nm=b.dataset.m, d=parseInt(b.dataset.d,10), m=MARCAS.find(x=>x.nome===nm);
+                const cur=(S.marcas[nm])||0;
+                if(d>0 && (degrausTotal()-degrausUsados())<m.t) return;  // não passa dos Degraus disponíveis
+                const next=Math.max(0,cur+d);
+                if(next===0) delete S.marcas[nm]; else S.marcas[nm]=next;
+                recalc(); save();
+            }));
+            // escolha mecânica (Fôlego / Atributo) — aplica na ficha
+            el.querySelectorAll('.marca-opt[data-mo]').forEach(b=>b.addEventListener('click',()=>{ if(!S.marcaOpt)S.marcaOpt={}; S.marcaOpt[b.dataset.mo]=b.dataset.v; recalc(); save(); }));
+            el.querySelectorAll('.marca-sel[data-mo]').forEach(s=>s.addEventListener('change',e=>{ if(!S.marcaOpt)S.marcaOpt={}; S.marcaOpt[e.target.dataset.mo]=e.target.value; recalc(); save(); }));
+            el.querySelectorAll('.compra-btn[data-fund]').forEach(b=>b.addEventListener('click',()=>{
+                if(!S.marcaFundir)S.marcaFundir={LG:0,GL:0,GC:0,CG:0};
+                const k=b.dataset.fund, d=parseInt(b.dataset.d,10), q=(S.marcas||{})['Fundir Injúrias']||0, f=S.marcaFundir;
+                const usados=(f.LG||0)+(f.GL||0)+(f.GC||0)+(f.CG||0);
+                if(d>0 && usados>=q) return;   // cada remodelagem consome 1 cópia da Marca
+                const prev=f[k]||0; f[k]=Math.max(0,prev+d);
+                if(d>0){ const tot=injuriasTotais(); if(tot.L<1||tot.G<1||tot.C<1){ f[k]=prev; return; } }   // nenhum nível chega a 0
+                recalc(); save();
+            }));
+            // nota narrativa — não recalcula (não perde foco enquanto digita); só salva e atualiza a prévia
+            el.querySelectorAll('.marca-nota[data-mn]').forEach(i=>i.addEventListener('input',e=>{ if(!S.marcaNotas)S.marcaNotas={}; S.marcaNotas[e.target.dataset.mn]=e.target.value; save(); renderPreview(); }));
+        }
+
+        // ---------- recalcular ----------
+        function recalc(){
+            const t = attrTotal();
+            const vig = attrEff('Vigor'), coord=attrEff('Coordenação'), vinc=attrEff('Vínculo'), forca=attrEff('Força');  // já com bônus de Marca (Atributo)
+            const ehDem = S.nat==='Demônio Puro';
+            $('r-nat').textContent = S.nat || '—';
+            // pontos
+            const mp = maxPts();
+            const sobra = mp - t;
+            $('r-pts').textContent = t + ' / ' + mp;
+            $('r-pts').style.color = t>mp ? '#e74c3c' : (t<mp ? '#e6b800' : '#2ecc71');
+            // PM
+            const pmT = pmTotal(), pmG = pmGasto(), pmR = pmT - pmG;
+            $('r-pm').textContent = ehDem ? '—' : (pmR + ' / ' + pmT);
+            $('r-pm-row').classList.toggle('over', !ehDem && pmR<0);
+            const sobraPts = Math.max(0, mp - t);
+            const ps = $('pm-sobra');
+            if (ps) ps.innerHTML = (sobraPts>0 && !ehDem) ? ` · inclui +${sobraPts*2} PM de ${sobraPts} atributo(s) não distribuído(s)` : '';
+            // stress + injúrias (Demônio Puro calcula pela Categoria de Medo + Pontos de Idade)
+            const dtRow=$('r-dt-row');
+            const cb = comprasBonus(), mb = marcaBonus();
+            const bonS = cb.stress+mb.stress, bonIL = cb.injL+mb.injL, bonIG = cb.injG+mb.injG, bonIC = mb.injC||0;
+            const bonTag = n=> n>0 ? ' (+'+n+' bônus)' : '';
+            let injLtot, injGtot; const injCtot = 1+bonIC;
+            if (ehDem){
+                const dc = demonioCalc();
+                injLtot = dc.injL+bonIL; injGtot = dc.injG+bonIG;
+                const medoTag = dc.dorm ? ' ·Dormente' : (dc.mult!==1 ? ' ·Medo ×'+dc.mult.toFixed(1) : '');
+                $('r-stress').textContent = dc.cat ? (String(dc.stress+bonS)+bonTag(bonS)+medoTag) : '— (escolha o Medo)';
+                $('r-inj').textContent = injLtot + ' / ' + injGtot + ' / ' + injCtot;
+                if(dtRow){ dtRow.style.display=''; $('r-dt').textContent = dc.dt + medoTag; }
+            } else {
+                const base=(NAT_STRESS[S.nat]||6);
+                injLtot = 2+Math.floor(vig/2)+bonIL; injGtot = 1+Math.floor(vig/3)+bonIG;
+                $('r-stress').textContent = base + '+V+Vín = ' + (base+vig+vinc+bonS) + bonTag(bonS);
+                $('r-inj').textContent = injLtot + ' / ' + injGtot + ' / ' + injCtot;
+                if(dtRow) dtRow.style.display='none';
+            }
+            // atributos efetivos/escalados (Demônio: base+Idade, escalados pelo Medo)
+            const coordD = ehDem ? attrEscala(attrEff('Coordenação')) : coord;
+            const vigD   = ehDem ? attrEscala(attrEff('Vigor')) : vig;
+            const forcaD = ehDem ? attrEscala(attrEff('Força')) : forca;
+            // passiva
+            $('r-passiva').textContent = 'esq ' + Math.ceil(coordD*5.5) + ' · enc ' + Math.ceil(vigD*5.5);
+            $('r-mov').textContent = (coordD*2) + ' m';
+            const cargaLim = 5+forcaD, cargaUso = cargaUsada();
+            $('r-carga').textContent = cargaUso + ' / ' + cargaLim;
+            $('r-carga').style.color = cargaUso>cargaLim ? '#e74c3c' : '';
+            $('r-ini').textContent = '1d10 + ' + coordD;
+            const degD=degrausTotal(), degU=degrausUsados();
+            $('r-degraus').textContent = degU + ' / ' + degD;
+            $('r-degraus').style.color = degU>degD ? '#e74c3c' : '';
+            const ahint=$('attr-hint'); if(ahint) ahint.innerHTML = ehDem
+                ? `Distribua os <strong>${mp}</strong> pontos livres (teto 10). Atributo 0 = falha automática + 1 Stress. Os Pontos de Idade acima somam por cima destes.`
+                : `Distribua os <strong id="attr-pool-hint">${mp}</strong> pontos (teto 10). Cada ponto que sobrar vira <strong>+2 PM</strong>. Atributo 0 = falha automática + 1 Stress.`;
+            // ¥ (Demônio não usa ¥ — esconde a linha)
+            const yT=yenNum(), yG=yenGasto(), yR=yT-yG;
+            const yRow=$('r-yen-row'); if(yRow) yRow.style.display = ehDem ? 'none' : '';
+            $('r-yen').textContent = fmtY(yR) + ' / ' + fmtY(yT);
+            $('r-yen-row').classList.toggle('over', !ehDem && yR<0);
+            // avisos
+            let av=[];
+            const zeros = ATRIBUTOS.filter(a=>(S.attrs[a]||0)===0);
+            if (t>mp) av.push('⚠️ '+(t-mp)+' ponto(s) de atributo acima do limite.');
+            else if (sobra>0 && !ehDem) av.push('✔ '+sobra+' ponto(s) livre(s): +'+(sobra*2)+' PM já somados no total (ou 3 pontos = 1 habilidade grátis).');
+            else if (sobra>0 && ehDem) av.push('Faltam '+sobra+' ponto(s) pra completar.');
+            if (!ehDem && pmR<0) av.push('⚠️ Você estourou o PM em '+(-pmR)+'.');
+            if (cargaUso>cargaLim) av.push('⚠️ Sobrecarregado de peso ('+cargaUso+'/'+cargaLim+'): −1d10 Coordenação, não corre, −5 Defesa Passiva.');
+            if (degU>degD){ const uni=armasUnicasDem(); av.push('⚠️ Você usou '+degU+' Degraus'+(uni?' (inclui '+uni+' arma Excepcional)':'')+' e só tem '+degD+'.'); }
+            if (injLtot<1||injGtot<1||injCtot<1) av.push('⚠️ A remodelagem de Injúrias (Fundir) zerou um nível — nenhum pode chegar a 0. Desfaça uma conversão.');
+            if (zeros.length) av.push('Atributo 0 ('+zeros.join(', ')+'): falha automática + 1 Stress.');
+            if (ehDem && !_v('f-falha')) av.push('⚠️ Falha Central é obrigatória para Demônio Puro (o que apaga o demônio do mundo).');
+            if (!S.nat) av.push('Escolha uma Natureza pra começar.');
+            $('r-aviso').innerHTML = av.join('<br>');
+            renderDemonio();
+            renderCustos();
+            renderMarcas();
+            if(ehDem) renderHabs();   // teto de Poderes/Gerais atualiza ao vivo quando muda a Sabedoria/Força (só demônio)
+            renderTesteAttrs();
+            renderPreview();
+        }
+
+        // ---------- ficha .md (mesmo formato do dice-roller) ----------
+        function _v(id){ const el=$(id); return el?(el.value||'').trim():''; }
+        function fichaTexto(){
+            const at = S.attrs;
+            const nat = S.nat || '—', ehDem = nat==='Demônio Puro';
+            const vig = attrEff('Vigor'), coord=attrEff('Coordenação');   // já com bônus de Marca (Atributo)
+            const stressBase = NAT_STRESS[nat]||6;
+            const dc = ehDem ? demonioCalc() : null;
+            const cb = comprasBonus(), mb = marcaBonus(), bonS = cb.stress+mb.stress, bonIL = cb.injL+mb.injL, bonIG = cb.injG+mb.injG, bonIC = mb.injC||0;
+            const cbStr = n=> n>0 ? ' + '+n+' (bônus)' : '';
+            const stressLinha = ehDem
+                ? (dc.cat ? ('STRESS: '+(dc.stress+bonS)+'  ('+dc.cat.base+' + Vigor + '+dc.cat.attr+(dc.resist?' + 2×Resist':'')+(dc.deg?' + '+2*dc.deg+' Degrau':'')+' = '+dc.stressNeutro+((dc.mult!==1||dc.dorm)?' × Medo '+dc.mult.toFixed(1)+' = '+dc.stress:'')+(bonS?' + '+bonS+' bônus':'')+')') : 'STRESS: escolha a Categoria de Medo')
+                : 'STRESS: '+stressBase+' + Vigor + Vínculo'+cbStr(bonS)+' = '+(stressBase+vig+attrEff('Vínculo')+bonS);
+            const habCount={}; S.habs.forEach(id=>{ habCount[id]=(habCount[id]||0)+1; });
+            const habs = Object.keys(habCount).map(id=>{
+                const h=HAB_CATALOGO.find(x=>x.id===id); if(!h) return null;
+                const q=habCount[id];
+                const tipoLbl = h.tipo==='origem'?'Origem':'Geral';
+                const cat = CATS_LABEL[h.cat]||h.cat||'';
+                const isPassivo = /passivo/i.test(h.custo||'')||/passivo/i.test(h.efeito||'');
+                const custoParts=(h.custo||'').split('·').map(s=>s.trim()).filter(s=>s&&s!=='—'&&!/^passivo$/i.test(s));
+                const desc=(h.efeito||'').trim().replace(/\s*\(passivo\)\s*$/i,'').trim();
+                const tag=`[${tipoLbl}${cat?' · '+cat:''}${isPassivo?' · passivo':''}]`;
+                const custoStr=custoParts.length?' — '+custoParts.join(' · '):'';
+                return `  • ${h.nome}${q>1?' ×'+q:''} ${tag}${custoStr}`+(desc?`\n      ${desc}`:'');
+            }).filter(Boolean).join('\n') || '  —';
+            const pmT=pmTotal(), pmG=pmGasto();
+            // Equipamento
+            const armasTxt = S.armas.map(id=>{ const a=ARMAMENTOS.find(x=>x.id===id); if(!a) return null; const bits=[]; if(a.dado) bits.push('+'+a.dado+'d10'); bits.push(a.nivel,a.alcance); return '  • '+a.nome+' ['+TIER_LABEL[armaTier(a)]+'] — '+fmtY(a.yen||0)+' ¥ · '+bits.join(' · ')+(a.crit?' · crít: '+a.crit:''); }).filter(Boolean);
+            if(temArmaBuild()){ const b=S.armaBuild, yb=armaBuildYen(), tk=armaBuildTier(b); let l='  • '+(b.nome||'Arma sob medida')+' ['+TIER_LABEL[tk]+'] — '+(b.dado?'+'+b.dado+'d10 · ':'')+b.nivel+' · '+b.alcance+(b.efeitos.length?' · '+b.efeitos.join(', '):'')+' · '+fmtY(yb)+' ¥'; if(b.limitador) l+='\n      Limitador: '+b.limitador; armasTxt.push(l); }
+            const veicTxt = S.veiculos.map(id=>{ const v=VEICULOS.find(x=>x.id===id); return v?('  • '+v.nome+' ['+TIER_LABEL[v.tier]+'] — '+fmtY(v.yen)+' ¥ · '+v.vel+' · '+v.bonus):null; }).filter(Boolean);
+            const encTxt = S.encomendas.map(id=>{ const e=ENCOMENDAS.find(x=>x.id===id); return e?('  • '+e.nome+' ['+TIER_LABEL[e.tier]+'] — '+e.yen+(e.pm&&e.pm!==0?' · PM '+e.pm:'')):null; }).filter(Boolean);
+            const habPM=habCustoResumo().habPM, estPM=estiloExtraPM(), comPM=(typeof comprasPM==='function'?comprasPM():0);
+            const pmLinha = ehDem
+                ? 'PM: 0  (Demônio Puro — pré-montado; habilidades vêm de Pontos de Idade/Sabedoria)'
+                : `PM: ${pmT}  ·  Gasto: ${pmG} (habilidades ${habPM}${estPM?' · estilos extras '+estPM:''}${comPM?' · compras '+comPM:''})  ·  Restante: ${pmT-pmG}${(pmT-pmG)<0?'  ⚠ estourou o PM':''}`;
+            // Compras de Custo & Evolução (etapa 7) — lista o que foi comprado com PM
+            const comprasTxt = ehDem ? [] : Object.keys(S.compras||{}).filter(nm=>(S.compras[nm]||0)>0).map(nm=>{
+                const it=comprasList().find(x=>x.nome===nm); const q=S.compras[nm];
+                return '  • '+nm.replace(/ \*$/,'')+(q>1?' ×'+q:'')+(it?' — '+(it.pm*q)+' PM':'');
+            });
+            // Demônio: atributos efetivos (base+Idade), escalados pelo Medo, e linha da Escala
+            const coordF = ehDem ? attrEscala(attrEff('Coordenação')) : coord;
+            const vigF   = ehDem ? attrEscala(attrEff('Vigor')) : vig;
+            const forcaF = ehDem ? attrEscala(attrEff('Força')) : attrEff('Força');
+            const escalado = ehDem && (dc.mult!==1 || dc.dorm);
+            const attrLinha = a=>{ const b=at[a]||0, eff=attrEff(a); const parts=[]; const idb=ehDem?(S.idAttr[a]||0):0, mba=marcaAttrBonus(a);
+                if(idb) parts.push(idb+' Idade'); if(mba) parts.push(mba+' Marca');
+                return '  '+a+': '+eff+(parts.length?'  ('+b+' + '+parts.join(' + ')+')':'')+((ehDem&&escalado)?'  → Medo = '+attrEscala(eff):''); };
+            const escLinha = ehDem ? ('ESCALA DE MEDO: '+(S.medoEscala>0?'+':'')+(S.medoEscala||0)+'  ·  ×'+dc.mult.toFixed(1)+(dc.dorm?'  (DORMENTE — não age)':'')+(escalado?'  — já aplicado aos atributos, Stress e DT abaixo':'  (Neutro)')) : null;
+            const L=[
+                '════════════════════════','FICHA DE PERSONAGEM','════════════════════════','',
+                '═══ DADOS BÁSICOS ═══','',
+                'NOME: '+(_v('f-nome')||'Sem Nome'),
+                'NATUREZA: '+nat,
+                'IDADE: '+(ehDem ? (dc.id.nome+(dc.id.extra?' +'+dc.id.extra:'')+'  ('+dc.id.anos.toLocaleString('pt-BR')+' anos)') : _v('f-idade')),
+                ...(ehDem ? [] : ['CONCEITO/RESUMO: '+_v('f-conceito')]),
+                'LIGAÇÃO COM DEMÔNIOS|seres: '+_v('f-ligacao'),
+                'FALHA CENTRAL: '+_v('f-falha'),
+                ...(ehDem ? [
+                    'CONCEITO DO MEDO: '+_v('f-conceito-medo'),
+                    'CATEGORIA DE MEDO: '+(dc.cat?dc.cat.nome:'—'),
+                    'ESTÁGIO DE IDADE: '+dc.id.nome+(dc.id.extra?' +'+dc.id.extra:'')+' ('+dc.id.anos.toLocaleString('pt-BR')+' anos)  ·  DT Teste de Medo: '+dc.dt,
+                    'PONTOS DE IDADE ('+dc.ptsUsado+'/'+dc.ptsTotal+'): Força '+dc.forca+' · Resistência '+dc.resist+' · Sabedoria '+dc.sab+(dc.deg?' · '+dc.deg+' Degrau ('+2*dc.deg+' PI)':''),
+                    'PODERES (base 2 + Idade): '+dc.poderes+(dc.regen?'  ·  Regeneração passiva (1 Leve/cena)':''),
+                    escLinha,
+                ] : []),
+                pmLinha,'',
+                '═══ ATRIBUTOS ('+maxPts()+' PONTOS'+(ehDem?' · Demônio Puro (+ Idade)':'')+', teto 10) — total: '+attrTotal()+' ═══','',
+                '▸ Físicos',attrLinha('Força'),attrLinha('Vigor'),attrLinha('Coordenação'),'',
+                '▸ Táticos / Técnicos',attrLinha('Malandragem'),attrLinha('Tecnologia'),attrLinha('Percepção'),'',
+                '▸ Mentais / Sociais',attrLinha('Investigação'),attrLinha('Negociação'),attrLinha('Autoridade'),attrLinha('Vínculo'),'',
+                '═══ RECURSOS ═══','',
+                stressLinha,
+                (ehDem
+                    ? 'ARMAMENTO: livre (Demônio ignora ¥)'+(armasUnicasDem()?' · '+armasUnicasDem()+' Excepcional = '+armasUnicasDem()+' Degrau':'')+(S.encomendas.length?' · encomendas a combinar com o Mestre':'')
+                    : '¥: '+fmtY(yenNum())+' total · gasto '+fmtY(yenGasto())+' (armas/veículos/arma sob medida) · restante '+fmtY(yenNum()-yenGasto())+(S.encomendas.length?' · + encomendas a combinar com o Mestre':'')),
+                'MOVIMENTO: Coordenação × 2 m = '+(coordF*2)+' m',
+                'DEFESA PASSIVA: 5,5 × atributo (arred. ↑) — esquiva = '+Math.ceil(coordF*5.5)+' · encaixar = '+Math.ceil(vigF*5.5),
+                'CARGA: '+cargaUsada()+' / '+(5+forcaF)+'  (usado / limite 5+Força · Leve 1 · Médio 2 · Pesado 3)',
+                'AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação','',
+                'INJÚRIAS','  Leves: '+((ehDem?dc.injL:(2+Math.floor(vig/2)))+bonIL),'  Graves: '+((ehDem?dc.injG:(1+Math.floor(vig/3)))+bonIG),'  Crítica: '+(1+bonIC),'',
+                '═══ EQUIPAMENTO ═══','',
+                'ARMAMENTO:', (armasTxt.length?armasTxt.join('\n'):'  —'), '',
+                'VEÍCULOS:', (veicTxt.length?veicTxt.join('\n'):'  —'), '',
+                'ENCOMENDAS:', (encTxt.length?encTxt.join('\n'):'  —'), '',
+                'AFLIÇÕES:', _v('f-aflicoes'), '',
+                '═══ ESPECIAL ═══','',
+                ...(ehDem ? [] : ['TALISMÃ: '+_v('f-talisma')]),
+                'ESTILO(S) DE LUTA: '+(S.estilos.length?S.estilos.join(' · '):'—'),
+                ...(ehDem
+                    ? ['MARCAS DEIXADAS (o demônio marca — contratos · lugares corrompidos): '+(_v('f-marcas-deixadas')||'—'),
+                       'PORTAS PARA O INFERNO: '+(_v('f-portas')||'—')]
+                    : ['MARCA DO DEMÔNIO: '+_v('f-marca')]),
+                ...(ehDem ? [] : ['SONHOS: '+_v('f-sonhos')]),'',
+                '═══ HABILIDADES/G-O ═══',habs,'',
+                '═══ PODERES/CONTRATOS ═══',_v('f-poderes'),'',
+                ...(comprasTxt.length ? ['═══ COMPRAS — CUSTO & EVOLUÇÃO ('+comPM+' PM · '+comprasQty()+' compras = '+degrausTotal()+' Degraus) ═══','', ...comprasTxt, ''] : []),
+                ...(Object.keys(S.marcas).length ? ['═══ EVOLUÇÃO — MARCAS (Degraus '+degrausUsados()+'/'+degrausTotal()+') ═══','',
+                    ...Object.keys(S.marcas).map(nm=>{ const m=MARCAS.find(x=>x.nome===nm), q=S.marcas[nm]; if(!m) return '  • '+nm;
+                        let extra='';
+                        if(nm==='Fôlego'){ const o=(S.marcaOpt||{})['Fôlego']||'stress'; extra=' → '+(o==='injuria'?'+'+q+' Injúria Leve máx.':'+'+(2*q)+' Stress máx.'); }
+                        else if(nm==='Atributo'){ const o=(S.marcaOpt||{})['Atributo']; extra=o?(' → +'+q+' '+o):' → (escolha o atributo)'; }
+                        else if(nm==='Fundir Injúrias'){ const f=S.marcaFundir||{}, lbl={LG:'2 Leve→1 Grave',GL:'1 Grave→2 Leve',GC:'3 Grave→1 Crítica',CG:'1 Crítica→3 Grave'}; const c=Object.keys(lbl).filter(k=>f[k]>0).map(k=>f[k]+'× ('+lbl[k]+')'); extra=c.length?' → '+c.join(', '):''; }
+                        else { const nt=((S.marcaNotas||{})[nm]||'').trim(); if(nt) extra=' → '+nt; }
+                        return '  • '+m.nome+(q>1?' ×'+q:'')+' [Tier '+m.t+'] — '+m.ef+extra; }), ''] : []),
+            ];
+            return L.join('\n');
+        }
+        function dadosJSON(){
+            const armaResumo = S.armas.map(id=>{ const a=ARMAMENTOS.find(x=>x.id===id); return a?a.nome:''; }).filter(Boolean)
+                .concat(temArmaBuild()?[(S.armaBuild.nome||'Arma sob medida')]:[]).join(', ');
+            const ehDemJ = S.nat==='Demônio Puro';
+            const idJ = idadeCalc(S.idadeAnos);
+            const idadeLbl = idJ.nome+(idJ.extra?' +'+idJ.extra:'')+' ('+idJ.anos.toLocaleString('pt-BR')+' anos)';
+            // ── Atributos EFETIVOS e RECURSOS já calculados (fonte única de verdade pro Rolador) ──
+            const attrsEff = {}; ATRIBUTOS.forEach(a=> attrsEff[a] = ehDemJ ? attrEscala(attrEff(a)) : attrEff(a));
+            const cbb=comprasBonus(), mbb=marcaBonus(), bS=cbb.stress+mbb.stress, bIL=cbb.injL+mbb.injL, bIG=cbb.injG+mbb.injG, bIC=mbb.injC||0;
+            let recStress, recInjL, recInjG;
+            if(ehDemJ){ const dcx=demonioCalc(); recStress=dcx.stress+bS; recInjL=dcx.injL+bIL; recInjG=dcx.injG+bIG; }
+            else { const b=NAT_STRESS[S.nat]||6, vg=attrEff('Vigor'), vn=attrEff('Vínculo'); recStress=b+vg+vn+bS; recInjL=2+Math.floor(vg/2)+bIL; recInjG=1+Math.floor(vg/3)+bIG; }
+            const eC=attrsEff['Coordenação']||0, eV=attrsEff['Vigor']||0, eF=attrsEff['Força']||0;
+            const recursos = { stress:recStress, injL:recInjL, injG:recInjG, injC:1+bIC, defEsq:Math.ceil(eC*5.5), defEnc:Math.ceil(eV*5.5), mov:eC*2, carga:5+eF };
+            const d = { nome:_v('f-nome'), natureza:S.nat, idade:(ehDemJ?idadeLbl:_v('f-idade')), conceito:(ehDemJ?_v('f-conceito-medo'):_v('f-conceito')),
+                ligacao:_v('f-ligacao'), falha:_v('f-falha'), pmBase:parseInt($('f-pm').value,10)||0, pmTotal:pmTotal(), iene:_v('f-yen'), yen:yenNum(),
+                atributos:Object.assign({},S.attrs), attrsEff, recursos, estilo:(S.estilos[0]||''), estilos:S.estilos.slice(), habilidades:S.habs, talisma:_v('f-talisma'), marca:_v('f-marca'),
+                armamento:armaResumo, armas:S.armas.slice(), armaBuild:S.armaBuild, veiculos:S.veiculos.slice(), encomendas:S.encomendas.slice(),
+                marcasDeixadas:_v('f-marcas-deixadas'), portas:_v('f-portas'),
+                marcas:Object.assign({},S.marcas), compras:Object.assign({},S.compras), degraus:degrausTotal(),
+                sonhos:_v('f-sonhos'), poderes:_v('f-poderes'), aflicoes:_v('f-aflicoes'),
+                // dados demoníacos só entram quando a natureza é Demônio (limpa lixo em fichas mortais)
+                ...(ehDemJ ? { medo:S.medo, idadeAnos:idadeAnos(), idadeKey:idJ.key, idPts:S.idPts, conceitoMedo:_v('f-conceito-medo'), medoEscala:S.medoEscala||0, idAttr:Object.assign({},S.idAttr), demDegraus:S.demDegraus||0 } : {}) };
+            return JSON.stringify(d);
+        }
+        function mdCompleto(){
+            return '```\n'+fichaTexto()+'\n```\n\n<!-- SCAR:'+dadosJSON()+' -->\n';
+        }
+        function renderPreview(){ $('preview').textContent = fichaTexto(); }
+
+        // ---------- persistência ----------
+        function save(){
+            const dump = { S, campos:{} };
+            CAMPOS.forEach(id=>{ const el=$(id); if(el) dump.campos[id]=el.value; });
+            try{ localStorage.setItem(LS, JSON.stringify(dump)); }catch(e){}
+        }
+        function load(){
+            let dump; try{ dump=JSON.parse(localStorage.getItem(LS)); }catch(e){}
+            if(!dump) return;
+            if(dump.S){ S = Object.assign(S, dump.S); if(!S.attrs) S.attrs={}; ATRIBUTOS.forEach(a=>{ if(S.attrs[a]==null) S.attrs[a]=0; }); }
+            if(dump.campos){ Object.keys(dump.campos).forEach(id=>{ const el=$(id); if(el) el.value=dump.campos[id]; }); }
+        }
+
+        // ---------- ações ----------
+        function baixar(){
+            const nome = (_v('f-nome')||'personagem').replace(/[^\wÀ-ÿ ]/g,'').trim().replace(/\s+/g,'-') || 'personagem';
+            const blob = new Blob([mdCompleto()], {type:'text/markdown'});
+            const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
+            a.download = 'SCAR - '+nome+'.md'; a.click(); URL.revokeObjectURL(a.href);
+        }
+        function copiar(){
+            navigator.clipboard.writeText(fichaTexto()).then(()=>{
+                const b=$('btn-copy'); const t=b.textContent; b.textContent='✓ Copiado!'; b.classList.add('btn-copiado');
+                setTimeout(()=>{ b.textContent=t; b.classList.remove('btn-copiado'); },1600);
+            });
+        }
+        function reset(){
+            if(!confirm('Limpar toda a ficha?')) return;
+            localStorage.removeItem(LS); location.reload();
+        }
+        function testarNoRolador(){
+            const f = { nome:_v('f-nome'), natureza:S.nat, pm:String(pmTotal()), estilo:(S.estilos[0]||''), arma:'' };
+            ATRIBUTOS.forEach(a=> f['attr-'+a] = String(S.attrs[a]||0));
+            try{
+                localStorage.setItem('scar-ficha', JSON.stringify(f));
+                localStorage.setItem('scar-habs', JSON.stringify([...new Set(S.habs)]));
+            }catch(e){}
+            window.location.href = 'dice-roller.html#ficha';
+        }
+
+        // ---------- Rolador inline (testar a ficha aqui) ----------
+        let ultimoTesteAttr = null;
+        function attrTeste(a){ return S.nat==='Demônio Puro' ? attrEscala(attrEff(a)) : (S.attrs[a]||0); }
+        function renderTesteAttrs(){
+            const el=$('teste-attrs'); if(!el) return;
+            el.innerHTML = ATRIBUTOS.map(a=>`<button type="button" class="ef-chip" data-t="${a}">${a} <b style="color:var(--cor-secundaria)">${attrTeste(a)}</b></button>`).join('');
+            el.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',()=>rolarTeste(b.dataset.t)));
+        }
+        function rolarTeste(attr){
+            ultimoTesteAttr=attr;
+            const box=$('teste-resultado'); if(!box) return;
+            const base=attrTeste(attr);
+            const extra=parseInt($('teste-dados').value,10)||0;
+            const fixo=parseInt($('teste-fixo').value,10)||0;
+            const n=base+extra;
+            if(n<=0){ box.innerHTML=`<span style="color:#e6b800"><strong>${attr} 0</strong> — falha automática (+1 Stress). Sem dados pra rolar.</span>`; $('teste-reroll').style.display=''; return; }
+            const dados=[]; let soma=0; for(let i=0;i<n;i++){ const d=1+Math.floor(Math.random()*10); dados.push(d); soma+=d; }
+            const total=soma+fixo;
+            const dt=parseInt($('teste-dt').value,10);
+            let vered='';
+            if(!isNaN(dt)) vered = total>=dt ? ' <span style="color:#2ecc71">✓ passou</span>' : ' <span style="color:#e74c3c">✗ falhou</span>';
+            box.innerHTML = `<div style="font-size:.82rem;color:var(--cor-texto-secundario);margin-bottom:4px">${attr} ${base}${extra?' +'+extra+'d10':''}${fixo?' +'+fixo+' fixo':''} → [${dados.join(', ')}]${fixo?' +'+fixo:''}${!isNaN(dt)?' · DT '+dt:''}</div>`
+                + `<div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--cor-secundaria);line-height:1">${total}${vered}</div>`;
+            $('teste-reroll').style.display='';
+        }
+
+        // ---------- Passo a passo (wizard) ----------
+        let STEPS = [], stepAtual = 0;
+        function setupSteps(){
+            const col = $('cr-form'); if(!col) return;
+            const titles = Array.from(col.querySelectorAll('.cr-step-title'));
+            titles.forEach(t=>{
+                const wrap = document.createElement('div'); wrap.className='cr-step';
+                col.insertBefore(wrap, t);
+                let n=t;
+                while(n){ const nx=n.nextElementSibling; wrap.appendChild(n); if(nx && nx.classList && nx.classList.contains('cr-step-title')) break; n=nx; }
+                STEPS.push(wrap);
+            });
+            const labels = STEPS.map(w=>{ const h=w.querySelector('.cr-step-title'); return h?h.textContent.trim():''; });
+            const nav = $('cr-steps-nav');
+            nav.innerHTML = '<button class="cr-nav-arrow" id="cr-prev" title="Voltar">‹</button>'
+                + labels.map((l,i)=>`<button class="cr-step-chip" data-s="${i}">${l}</button>`).join('')
+                + '<button class="cr-nav-arrow" id="cr-next" title="Avançar">›</button>';
+            nav.querySelectorAll('.cr-step-chip').forEach(b=>b.addEventListener('click',()=>irStep(parseInt(b.dataset.s,10))));
+            $('cr-prev').addEventListener('click',()=>irStep(stepAtual-1));
+            $('cr-next').addEventListener('click',()=>irStep(stepAtual+1));
+            STEPS.forEach((w,i)=>{
+                const foot=document.createElement('div'); foot.className='cr-step-foot';
+                foot.innerHTML = (i>0?`<button class="btn" data-go="${i-1}" style="border:1px solid var(--cor-borda);color:var(--cor-texto-secundario);background:transparent">‹ Voltar</button>`:'<span></span>')
+                    + (i<STEPS.length-1?`<button class="btn btn-primary" data-go="${i+1}">Avançar ›</button>`:'<span></span>');
+                w.appendChild(foot);
+                foot.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>irStep(parseInt(b.dataset.go,10))));
+            });
+            stepAtual = Math.min(Math.max(0, S.step||0), STEPS.length-1);
+            irStep(stepAtual, true);
+        }
+        function irStep(i, silent){
+            if(i<0||i>=STEPS.length) return;
+            stepAtual=i; S.step=i;
+            STEPS.forEach((w,j)=>{ w.style.display = j===i?'block':'none'; });
+            const nav=$('cr-steps-nav');
+            if(nav) nav.querySelectorAll('.cr-step-chip').forEach((b,j)=>b.classList.toggle('on',j===i));
+            const p=$('cr-prev'), nx=$('cr-next'); if(p) p.disabled=i===0; if(nx) nx.disabled=i===STEPS.length-1;
+            if(typeof renderHabs==='function') renderHabs();
+            if(!silent) window.scrollTo({top:0,behavior:'smooth'});
+            save();
+        }
+
+        // ---------- init ----------
+        function init(){
+            load();
+            if(!Array.isArray(S.estilos)) S.estilos = (S.estilo ? [S.estilo] : []);
+            if(!Array.isArray(S.armas)) S.armas=[];
+            if(!Array.isArray(S.veiculos)) S.veiculos=[];
+            if(!Array.isArray(S.encomendas)) S.encomendas=[];
+            if(!S.armaBuild || typeof S.armaBuild!=='object') S.armaBuild={nome:'',dado:0,nivel:'Leve',alcance:'Curto',efeitos:[],limitador:''};
+            if(!Array.isArray(S.armaBuild.efeitos)) S.armaBuild.efeitos=[];
+            if(!S.idPts || typeof S.idPts!=='object') S.idPts={forca:0,resist:0,sab:0};
+            // migração: idade agora é em ANOS (antes era um estágio-chave). Semeia pelos anos mínimos do estágio salvo.
+            if(S.idadeAnos==null){ const old=IDADES.find(x=>x.key===S.idade); S.idadeAnos = old ? old.ymin : 51; }  // 51 = Maduro
+            if(Array.isArray(S.marcas)){ const mm={}; S.marcas.forEach(n=>{ mm[n]=(mm[n]||0)+1; }); S.marcas=mm; }
+            if(!S.marcas || typeof S.marcas!=='object') S.marcas={};
+            if(!S.marcaOpt || typeof S.marcaOpt!=='object') S.marcaOpt={};
+            if(!S.marcaNotas || typeof S.marcaNotas!=='object') S.marcaNotas={};
+            if(!S.marcaFundir || typeof S.marcaFundir!=='object') S.marcaFundir={LG:0,GL:0,GC:0,CG:0};
+            if(!S.compras || typeof S.compras!=='object') S.compras={};
+            renderAttrs(); renderEstilosLista(); renderFiltros(); renderHabs(); renderNat();
+            renderTierLegenda(); renderProcedencia(); renderArmas(); renderBuilder(); renderVeiculos(); renderEncomendas(); renderTalisma(); renderDemonio(); renderCustos(); renderMarcas(); renderTesteAttrs();
+            document.querySelectorAll('.nat-card').forEach(c=>c.addEventListener('click',()=>{
+                S.nat=c.dataset.nat;
+                // limpa origem de outra natureza da seleção
+                const oc=NAT_ORIGEM[S.nat];
+                S.habs = S.habs.filter(id=>{ const h=HAB_CATALOGO.find(x=>x.id===id); return h && (h.tipo==='geral' || h.cat===oc); });
+                S.compras = {};   // compras variam por natureza
+                if(S.proc) $('f-yen').value=procedenciaYen(S.proc);
+                renderAttrs(); renderNat(); renderProcedencia(); renderArmas(); renderBuilder(); renderVeiculos(); renderEncomendas(); renderTalisma(); renderFiltros(); renderHabs(); recalc(); save();
+            }));
+            document.querySelectorAll('.pm-sug').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); $('f-pm').value=a.dataset.pm; recalc(); save(); }));
+            $('f-medo').addEventListener('change',e=>{ S.medo=e.target.value; recalc(); save(); });
+            { const el=$('f-idade-anos'); if(el) el.addEventListener('input',e=>{ S.idadeAnos=Math.max(0,Math.floor(+e.target.value||0)); recalc(); save(); }); }
+            ['forca','resist','sab'].forEach(k=>{ const el=$('idp-'+k); if(el) el.addEventListener('input',e=>{ S.idPts[k]=parseInt(e.target.value,10)||0; recalc(); save(); }); });
+            CAMPOS.forEach(id=>{ const el=$(id); if(el) el.addEventListener('input',()=>{ recalc(); save(); }); });
+            $('btn-testar').addEventListener('click',testarNoRolador);
+            $('teste-reroll').addEventListener('click',()=>{ if(ultimoTesteAttr) rolarTeste(ultimoTesteAttr); });
+            $('btn-md').addEventListener('click',baixar);
+            $('btn-copy').addEventListener('click',copiar);
+            $('btn-reset').addEventListener('click',reset);
+            recalc();
+            setupSteps();
+        }
+        init();
+    })();
+    </script>
+</body>
+</html>

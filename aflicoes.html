@@ -429,13 +429,16 @@
 
         /* 6 mechanics grid */
         .mech-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 16px;
             max-width: 980px;
             margin: 0 auto 50px;
         }
         .mech-card {
+            flex: 1 1 300px;
+            max-width: 316px;
             background: var(--cor-card);
             border: 1px solid var(--cor-borda);
             border-left-width: 4px;
@@ -621,12 +624,9 @@
             .dice-section { padding: 30px 20px; }
             .affliction-row { grid-template-columns: 40px 1fr; gap: 12px; }
             .info-box { flex-direction: column; gap: 20px; }
-            .steps, .mech-grid, .aff-strip { grid-template-columns: 1fr; }
+            .steps, .aff-strip { grid-template-columns: 1fr; }
             .step:not(:last-child)::after { display: none; }
             .sev-bar { flex-direction: column; }
-        }
-        @media (max-width: 600px) {
-            .mech-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -704,8 +704,8 @@
     </div>
 
     <main>
-        <section class="hero">
-            <h1>AFLIÇÕES</h1>
+        <section class="scar-hero">
+            <h1 class="wow fadeInUp">AFLIÇÕES</h1>
             <p>Estado mais grave que a Injúria. O d100 dá a <strong>gravidade</strong> (base) — a Mecânica-Mãe dá o peso, e a cena agrava.</p>
         </section>
 
@@ -772,12 +772,12 @@
                 <div class="mech-card men">
                     <div class="mech-head">
                         <span class="mech-icon">🌀</span>
-                        <div><div class="mech-name">Possesso</div><div class="mech-tag">Mental · sem leme</div></div>
+                        <div><div class="mech-name">Controle</div><div class="mech-tag">Mental · uma força te move</div></div>
                     </div>
                     <ul class="mech-sev">
-                        <li><b>Branda</b> perde só a ação ofensiva</li>
-                        <li><b>Séria</b> Mestre dita 1 ação/rodada</li>
-                        <li><b>Profunda</b> Mestre dita tudo + ameaça aliados</li>
+                        <li><b>Branda</b> cede a Ação ao impulso, ou resiste por +1 Stress</li>
+                        <li><b>Séria</b> resistir custa +2 Stress e −3d10</li>
+                        <li><b>Profunda</b> perde o leme: o Mestre dita suas ações, até contra aliados</li>
                     </ul>
                 </div>
                 <div class="mech-card men">
@@ -802,15 +802,27 @@
                         <li><b>Profunda</b> sem Stress + perde 1 ação</li>
                     </ul>
                 </div>
-                <div class="mech-card men">
+                <div class="mech-card men" style="border-left-color: var(--cor-gold);">
                     <div class="mech-head">
-                        <span class="mech-icon">🔁</span>
-                        <div><div class="mech-name">Compulsão</div><div class="mech-tag">Mental · urgência imposta</div></div>
+                        <span class="mech-icon">👹</span>
+                        <div><div class="mech-name">Dreno</div><div class="mech-tag">Contextual · só com demônio</div></div>
                     </div>
                     <ul class="mech-sev">
-                        <li><b>Branda</b> resistir custa +1 Stress</li>
-                        <li><b>Séria</b> resistir: +2 Stress e −3d10</li>
-                        <li><b>Profunda</b> Teste de Medo pra resistir, senão cede</li>
+                        <li><b>Branda</b> o demônio recupera 1 Injúria Leve/rodada (ou +1d10)</li>
+                        <li><b>Séria</b> recupera 1 Leve/rodada + +1d10 em tudo</li>
+                        <li><b>Profunda</b> +1 na Escala de Medo do demônio enquanto durar</li>
+                    </ul>
+                </div>
+                <div class="mech-card men" style="border-left-color: var(--cor-secundaria);">
+                    <div class="mech-head">
+                        <span class="mech-icon">🩸</span>
+                        <div><div class="mech-name">A Fera</div><div class="mech-tag">Contextual · só Híbrido, no Colapso</div></div>
+                    </div>
+                    <ul class="mech-sev">
+                        <li><b>Gatilho</b> Colapso nascido de poder demoníaco que atinge Profunda</li>
+                        <li><b>Efeito</b> o Mestre pode substituir a Injúria pela ação do demônio: assume o controle por 1 cena ou vira o personagem contra os aliados</li>
+                        <li><b>Conflito</b> demônio hostil — sem teste</li>
+                        <li><b>Comunhão</b> demônio aliado — Teste de Medo DT 25 (sobe com o Stress gasto) para manter o controle</li>
                     </ul>
                 </div>
             </div>
@@ -854,23 +866,26 @@
                 </div>
             </div>
 
-            <!-- Dreno (contextual) -->
+            <!-- Cicatriz -->
             <div class="aff-divider"></div>
-            <h3 class="aff-block-title">Aflição Contextual — só com Demônio em cena</h3>
-            <div class="mech-grid" style="grid-template-columns: 1fr; max-width: 640px;">
-                <div class="mech-card men" style="border-left-color: var(--cor-gold);">
-                    <div class="mech-head">
-                        <span class="mech-icon">👹</span>
-                        <div><div class="mech-name">Dreno</div><div class="mech-tag">o medo alimenta o demônio</div></div>
-                    </div>
-                    <ul class="mech-sev">
-                        <li><b>Branda</b> o demônio recupera 1 Injúria Leve/rodada (ou +1d10)</li>
-                        <li><b>Séria</b> recupera 1 Leve/rodada + +1d10 em tudo</li>
-                        <li><b>Profunda</b> +1 na Escala de Medo do demônio enquanto durar</li>
-                    </ul>
-                    <p style="margin-top:12px;">Sem demônio na cena, o Mestre usa outra mecânica.</p>
-                </div>
+            <h2 class="aff-section-title">Cicatriz</h2>
+            <p class="aff-section-sub">Perda permanente. Disparada por uma Marca <strong>Tier 4</strong> (ver Sumário → Degraus &amp; Marcas), por uma Aflição <strong>Profunda</strong>, ou por exigência da ficção. O <strong>Mestre rola 1d10</strong> &mdash; pode rolar em segredo.</p>
+            <div class="debuff-table-wrap">
+                <table class="stat-table">
+                    <thead><tr><th>1d10</th><th>Cicatriz</th></tr></thead>
+                    <tbody>
+                        <tr><td>1-2</td><td>−1 num atributo <strong>físico</strong></td></tr>
+                        <tr><td>3-4</td><td>−1 num atributo <strong>mental ou social</strong></td></tr>
+                        <tr><td>5</td><td>Perde ou inutiliza um <strong>membro</strong> (braço, mão, perna, olho ou ouvido)</td></tr>
+                        <tr><td>6</td><td><strong>Desfiguração:</strong> penalidade em testes sociais com quem não te conhece</td></tr>
+                        <tr><td>7</td><td><strong>Corrupção:</strong> ganha 1 traço demoníaco e atrai demônios; não muda a natureza</td></tr>
+                        <tr><td>8</td><td><strong>Trauma:</strong> ganha 1 Aflição Mental permanente</td></tr>
+                        <tr><td>9</td><td><strong>Falha:</strong> ganha 1 fraqueza permanente definida com o Mestre</td></tr>
+                        <tr><td>10</td><td><strong>Ruptura:</strong> morre ou muda de natureza (Infernal, Híbrido ou Demônio)</td></tr>
+                    </tbody>
+                </table>
             </div>
+            <p class="aff-note">A Aflição encerra com tratamento, Sangue, Stress ou ficção; a Cicatriz é permanente; a Marca do Demônio é imposta pelo mundo. A Ruptura ocorre em 10% das rolagens.</p>
 
             <!-- Debuff Extra -->
             <div class="aff-divider"></div>
@@ -895,6 +910,78 @@
             </div>
             <p class="aff-note">Borda do pool: penalidade em −Xd10 nunca deixa o pool negativo &mdash; se zera o atributo, é falha automática nele.</p>
 
+            <!-- Condições -->
+            <div class="aff-divider"></div>
+            <h2 class="aff-section-title">Condições</h2>
+            <p class="aff-section-sub">Estado <strong>curto</strong> aplicado por ataque, poder ou ambiente &mdash; a Aflição toma a cena, a Condição é pontual. Toda condição de controle tem <strong>saída</strong> no início do turno (o teste indicado, Forçar o Dado, Talismã ou ajuda). A Marca <strong>Imunidade</strong> (Tier 2) trava uma condição pelo nome.</p>
+
+            <h3 class="aff-block-title">Combate</h3>
+            <div class="debuff-table-wrap">
+                <table class="stat-table">
+                    <thead><tr><th>Condição</th><th>Efeito &amp; Saída</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Atordoado</strong></td><td>Perde Ação Principal e Reação. <em>Saída:</em> Teste de Vigor DT Moderada no turno, ou aliado gasta 1 Ação pra reerguer.</td></tr>
+                        <tr><td><strong>Desprevenido</strong></td><td><strong>Sem Defesa</strong> contra o próximo ataque de quem você não percebeu. Dura 1 golpe.</td></tr>
+                        <tr><td><strong>Cegado (Total)</strong></td><td>Auto-falha em testes de visão; <strong>metade dos dados</strong> no que precise enxergar; sem tiro mirado; quem te ataca de ângulo cego te pega <strong>Sem Defesa</strong>.</td></tr>
+                        <tr><td><strong>Cegado (Parcial)</strong></td><td>Testes de visão não recebem <strong>nenhum dado extra</strong> (sem vantagem).</td></tr>
+                        <tr><td><strong>Surdo</strong></td><td>Auto-falha em testes de audição; não escuta comando/aviso; <strong>−2d10</strong> em Percepção.</td></tr>
+                        <tr><td><strong>Silenciado</strong></td><td>Não fala: sem comando, sem poder/Contrato que exija palavra, <strong>−2d10</strong> em Negociação e Autoridade.</td></tr>
+                        <tr><td><strong>Derrubado</strong></td><td><strong>−2d10</strong> nas ações; c.a.c inimigo ganha +1d10 (<strong>Passiva −5</strong>). Levanta gastando o Movimento.</td></tr>
+                        <tr><td><strong>Desequilibrado</strong></td><td>Perde o <strong>Movimento</strong> na rodada.</td></tr>
+                        <tr><td><strong>Eletrocutado</strong></td><td>Movimento <strong>pela metade</strong> e perde a <strong>Reação</strong> até o próximo turno.</td></tr>
+                        <tr><td><strong>Imobilizado</strong></td><td>Não se move; <strong>−3d10</strong> na defesa. <em>Saída:</em> teste oposto de Vigor/Coordenação vs Força do captor.</td></tr>
+                        <tr><td><strong>Paralisado</strong></td><td>Não age nem move, auto-falha em Força/Coord/Malandragem, <strong>Sem Defesa</strong> (golpe fura o teto, +1 nível). Só de fonte que pagou o preço. <em>Saída:</em> Vigor DT Difícil.</td></tr>
+                        <tr><td><strong>Inconsciente</strong></td><td>Não age e fica <strong>Sem Defesa</strong> até ser acordado. Vem de Vigor esgotado, Colapso ou golpe que derruba.</td></tr>
+                        <tr><td><strong>Problemas Técnicos</strong> <span class="aff-note" style="display:inline;">(PEM)</span></td><td>Desativa tecnologia, veículos e eletrônicos por <strong>1d4 rodadas</strong>.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="aff-block-title">Dano Contínuo</h3>
+            <p class="aff-section-sub">Presets do ruling de Dano Contínuo (ver <a href="sumario.html">Sumário → Lacunas ↗</a>).</p>
+            <div class="debuff-table-wrap">
+                <table class="stat-table">
+                    <thead><tr><th>Condição</th><th>Efeito</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Envenenado</strong></td><td><strong>+2 Stress/rodada</strong> (ou +1 Injúria Leve se potente) até passar Teste de Vigor DT Moderada no turno.</td></tr>
+                        <tr><td><strong>Sangramento Leve</strong></td><td><strong>+2 Stress/rodada</strong> até estancar (1 Ação de primeiros socorros ou cura).</td></tr>
+                        <tr><td><strong>Sangramento Pesado</strong></td><td><strong>+3 Stress/rodada</strong>, ou a Injúria aberta <strong>piora 1 nível</strong> se não tratar na rodada.</td></tr>
+                        <tr><td><strong>Queimando</strong></td><td><strong>+1 Injúria Leve/rodada</strong> (transborda quando enche) até apagar: 1 Ação + Coordenação DT Moderada, ou se jogar no chão.</td></tr>
+                        <tr><td><strong>Sufocando</strong></td><td>Aguenta <strong>[Vigor] rodadas</strong>; depois <strong>+2 Stress/rodada</strong> e Injúria escalando. Ao esgotar → Inconsciente.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="aff-block-title">Exaustão</h3>
+            <p class="aff-section-sub">Track de <strong>6 níveis</strong> (fome, frio/calor, radiação, esforço extremo). Os níveis <strong>acumulam</strong>. Descanso Completo <strong>zera</strong>; Incompleto <strong>−1 nível</strong>.</p>
+            <div class="debuff-table-wrap">
+                <table class="stat-table">
+                    <thead><tr><th>Nível</th><th>Efeito</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td><strong>−1d10</strong> em todos os testes</td></tr>
+                        <tr><td>2</td><td>Movimento <strong>pela metade</strong></td></tr>
+                        <tr><td>3</td><td><strong>Metade dos dados</strong> em todos os testes</td></tr>
+                        <tr><td>4</td><td>Vigor conta pela <strong>metade</strong> para Injúrias e Stress máx</td></tr>
+                        <tr><td>5</td><td>Não pode se <strong>mover nem agir</strong> (só Reação)</td></tr>
+                        <tr><td>6</td><td><strong>Morte</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="aff-block-title">Ambientais</h3>
+            <div class="debuff-table-wrap">
+                <table class="stat-table">
+                    <thead><tr><th>Condição</th><th>Efeito</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Escuridão</strong></td><td>Aplica <strong>Cegado (Total)</strong> em quem não tem fonte de luz.</td></tr>
+                        <tr><td><strong>Radiação</strong></td><td><strong>1d2 Níveis de Exaustão</strong> enquanto no ambiente irradiado.</td></tr>
+                        <tr><td><strong>Radiação (Mortal)</strong></td><td><strong>1d2 Níveis de Exaustão por rodada</strong> (proximidade tipo "Pé de Elefante").</td></tr>
+                        <tr><td><strong>Temperaturas Intensas</strong></td><td><strong>1 Nível de Exaustão por hora</strong> desprotegido; nem Máquinas escapam.</td></tr>
+                        <tr><td><strong>Terreno &amp; Condições Difíceis</strong></td><td><strong>−2d10</strong> (ou metade dos dados) em rolagens físicas no terreno.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </main>
 
@@ -909,6 +996,7 @@
                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 GitHub
             </a>
+            <a href="atualizacoes.html"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.97 8.97 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Atualizações</a>
             <a href="agradecimentos.html">
                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                 Agradecimentos
