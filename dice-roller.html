@@ -975,9 +975,14 @@
             font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.5px; font-size: 0.8rem;
         }
         .ficha-view-btn.active { background: var(--gradient-blood); color: #fff; border-color: var(--cor-secundaria); }
-        /* Visão Habilidades no popover: só busca + resultados + escolhidas (sem modos/abas/chips) */
-        body.obr .hab-modes, body.obr .hab-tabs, body.obr #hab-chips { display: none; }
-        body.obr #hab-painel-add, body.obr #hab-painel-ver { display: block !important; }
+        /* Owlbear: no Bônus mostra SÓ as habilidades da pessoa (toggle de buff) — o catálogo de 179 não cabe */
+        body.obr .hab-modes, body.obr .hab-tabs, body.obr #hab-chips, body.obr #hab-painel-add { display: none !important; }
+        body.obr #hab-painel-ver { display: block !important; }
+        /* Owlbear: na aba Ficha, Anotações e trocar-ficha vêm PRIMEIRO (alcançáveis); o card de referência rola abaixo */
+        body.obr #tab-ficha.active { display: flex; flex-direction: column; }
+        body.obr .ficha-switch { order: -100; }
+        body.obr #ficha-notas-box { order: -3; }
+        body.obr #ficha-import-box { order: -2; }
         /* O documento não rola no iframe do Owlbear mobile — então o .container vira a área de scroll por toque */
         body.obr { overflow: hidden; height: 100vh; min-height: 0 !important; padding: 0 !important; }
         body.obr .container {
