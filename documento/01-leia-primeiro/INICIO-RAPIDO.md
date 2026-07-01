@@ -43,7 +43,7 @@ COMBATE EM 4 PASSOS
 
 **Quer mesmo bloquear um golpe feio?** Gaste sua **Reação** pra rolar a defesa no lugar de usar a Passiva: é uma aposta 50/50 de tirar acima da média e anular o ataque. Só dá pra fazer 1 vez por rodada.
 
-**STRESS** é a sua sanidade e a sua gasolina ao mesmo tempo. Você queima Stress pra forçar dados, agir além do limite e usar poderes. Encheu o Stress até o teto? **Colapso:** o corpo desliga, você toma uma Injúria e o Stress zera. (Stress máximo = 6 + Vigor + Vínculo.)
+**STRESS** é a sua sanidade e a sua gasolina ao mesmo tempo. Você queima Stress pra forçar dados, agir além do limite e usar poderes. Encheu o Stress até o teto? **Colapso:** o corpo desliga, você toma uma Injúria e o Stress zera. (Stress máximo = 6 + Vigor + Vínculo; Humano usa 8 + Vigor + Vínculo.)
 
 TRÊS CAÇADORES PRONTOS
 ══════════════════════════
@@ -51,14 +51,14 @@ Pega um, põe um nome, e joga. (Atributos no formato que importa pra rolagem.)
 
 **RYO — o ex-policial (Humano)** · 22 pontos
 Força 2 · Vigor 3 · Coordenação 5 · Malandragem 1 · Tecnologia 1 · Percepção 4 · Investigação 2 · Negociação 1 · Autoridade 2 · Vínculo 1
-Stress 10 · Defesa Passiva 28 (esquiva, Coord) · Injúrias: 3 Leves / 2 Graves / 1 Crítica
-Arma: Pistola .45 (+2d10). Estilo: Atirador. Talismã: o distintivo que ele não devolveu.
+Stress 12 (Humano: 8 + Vigor 3 + Vínculo 1) · Defesa Passiva 28 (esquiva, Coord) · Injúrias: 3 Leves / 2 Graves / 1 Crítica
+Arma: Pistola .45 (+2d10). Estilo: Pistoleiro. Talismã: o distintivo que ele não devolveu.
 *Ainda age como se a lei valesse alguma coisa. Não vale, mas é o que o segura inteiro.*
 
 **MEI — a híbrida de garras (Híbrido)** · 22 pontos
 Força 5 · Vigor 4 · Coordenação 3 · Malandragem 2 · Tecnologia 1 · Percepção 2 · Investigação 1 · Negociação 1 · Autoridade 1 · Vínculo 2
 Stress 12 · Defesa Passiva 22 (encaixa, Vigor) · Injúrias: 4 Leves / 2 Graves / 1 Crítica
-Forma: garras de osso (+1d10, atacam com Coordenação). Estilo: Instintivo. Grilhões começam em 0.
+Forma: garras de osso (+1d10, atacam com Coordenação). Estilo: Instintivo. Transformar custa Stress.
 *O demônio dentro dela não dorme, cochila. E acorda com fome quando ela sangra.*
 
 **O CORVO — o infernal de terno (Infernal)** · 22 pontos

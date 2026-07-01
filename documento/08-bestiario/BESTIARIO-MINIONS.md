@@ -1,5 +1,5 @@
 ﻿# BESTIÁRIO — MINIONS
-> *Fichas rápidas dos seres comuns que o Mestre joga na mesa. Cada ser traz **DESCRIÇÃO** (quem é, de onde vem) + ficha enxuta de combate. Stress segue a fórmula do sistema (6 + Vigor + Vínculo), Movimento = Coordenação × 2 m. Atributos não citados valem 1–2.*
+> *Fichas rápidas dos seres comuns que o Mestre joga na mesa. Cada ser traz **DESCRIÇÃO** (quem é, de onde vem) + ficha enxuta de combate. Stress segue a fórmula do sistema (Humano 8 + Vigor + Vínculo; Infernal/Híbrido 6 + Vigor + Vínculo), Movimento = Coordenação × 2 m. Atributos não citados valem 1–2.*
 > ⚙️ **Slots de Injúria de NPC são fixados à mão por design de encontro** — propositalmente menores que a fórmula de PC (2+⌊Vigor/2⌋ etc.), pra NPC cair mais rápido que personagem. Use os números da ficha como estão; não recalcule pela fórmula de jogador.
 > 🛡️ **Atualização de sistema:** cada ficha agora traz **Defesa Passiva** (5,5 × atributo de defesa, arredondado pra cima) — o número que o atacante rola contra (Xd10 + arma vs Passiva). E a **Armadura** agora reduz **nível de Injúria** (−1 ou −2 níveis), não mais "X de redução" fixa.
 > *Tiers pela [escala-de-poder](../04-mecanicas-em-jogo/escala-de-poder.md): 1-2 comum · 3-4 treinado · 5-6 sobre-humano · 7-8 monstruoso.*
@@ -16,7 +16,7 @@
 > *Movidos por sonhos, medo e emoções intensas, erguem impérios, começam guerras e desafiam o impossível na breve existência que têm. São capazes do gesto mais nobre e da crueldade mais terrível. E é justamente esse medo, todo ele somado, que dá carne aos demônios: sem querer, a humanidade fabrica os próprios monstros.*
 
 **ATRIBUTOS:** Força 2 · Vigor 2 · Coordenação 2 · Percepção 2 · resto 1-2
-**STRESS:** 10 · **INJÚRIAS:** Leves 2 / Graves 1 / Crítica 1
+**STRESS:** 12 *(Humano 8 + Vigor 2 + Vínculo 2)* · **INJÚRIAS:** Leves 2 / Graves 1 / Crítica 1
 **DEFESA PASSIVA:** 11 *(Coordenação/Vigor 2)*
 **MOVIMENTO:** 4 m
 
@@ -31,7 +31,7 @@
 **▲ COMO FICA MAIS FORTE *(progressão da raça)*:**
 - **Civil → Treinado** *(Tier 3-4)*: atributos de combate sobem pra 3-4, pega 1-2 Habilidades Gerais, perde o pânico fácil. *(o xerife armado já é isso.)*
 - **Treinado → Caçador** *(Tier 4-5)*: vira o duelista de elite. **Ver `CAÇADOR` abaixo**.
-- **Salto sobrenatural:** sobrevivendo a contato profundo com demônio, pode virar **Infernal** (1 Poder + 1 Sentido) ou **Híbrido** (Forma + Grilhões). Aí deixa de ser minion e vira personagem de verdade.
+- **Salto sobrenatural:** sobrevivendo a contato profundo com demônio, pode virar **Infernal** (1 Poder + 1 Sentido) ou **Híbrido** (Forma + A Fera). Aí deixa de ser minion e vira personagem de verdade.
 
 # ⚔️ CAÇADOR
 **Tier:** 4-5 *(humano treinado no limite do sobre-humano)* · **Natureza:** Humano de elite
@@ -45,7 +45,7 @@
 > *A ficha abaixo é o **veterano de elite**. O **Caçador básico** (iniciante do ofício, jogável) está no fim desta entrada.*
 
 **ATRIBUTOS:** Coordenação 5 · Força 4 · Vigor 4 · Percepção 4 · Malandragem 3 · Investigação 3 · resto 2
-**STRESS:** 12 · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
+**STRESS:** 14 *(Humano 8 + Vigor 4 + Vínculo 2)* · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
 **DEFESA PASSIVA:** 28 *(esquiva · Coordenação 5)*
 **MOVIMENTO:** 10 m
 
@@ -80,7 +80,7 @@ FALHA CENTRAL:      É só humano: sangra, cansa e morre como gente.
                     Uma Injúria Grave mal cuidada já o tira da luta.
 PM: 0
 
-═══ ATRIBUTOS (18 PONTOS) ═══
+═══ ATRIBUTOS (20 PONTOS) ═══
 
 ▸ Físicos
   Força: [3]
@@ -100,7 +100,7 @@ PM: 0
 
 ═══ RECURSOS ═══
 
-STRESS: 6 + Vigor + Vínculo = 10
+STRESS: 8 + Vigor + Vínculo = 12   (Humano usa base 8)
 MOVIMENTO: Coordenação × 2 = 6 m
 DEFESA PASSIVA: 5,5 × atributo = 17 (Coord 3)
 AÇÕES/RODADA: 1 Principal · 1 Movimento · 1 Reação
@@ -250,7 +250,7 @@ MARCA DO DEMÔNIO: (se fechou contrato menor) a arma arde / corta o sobrenatural
 > *É um amálgama de carne ou de matéria bruta, gente, bicho, osso, metal, costurado numa forma só pra cumprir uma função: vigiar, marcar, perseguir. Muitos falam línguas mortas que ninguém reconhece, e daí vem a lenda de que são quimeras de mitos antigos. Ninguém sabe se é verdade; o construto também não. Ele só repete, leal à função até apodrecer.*
 
 **ATRIBUTOS:** Percepção 6 · Coordenação 4 · Vigor 4 · Força 3 · resto 2
-**STRESS:** 4 + Vigor = 9 · **DT DE MEDO:** 20 · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
+**STRESS:** 4 + Vigor = 8 · **DT DE MEDO:** 20 · **INJÚRIAS:** Leves 3 / Graves 2 / Crítica 1
 **DEFESA PASSIVA:** 22 *(encaixa · Vigor 4)*
 **MOVIMENTO:** 8 m
 

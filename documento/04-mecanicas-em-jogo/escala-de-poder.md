@@ -3,9 +3,13 @@ RESUMO GERAL DE TIERS
 1-2     Humano Fraco/Comum       Civis, iniciantes
 3-4     Humano Treinado          Caçadores experientes
 5-6     Sobre-humano             Infernais, Híbridos
-7-8     Monstruoso               Híbridos fortes, Demônios
-9-10    Primordial               Cavaleiros (MÁXIMO)
+7-8     Monstruoso               Híbridos fortes, Demônios (inclui "primordiais-fake")
+9       Cavaleiros               Apex na Terra (Controle, Morte, Fome, Guerra)
+10      Primordial verdadeiro    Medos primitivos NO INFERNO — nunca morreram, inalcançáveis
 ─────────────────────────────────────────────────────────────────────────────────
+> Primordial verdadeiro = demônio que NUNCA morreu e segue no Inferno (o escuro das cavernas, etc.).
+> Como nunca morreu, nunca veio à Terra: é teto/lore, não chefe de mesa. Um demônio de medo
+> antigo e forte que vive na Terra é "primordial-FAKE" (parece, mas não é — já morreu/está aqui).
 
 
 ═══════════════════════════════════════════════════════════════════════════════
@@ -573,8 +577,9 @@ QUEM ALCANÇA CADA NÍVEL:
 1-2 : Qualquer civil, personagem iniciante
 3-4 : Caçadores treinados, jogadores novos
 5-6 : Veteranos focados, Híbridos/Infernais (1 ano+)
-7-8 : Demônios perigosos, Híbridos MUITO veteranos (2+ anos focando)
-9-10: Primordiais, Cavaleiros (NPCs, limite absoluto do sistema)
+7-8 : Demônios perigosos (incl. "primordiais-fake"), Híbridos MUITO veteranos (2+ anos focando)
+ 9  : Cavaleiros (NPCs, apex na Terra)
+10  : Primordiais VERDADEIROS (NPCs/lore — vivem no Inferno, não se enfrentam na mesa)
 ─────────────────────────────────────────────────────────────────────────────────
 
 
@@ -622,11 +627,13 @@ Força: 7 | Vigor: 7 | Coordenação: 8 | Malandragem: 3 | Tecnologia: 1
 Percepção: 5 | Investigação: 2 | Negociação: 3 | Autoridade: 5 | Vínculo: 4
 ─────────────────────────────────────────────────────────────────────────────────
 
-MAKIMA / CONTROLE (~35+ pontos, demônio dos quatro cavaleiros):
+MAKIMA / CONTROLE (Cavaleiro — NÃO Primordial):
 ─────────────────────────────────────────────────────────────────────────────────
-Força: 7 | Vigor: 10 | Coordenação: 6 | Malandragem: 9 | Tecnologia: 3
-Percepção: 10 | Investigação: 9 | Negociação: 10 | Autoridade: 10 | Vínculo: 1
-(Vínculo 1 = incapaz de conexão real, só controle)
+Força: 3 | Vigor: 4 | Coordenação: 4 | Malandragem: 8 | Tecnologia: 5
+Percepção: 9 | Investigação: 8 | Negociação: 9 | Autoridade: 9 | Vínculo: 1
+(Nenhum atributo no teto 10 = é Cavaleiro, não Primordial. A "imortalidade" vem do
+ CONTRATO — o dano que a mataria é jogado em sacrifícios —, não de Vigor alto.
+ Vínculo 1 = incapaz de conexão real, só controle.)
 ─────────────────────────────────────────────────────────────────────────────────
 
 

@@ -9,275 +9,11 @@
 ## 📐 Como ler & adaptar
 
 - **Números são sugestão.** Custos de Stress, DTs e dados são ponto de partida. O Mestre ajusta pro tier do grupo, e pode subir o preço pra um demônio velho ou um jogador desesperado.
-- **Tudo cobra em corpo e alma.** Stress é a gasolina; Aflição, Marca, Grilhões e Restrição são o que mantém o equilíbrio. Poder sem preço o Mestre Louco corta na hora.
-- **Respeite a Troca Equivalente** *(teto 2× / `habilidades.md`)* e os **Grilhões** *(o demônio não é seu amigo)*.
-
-**Legenda dos campos** *(padrão de formatação deste grimório)*
-> `## TRANSFORMAÇÃO: *Nome* (Forma)` = postura/forma que destrava um kit ·
-> `## *Nome do Poder*` = poder ativo · `(passiva)` = sempre-ativo ·
-> `## CONTRATO COM ...` = pacto (Categoria/Custo/Aflição/Restrição/Marca).
-
+- **Tudo cobra em corpo e alma.** Stress é a gasolina; Aflição, Marca, **A Fera** e Restrição são o que mantém o equilíbrio. Poder sem preço o Mestre Louco corta na hora.
+- **Respeite a Troca Equivalente** *(teto 2× / `habilidades.md`)* e **A Fera** *(o demônio não é seu amigo)*.
 ═══════════════════════════════════════
 
-# I. O CONVIDADO
-### *medo do limiar · de quem você deixa entrar*
-> *Nasceu de uma lenda: a criatura que não cruza a soleira sem ser convidada, e que, uma vez convidada, é tarde demais. Vampiro, hóspede, estranho à porta. A regra das casas virou demônio.*
-
-## *Direito de Entrada*: *a soleira é sua* (sustentada)
-**Atributo:** *Autoridade (pra impor)*
-> **Efeito:** *você define um limiar (porta, linha riscada, círculo). Enquanto sustentar (**1 Stress/rodada**), **nada cruza sem seu convite**: atravessar contra sua vontade = teste de Força/Vontade vs sua Autoridade; falha = travado na soleira + **1 Leve**. Vale dos dois lados, também prende dentro quem você não deixa sair.*
-> **Revogar o convite:** *quem você convidou e depois "desconvida" é **expulso da área** (some da cena 1 rodada se resistir e falhar).*
-> **Limite:** *um limiar por vez · destruir a marca física (apagar a linha, arrombar a porta) derruba tudo.*
-
-## *O Convite Forçado*: alvo único
-**Tipo:** *Ativa*
-**Atributo:** *Negociação*
-**Resiste:** *teste de Medo vs sua Negociação*
-> **Efeito:** *obriga o alvo a **te convidar a entrar** ou a **cruzar a soleira**, um passo que ele dá sozinho, contra a própria vontade. Só um passo. Mas é o passo errado.*
-> **Custo:** *3 Stress · +1 se o alvo souber que é fatal.*
-
-═══════════════════════════════════════
-
-# II. A ÚLTIMA HORA
-### *medo do tempo que acaba · do relógio que não volta*
-> *Não há demônio mais paciente, porque ele é o próprio prazo. Fraco em violência, soberano em urgência.*
-
-## *Hora Roubada*: uma ação a mais
-**Tipo:** *Ativa · 1x por rodada*
-**Atributo:** *— (acordo com o relógio)*
-> **Efeito:** *roube um instante: ganhe **1 Ação Principal extra** agora.*
-> **O preço do relógio:** *essa ação é **emprestada do seu futuro**, na sua **próxima** rodada você começa **Lento** (age por último, −1 Movimento). Roubar duas vezes seguidas: a 2ª custa **1 Injúria Leve**.*
-
-## *A Contagem*: sentença marcada
-**Tipo:** *Ativa*
-**Atributo:** *Percepção ou Autoridade*
-**Alvo:** *um ser*
-**Resiste:** *teste de Medo vs seu atributo (resistir só **adia** 1 rodada, não cancela)*
-> **Efeito:** *você marca o alvo com uma contagem: **3 rodadas**. Ele vê/ouve o tempo escorrer (sino, tique, sussurro). Ao fim da contagem, **a próxima Injúria que ele sofrer sobe +1 nível** e ele faz tudo com −1d10 até o fim da cena.*
-> **Custo:** *4 Stress.*
-> **Detalhe cruel:** *o alvo conhece a regra. Ele luta contra o relógio, e o medo de errar costuma fazê-lo errar.*
-
-═══════════════════════════════════════
-
-# III. DEMÔNIO DA POEIRA
-### *medo de nunca ter existido · de virar poeira e ser esquecido*
-> *A fagulha mortal e contida do poder que devora o mundo, o demônio por trás do **Apagamento** (Parte III) na mão de um mortal.*
-
-## TRANSFORMAÇÃO: *O Pó* (Forma)
-**Gatilho:** *soprar poeira da palma da mão*
-**Ativação:** *4 Stress*
-**Manutenção:** *+2 Stress por rodada*
-> **Efeito:** *enquanto ativa, seus ataques causam Injúria de **Pó** (ver APAGAMENTO, Parte III): **não cura** e empilha −1d10 de descrença no alvo · Libera O Veredito.*
-> **Limitação:** *você também se desfaz, ao fim da Forma, ganhe **1 Injúria de Pó em você mesmo** (sua existência paga a conta) · não reusa na mesma cena.*
-> ⚠️ **GRILHÕES: o Pó não distingue.** Falha no teste de Grilhão = o próximo Apagar cai em **você ou num aliado** (Mestre escolhe), +1 Grilhão.
-
-## *O Veredito*: alvo único
-**Tipo:** *Requer Forma O Pó · Ativa*
-**Atributo:** *Autoridade ou Vínculo*
-**Alvo:** *um ser que carregue culpa (o Mestre define o que conta como "pecado")*
-**Resiste:** *teste de Medo vs seu atributo*
-> **Efeito:** *declara que o alvo nunca foi digno → **1 Grave de Pó**. Se ele já carrega Pó, **+1 estágio** (rumo ao Apagamento Total).*
-> **Custo:** *5 Stress + 1 Injúria sua por uso (a regra dos grandes).*
-> **Limite:** *não pega em quem está limpo de culpa. Apagar é god-tier, isto é só uma brasa, e o Mestre tem a palavra final.*
-
-═══════════════════════════════════════
-
-# IV. O DEVORADOR DE SÓIS
-### *medo do escuro que vem depois da luz · de um céu sem sol*
-> *Come a luz como quem bebe. Cada chama, cada lâmpada, cada estrela que engole o deixa maior, e o mundo, mais escuro. No breu total, só ele enxerga.*
-
-## TRANSFORMAÇÃO: *O Devorador* (Forma)
-**Gatilho:** *fechar a mão diante de uma fonte de luz, como quem apaga uma vela*
-**Ativação:** *3 Stress*
-**Manutenção:** *+1 Stress por rodada*
-> **Efeito:** *você devora a luz ao redor. A cada rodada a cena **escurece um estágio** (claro → penumbra → escuro → breu). Cada fonte de luz engolida = **+1d10** num atributo à escolha (até o teto da Troca Equivalente).*
-> **No escuro você reina:** *no breu enxerga pelo calor (ignora penalidade de escuridão) e inimigos sem visão noturna ficam **−2d10**.*
-> **Limitação:** *aliados também ficam às cegas · sob sol pleno você não escurece rápido o bastante, começa fraco.*
-
-## *Eclipse*: engolir a luz de uma vez
-**Tipo:** *Ativa · 1x por cena*
-**Atributo:** *Vigor ou Autoridade*
-> **Efeito:** *suga toda a luz da área num instante: **breu total** por 2 rodadas, e você recupera **Stress igual ao nº de fontes** engolidas. Quem dependia de ver: **−2d10** e não mira à distância.*
-> **Custo:** *4 Stress (devolvidos em parte pelas fontes).*
-> **Limite:** *a céu aberto de dia, o sol reacende a área em 2 rodadas (não dá pra apagar o próprio Sol… ainda).*
-
-═══════════════════════════════════════
-
-# V. O PESO DO MUNDO
-### *medo de ser esmagado · da gravidade que não perdoa*
-> *Física feita demônio. Não te bate, faz o próprio peso do mundo bater. Inércia, gravidade, ação e reação: as leis que ninguém quebra viram arma.*
-
-## TRANSFORMAÇÃO: *O Peso do Mundo* (Forma)
-**Gatilho:** *pisar firme; o chão racha sob você*
-**Ativação:** *3 Stress*
-**Manutenção:** *+1 Stress por rodada*
-> **Efeito:** *você dobra o peso ao seu redor (curta distância). Libera Gravidade e Terceira Lei.*
-> **Limitação:** *você fica pesado também, **−1 Movimento** e não consegue ser furtivo enquanto ativa.*
-
-## *Gravidade*: alvo ou área
-**Tipo:** *Ativa*
-**Atributo:** *Força ou Tecnologia*
-**Resiste:** *teste de Força vs seu atributo*
-> **Efeito:** *multiplica o peso. Escolha:*
-> ***- Esmagar***: alvo cai de joelhos, −2d10 e não corre (1 rodada).
-> ***- Prender***: alvo colado ao chão (teste de Força pra agir).
-> ***- Leveza***: tira o próprio peso: +2d10 de movimento/salto/esquiva por 1 rodada.
-> **Custo:** *3 Stress.*
-
-## *Terceira Lei* (passiva): *ação e reação*
-> **Efeito:** *toda vez que você é atingido por ataque físico, o atacante leva **metade da força de volta** (arredonda pra baixo, mín. 1 Stress). "Pra toda ação, uma reação igual e contrária", o mundo cobra de quem te encosta.*
-
-═══════════════════════════════════════
-
-# VI. O BODE EXPIATÓRIO
-### *medo de pagar pelo que não é seu · do mal que troca de dono*
-> *Carrega o mal dos outros nas costas, e o passa adiante. Onde ele anda, veneno, dor e maldição trocam de dono. Ninguém sofre o que merece; sofre quem ele aponta.*
-
-## *Transfusão*: passar o mal adiante
-**Tipo:** *Ativa · toque (tira) + curta distância (põe)*
-**Atributo:** *Vínculo*
-**Resiste:** *o destinatário resiste com teste de Vigor vs seu Vínculo*
-> **Efeito:** *suga UMA condição negativa de um aliado (veneno, paralisia, debuff, a penalidade de 1 Injúria) e despeja num inimigo. Pode segurá-la 1 rodada em você (vira "carregador") antes de soltar.*
-> **Custo:** *3 Stress por condição.*
-> **Limite:** *não move Pó/Apagamento (não tem dono pra passar) · em Injúria física, move a **penalidade**, não o ferimento em si.*
-
-## *Para-Raios* (passiva): *o mal vira combustível*
-> **Efeito:** *quando você absorve dano elemental (fogo, gelo, raio, ácido), em vez de ferir, ele **recarrega 2 Stress** (1x por elemento por rodada). Quem te ataca com elemento te alimenta.*
-
-═══════════════════════════════════════
-
-# VII. O DESDOBRADO
-### *medo de estar dividido · de não ser um só*
-> *Existe em dois lugares ao mesmo tempo, por instantes. Dois corpos, uma alma, e uma dor só, partida entre os dois. Permite trilhar dois caminhos de uma vez.*
-
-## TRANSFORMAÇÃO: *O Desdobrado* (Forma)
-**Gatilho:** *dar um passo e deixar um "você" para trás*
-**Ativação:** *3 Stress*
-**Manutenção:** *+1 Stress por rodada*
-> **Efeito:** *você se divide em **dois corpos** que agem no mesmo turno (1 Ação cada) e podem estar em lugares diferentes (curta/média distância), exploram, flanqueiam, agem em paralelo.*
-> **A dor é uma só:** *toda Injúria sofrida por qualquer um dos dois conta **metade** (arredonda pra cima) no seu total único. Se um corpo cai, o outro sente: −1d10 até reunir.*
-> **Limitação:** *ao desfazer, escolha QUAL posição mantém · não dispara o mesmo poder pelos dois no mesmo turno.*
-> ⚠️ **GRILHÕES: qual dos dois é o verdadeiro?** Falha = os dois "eus" discordam; Mestre controla um por 1 rodada, +1 Grilhão.
-
-═══════════════════════════════════════
-
-# VIII. O ARREPENDIDO
-### *medo do erro que não se desfaz*
-> *Vive perseguido pela decisão errada, e ganhou o poder de não tê-la tomado. Rebobina o tempo alguns segundos. Só ele lembra do que "ia ter acontecido".*
-
-## *Rebobinar*: desfazer a última rodada
-**Tipo:** *Ativa · 1x por cena*
-**Atributo:** *— (vontade pura)*
-> **Efeito:** *o tempo volta ao **início da última rodada**. Tudo desde então é desfeito (dano, posições, ações gastas), **mas você mantém a memória** e pode decidir diferente. Aliados que tocar voltam junto; inimigos voltam, mas não lembram.*
-> **Custo:** *8 Stress + 1 Injúria Leve (rasgar o próprio fio dói).*
-> **Limite:** *só 1 rodada · 1x por cena · **não desfaz Apagamento** (o que virou Pó nunca foi) · o Mestre decide o que "já estava decidido demais".*
-
-═══════════════════════════════════════
-
-# IX. O ELO
-### *medo de não sofrer sozinho · de estar amarrado a outro*
-> *Dois marcados, um destino. O que acontece a um, acontece ao outro, mesmo a quilômetros. O boneco e o alfinete, feitos demônio.*
-
-## *Sincronia*: amarrar dois
-**Tipo:** *Ativa*
-**Atributo:** *Investigação ou Vínculo*
-**Alvo:** *dois seres ou objetos que você aponte/toque*
-> **Efeito:** *liga os dois por 3 rodadas. Tudo que o **primeiro** sofre (dano, veneno, debuff, quebra) **espelha no segundo**. Variante: **congela o estado** do primeiro (ele não muda) e despeja tudo no segundo, escudo vivo às custas de outro.*
-> **Custo:** *4 Stress.*
-> **Limite:** *um par por vez · alvo Maduro+ resiste (teste de Medo) · quebra se um for pra "outro plano".*
-
-═══════════════════════════════════════
-
-# X. O NULO
-### *medo do que nada alcança · do vazio que recusa o sobrenatural*
-> *Uma maldição ambulante. Magia nenhuma o toca, nem a boa. É um buraco onde o sobrenatural simplesmente não acontece. E buraco não se cura com remédio mágico.*
-
-## *Anátema* (maldição passiva)
-> **Efeito:** *você é **imune a qualquer efeito sobrenatural direcionado a você**, poderes, contratos, maldições, ilusões, controle, cura OU buff mágico (de inimigo ou aliado). Simplesmente não pega.*
-> **O preço (a maldição):** *você também **não recebe cura mágica nem poção**, só descanso, médico e tempo te consertam. Buff mágico de aliado também não cola em você. A faca corta dos dois lados.*
-> **Limite:** *não bloqueia o **físico** nem **área** que não te mira (a explosão te pega, o fogo queima, a porrada dói), só o que é lançado diretamente a você.*
-
-═══════════════════════════════════════
-
-# XI. O OLHO QUE TUDO ALCANÇA
-### *medo de ver demais · de saber o que não devia*
-> *Vê o que está longe, atrás da parede, e um passo à frente no tempo. Saber é poder, e é peso. O olho que não fecha custa a sanidade.*
-
-## *Clarividência*: ver além
-**Tipo:** *Ativa*
-**Atributo:** *Percepção*
-> **Efeito:** *escolha 1:*
-> ***- Longe***: vê um lugar distante/atrás de parede que conheça ou tenha referência.
-> ***- Oculto***: revela o escondido na cena (armadilha, invisível, mentira estruturada).
-> ***- Adiante***: vislumbra **1 rodada do futuro**: +2d10 numa reação/esquiva OU avisa um aliado (ele refaz 1 teste).
-> **Custo:** *2 Stress · "Adiante" custa 4.*
-> **Limite:** *ver o futuro demais embaralha o presente, 2º "Adiante" na cena = **+3 Stress e risco de Aflição** (a mente não aguenta dois tempos).*
-
-═══════════════════════════════════════
-
-# XII. O TOQUE DE MIL ANOS
-### *medo do contato que cobra caro · do abraço que envelhece*
-> *A mão dele leva o tempo de quem toca. Um aperto rouba um ano; um abraço, uma vida. Quanto mais perto e mais demorado, mais caro.*
-
-## *Toque de Mil Anos*: dreno por contato
-**Tipo:** *Ativa · agarrar/manter contato*
-**Atributo:** *Força (pra segurar)*
-**Resiste:** *Vigor pra se soltar a cada rodada*
-> **Efeito:** *enquanto mantém o contato, drena por rodada, e **escala**: 1ª rodada **2 Stress** do alvo · 2ª **1 Leve** · 3ª **1 Grave** (ele envelhece na sua mão). Metade do que dreno **vira cura/Stress pra você** (arredonda pra baixo).*
-> **Custo:** *2 Stress pra iniciar; depois é só manter o agarrão.*
-> **Limite:** *exige contato contínuo, soltou, zera a escalada · não Apaga (para 1 passo antes da morte por idade).*
-
-═══════════════════════════════════════
-
-# XIII. O REI DOS MONSTROS
-### *medo do que atende ao chamado · de abrir a porta errada*
-> *Tem a chave de um portal que dá pra qualquer canto do Inferno. Ele abre, mas não escolhe o que sai. E o que sai cobra o próprio preço pra voltar.*
-
-## *Portal*: invocação aleatória
-**Tipo:** *Ativa*
-**Atributo:** *Autoridade ou Vínculo*
-> **Efeito:** *abre um portal e **o Mestre rola um demônio aleatório** que entra em campo e luta, pode vir um Recém-Nascido inútil ou um Ancião apavorante. Aposta pura.*
-> **Custo:** *5 Stress pra abrir.*
-> **Mandar de volta:** *o demônio **nomeia o próprio preço** pra ir embora (narrativo, Stress, uma Injúria, um favor, uma lembrança, um Grilhão). Não pagar = ele fica, e o controle é do Mestre.*
-> **Limite:** *1 portal por cena · você não escolhe o que vem nem garante obediência (quanto mais velho, mais ele cobra pra obedecer).*
-
-═══════════════════════════════════════
-
-# XIV. O PARASITA
-### *medo do que mora em você · de não estar sozinho na própria pele*
-> *Algo vive sob a sua carne. Não é aliado, é inquilino. Quando precisa, se manifesta: pra rasgar, ou pra proteger. Sempre cobra o aluguel.*
-
-## TRANSFORMAÇÃO: *O Parasita* (Forma · dois modos)
-**Gatilho:** *a pele se abre e algo se projeta*
-**Ativação:** *2 Stress*
-**Manutenção:** *+1 Stress por rodada*
-> **Modo PRESA** *(ataque):* o parasita vira garra/lâmina/cauda, **+2d10** no corpo a corpo e alcance estendido.
-> **Modo CASCA** *(defesa):* te envolve como **armadura** (−1 nível em toda Injúria) **ou** se destaca como **pequeno guardião** que bloqueia 1 ataque por rodada (escolha ao ativar).
-> **Trocar de modo:** *1 Ação · só um modo por vez.*
-> ⚠️ **GRILHÕES: ele tem fome.** Falha = o Parasita se alimenta de VOCÊ (1 Leve) ou ataca o aliado mais próximo, +1 Grilhão.
-
-═══════════════════════════════════════
-
-# XV. O DOMÍNIO
-### *medo de entrar no mundo de outro · do chão que não te obedece*
-> *Ele desenha um pedaço de chão e, dentro dele, a realidade é dele. Uma regra, uma lei, um efeito, vale enquanto você pisar ali. Fora, é só mais um.*
-
-## TRANSFORMAÇÃO: *Domínio* (Forma · território)
-**Gatilho:** *traçar um limite (riscar o chão, abrir os braços, cravar um símbolo)*
-**Ativação:** *5 Stress*
-**Manutenção:** *+2 Stress por rodada*
-> **Efeito:** *delimita uma área (sala / quarteirão pequeno). Dentro, **declare UMA lei** que vale pra todos (invente; Mestre aprova):*
-> ***"Aqui ninguém cura."*** · ***"Aqui eu acerto sempre."*** · ***"Aqui o fogo não queima."*** · ***"Aqui o chão me obedece."*** · ***"Aqui ninguém mente."***
-> *Dentro do Domínio você ganha **+1d10** em tudo ligado à lei; fora, o Domínio cai.*
-> **Limitação:** *uma lei por Domínio · você não pode sair da área sem derrubá-lo · destruir a âncora/símbolo ou te arrancar de lá quebra tudo.*
-> ⚠️ **GRILHÕES: o lugar quer se manter.** Falha = a lei se vira contra você por 1 rodada (Mestre escolhe como), +1 Grilhão.
-
-═══════════════════════════════════════
-
-> *Acabou a lista? Nunca acaba. O Mestre Louco inventa mais no meio da sessão. Se o jogador trouxer um
-> conceito com nome forte e um preço honesto, **pode sim, se fizer sentido.** É essa a única regra que importa aqui.*
-
-═══════════════════════════════════════
+> *Os poderes do Grimório (os demônios I–XX) foram movidos pro `05-meta/CATALOGO-PODERES.md`. Este doc guarda as **Trilhas & Combos** (e, por ora, o boss do Deus da Fé).*
 
 # 🏆 PARTE II: TRILHAS & COMBOS
 > *Combos de build (Potencial Máximo), antes em `combos.md`, agora aqui dentro.*
@@ -300,7 +36,7 @@
 
 ### 🛟 Não morrer / salvar (panic buttons)
 - **Não Morre Ainda** `2 PM`: estabiliza aliado em Crítica, impede a morte por 1 cena.
-- **Movimento Calculado** `2 PM`: reposiciona sem gerar reação inimiga.
+- **Fluxo** `2 PM`: move sem reação; 1x/rd troca de lugar com um aliado.
 - 🛡️ **Talismã** *(recurso de criação)*: 1x/sessão: rerola um teste, reduz 1 Injúria, ignora 1 Aflição, +3d10 temático, resiste a 1 Medo OU recupera Stress.
 
 ### 👁️ Não ser pego de surpresa
@@ -327,7 +63,7 @@
 ### 🎒 Equipamento
 - 🗡️ **Motosserra** `1.500 ¥`: +3d10; crítico **Brutal** (+1 nível de Injúria).
 - 🛡️ **Colete + Placas** `3.000 ¥`: reduz **2 níveis** de toda Injúria.
-- 🥊 **Estilo: Spetsnaz**: 1º ataque da cena que ferir sobe **+1 grau**; atacar alvo ferido/imobilizado ignora a defesa.
+- 🥊 **Estilo: Spetsnaz**: 1x por cena, um ataque à escolha que ferir sobe **+1 grau**; atacar alvo ferido/imobilizado ignora a defesa.
 
 ### 🔥 O encaixe
 > 1º golpe da luta: **Spetsnaz +1 · Golpe Decisivo +1 · Técnica Mortal +2 · Brutal +1 = 5 estágios**. A trilha de Injúria só tem 3 degraus → **Leve vira Morte direto**.
@@ -363,7 +99,7 @@
 ### 🎒 Equipamento
 - 🗡️ **Sniper** `8.000 ¥`: +3d10, Crítica; Execução se o alvo não souber.
 - 🗡️ **Rifle Tático** `4.000 ¥`: +2d10, Crítica; crítico = +1 nível de Injúria.
-- 🥊 **Estilo: Atirador**: diferença 10+ → Injúria +1 grau; cria zona de perigo (−1d10).
+- 🥊 **Estilo: Pistoleiro**: diferença 10+ → Injúria +1 grau; zona de perigo (−1d10); tiro de reação em quem foge da linha; ignora cobertura leve.
 
 ### 🔥 O encaixe
 > Caçador Paciente **+12 fixo** + Atirador **+10 fixo** + Sniper **+3d10**, ignorando cobertura/armadura. Contra alvo desprevenido (defesa 0) → **morte no 1º tiro**.
@@ -473,7 +209,7 @@
 
 ### 🧩 Núcleo: 10 PM
 - **Furtividade Adaptativa** `2 PM`: +1d10 furtividade em qualquer terreno.
-- **Movimento Calculado** `2 PM`: move sem gerar reação.
+- **Fluxo** `2 PM`: move sem reação; 1x/rd troca de lugar com um aliado.
 - **Fantasma** `4 PM`: invisível p/ quem tem Percepção < tua Malandragem; **1º ataque +10 fixo**.
 - **Golpe Decisivo** `2 PM`: vencer por 10+ → +1 estágio.
 

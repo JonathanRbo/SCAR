@@ -49,7 +49,7 @@ Gaste cada Ponto em **uma das três trilhas**
 
 **Teto de Pontos por tier** *(o demônio só envelhece até o limite da fase dele)*: **Menor 2 · Médio 3 · Maior 4**. Gastou todos os Pontos do tier? O contrato só cresce mais se você **cruzar de tier**, e um Maior no teto já é Primevo, o topo da escala normal.
 
-**Cruzar de tier** *(ex.: Médio → Maior)* não é evolução simples. O demônio tem que **aceitar aprofundar o pacto** (narrativo, com aprovação do Mestre), você paga o **PM do tier novo**, e a Marca afunda mais na carne (pode disparar um **Marco de Cicatriz**). Não é uma parede. É o preço subindo.
+**Cruzar de tier** *(ex.: Médio → Maior)* não é evolução simples. O demônio tem que **aceitar aprofundar o pacto** (narrativo, com aprovação do Mestre), você paga o **PM do tier novo**, e a Marca afunda mais na carne (pode disparar uma **Cicatriz**). Não é uma parede. É o preço subindo.
 
 > **Invocação** evolui igual (a força e a aflição do invocado escalam com a idade). **Restrição não evolui**: é tudo-ou-nada por definição.
 

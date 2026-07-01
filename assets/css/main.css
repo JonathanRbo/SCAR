@@ -856,3 +856,35 @@ select option {
     opacity: 0.6;
 }
 
+
+/* ===== Título de topo padrão — igual em todas as páginas (estilo Bestiário) ===== */
+.scar-hero {
+    text-align: center;
+    padding: 130px 20px 45px;
+    position: relative;
+    background:
+        radial-gradient(ellipse at center top, rgba(220,20,60,0.22) 0%, transparent 62%),
+        radial-gradient(ellipse at 30% 45%, rgba(220,20,60,0.12) 0%, transparent 55%);
+}
+.scar-hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.6rem, 6.2vw, 4.2rem);
+    letter-spacing: 10px;
+    line-height: 1;
+    margin: 0 0 14px;
+    color: var(--cor-secundaria);
+    text-shadow: 0 0 40px rgba(220,20,60,0.5);
+}
+.scar-hero p {
+    color: var(--cor-texto-secundario);
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+@media (max-width: 600px) { .scar-hero h1 { letter-spacing: 5px; } }
+
+/* Card do 3º tipo: Poderes Sobrenaturais (acento dourado) */
+.summary-card.poderes, .criterio-card.poderes { --nat-color: var(--gold); }
+.summary-card.poderes { border-top-color: var(--gold); }
+.summary-card.poderes .big-number, .summary-card.poderes h4 { color: var(--gold); }

@@ -37,9 +37,9 @@
 .natureza-card:hover,
 .estilo-card:hover,
 .summary-card:hover {
-    border-color: var(--cor-secundaria);
+    border-color: var(--nat-color, var(--cor-secundaria));
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.15);
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--nat-color, var(--cor-secundaria)) 20%, transparent);
 }
 
 /* Linha vermelha animada no topo (estilo nav-grid-card do index) */

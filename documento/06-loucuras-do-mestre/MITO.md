@@ -14,10 +14,10 @@ Manifestação · Invocação · Tributo · Origem
 É o mesmo Híbrido do SCAR base, mas o hospedeiro que mora por dentro não é um demônio: é um sobrenatural (anjo, espírito, santo, ser folclórico e por diante). Como nasceram da vontade e não do pavor, esses hóspedes são naturalmente **neutros tendendo a ser bons**.
 
 **Diferenças do Híbrido demoníaco padrão:**
-- Poder do hospedeiro custa **+1 Stress extra** por uso
-- **Sem o buff "-1 Stress em combate"**
+- Poder do hospedeiro custa **+1 Stress extra** por uso (além do custo de Stress normal do poder)
 - **Sem Recusa da Morte**
-- **Grilhões viram Voto Vinculante:** 1 voto fixo definido na criação. Quebrá-lo cobra punição direta e severa (Aflição permanente OU perda do poder por X sessões, com o mestre decidindo pelo peso do voto)
+- **No lugar de A Fera, um Voto Vinculante:** 1 voto fixo definido na criação. Quebrá-lo cobra punição direta e severa (Aflição permanente OU perda do poder por X sessões, com o mestre decidindo pelo peso do voto)
+- Por ser um hóspede neutro/bom, **A Fera não dispara** (o Colapso segue a regra normal); a perda de controle vem só pela quebra do Voto Vinculante
 
 **Mantém igual:** os malefícios padrão do Híbrido (+1 Stress em cenas psicológicas e sociais, recuperação de Vínculo pela metade).
 

@@ -196,7 +196,7 @@ Cada natureza tem um status de fertilidade que vira modificador automático na r
 - Gravidez **incomum e instável**. O demônio interno do Híbrido se intromete na gestação
 - **Modificador automático: -1 na rolagem**
 - Filho nasce **Humano com Potencial Híbrido**: normal até um evento traumático acordar o fragmento demoníaco
-- **Complicação (resultado 10):** O demônio interno do Híbrido reage à gestação. O Híbrido ganha **+1 Grilhão** permanente e sofre episódios de perda de controle durante a gravidez (1 teste de Grilhão por mês narrativo)
+- **Complicação (resultado 10):** O demônio interno do Híbrido reage à gestação. Enquanto durar a gravidez, a fera fica à flor da pele: **A Fera dispara já num Colapso Sério** (não só Profundo) e há episódios de perda de controle (1 teste por mês narrativo)
 - **Risco narrativo:** O filho pode virar arma nas mãos de quem descobrir o que ele carrega
 
 ### INFERNAL + INFERNAL
@@ -218,8 +218,8 @@ Cada natureza tem um status de fertilidade que vira modificador automático na r
 - Gravidez **rara e perigosa**. Duas biologias instáveis se interferindo
 - **Modificador automático: -2 na rolagem** (-1 de cada Híbrido envolvido)
 - Filho nasce como **Híbrido Nato**, já fundido desde a concepção
-- **Complicação (resultado 10):** Os dois demônios internos dos pais disputam influência sobre o filho. Ambos os pais ganham **+2 Grilhões** durante a gestação
-- O filho começa com **Grilhões 3** (o demônio interno já nasce desperto)
+- **Complicação (resultado 10):** Os dois demônios internos dos pais disputam influência sobre o filho. Durante a gestação, ambos os pais sentem a fera à flor da pele: **A Fera dispara já num Colapso Sério**
+- O filho nasce com o demônio interno **já desperto**: A Fera nele dispara já a partir de um Colapso Sério, e o limite de Stress dele é mais curto
 - **Risco narrativo:** Um Híbrido que nunca foi humano primeiro. O que isso significa? Ninguém sabe
 
 ### DEMÔNIO PURO + QUALQUER

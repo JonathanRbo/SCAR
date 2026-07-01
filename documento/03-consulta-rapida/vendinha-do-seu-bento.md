@@ -460,18 +460,27 @@ Quer mais de um? Seu Bento arruma o treino, mas você paga em PM **e** em iene:
 - **Resistência de ringue:** primeira Injúria Leve por combate não gera penalidade (acostumado a apanhar)
 
 ## ESTILO LIVRE
+*O briga-de-rua que transforma qualquer coisa em arma. Não tem regra; tem saída.*
 - Pode usar **Malandragem** pra atacar 1x/rd ou pra defender
-- Injúrias causadas podem gerar efeito (queda, deslocamento, desarme)
-- Se o ambiente ajudar, defensor rola **-1d10**
+- Injúria que você causa aplica **1 efeito grátis**: queda, deslocamento, desarme ou cegueira momentânea
+- **Briga suja:** 1x/cena, transforma o ambiente (areia no olho, vidro, móvel, parede) num golpe que **ignora a Defesa Ativa** do alvo
+- **Vantagem do terreno:** em lugar que te favorece (escuro, apertado, caótico), o alvo defende **-1d10** e você ganha **+1d10** pra reposicionar ou fugir
 
 ## ESPADACHIM
+*Lâmina e distância. Quem chega perto sangra; quem erra paga na hora.*
 - Diferença de 5+ → Injúria Leve vira **sangramento**
-- Pode defender com **Percepção ou Tecnologia**
+- Pode defender com **Percepção ou Coordenação**
 - Em 1x1, ignora armamento defensivo do alvo
+- **Bote:** defendeu com sucesso por **5+**? contra-ataca de imediato com **metade dos dados** (1x/rodada)
+- **Sangria:** acertar um alvo que **já sangra** empilha o sangramento (+2 Stress/rodada acumula)
 
-## ATIRADOR
-- Ataques criam **zona de perigo:** alvos que atravessam sofrem -1d10 em toda ação
-- Diferença 10+ pode aumentar Injúria em 1 grau
+## PISTOLEIRO
+*O dono do espaço aberto. Onde ele aponta, ninguém anda em paz. (Antigo "Atirador" — renomeado pra não colidir com a Habilidade Atirador.)*
+- **Zona de perigo:** dentro do alcance efetivo da sua arma de fogo, alvos que **atravessam ou agem** sofrem **-1d10** em toda ação. Quem tenta **sair da sua linha de tiro** come um **tiro de reação** (gasta sua Reação) antes de escapar
+- **Domínio de cobertura:** cobertura leve **não te penaliza** (−1d10 → 0) e cobertura pesada conta como leve — você sempre acha o ângulo
+- **Tiro que castiga:** diferença **10+** aumenta a Injúria em 1 grau
+- **Cadência:** sempre que você **fere** um alvo à distância, **recarregar ou sacar** vira **ação livre** até o fim da rodada (você não perde o ritmo)
+- Pode mirar com **Coordenação ou Percepção**
 
 ## ARMAS PESADAS
 - **Ignora 1 nível de proteção** do alvo (colete/placas reduzem 1 nível a menos contra você). Não anula armadura, fura ela
@@ -485,11 +494,14 @@ Quer mais de um? Seu Bento arruma o treino, mas você paga em PM **e** em iene:
 - Pode avisar aliados sem gastar ação
 
 ## INSTINTIVO
+*A fera que mora em você. Caça o ferido e revida a dor sem pensar.*
 - Sempre que causar Injúria → **+2 Stress no alvo**
 - Pode atacar usando **Percepção ou Investigação** em vez de Força
+- **Presa ferida:** **+1d10** contra alvo que já tem Injúria aberta (o instinto sente o sangue)
+- **Reflexo selvagem:** ao **sofrer** uma Injúria, contra-ataca de imediato (Reação, 1x/cena) — a dor vira violência
 
 ## SPETSNAZ
-- 1º ataque da cena contra um alvo: se causar Injúria, **aumenta 1 grau** independente da fonte
+- **Golpe decisivo:** **1x por cena**, um ataque à sua escolha que causar Injúria **aumenta 1 grau** (você escolhe a hora — abrir a luta ou cravar o talho final)
 - Pode usar **Coordenação ou Autoridade** pra ataques corpo a corpo armados
 - Atacar alvo desatento, imobilizado ou ferido **ignora redução de defesa**
 
@@ -510,9 +522,12 @@ Quer mais de um? Seu Bento arruma o treino, mas você paga em PM **e** em iene:
 - **Fluxo:** derrubou o alvo? Próximo ataque de aliado contra ele ganha +1d10
 
 ## EXECUTOR
+*O carrasco. Mata os poderosos, fecha a conta dos feridos, e a morte vira recado.*
 - Contra alvos com Autoridade maior: **+1d10 geral**
 - Injúria Grave → alvo não pode conceder bônus ou liderar
 - Pode trocar dano por **Aflição**
+- **Sentença (Execução) ⚠️:** 1x por sessão, só contra alvo **já ferido ou indefeso** — ao acertar, se o resultado for **≥ 2× a Defesa Passiva efetiva**, o alvo é **executado** (morte na hora, sem rolar dano). Custa **3 Stress** (contra demônio, **2 Stress × o nível de Idade** dele — Recém-Nascido 1 a Primevo 8). Tem que ser a **1ª ação da rodada** e te consome inteiro: você perde **Reação e Movimento** nessa rodada (só pode avançar em direção ao alvo) e fica exposto até o próximo turno.
+- **Presença de carrasco:** **1x por cena**, ao abater um inimigo de forma brutal e à vista, os aliados dele a curta distância fazem **Teste de Medo DT 20**
 
 ## MÃOS DA GUERRA
 - Toda arma improvisada que empunhar vira armamento leve ou médio (**+1d10 ou +2d10**)
